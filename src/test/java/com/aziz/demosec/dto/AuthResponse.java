@@ -1,7 +1,7 @@
 package com.aziz.demosec.dto;
 
-public record AuthResponse {
+public record AuthResponse(
     String token,
     String email,
     String role
-} {}
+) {}

@@ -1,7 +1,7 @@
 package com.aziz.demosec.security;
 
 import com.aziz.demosec.repository.UserRepository;
-import org.apache.catalina.User;
+import com.aziz.demosec.domain.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

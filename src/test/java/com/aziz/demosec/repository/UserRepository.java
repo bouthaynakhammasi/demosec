@@ -1,6 +1,6 @@
 package com.aziz.demosec.repository;
 
-import org.apache.catalina.User;
+import com.aziz.demosec.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

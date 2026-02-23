@@ -1,6 +1,6 @@
 package com.aziz.demosec.dto;
 
-public record LoginRequest {
+public record LoginRequest(
     String email,
     String password
-} {}
+) {}
