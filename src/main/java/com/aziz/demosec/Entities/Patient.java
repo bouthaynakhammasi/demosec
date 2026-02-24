@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class Patient extends User {
 
+    @Id
+    private Long id;
     private LocalDate dateOfBirth;
     @Enumerated(EnumType.STRING)
     private Gender gender;
