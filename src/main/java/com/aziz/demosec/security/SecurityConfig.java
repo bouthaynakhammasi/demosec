@@ -50,7 +50,21 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider())
                 .authorizeHttpRequests(auth -> auth
+
+                        // ─── PUBLIC ──────────────────────────────────────────
                         .requestMatchers("/auth/**").permitAll()
+
+                        // ─── DONATION (temporairement public pour tester) ─────
+                        .requestMatchers("/api/donations/**").permitAll()
+                        .requestMatchers("/api/aid-requests/**").permitAll()
+
+                        // ─── EMERGENCY (temporairement public pour tester) ────
+                        .requestMatchers("/api/emergency-alerts/**").permitAll()
+                        .requestMatchers("/api/interventions/**").permitAll()
+                        .requestMatchers("/api/ambulances/**").permitAll()
+                        .requestMatchers("/api/smart-devices/**").permitAll()
+
+                        // ─── PAR ROLE ─────────────────────────────────────────
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/clinic/**").hasRole("CLINIC")
@@ -60,7 +74,9 @@ public class SecurityConfig {
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")
                         .requestMatchers("/home-care/**").hasRole("HOME_CARE_PROVIDER")
-                        .anyRequest().authenticated())
+
+                        .anyRequest().authenticated()
+                )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

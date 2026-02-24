@@ -36,7 +36,14 @@ public class EmergencyAlert {
     @Column(nullable = false)
     private Double longitude;
 
-    @Column(nullable = false)
+    private Boolean canceledByPatient = false;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
 }

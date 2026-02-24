@@ -2,9 +2,11 @@ package com.aziz.demosec.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+
 
 import java.time.LocalDateTime;
-
+import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @Table(name = "donations")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -12,28 +14,36 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
+
 public class Donation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
-    private String description;
+
+
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private DonationType type;
 
-    @Column
     private String donorName;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private DonationStatus status;
+    private DonationStatus status = DonationStatus.AVAILABLE;
 
-    @Column(nullable = false)
+    // ✅ Champs MONEY (nullable si type=MATERIEL)
+    private Double amount;
+
+    // ✅ Champs MATERIEL (nullable si type=MONEY)
+    private String categorie;
+    private String description;
+    private Integer quantite;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 }

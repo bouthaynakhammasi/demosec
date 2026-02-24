@@ -31,7 +31,13 @@ public class AidRequest {
     @Column(nullable = false)
     private AidRequestStatus status;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
+
 
 }
