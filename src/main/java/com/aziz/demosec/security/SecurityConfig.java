@@ -44,28 +44,43 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider())
+
                 .authorizeHttpRequests(auth -> auth
+
+                        // Public endpoints
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+
+                        // Doctor medical module
+                        .requestMatchers("/treatment/**").hasRole("DOCTOR")
+                        .requestMatchers("/diagnosis/**").hasRole("DOCTOR")
+                        .requestMatchers("/consultation/**").hasRole("DOCTOR")
+                        .requestMatchers("/prescription/**").hasRole("DOCTOR")
+
+                        // Other roles
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/laboratory/**").hasRole("LABORATORY")
+                        .requestMatchers("/laboratory/**").hasRole("LABORATORYSTAFF")
                         .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")
                         .requestMatchers("/home-care/**").hasRole("HOME_CARE_PROVIDER")
-                        .anyRequest().authenticated())
+
+                        .anyRequest().authenticated()
+                )
+
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();

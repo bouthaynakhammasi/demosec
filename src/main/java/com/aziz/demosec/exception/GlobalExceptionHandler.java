@@ -21,8 +21,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleBadRequest(
             HttpMessageNotReadableException ex) {
+        String details = null;
+        if (ex.getMostSpecificCause() != null) {
+            details = ex.getMostSpecificCause().getMessage();
+        } else {
+            details = ex.getMessage();
+        }
         return ResponseEntity.badRequest().body(Map.of(
-                "error", "Invalid request body. Check the 'role' field. Accepted values: ADMIN, DOCTOR, CLINIC, PHARMACIST, LABORATORY, NUTRITIONIST, VISITOR, PATIENT, HOME_CARE_PROVIDER"
+                "error", "Invalid request body",
+                "details", details
         ));
     }
 }

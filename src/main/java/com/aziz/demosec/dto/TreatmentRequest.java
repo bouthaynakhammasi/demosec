@@ -1,0 +1,23 @@
+package com.aziz.demosec.dto;
+
+import com.aziz.demosec.Entities.TreatmentStatus;
+import com.aziz.demosec.Entities.TreatmentType;
+import lombok.*;
+
+import java.time.LocalDate;
+
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+@Builder
+public class TreatmentRequest {
+
+    private Long consultationId;
+
+    private TreatmentType treatmentType;
+    private String description;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    private TreatmentStatus status;
+}

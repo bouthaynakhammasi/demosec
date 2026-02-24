@@ -28,6 +28,7 @@ public class Prescription {
     private LocalDate date;
 
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<PrescriptionItem> items = new ArrayList<>();
 
 }
