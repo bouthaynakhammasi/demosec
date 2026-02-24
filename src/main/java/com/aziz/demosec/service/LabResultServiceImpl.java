@@ -3,12 +3,10 @@ package com.aziz.demosec.service;
 import com.aziz.demosec.Entities.LabRequest;
 import com.aziz.demosec.Entities.LabRequestStatus;
 import com.aziz.demosec.Entities.LabResult;
-import com.aziz.demosec.Entities.Patient;
-import com.aziz.demosec.Entities.Doctor;
-import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.LabResultRequest;
 import com.aziz.demosec.dto.LabResultResponse;
 import com.aziz.demosec.exception.ResourceNotFoundException;
+import com.aziz.demosec.mapper.LabResultMapper;
 import com.aziz.demosec.repository.LabRequestRepository;
 import com.aziz.demosec.repository.LabResultRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +22,7 @@ public class LabResultServiceImpl implements LabResultService {
 
     private final LabResultRepository labResultRepository;
     private final LabRequestRepository labRequestRepository;
+    private final LabResultMapper labResultMapper;
 
     @Override
     public LabResultResponse create(LabResultRequest request) {
@@ -35,17 +34,14 @@ public class LabResultServiceImpl implements LabResultService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "LabRequest not found with id: " + request.getLabRequestId()));
 
-        LabResult result = LabResult.builder()
-                .labRequest(labRequest)
-                .resultFile(request.getResultFile())
-                .resultData(request.getResultData())
-                .completedAt(LocalDateTime.now())
-                .build();
+        LabResult result = labResultMapper.toEntity(request);
+        result.setLabRequest(labRequest);
+        result.setCompletedAt(LocalDateTime.now());
 
         labRequest.setStatus(LabRequestStatus.COMPLETED);
         labRequestRepository.save(labRequest);
 
-        return toResponse(labResultRepository.save(result));
+        return labResultMapper.toDto(labResultRepository.save(result));
     }
 
     @Override
@@ -53,7 +49,7 @@ public class LabResultServiceImpl implements LabResultService {
         LabResult result = labResultRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "LabResult not found with id: " + id));
-        return toResponse(result);
+        return labResultMapper.toDto(result);
     }
 
     @Override
@@ -61,14 +57,14 @@ public class LabResultServiceImpl implements LabResultService {
         LabResult result = labResultRepository.findByLabRequestId(labRequestId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "LabResult not found for labRequest id: " + labRequestId));
-        return toResponse(result);
+        return labResultMapper.toDto(result);
     }
 
     @Override
     public List<LabResultResponse> getAll() {
         return labResultRepository.findAll()
                 .stream()
-                .map(this::toResponse)
+                .map(labResultMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -78,11 +74,10 @@ public class LabResultServiceImpl implements LabResultService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "LabResult not found with id: " + id));
 
-        result.setResultFile(request.getResultFile());
-        result.setResultData(request.getResultData());
+        labResultMapper.updateFromDto(request, result);
         result.setCompletedAt(LocalDateTime.now());
 
-        return toResponse(labResultRepository.save(result));
+        return labResultMapper.toDto(labResultRepository.save(result));
     }
 
     @Override
@@ -91,23 +86,5 @@ public class LabResultServiceImpl implements LabResultService {
             throw new ResourceNotFoundException("LabResult not found with id: " + id);
         }
         labResultRepository.deleteById(id);
-    }
-
-    private LabResultResponse toResponse(LabResult result) {
-        LabRequest req = result.getLabRequest();
-
-        User patient = (User) req.getPatient();
-        User doctor  = (User) req.getDoctor();
-
-        return LabResultResponse.builder()
-                .id(result.getId())
-                .labRequestId(req.getId())
-                .patientName(patient.getFullName())
-                .doctorName(doctor.getFullName())
-                // .doctorSpecialty SUPPRIMÉ
-                .resultFile(result.getResultFile())
-                .resultData(result.getResultData())
-                .completedAt(result.getCompletedAt())
-                .build();
     }
 }
