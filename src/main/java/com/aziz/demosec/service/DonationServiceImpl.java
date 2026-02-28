@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class DonationService implements IDonationService {
+public class DonationServiceImpl implements IDonationService {
 
     private final DonationRepository donationRepository;
     private final AidRequestRepository aidRequestRepository;

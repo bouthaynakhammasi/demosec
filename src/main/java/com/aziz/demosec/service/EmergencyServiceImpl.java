@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class EmergencyService implements IEmergencyService {
+public class EmergencyServiceImpl implements IEmergencyService {
 
     private final SmartDeviceRepository smartDeviceRepository;
     private final EmergencyAlertRepository alertRepository;

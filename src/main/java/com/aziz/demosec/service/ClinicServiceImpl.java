@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ClinicService implements IClinicService {
+public class ClinicServiceImpl implements IClinicService {
 
     private final ClinicRepository clinicRepository;
 
