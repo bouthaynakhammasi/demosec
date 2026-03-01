@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -34,7 +36,7 @@ public class User {
 
     String phone;
 
-    String birthDate;
+    LocalDate birthDate;
 
     @Builder.Default
     boolean enabled = true;
