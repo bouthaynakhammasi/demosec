@@ -9,4 +9,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByBarcode(String barcode);
     boolean existsByNameIgnoreCase(String name);
 
-}aaaaa
+}
