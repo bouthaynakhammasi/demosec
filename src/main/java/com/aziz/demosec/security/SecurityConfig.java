@@ -51,17 +51,23 @@ public class SecurityConfig {
                 .authenticationProvider(authProvider())
                 .authorizeHttpRequests(auth -> auth
 
+                        // ✅ Endpoints publics (register + login)
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/doctor/**").hasRole("DOCTOR")
-                        .requestMatchers("/clinic/**").hasRole("CLINIC")
-                        .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/laboratory/**").hasRole("LABORATORY")
-                        .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
-                        .requestMatchers("/visitor/**").hasRole("VISITOR")
-                        .requestMatchers("/patient/**").hasRole("PATIENT")
-                        .requestMatchers("/home-care/**").hasRole("HOME_CARE_PROVIDER")
-                        .anyRequest().authenticated())
+
+                        // ✅ Endpoints protégés par rôle
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/doctor/**").hasRole("DOCTOR")
+                        .requestMatchers("/api/clinic/**").hasRole("CLINIC")
+                        .requestMatchers("/api/pharmacist/**").hasRole("PHARMACIST")
+                        .requestMatchers("/api/laboratory/**").hasRole("LABORATORY")
+                        .requestMatchers("/api/nutritionist/**").hasRole("NUTRITIONIST")
+                        .requestMatchers("/api/visitor/**").hasRole("VISITOR")
+                        .requestMatchers("/api/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
+
+                        .anyRequest().authenticated()
+                )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -71,7 +77,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
