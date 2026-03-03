@@ -1,45 +1,39 @@
 package com.aziz.demosec.mapper;
-
 import com.aziz.demosec.Entities.Laboratory;
 import com.aziz.demosec.dto.LaboratoryRequest;
 import com.aziz.demosec.dto.LaboratoryResponse;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
 public class LaboratoryMapper {
-
-    public Laboratory toEntity(LaboratoryRequest dto) {
+    public Laboratory toEntity(LaboratoryRequest request) {
         return Laboratory.builder()
-                .name(dto.getName())
-                .address(dto.getAddress())
-                .phone(dto.getPhone())
+                .name(request.getName())
+                .address(request.getAddress())
+                .phone(request.getPhone())
+                .email(request.getEmail())
+                .openingHours(request.getOpeningHours())
+                .specializations(request.getSpecializations())
+                .active(true)
                 .build();
     }
-
-    public LaboratoryResponse toDto(Laboratory laboratory) {
-        return LaboratoryResponse.builder()
-                .id(laboratory.getId())
-                .name(laboratory.getName())
-                .address(laboratory.getAddress())
-                .phone(laboratory.getPhone())
-                .build();
+    public LaboratoryResponse toDto(Laboratory lab) {
+        LaboratoryResponse response = new LaboratoryResponse();
+        response.setId(lab.getId());
+        response.setName(lab.getName());
+        response.setAddress(lab.getAddress());
+        response.setPhone(lab.getPhone());
+        response.setEmail(lab.getEmail());
+        response.setOpeningHours(lab.getOpeningHours());
+        response.setSpecializations(lab.getSpecializations());
+        response.setActive(lab.isActive());
+        return response;
     }
-
-    public List<Laboratory> toEntities(List<LaboratoryRequest> dtos) {
-        return dtos == null ? null : dtos.stream().map(this::toEntity).collect(Collectors.toList());
-    }
-
-    public List<LaboratoryResponse> toDtos(List<Laboratory> entities) {
-        return entities == null ? null : entities.stream().map(this::toDto).collect(Collectors.toList());
-    }
-
-    public void updateFromDto(LaboratoryRequest dto, Laboratory entity) {
-        if (dto == null || entity == null) return;
-        entity.setName(dto.getName());
-        entity.setAddress(dto.getAddress());
-        entity.setPhone(dto.getPhone());
+    public void updateFromDto(LaboratoryRequest request, Laboratory lab) {
+        lab.setName(request.getName());
+        lab.setAddress(request.getAddress());
+        lab.setPhone(request.getPhone());
+        lab.setEmail(request.getEmail());
+        lab.setOpeningHours(request.getOpeningHours());
+        lab.setSpecializations(request.getSpecializations());
     }
 }

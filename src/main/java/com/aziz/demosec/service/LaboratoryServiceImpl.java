@@ -9,12 +9,12 @@ import com.aziz.demosec.repository.LaboratoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class LaboratoryServiceImpl implements Laboratoryservice.LaboratoryService {
+public class LaboratoryServiceImpl implements Laboratoryservice {
 
     private final LaboratoryRepository laboratoryRepository;
     private final LaboratoryMapper laboratoryMapper;
@@ -22,10 +22,9 @@ public class LaboratoryServiceImpl implements Laboratoryservice.LaboratoryServic
     @Override
     public LaboratoryResponse create(LaboratoryRequest request) {
         if (laboratoryRepository.existsByName(request.getName())) {
-            throw new IllegalArgumentException("Laboratory with name '" + request.getName() + "' already exists");
+            throw new IllegalArgumentException("Laboratory '" + request.getName() + "' already exists");
         }
-        Laboratory laboratory = laboratoryMapper.toEntity(request);
-        return laboratoryMapper.toDto(laboratoryRepository.save(laboratory));
+        return laboratoryMapper.toDto(laboratoryRepository.save(laboratoryMapper.toEntity(request)));
     }
 
     @Override
@@ -35,17 +34,43 @@ public class LaboratoryServiceImpl implements Laboratoryservice.LaboratoryServic
 
     @Override
     public List<LaboratoryResponse> getAll() {
-        return laboratoryRepository.findAll()
-                .stream()
-                .map(laboratoryMapper::toDto)
-                .collect(Collectors.toList());
+        List<LaboratoryResponse> responses = new ArrayList<>();
+        for (Laboratory lab : laboratoryRepository.findAll()) {
+            responses.add(laboratoryMapper.toDto(lab));
+        }
+        return responses;
+    }
+
+    @Override
+    public List<LaboratoryResponse> searchByName(String name) {
+        List<LaboratoryResponse> responses = new ArrayList<>();
+        for (Laboratory lab : laboratoryRepository.findByNameContainingIgnoreCase(name)) {
+            responses.add(laboratoryMapper.toDto(lab));
+        }
+        return responses;
+    }
+
+    @Override
+    public List<LaboratoryResponse> getActive() {
+        List<LaboratoryResponse> responses = new ArrayList<>();
+        for (Laboratory lab : laboratoryRepository.findByActiveTrue()) {
+            responses.add(laboratoryMapper.toDto(lab));
+        }
+        return responses;
     }
 
     @Override
     public LaboratoryResponse update(Long id, LaboratoryRequest request) {
-        Laboratory laboratory = findOrThrow(id);
-        laboratoryMapper.updateFromDto(request, laboratory);
-        return laboratoryMapper.toDto(laboratoryRepository.save(laboratory));
+        Laboratory lab = findOrThrow(id);
+        laboratoryMapper.updateFromDto(request, lab);
+        return laboratoryMapper.toDto(laboratoryRepository.save(lab));
+    }
+
+    @Override
+    public LaboratoryResponse toggleActive(Long id) {
+        Laboratory lab = findOrThrow(id);
+        lab.setActive(!lab.isActive());
+        return laboratoryMapper.toDto(laboratoryRepository.save(lab));
     }
 
     @Override

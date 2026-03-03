@@ -2,8 +2,7 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.dto.LaboratoryRequest;
 import com.aziz.demosec.dto.LaboratoryResponse;
-import com.aziz.demosec.service.LaboratoryServiceImpl;
-import com.aziz.demosec.service.LaboratoryServiceImpl;
+import com.aziz.demosec.service.Laboratoryservice;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Laboratorycontroller {
 
-    private final LaboratoryServiceImpl laboratoryService;
+    private final Laboratoryservice laboratoryService;
 
     @PostMapping
     public ResponseEntity<LaboratoryResponse> create(@Valid @RequestBody LaboratoryRequest request) {
@@ -34,10 +33,25 @@ public class Laboratorycontroller {
         return ResponseEntity.ok(laboratoryService.getAll());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<LaboratoryResponse>> searchByName(@RequestParam String name) {
+        return ResponseEntity.ok(laboratoryService.searchByName(name));
+    }
+
+    @GetMapping("/active")
+    public ResponseEntity<List<LaboratoryResponse>> getActive() {
+        return ResponseEntity.ok(laboratoryService.getActive());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<LaboratoryResponse> update(@PathVariable Long id,
                                                      @Valid @RequestBody LaboratoryRequest request) {
         return ResponseEntity.ok(laboratoryService.update(id, request));
+    }
+
+    @PatchMapping("/{id}/toggle-active")
+    public ResponseEntity<LaboratoryResponse> toggleActive(@PathVariable Long id) {
+        return ResponseEntity.ok(laboratoryService.toggleActive(id));
     }
 
     @DeleteMapping("/{id}")
