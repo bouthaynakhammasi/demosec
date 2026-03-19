@@ -34,7 +34,6 @@ public class MedicalHistory {
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private MedicalHistoryStatus status;
 
 

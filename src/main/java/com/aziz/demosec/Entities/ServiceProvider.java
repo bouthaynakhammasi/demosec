@@ -26,9 +26,6 @@ public class ServiceProvider {
 
     private String certificationDocument;
 
-    @Column(nullable = false)
-    private boolean verified;
-
     @ManyToMany
     @JoinTable(
             name = "service_provider_specialties",

@@ -15,8 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 @RequiredArgsConstructor
 public class IAuthServiceImp implements IAuthService {
@@ -62,13 +60,17 @@ public class IAuthServiceImp implements IAuthService {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(req.email());
 
+        // Fetch the user to get the fullName
+        User user = userRepository.findByEmail(req.email())
+                .orElseThrow(() -> new RuntimeException("User not found after authentication"));
+
         String role = userDetails.getAuthorities().stream()
                 .findFirst()
                 .map(GrantedAuthority::getAuthority)
                 .orElse("ROLE_VISITOR");
 
-        String token = jwtService.generateToken(userDetails);
+        String token = jwtService.generateToken(userDetails, user.getFullName());
 
-        return new AuthResponse(token, userDetails.getUsername(), role);
+        return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
     }
 }

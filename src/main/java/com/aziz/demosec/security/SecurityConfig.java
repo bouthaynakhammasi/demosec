@@ -56,6 +56,7 @@ public class SecurityConfig {
                         // Public endpoints
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/home-care-services/**").permitAll()
 
                         // Doctor medical module
                         .requestMatchers("/treatment/**").hasRole("DOCTOR")
@@ -72,7 +73,6 @@ public class SecurityConfig {
                         .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")
-                        .requestMatchers("/home-care/**").hasRole("HOME_CARE_PROVIDER")
 
                         .anyRequest().authenticated()
                 )

@@ -24,9 +24,6 @@ public class Clinic {
     private Double longitude;
     private String phone;
 
-    @Column(nullable = false)
-    private boolean verified;
-
     @Column(name = "has_emergency", nullable = false)
     private boolean hasEmergency;
 

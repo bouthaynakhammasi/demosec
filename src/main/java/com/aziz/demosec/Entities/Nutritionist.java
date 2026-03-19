@@ -18,9 +18,5 @@ public class Nutritionist extends User {
     @Column(name = "license_number", unique = true)
     private String licenseNumber;
     private String specialties;
-    private Integer yearsOfExperience;
-    private String bio;
 
-    @Column(nullable = false)
-    private boolean verified;
 }
