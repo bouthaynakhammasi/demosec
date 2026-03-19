@@ -25,3 +25,13 @@ Elle permet de centraliser les données médicales et d’améliorer la qualité
 1. Cloner le projet :
 ```bash
 git clone https://github.com/ton-username/medicare-ai.git
+## ▶️ Utilisation
+Créer un compte, se connecter et utiliser les services médicaux.
+
+## 👥 Auteurs
+- Saadaoui Israa
+- Khammassi Bouthayna
+- Dridi Farah
+- Melki Mohamed Aziz
+- Zerai Wassim
+- Boukhriss Oussema  
