@@ -1,9 +1,16 @@
 package com.aziz.demosec.service;
 
+import com.aziz.demosec.Entities.Laboratory;
+import com.aziz.demosec.Entities.LaboratoryStaff;
+import com.aziz.demosec.Entities.Patient;
+import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
+import com.aziz.demosec.repository.LaboratoryRepository;
+import com.aziz.demosec.repository.LaboratoryStaffRepository;
+import com.aziz.demosec.repository.PatientRepository;
 import com.aziz.demosec.repository.UserRepository;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
@@ -15,13 +22,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 @RequiredArgsConstructor
 public class IAuthServiceImp implements IAuthService {
 
     private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
+    private final LaboratoryRepository laboratoryRepository;
+    private final LaboratoryStaffRepository laboratoryStaffRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
@@ -29,26 +37,63 @@ public class IAuthServiceImp implements IAuthService {
 
     @Override
     public User register(RegisterRequest req) {
-        if (req.email() == null || req.email().isBlank()) {
+
+        if (req.email() == null || req.email().isBlank())
             throw new IllegalArgumentException("Email required");
-        }
-        if (req.password() == null || req.password().length() < 6) {
-            throw new IllegalArgumentException("Password must contain at least 6 characters");
-        }
-        if (req.role() == null) {
+        if (req.password() == null || req.password().length() < 8)
+            throw new IllegalArgumentException("Password must contain at least 8 characters");
+        if (req.role() == null)
             throw new IllegalArgumentException("Role required");
-        }
-        if (userRepository.findByEmail(req.email()).isPresent()) {
+        if (userRepository.findByEmail(req.email()).isPresent())
             throw new IllegalArgumentException("Email already used");
+
+        // ✅ CAS PATIENT
+        if (req.role() == Role.PATIENT) {
+            Patient patient = new Patient();
+            patient.setFullName(req.fullName() == null ? "Not Available" : req.fullName());
+            patient.setEmail(req.email());
+            patient.setPassword(passwordEncoder.encode(req.password()));
+            patient.setRole(Role.PATIENT);
+            patient.setPhone(req.phone());
+            patient.setBirthDate(String.valueOf(req.birthDate()));
+            patient.setGender(req.gender());
+            patient.setBloodType(req.bloodType());
+            patient.setEmergencyContactName(req.emergencyContactName());
+            patient.setEmergencyContactPhone(req.emergencyContactPhone());
+            patient.setEnabled(true);
+            return patientRepository.save(patient);
         }
 
+        // ✅ CAS LABORATORY STAFF
+        if (req.role() == Role.LABORATORY_STAFF) {
+            Laboratory laboratory = Laboratory.builder()
+                    .name(req.labName() != null ? req.labName() : "Not Available")
+                    .address(req.labAddress())
+                    .phone(req.labPhone())
+                    .active(true)
+                    .build();
+            Laboratory savedLab = laboratoryRepository.save(laboratory);
+
+            LaboratoryStaff staff = new LaboratoryStaff();
+            staff.setFullName(req.fullName() == null ? "Not Available" : req.fullName());
+            staff.setEmail(req.email());
+            staff.setPassword(passwordEncoder.encode(req.password()));
+            staff.setRole(Role.LABORATORY_STAFF);
+            staff.setPhone(req.phone());
+            staff.setBirthDate(String.valueOf(req.birthDate()));
+            staff.setLaboratory(savedLab);
+            staff.setEnabled(true);
+            return laboratoryStaffRepository.save(staff);
+        }
+
+        // ✅ CAS USER / DOCTOR / ADMIN
         User u = User.builder()
                 .fullName(req.fullName() == null ? "Not Available" : req.fullName())
                 .email(req.email())
                 .password(passwordEncoder.encode(req.password()))
                 .role(req.role())
                 .phone(req.phone())
-                .birthDate(req.birthDate())
+                .birthDate(String.valueOf(req.birthDate()))
                 .enabled(true)
                 .build();
 
@@ -57,18 +102,23 @@ public class IAuthServiceImp implements IAuthService {
 
     @Override
     public AuthResponse login(LoginRequest req) {
+
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(req.email(), req.password()));
+                new UsernamePasswordAuthenticationToken(req.email(), req.password())
+        );
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(req.email());
+
+        User user = userRepository.findByEmail(req.email())
+                .orElseThrow(() -> new RuntimeException("User not found after authentication"));
 
         String role = userDetails.getAuthorities().stream()
                 .findFirst()
                 .map(GrantedAuthority::getAuthority)
                 .orElse("ROLE_VISITOR");
 
-        String token = jwtService.generateToken(userDetails);
+        String token = jwtService.generateToken(userDetails, user.getFullName());
 
-        return new AuthResponse(token, userDetails.getUsername(), role);
+        return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
     }
 }

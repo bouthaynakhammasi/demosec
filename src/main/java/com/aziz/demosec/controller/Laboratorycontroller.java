@@ -24,7 +24,7 @@ public class Laboratorycontroller {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LaboratoryResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<LaboratoryResponse> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(laboratoryService.getById(id));
     }
 
@@ -34,7 +34,7 @@ public class Laboratorycontroller {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<LaboratoryResponse>> searchByName(@RequestParam String name) {
+    public ResponseEntity<List<LaboratoryResponse>> searchByName(@RequestParam("name") String name) {
         return ResponseEntity.ok(laboratoryService.searchByName(name));
     }
 
@@ -44,18 +44,18 @@ public class Laboratorycontroller {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LaboratoryResponse> update(@PathVariable Long id,
+    public ResponseEntity<LaboratoryResponse> update(@PathVariable("id") Long id,
                                                      @Valid @RequestBody LaboratoryRequest request) {
         return ResponseEntity.ok(laboratoryService.update(id, request));
     }
 
     @PatchMapping("/{id}/toggle-active")
-    public ResponseEntity<LaboratoryResponse> toggleActive(@PathVariable Long id) {
+    public ResponseEntity<LaboratoryResponse> toggleActive(@PathVariable("id") Long id) {
         return ResponseEntity.ok(laboratoryService.toggleActive(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         laboratoryService.delete(id);
         return ResponseEntity.noContent().build();
     }

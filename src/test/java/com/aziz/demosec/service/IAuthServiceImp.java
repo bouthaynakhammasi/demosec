@@ -88,6 +88,6 @@ public class IAuthServiceImp implements IAuthService{
                         new IllegalStateException("No roles found"));
 
         // 5. Retourner la réponse
-        return new AuthResponse(token, userDetails.getUsername(), role);
+        return new AuthResponse(token, userDetails.getUsername(), role, role);
     }
 }
