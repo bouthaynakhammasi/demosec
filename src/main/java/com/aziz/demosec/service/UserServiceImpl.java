@@ -5,13 +5,11 @@ import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.dto.user.UserResponseDTO;
 import com.aziz.demosec.repository.UserRepository;
-import com.aziz.demosec.service.IUserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +26,6 @@ public class UserServiceImpl implements IUserService {
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new IllegalArgumentException("Email already in use: " + dto.getEmail());
         }
-
         User user = User.builder()
                 .fullName(dto.getFullName())
                 .email(dto.getEmail())
@@ -38,7 +35,6 @@ public class UserServiceImpl implements IUserService {
                 .birthDate(dto.getBirthDate())
                 .enabled(true)
                 .build();
-
         return toDTO(userRepository.save(user));
     }
 
@@ -60,18 +56,15 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserResponseDTO update(Long id, UserRequestDTO dto) {
         User user = findOrThrow(id);
-
         if (!user.getEmail().equals(dto.getEmail()) && userRepository.existsByEmail(dto.getEmail())) {
             throw new IllegalArgumentException("Email already in use: " + dto.getEmail());
         }
-
         user.setFullName(dto.getFullName());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRole(dto.getRole());
         user.setPhone(dto.getPhone());
         user.setBirthDate(dto.getBirthDate());
-
         return toDTO(userRepository.save(user));
     }
 
@@ -88,12 +81,41 @@ public class UserServiceImpl implements IUserService {
         userRepository.save(user);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserResponseDTO> getByRole(Role role) {
+        return userRepository.findByRole(role)
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserResponseDTO getByEmail(String email) {   // ✅ nouveau
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + email));
+        return toDTO(user);
+    }
+
+    @Override
+    public UserResponseDTO updateByEmail(String email, UserRequestDTO dto) {  // ✅ nouveau
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + email));
+        user.setFullName(dto.getFullName());
+        user.setPhone(dto.getPhone());
+        user.setBirthDate(dto.getBirthDate());
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+        return toDTO(userRepository.save(user));
+    }
+
     private User findOrThrow(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
     }
 
-    // Conversion User -> UserResponseDTO
     private UserResponseDTO toDTO(User user) {
         return UserResponseDTO.builder()
                 .id(user.getId())
@@ -104,13 +126,5 @@ public class UserServiceImpl implements IUserService {
                 .birthDate(user.getBirthDate())
                 .enabled(user.isEnabled())
                 .build();
-    }
-
-    @Transactional(readOnly = true)
-    public List<UserResponseDTO> getByRole(Role role) {
-        return userRepository.findByRole(role)
-                .stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
     }
 }

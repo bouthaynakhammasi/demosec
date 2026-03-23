@@ -22,14 +22,13 @@ public class JwtService {
 
     public JwtService(
             @Value("${app.jwt.secret}") String secret,
-            @Value("${app.jwt.expiration-ms}") long expirationMs
-    ) {
+            @Value("${app.jwt.expiration-ms}") long expirationMs) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMs = expirationMs;
     }
 
     // 1. Générer le token
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails, String fullName) {
         String role = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .findFirst()
@@ -40,7 +39,7 @@ public class JwtService {
 
         return Jwts.builder()
                 .subject(userDetails.getUsername())
-                .claims(Map.of("role", role))
+                .claims(Map.of("role", role, "fullName", fullName))
                 .issuedAt(now)
                 .expiration(exp)
                 .signWith(key, Jwts.SIG.HS256)

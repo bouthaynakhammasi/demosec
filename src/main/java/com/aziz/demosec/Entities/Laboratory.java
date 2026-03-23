@@ -21,6 +21,7 @@ public class Laboratory {
 
     private String address;
     private String phone;
+    private boolean active; // ✅ Ajoute ce champ
 
     @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL)
     private List<LaboratoryStaff> staffMembers;
