@@ -21,6 +21,5 @@ public class UserRequestDTO {
     Role role;
 
     String phone;
-   LocalDate birthDate;
+    LocalDate birthDate;
 }
-
