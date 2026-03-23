@@ -3,6 +3,7 @@ package com.aziz.demosec.service;
 import com.aziz.demosec.Entities.Laboratory;
 import com.aziz.demosec.Entities.LaboratoryStaff;
 import com.aziz.demosec.Entities.Patient;
+import com.aziz.demosec.domain.PasswordResetToken;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.AuthResponse;
@@ -10,10 +11,12 @@ import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
 import com.aziz.demosec.repository.LaboratoryRepository;
 import com.aziz.demosec.repository.LaboratoryStaffRepository;
+import com.aziz.demosec.repository.PasswordResetTokenRepository;
 import com.aziz.demosec.repository.PatientRepository;
 import com.aziz.demosec.repository.UserRepository;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +24,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +41,10 @@ public class IAuthServiceImp implements IAuthService {
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
     private final JwtService jwtService;
+
+    // ✅ Nouveaux
+    private final PasswordResetTokenRepository tokenRepository;
+    private final EmailService emailService;
 
     @Override
     public User register(RegisterRequest req) {
@@ -55,7 +66,7 @@ public class IAuthServiceImp implements IAuthService {
             patient.setPassword(passwordEncoder.encode(req.password()));
             patient.setRole(Role.PATIENT);
             patient.setPhone(req.phone());
-            patient.setBirthDate(String.valueOf(req.birthDate()));
+            patient.setBirthDate(req.birthDate() != null ? req.birthDate() : null);
             patient.setGender(req.gender());
             patient.setBloodType(req.bloodType());
             patient.setEmergencyContactName(req.emergencyContactName());
@@ -70,7 +81,6 @@ public class IAuthServiceImp implements IAuthService {
                     .name(req.labName() != null ? req.labName() : "Not Available")
                     .address(req.labAddress())
                     .phone(req.labPhone())
-                    .active(true)
                     .build();
             Laboratory savedLab = laboratoryRepository.save(laboratory);
 
@@ -80,7 +90,7 @@ public class IAuthServiceImp implements IAuthService {
             staff.setPassword(passwordEncoder.encode(req.password()));
             staff.setRole(Role.LABORATORY_STAFF);
             staff.setPhone(req.phone());
-            staff.setBirthDate(String.valueOf(req.birthDate()));
+            staff.setBirthDate(req.birthDate() != null ? req.birthDate() : null);
             staff.setLaboratory(savedLab);
             staff.setEnabled(true);
             return laboratoryStaffRepository.save(staff);
@@ -93,7 +103,7 @@ public class IAuthServiceImp implements IAuthService {
                 .password(passwordEncoder.encode(req.password()))
                 .role(req.role())
                 .phone(req.phone())
-                .birthDate(String.valueOf(req.birthDate()))
+                .birthDate(req.birthDate() != null ? LocalDate.parse(req.birthDate().toString()) : null)
                 .enabled(true)
                 .build();
 
@@ -120,5 +130,56 @@ public class IAuthServiceImp implements IAuthService {
         String token = jwtService.generateToken(userDetails, user.getFullName());
 
         return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
+    }
+
+    // ✅ Étape 1 : Envoyer email de reset
+    @Override
+    @Transactional
+    public void forgotPassword(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Email not found"));
+
+        // Supprimer l'ancien token si existe
+        tokenRepository.deleteByUser_Id(user.getId());
+
+        // Générer nouveau token
+        String token = UUID.randomUUID().toString();
+
+        PasswordResetToken resetToken = PasswordResetToken.builder()
+                .token(token)
+                .user(user)
+                .expiryDate(LocalDateTime.now().plusHours(1))
+                .used(false)
+                .build();
+
+        tokenRepository.save(resetToken);
+
+        // Lien vers le frontend Angular
+        String resetLink = "http://localhost:4200/auth/reset-password?token=" + token;
+        emailService.sendPasswordResetEmail(email, resetLink);
+    }
+
+    // ✅ Étape 2 : Réinitialiser le mot de passe
+    @Override
+    @Transactional
+    public void resetPassword(String token, String newPassword) {
+        PasswordResetToken resetToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid token"));
+
+        if (resetToken.isExpired())
+            throw new IllegalArgumentException("Token expired");
+
+        if (resetToken.isUsed())
+            throw new IllegalArgumentException("Token already used");
+
+        if (newPassword == null || newPassword.length() < 8)
+            throw new IllegalArgumentException("Password must contain at least 8 characters");
+
+        User user = resetToken.getUser();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        resetToken.setUsed(true);
+        tokenRepository.save(resetToken);
     }
 }

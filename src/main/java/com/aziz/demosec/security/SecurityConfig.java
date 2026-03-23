@@ -57,6 +57,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/home-care-services/**").permitAll()
+                        .requestMatchers("/user/**").authenticated()  // ✅ ajoute cette ligne
 
                         // Doctor medical module
                         .requestMatchers("/treatment/**").hasRole("DOCTOR")
