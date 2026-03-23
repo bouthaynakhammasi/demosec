@@ -44,30 +44,40 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider())
+
                 .authorizeHttpRequests(auth -> auth
 
-                        // ✅ Endpoints publics (register + login)
-                        .requestMatchers("/api/auth/**").permitAll()
+                        // ✅ Public endpoints
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/home-care-services/**").permitAll()
+                        .requestMatchers("/user/**").authenticated()  // ✅ ajoute cette ligne
 
-                        // ✅ Endpoints protégés par rôle
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/doctor/**").hasRole("DOCTOR")
-                        .requestMatchers("/api/clinic/**").hasRole("CLINIC")
-                        .requestMatchers("/api/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/api/laboratory/**").hasRole("LABORATORY")
-                        .requestMatchers("/api/nutritionist/**").hasRole("NUTRITIONIST")
-                        .requestMatchers("/api/visitor/**").hasRole("VISITOR")
-                        .requestMatchers("/api/patient/**").hasRole("PATIENT")
-                        .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
+                        // Doctor medical module
+                        .requestMatchers("/treatment/**").hasRole("DOCTOR")
+                        .requestMatchers("/diagnosis/**").hasRole("DOCTOR")
+                        .requestMatchers("/consultation/**").hasRole("DOCTOR")
+                        .requestMatchers("/prescription/**").hasRole("DOCTOR")
+
+                        // Other roles
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/doctor/**").hasRole("DOCTOR")
+                        .requestMatchers("/clinic/**").hasRole("CLINIC")
+                        .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
+                        .requestMatchers("/laboratory/**").hasRole("LABORATORY_STAFF") // ✅ corrigé
+                        .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
+                        .requestMatchers("/visitor/**").hasRole("VISITOR")
+                        .requestMatchers("/patient/**").hasRole("PATIENT")
 
                         .anyRequest().authenticated()
                 )
+
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -77,7 +87,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
