@@ -1,7 +1,6 @@
 package com.aziz.demosec.service;
 
-import com.aziz.demosec.Entities.Consultation;
-import com.aziz.demosec.Entities.Treatment;
+import com.aziz.demosec.Entities.*;
 import com.aziz.demosec.repository.ConsultationRepository;
 import com.aziz.demosec.repository.TreatmentRepository;
 import com.aziz.demosec.dto.TreatmentRequest;
@@ -9,7 +8,9 @@ import com.aziz.demosec.dto.TreatmentResponse;
 import com.aziz.demosec.Mapper.TreatmentMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,28 +23,65 @@ public class TreatmentService implements ITreatmentService {
     private TreatmentMapper treatmentMapper;
 
     @Override
+    @Transactional
     public TreatmentResponse addTreatment(TreatmentRequest request) {
+        System.out.println("DEBUG: addTreatment called with " + request);
 
-        // required fields
         if (request.getConsultationId() == null ||
                 request.getTreatmentType() == null ||
                 request.getDescription() == null ||
-                request.getStatus() == null)
+                request.getStatus() == null) {
+            System.out.println("DEBUG: Missing required fields in TreatmentRequest");
             return null;
+        }
 
         Consultation consultation = consultationRepository.findById(request.getConsultationId()).orElse(null);
-        if (consultation == null) return null;
+        if (consultation == null) {
+            System.out.println("DEBUG: Consultation NOT FOUND for ID " + request.getConsultationId());
+            return null;
+        }
 
         Treatment treatment = Treatment.builder()
                 .consultation(consultation)
-                .treatmentType(request.getTreatmentType())
+                .treatmentType(safeMapType(request.getTreatmentType()))
                 .description(request.getDescription())
-                .startDate(request.getStartDate())
-                .endDate(request.getEndDate())
-                .status(request.getStatus())
+                .startDate(parseDate(request.getStartDate()))
+                .endDate(parseDate(request.getEndDate()))
+                .status(safeMapStatus(request.getStatus()))
                 .build();
 
-        return treatmentMapper.toDto(treatmentRepository.save(treatment));
+        Treatment saved = treatmentRepository.save(treatment);
+        System.out.println("DEBUG: Treatment saved successfully with ID: " + saved.getId());
+        return treatmentMapper.toDto(saved);
+    }
+
+    private TreatmentType safeMapType(String typeStr) {
+        try {
+            return TreatmentType.valueOf(typeStr.toUpperCase());
+        } catch (Exception e) {
+            System.out.println("DEBUG: Invalid TreatmentType '" + typeStr + "', falling back to MEDICATION");
+            return TreatmentType.MEDICATION;
+        }
+    }
+
+    private TreatmentStatus safeMapStatus(String statusStr) {
+        try {
+            if (statusStr.equalsIgnoreCase("ACTIVE")) return TreatmentStatus.ONGOING;
+            return TreatmentStatus.valueOf(statusStr.toUpperCase());
+        } catch (Exception e) {
+            System.out.println("DEBUG: Invalid TreatmentStatus '" + statusStr + "', falling back to ONGOING");
+            return TreatmentStatus.ONGOING;
+        }
+    }
+
+    private LocalDate parseDate(String dateStr) {
+        if (dateStr == null || dateStr.isEmpty()) return null;
+        try {
+            return LocalDate.parse(dateStr);
+        } catch (Exception e) {
+            System.out.println("DEBUG: Failed to parse date '" + dateStr + "'");
+            return null;
+        }
     }
 
     @Override
@@ -70,24 +108,34 @@ public class TreatmentService implements ITreatmentService {
     }
 
     @Override
+    @Transactional
     public TreatmentResponse updateTreatment(Long id, TreatmentRequest request) {
+        System.out.println("DEBUG: updateTreatment called for ID " + id);
 
         Treatment treatment = treatmentRepository.findById(id).orElse(null);
-        if (treatment == null) return null;
+        if (treatment == null) {
+            System.out.println("DEBUG: Treatment NOT FOUND for ID " + id);
+            return null;
+        }
 
         if (request.getConsultationId() != null) {
             Consultation consultation = consultationRepository.findById(request.getConsultationId()).orElse(null);
-            if (consultation == null) return null;
+            if (consultation == null) {
+                System.out.println("DEBUG: Consultation NOT FOUND for ID " + request.getConsultationId());
+                return null;
+            }
             treatment.setConsultation(consultation);
         }
 
-        if (request.getTreatmentType() != null) treatment.setTreatmentType(request.getTreatmentType());
+        if (request.getTreatmentType() != null) treatment.setTreatmentType(safeMapType(request.getTreatmentType()));
         if (request.getDescription() != null) treatment.setDescription(request.getDescription());
-        if (request.getStartDate() != null) treatment.setStartDate(request.getStartDate());
-        if (request.getEndDate() != null) treatment.setEndDate(request.getEndDate());
-        if (request.getStatus() != null) treatment.setStatus(request.getStatus());
+        if (request.getStartDate() != null) treatment.setStartDate(parseDate(request.getStartDate()));
+        if (request.getEndDate() != null) treatment.setEndDate(parseDate(request.getEndDate()));
+        if (request.getStatus() != null) treatment.setStatus(safeMapStatus(request.getStatus()));
 
-        return treatmentMapper.toDto(treatmentRepository.save(treatment));
+        Treatment updated = treatmentRepository.save(treatment);
+        System.out.println("DEBUG: Treatment updated successfully");
+        return treatmentMapper.toDto(updated);
     }
 
     @Override

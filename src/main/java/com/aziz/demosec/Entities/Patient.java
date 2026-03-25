@@ -21,4 +21,7 @@ public class Patient extends User {
     private BloodType bloodType;
     private String emergencyContactName;
     private String emergencyContactPhone;
+    private String glucoseRate;
+    private String allergies;
+    private String diseases;
 }

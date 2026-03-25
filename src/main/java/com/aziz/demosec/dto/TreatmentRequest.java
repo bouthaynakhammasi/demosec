@@ -1,10 +1,6 @@
 package com.aziz.demosec.dto;
 
-import com.aziz.demosec.Entities.TreatmentStatus;
-import com.aziz.demosec.Entities.TreatmentType;
 import lombok.*;
-
-import java.time.LocalDate;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
@@ -13,11 +9,11 @@ public class TreatmentRequest {
 
     private Long consultationId;
 
-    private TreatmentType treatmentType;
+    private String treatmentType; // Changed from Enum for flexibility
     private String description;
 
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate; // String to avoid Jackson deserialization edge cases
+    private String endDate;
 
-    private TreatmentStatus status;
+    private String status; // Changed from Enum for flexibility
 }

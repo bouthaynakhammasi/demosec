@@ -6,8 +6,10 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class TreatmentResponse {
 
@@ -16,6 +18,7 @@ public class TreatmentResponse {
 
     private TreatmentType treatmentType;
     private String description;
+    private String dosage;
 
     private LocalDate startDate;
     private LocalDate endDate;

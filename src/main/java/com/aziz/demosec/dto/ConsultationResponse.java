@@ -12,6 +12,9 @@ public class ConsultationResponse {
     private Long id;
     private Long medicalRecordId;
     private Long doctorId;
+    private String doctorName;
+    private String specialty;
+    private String status;
 
     private LocalDateTime date;
     private String observations;

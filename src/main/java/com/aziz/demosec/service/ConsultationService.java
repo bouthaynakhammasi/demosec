@@ -11,6 +11,7 @@ import com.aziz.demosec.dto.ConsultationResponse;
 import com.aziz.demosec.Mapper.ConsultationMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +26,16 @@ public class ConsultationService implements IConsultationService {
     private ConsultationMapper consultationMapper;
 
     @Override
+    @Transactional
     public ConsultationResponse addConsultation(ConsultationRequest request) {
+        System.out.println("DEBUG: addConsultation called with " + request);
 
         if (request.getMedicalRecordId() == null ||
                 request.getDoctorId() == null ||
-                request.getDate() == null)
+                request.getDate() == null) {
+            System.out.println("DEBUG: Missing required fields in ConsultationRequest");
             return null;
+        }
 
         MedicalRecord medicalRecord =
                 medicalRecordRepository.findById(request.getMedicalRecordId()).orElse(null);
@@ -38,7 +43,14 @@ public class ConsultationService implements IConsultationService {
         User doctor =
                 userRepository.findById(request.getDoctorId()).orElse(null);
 
-        if (medicalRecord == null || doctor == null) return null;
+        if (medicalRecord == null) {
+            System.out.println("DEBUG: MedicalRecord NOT FOUND for ID " + request.getMedicalRecordId());
+            return null;
+        }
+        if (doctor == null) {
+            System.out.println("DEBUG: Doctor NOT FOUND for ID " + request.getDoctorId());
+            return null;
+        }
 
         Consultation consultation = Consultation.builder()
                 .medicalRecord(medicalRecord)
@@ -48,9 +60,10 @@ public class ConsultationService implements IConsultationService {
                 .notes(request.getNotes())
                 .build();
 
-        return consultationMapper.toDto(
-                consultationRepository.save(consultation)
-        );
+        Consultation saved = consultationRepository.save(consultation);
+        System.out.println("DEBUG: Consultation saved successfully with ID: " + saved.getId());
+
+        return consultationMapper.toDto(saved);
     }
 
     @Override
@@ -77,25 +90,37 @@ public class ConsultationService implements IConsultationService {
     }
 
     @Override
+    @Transactional
     public ConsultationResponse updateConsultation(Long id, ConsultationRequest request) {
+        System.out.println("DEBUG: updateConsultation called for ID " + id + " with " + request);
 
         Consultation consultation = consultationRepository.findById(id).orElse(null);
-        if (consultation == null) return null;
+        if (consultation == null) {
+            System.out.println("DEBUG: Consultation NOT FOUND for ID " + id);
+            return null;
+        }
 
         if (request.getMedicalRecordId() != null) {
             MedicalRecord mr =
                     medicalRecordRepository.findById(request.getMedicalRecordId()).orElse(null);
-            if (mr == null) return null;
+            if (mr == null) {
+                System.out.println("DEBUG: MedicalRecord NOT FOUND for ID " + request.getMedicalRecordId());
+                return null;
+            }
             consultation.setMedicalRecord(mr);
         }
 
         if (request.getDoctorId() != null) {
             User doctor =
                     userRepository.findById(request.getDoctorId()).orElse(null);
-            if (doctor == null) return null;
+            if (doctor == null) {
+                System.out.println("DEBUG: Doctor NOT FOUND for ID " + request.getDoctorId());
+                return null;
+            }
             consultation.setDoctor(doctor);
         }
-
+        
+        // ... rest of update logic ... (keep existing)
         if (request.getDate() != null)
             consultation.setDate(request.getDate());
 
@@ -105,9 +130,9 @@ public class ConsultationService implements IConsultationService {
         if (request.getNotes() != null)
             consultation.setNotes(request.getNotes());
 
-        return consultationMapper.toDto(
-                consultationRepository.save(consultation)
-        );
+        Consultation updated = consultationRepository.save(consultation);
+        System.out.println("DEBUG: Consultation updated successfully");
+        return consultationMapper.toDto(updated);
     }
 
     @Override

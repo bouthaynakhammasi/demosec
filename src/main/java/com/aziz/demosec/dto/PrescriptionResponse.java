@@ -14,5 +14,10 @@ public class PrescriptionResponse {
     private Long consultationId;
     private LocalDate date;
 
+    // Flat fields for UI compatibility
+    private String medication;
+    private String dosage;
+    private String instructions;
+
     private List<PrescriptionItemResponse> items;
 }

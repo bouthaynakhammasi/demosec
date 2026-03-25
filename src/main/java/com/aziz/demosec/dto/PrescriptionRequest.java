@@ -11,7 +11,13 @@ import java.util.List;
 public class PrescriptionRequest {
 
     private Long consultationId;
-    private LocalDate date;
+    private String date; // String for consistency
 
+    // Flat payload support
+    private String medication;
+    private String dosage;
+    private String instructions;
+
+    // Nested payload support
     private List<PrescriptionItemRequest> items;
 }

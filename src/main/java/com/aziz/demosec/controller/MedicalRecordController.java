@@ -59,4 +59,9 @@ public class MedicalRecordController {
     public boolean exists(@PathVariable Long id) {
         return medicalRecordService.verifMedicalRecordById(id);
     }
+
+    @GetMapping("/patient/{patientId}")
+    public MedicalRecordResponse getByPatientId(@PathVariable Long patientId) {
+        return medicalRecordService.selectMedicalRecordByPatientId(patientId);
+    }
 }

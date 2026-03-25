@@ -3,8 +3,10 @@ package com.aziz.demosec.dto;
 import com.aziz.demosec.Entities.DiagnosisType;
 import lombok.*;
 
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class DiagnosisResponse {
 

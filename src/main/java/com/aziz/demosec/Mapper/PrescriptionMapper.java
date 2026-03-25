@@ -1,4 +1,4 @@
-package com.aziz.demosec.mapper;
+package com.aziz.demosec.Mapper;
 
 import com.aziz.demosec.Entities.Prescription;
 import com.aziz.demosec.Entities.PrescriptionItem;
@@ -16,8 +16,12 @@ public class PrescriptionMapper {
         if (prescription == null) return null;
 
         List<PrescriptionItemResponse> itemResponses = new ArrayList<>();
+        String medication = "";
+        String dosage = "";
+        String instructions = "";
 
-        if (prescription.getItems() != null) {
+        if (prescription.getItems() != null && !prescription.getItems().isEmpty()) {
+            // Map all items to the list
             for (PrescriptionItem item : prescription.getItems()) {
                 itemResponses.add(
                         PrescriptionItemResponse.builder()
@@ -29,6 +33,12 @@ public class PrescriptionMapper {
                                 .build()
                 );
             }
+
+            // Map first item to flat fields for frontend compatibility
+            PrescriptionItem first = prescription.getItems().get(0);
+            medication = first.getMedicationName();
+            dosage = first.getDosage();
+            instructions = first.getDuration(); // We map duration to instructions in this UI
         }
 
         return PrescriptionResponse.builder()
@@ -37,6 +47,9 @@ public class PrescriptionMapper {
                         prescription.getConsultation() != null ? prescription.getConsultation().getId() : null
                 )
                 .date(prescription.getDate())
+                .medication(medication)
+                .dosage(dosage)
+                .instructions(instructions)
                 .items(itemResponses)
                 .build();
     }

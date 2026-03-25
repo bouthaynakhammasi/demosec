@@ -1,6 +1,5 @@
 package com.aziz.demosec.dto;
 
-import com.aziz.demosec.Entities.DiagnosisType;
 import lombok.*;
 
 @Getter @Setter
@@ -10,5 +9,5 @@ public class DiagnosisRequest {
 
     private Long consultationId;
     private String description;
-    private DiagnosisType type;
+    private String type; // Changed from Enum for flexibility
 }

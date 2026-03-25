@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 public class TreatmentMapper {
 
     public TreatmentResponse toDto(Treatment treatment) {
-        if (treatment == null) return null;
+        if (treatment == null)
+            return null;
 
         return TreatmentResponse.builder()
                 .id(treatment.getId())
                 .consultationId(
-                        treatment.getConsultation() != null ? treatment.getConsultation().getId() : null
-                )
+                        treatment.getConsultation() != null ? treatment.getConsultation().getId() : null)
                 .treatmentType(treatment.getTreatmentType())
                 .description(treatment.getDescription())
                 .startDate(treatment.getStartDate())

@@ -21,4 +21,5 @@ public interface IMedicalRecordService {
 
     long countingMedicalRecords();
     boolean verifMedicalRecordById(Long id);
+    MedicalRecordResponse selectMedicalRecordByPatientId(Long patientId);
 }

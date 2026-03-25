@@ -90,4 +90,11 @@ public class MedicalRecordService implements IMedicalRecordService {
     public boolean verifMedicalRecordById(Long id) {
         return medicalRecordRepository.existsById(id);
     }
+
+    @Override
+    public MedicalRecordResponse selectMedicalRecordByPatientId(Long patientId) {
+        return medicalRecordRepository.findByPatientId(patientId)
+                .map(medicalRecordMapper::toDto)
+                .orElse(null);
+    }
 }
