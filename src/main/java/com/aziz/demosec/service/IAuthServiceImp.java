@@ -41,8 +41,6 @@ public class IAuthServiceImp implements IAuthService {
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
     private final JwtService jwtService;
-
-    // ✅ Nouveaux
     private final PasswordResetTokenRepository tokenRepository;
     private final EmailService emailService;
 
@@ -58,7 +56,6 @@ public class IAuthServiceImp implements IAuthService {
         if (userRepository.findByEmail(req.email()).isPresent())
             throw new IllegalArgumentException("Email already used");
 
-        // ✅ CAS PATIENT
         if (req.role() == Role.PATIENT) {
             Patient patient = new Patient();
             patient.setFullName(req.fullName() == null ? "Not Available" : req.fullName());
@@ -75,7 +72,6 @@ public class IAuthServiceImp implements IAuthService {
             return patientRepository.save(patient);
         }
 
-        // ✅ CAS LABORATORY STAFF
         if (req.role() == Role.LABORATORY_STAFF) {
             Laboratory laboratory = Laboratory.builder()
                     .name(req.labName() != null ? req.labName() : "Not Available")
@@ -96,7 +92,6 @@ public class IAuthServiceImp implements IAuthService {
             return laboratoryStaffRepository.save(staff);
         }
 
-        // ✅ CAS USER / DOCTOR / ADMIN
         User u = User.builder()
                 .fullName(req.fullName() == null ? "Not Available" : req.fullName())
                 .email(req.email())
@@ -127,22 +122,25 @@ public class IAuthServiceImp implements IAuthService {
                 .map(GrantedAuthority::getAuthority)
                 .orElse("ROLE_VISITOR");
 
-        String token = jwtService.generateToken(userDetails, user.getFullName());
+        // ✅ Récupère le patientId si c'est un PATIENT
+        Long patientId = null;
+        if (user instanceof Patient patient) {
+            patientId = patient.getId();
+        }
+
+        String token = jwtService.generateToken(userDetails, user.getFullName(), patientId);
 
         return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
     }
 
-    // ✅ Étape 1 : Envoyer email de reset
     @Override
     @Transactional
     public void forgotPassword(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Email not found"));
 
-        // Supprimer l'ancien token si existe
         tokenRepository.deleteByUser_Id(user.getId());
 
-        // Générer nouveau token
         String token = UUID.randomUUID().toString();
 
         PasswordResetToken resetToken = PasswordResetToken.builder()
@@ -154,12 +152,10 @@ public class IAuthServiceImp implements IAuthService {
 
         tokenRepository.save(resetToken);
 
-        // Lien vers le frontend Angular
         String resetLink = "http://localhost:4200/auth/reset-password?token=" + token;
         emailService.sendPasswordResetEmail(email, resetLink);
     }
 
-    // ✅ Étape 2 : Réinitialiser le mot de passe
     @Override
     @Transactional
     public void resetPassword(String token, String newPassword) {
@@ -168,10 +164,8 @@ public class IAuthServiceImp implements IAuthService {
 
         if (resetToken.isExpired())
             throw new IllegalArgumentException("Token expired");
-
         if (resetToken.isUsed())
             throw new IllegalArgumentException("Token already used");
-
         if (newPassword == null || newPassword.length() < 8)
             throw new IllegalArgumentException("Password must contain at least 8 characters");
 

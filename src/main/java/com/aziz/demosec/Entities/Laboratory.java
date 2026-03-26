@@ -1,7 +1,7 @@
 package com.aziz.demosec.Entities;
+
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
 
 @Entity
@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Laboratory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,10 +22,14 @@ public class Laboratory {
 
     private String address;
     private String phone;
-    private boolean active; // ✅ Ajoute ce champ
+    private boolean active;
+    private String email;
+    private String openingHours;
+    private String specializations; // ✅ String au lieu de List<String>
 
     @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL)
     private List<LaboratoryStaff> staffMembers;
+
     @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL)
     private List<LabTest> labTests;
 }
