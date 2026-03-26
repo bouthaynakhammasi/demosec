@@ -24,11 +24,18 @@ public class JwtService {
     public JwtService(
             @Value("${app.jwt.secret}") String secret,
             @Value("${app.jwt.expiration-ms}") long expirationMs) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        this.key = Keys.hmacShaKeyFor(
+                secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMs = expirationMs;
     }
 
-    public String generateToken(UserDetails userDetails, String fullName, Long patientId) {
+    public String generateToken(
+            UserDetails userDetails,
+            String fullName,
+            Long userId,
+            Long patientId,
+            Long laboratoryId) {
+
         String role = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .findFirst()
@@ -40,8 +47,15 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
         claims.put("fullName", fullName);
+
+        if (userId != null) {
+            claims.put("userId", userId);
+        }
         if (patientId != null) {
             claims.put("patientId", patientId);
+        }
+        if (laboratoryId != null) {
+            claims.put("laboratoryId", laboratoryId);
         }
 
         return Jwts.builder()
@@ -68,8 +82,7 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
-        Date exp = parseClaims(token).getExpiration();
-        return exp.before(new Date());
+        return parseClaims(token).getExpiration().before(new Date());
     }
 
     private Claims parseClaims(String token) {

@@ -98,7 +98,8 @@ public class IAuthServiceImp implements IAuthService {
                 .password(passwordEncoder.encode(req.password()))
                 .role(req.role())
                 .phone(req.phone())
-                .birthDate(req.birthDate() != null ? LocalDate.parse(req.birthDate().toString()) : null)
+                .birthDate(req.birthDate() != null
+                        ? LocalDate.parse(req.birthDate().toString()) : null)
                 .enabled(true)
                 .build();
 
@@ -109,35 +110,60 @@ public class IAuthServiceImp implements IAuthService {
     public AuthResponse login(LoginRequest req) {
 
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(req.email(), req.password())
+                new UsernamePasswordAuthenticationToken(
+                        req.email(), req.password())
         );
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(req.email());
+        UserDetails userDetails =
+                userDetailsService.loadUserByUsername(req.email());
 
         User user = userRepository.findByEmail(req.email())
-                .orElseThrow(() -> new RuntimeException("User not found after authentication"));
+                .orElseThrow(() -> new RuntimeException(
+                        "User not found after authentication"));
 
         String role = userDetails.getAuthorities().stream()
                 .findFirst()
                 .map(GrantedAuthority::getAuthority)
                 .orElse("ROLE_VISITOR");
 
-        // ✅ Récupère le patientId si c'est un PATIENT
+        // ✅ ID pour tous les users
+        Long userId = user.getId();
+
+        // ✅ patientId si PATIENT
         Long patientId = null;
         if (user instanceof Patient patient) {
             patientId = patient.getId();
         }
 
-        String token = jwtService.generateToken(userDetails, user.getFullName(), patientId);
+        // ✅ laboratoryId si LABORATORY_STAFF
+        Long laboratoryId = null;
+        if (user instanceof LaboratoryStaff staff) {
+            laboratoryId = staff.getLaboratory() != null
+                    ? staff.getLaboratory().getId() : null;
+        }
 
-        return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
+        String token = jwtService.generateToken(
+                userDetails,
+                user.getFullName(),
+                userId,
+                patientId,
+                laboratoryId
+        );
+
+        return new AuthResponse(
+                token,
+                userDetails.getUsername(),
+                user.getFullName(),
+                role
+        );
     }
 
     @Override
     @Transactional
     public void forgotPassword(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Email not found"));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Email not found"));
 
         tokenRepository.deleteByUser_Id(user.getId());
 
@@ -152,7 +178,8 @@ public class IAuthServiceImp implements IAuthService {
 
         tokenRepository.save(resetToken);
 
-        String resetLink = "http://localhost:4200/auth/reset-password?token=" + token;
+        String resetLink =
+                "http://localhost:4200/auth/reset-password?token=" + token;
         emailService.sendPasswordResetEmail(email, resetLink);
     }
 
@@ -160,14 +187,16 @@ public class IAuthServiceImp implements IAuthService {
     @Transactional
     public void resetPassword(String token, String newPassword) {
         PasswordResetToken resetToken = tokenRepository.findByToken(token)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid token"));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Invalid token"));
 
         if (resetToken.isExpired())
             throw new IllegalArgumentException("Token expired");
         if (resetToken.isUsed())
             throw new IllegalArgumentException("Token already used");
         if (newPassword == null || newPassword.length() < 8)
-            throw new IllegalArgumentException("Password must contain at least 8 characters");
+            throw new IllegalArgumentException(
+                    "Password must contain at least 8 characters");
 
         User user = resetToken.getUser();
         user.setPassword(passwordEncoder.encode(newPassword));

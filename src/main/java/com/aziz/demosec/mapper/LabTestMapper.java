@@ -5,9 +5,6 @@ import com.aziz.demosec.dto.LabTestRequest;
 import com.aziz.demosec.dto.LabTestResponse;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
 public class LabTestMapper {
 
@@ -16,26 +13,38 @@ public class LabTestMapper {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice())
+                .category(dto.getCategory())
+                .testType(dto.getTestType())
+                .durationMinutes(dto.getDurationMinutes())
+                .genderSpecific(dto.getGenderSpecific())
+                .requiresAppointment(
+                        dto.getRequiresAppointment() != null
+                                ? dto.getRequiresAppointment() : false)
+                .requiresFasting(
+                        dto.getRequiresFasting() != null
+                                ? dto.getRequiresFasting() : false)
                 .build();
     }
 
-    public LabTestResponse toDto(LabTest labTest) {
+    public LabTestResponse toDto(LabTest e) {
         return LabTestResponse.builder()
-                .id(labTest.getId())
-                .name(labTest.getName())
-                .description(labTest.getDescription())
-                .price(labTest.getPrice())
-                .laboratoryId(labTest.getLaboratory() != null ? labTest.getLaboratory().getId() : null)
-                .laboratoryName(labTest.getLaboratory() != null ? labTest.getLaboratory().getName() : null)
+                .id(e.getId())
+                .name(e.getName())
+                .description(e.getDescription())
+                .price(e.getPrice())
+                .laboratoryId(
+                        e.getLaboratory() != null
+                                ? e.getLaboratory().getId() : null)
+                .laboratoryName(
+                        e.getLaboratory() != null
+                                ? e.getLaboratory().getName() : null)
+                .category(e.getCategory())
+                .testType(e.getTestType())
+                .durationMinutes(e.getDurationMinutes())
+                .genderSpecific(e.getGenderSpecific())
+                .requiresAppointment(e.getRequiresAppointment())
+                .requiresFasting(e.getRequiresFasting())
                 .build();
-    }
-
-    public List<LabTest> toEntities(List<LabTestRequest> dtos) {
-        return dtos == null ? null : dtos.stream().map(this::toEntity).collect(Collectors.toList());
-    }
-
-    public List<LabTestResponse> toDtos(List<LabTest> entities) {
-        return entities == null ? null : entities.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     public void updateFromDto(LabTestRequest dto, LabTest entity) {
@@ -43,5 +52,15 @@ public class LabTestMapper {
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
+        entity.setCategory(dto.getCategory());
+        entity.setTestType(dto.getTestType());
+        entity.setDurationMinutes(dto.getDurationMinutes());
+        entity.setGenderSpecific(dto.getGenderSpecific());
+        entity.setRequiresAppointment(
+                dto.getRequiresAppointment() != null
+                        ? dto.getRequiresAppointment() : false);
+        entity.setRequiresFasting(
+                dto.getRequiresFasting() != null
+                        ? dto.getRequiresFasting() : false);
     }
 }

@@ -192,5 +192,14 @@ public class LabRequestServiceImpl implements LabRequestService {
             throw new IllegalArgumentException(
                     "Cannot change status of a CANCELLED request.");
         }
+
+    }
+    @Override
+    public List<LabRequestResponse> getPendingByLaboratory(Long laboratoryId) {
+        return labRequestRepository
+                .findByLaboratoryIdAndStatus(laboratoryId, LabRequestStatus.PENDING)
+                .stream()
+                .map(labRequestMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

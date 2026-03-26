@@ -102,4 +102,11 @@ public class LabRequestController {
             @PathVariable Long id) {
         return ResponseEntity.ok(labRequestService.markNotificationSent(id));
     }
+    // Lab Staff voit les demandes PENDING de son labo
+    @GetMapping("/laboratory/{laboratoryId}/pending")
+    public ResponseEntity<List<LabRequestResponse>> getPendingByLaboratory(
+            @PathVariable Long laboratoryId) {
+        return ResponseEntity.ok(
+                labRequestService.getPendingByLaboratory(laboratoryId));
+    }
 }

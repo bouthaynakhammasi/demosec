@@ -25,4 +25,5 @@ public interface LabRequestService {
     LabRequestResponse updateStatus(Long id, LabRequestStatus status);
     LabRequestResponse cancel(Long id);
     LabRequestResponse markNotificationSent(Long id);
+    List<LabRequestResponse> getPendingByLaboratory(Long laboratoryId);
 }
