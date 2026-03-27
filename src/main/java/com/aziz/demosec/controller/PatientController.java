@@ -101,6 +101,8 @@ public class PatientController {
                         .date(c.getDate())
                         .observations(c.getObservations())
                         .notes(c.getNotes())
+                        .height(patient.getHeight())
+                        .weight(patient.getWeight())
                         .status("COMPLETED")
                         .build();
 
@@ -187,6 +189,11 @@ public class PatientController {
             patient.getGender() != null ? patient.getGender().name() : null,
             patient.getBloodType() != null ? patient.getBloodType().name() : null,
             patient.getGlucoseRate(),
+            patient.getHeight(),
+            patient.getWeight(),
+            patient.getPhoto(),
+            patient.getEmergencyContactName(),
+            patient.getEmergencyContactPhone(),
             record != null,
             allergies,
             diseases,
@@ -200,5 +207,29 @@ public class PatientController {
         );
 
         return response;
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<PatientProfileResponse> updateProfile(java.security.Principal principal, @RequestBody PatientProfileUpdateRequest request) {
+        if (principal == null) return ResponseEntity.status(401).build();
+        return patientRepository.findByEmail(principal.getName())
+                .map(patient -> {
+                    if (request.fullName() != null) patient.setFullName(request.fullName());
+                    if (request.phone() != null) patient.setPhone(request.phone());
+                    if (request.birthDate() != null) patient.setBirthDate(request.birthDate());
+                    if (request.gender() != null) patient.setGender(Gender.valueOf(request.gender()));
+                    if (request.bloodType() != null) patient.setBloodType(BloodType.valueOf(request.bloodType()));
+                    if (request.emergencyContactName() != null) patient.setEmergencyContactName(request.emergencyContactName());
+                    if (request.emergencyContactPhone() != null) patient.setEmergencyContactPhone(request.emergencyContactPhone());
+                    if (request.height() != null) patient.setHeight(request.height());
+                    if (request.weight() != null) patient.setWeight(request.weight());
+                    if (request.allergies() != null) patient.setAllergies(request.allergies());
+                    if (request.diseases() != null) patient.setDiseases(request.diseases());
+                    if (request.photo() != null) patient.setPhoto(request.photo());
+                    
+                    Patient saved = patientRepository.save(patient);
+                    return ResponseEntity.ok(mapPatientToResponse(saved));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }

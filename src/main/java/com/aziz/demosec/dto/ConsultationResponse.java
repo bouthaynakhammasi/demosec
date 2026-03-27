@@ -19,4 +19,6 @@ public class ConsultationResponse {
     private LocalDateTime date;
     private String observations;
     private String notes;
+    private Double height;
+    private Double weight;
 }

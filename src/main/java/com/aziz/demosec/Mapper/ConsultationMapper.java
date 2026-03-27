@@ -23,6 +23,8 @@ public class ConsultationMapper {
                 .date(consultation.getDate())
                 .observations(consultation.getObservations())
                 .notes(consultation.getNotes())
+                .height(consultation.getMedicalRecord() != null && consultation.getMedicalRecord().getPatient() instanceof com.aziz.demosec.Entities.Patient ? ((com.aziz.demosec.Entities.Patient)consultation.getMedicalRecord().getPatient()).getHeight() : null)
+                .weight(consultation.getMedicalRecord() != null && consultation.getMedicalRecord().getPatient() instanceof com.aziz.demosec.Entities.Patient ? ((com.aziz.demosec.Entities.Patient)consultation.getMedicalRecord().getPatient()).getWeight() : null)
                 .build();
     }
 }

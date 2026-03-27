@@ -69,6 +69,8 @@ public class IAuthServiceImp implements IAuthService {
             patient.setGlucoseRate(req.glucoseRate());
             patient.setAllergies(req.allergies());
             patient.setDiseases(req.diseases());
+            patient.setHeight(req.height());
+            patient.setWeight(req.weight());
 
             patient.setEnabled(true);
 

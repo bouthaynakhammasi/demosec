@@ -15,6 +15,7 @@ public class LifestylePlanMapper {
                 .description(req.getDescription())
                 .startDate(req.getStartDate())
                 .endDate(req.getEndDate())
+                .status(req.getStatus() != null ? com.aziz.demosec.Entities.PlanStatus.valueOf(req.getStatus()) : null)
                 .build();
     }
 

@@ -28,6 +28,8 @@ public record RegisterRequest(
         String glucoseRate,
         String allergies,
         String diseases,
+        Double height,
+        Double weight,
 
         // Champs Doctor
         String specialty,

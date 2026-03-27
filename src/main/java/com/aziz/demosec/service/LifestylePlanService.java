@@ -36,10 +36,14 @@ public class LifestylePlanService implements ILifestylePlanService {
                 .orElseThrow(() -> new RuntimeException("Nutritionist not found"));
 
         LifestylePlan plan = LifestylePlanMapper.toEntity(req);
-
         plan.setGoal(goal);
         plan.setNutritionist(nutritionist);
-        plan.setStatus(PlanStatus.ACTIVE);
+        
+        if (req.getStatus() != null) {
+            plan.setStatus(PlanStatus.valueOf(req.getStatus()));
+        } else {
+            plan.setStatus(PlanStatus.ACTIVE);
+        }
 
         return LifestylePlanMapper.toResponse(planRepository.save(plan));
     }
@@ -77,6 +81,10 @@ public class LifestylePlanService implements ILifestylePlanService {
         plan.setDescription(req.getDescription());
         plan.setStartDate(req.getStartDate());
         plan.setEndDate(req.getEndDate());
+        
+        if (req.getStatus() != null) {
+            plan.setStatus(PlanStatus.valueOf(req.getStatus()));
+        }
 
         return LifestylePlanMapper.toResponse(planRepository.save(plan));
     }

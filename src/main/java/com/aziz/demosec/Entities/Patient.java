@@ -24,4 +24,6 @@ public class Patient extends User {
     private String glucoseRate;
     private String allergies;
     private String diseases;
+    private Double height;
+    private Double weight;
 }

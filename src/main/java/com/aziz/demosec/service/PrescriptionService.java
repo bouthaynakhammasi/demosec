@@ -50,12 +50,12 @@ public class PrescriptionService implements IPrescriptionService {
             prescription.setItems(new ArrayList<>());
         }
 
-        // Support flat payload
-        if (request.getMedication() != null) {
+        // Support flat payload (only if nested items are not provided)
+        if (request.getMedication() != null && (request.getItems() == null || request.getItems().isEmpty())) {
             PrescriptionItem item = PrescriptionItem.builder()
                     .medicationName(request.getMedication())
                     .dosage(request.getDosage())
-                    .duration(request.getInstructions()) // mapping instructions to duration or frequency if needed
+                    .duration(request.getInstructions()) 
                     .prescription(prescription)
                     .build();
             prescription.getItems().add(item);
@@ -64,7 +64,7 @@ public class PrescriptionService implements IPrescriptionService {
         // Support nested items (cascade)
         if (request.getItems() != null) {
             for (PrescriptionItemRequest itemRequest : request.getItems()) {
-                if (itemRequest.getMedicationName() == null) continue;
+                if (itemRequest.getMedicationName() == null || itemRequest.getMedicationName().isEmpty()) continue;
 
                 PrescriptionItem item = PrescriptionItem.builder()
                         .medicationName(itemRequest.getMedicationName())
@@ -142,8 +142,8 @@ public class PrescriptionService implements IPrescriptionService {
         if (request.getItems() != null || request.getMedication() != null) {
             prescription.getItems().clear();
             
-            // Re-add from flat payload if present
-            if (request.getMedication() != null) {
+            // Re-add from flat payload if present and no nested items
+            if (request.getMedication() != null && (request.getItems() == null || request.getItems().isEmpty())) {
                 PrescriptionItem item = PrescriptionItem.builder()
                         .medicationName(request.getMedication())
                         .dosage(request.getDosage())
@@ -156,7 +156,7 @@ public class PrescriptionService implements IPrescriptionService {
             // Add from nested items
             if (request.getItems() != null) {
                 for (PrescriptionItemRequest itemRequest : request.getItems()) {
-                    if (itemRequest.getMedicationName() == null) continue;
+                    if (itemRequest.getMedicationName() == null || itemRequest.getMedicationName().isEmpty()) continue;
                     PrescriptionItem item = PrescriptionItem.builder()
                             .medicationName(itemRequest.getMedicationName())
                             .dosage(itemRequest.getDosage())
