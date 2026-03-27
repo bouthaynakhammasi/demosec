@@ -6,71 +6,57 @@ import com.aziz.demosec.dto.LabResultResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-
 @Slf4j
 @Component
 public class LabResultMapper {
 
     public LabResult toEntity(LabResultRequest dto) {
-        if (dto == null) {
-            return null;
-        }
-        
+        if (dto == null) return null;
+
         return LabResult.builder()
-                .resultFile(dto.getResultFile())
                 .resultData(dto.getResultData())
-                .testType(dto.getTestType())
-                .normalValue(dto.getNormalValue())
-                .abnormalFindings(dto.getAbnormalFindings())
                 .technicianName(dto.getTechnicianName())
-                .verifiedBy(dto.getVerifiedBy())
                 .isAbnormal(dto.getIsAbnormal())
-                .recommendations(dto.getRecommendations())
-                .priority(dto.getPriority())
+                .status(dto.getStatus())
+                .abnormalFindings(dto.getAbnormalFindings())
+                .verifiedBy(dto.getVerifiedBy())
                 .build();
     }
 
-    public static LabResultResponse toDto(LabResult labResult) {
-        if (labResult == null) {
-            return null;
-        }
-        
+    public static LabResultResponse toDto(LabResult entity) {
+        if (entity == null) return null;
+
         return LabResultResponse.builder()
-                .id(labResult.getId())
-                .labRequestId(labResult.getLabRequest() != null ? labResult.getLabRequest().getId() : null)
-                .resultFile(labResult.getResultFile())
-                .resultData(labResult.getResultData())
-                .testType(labResult.getTestType())
-                .normalValue(labResult.getNormalValue())
-                .abnormalFindings(labResult.getAbnormalFindings())
-                .technicianName(labResult.getTechnicianName())
-                .verifiedBy(labResult.getVerifiedBy())
-                .isAbnormal(labResult.getIsAbnormal())
-                .recommendations(labResult.getRecommendations())
-                .priority(labResult.getPriority())
-                .completedAt(labResult.getCompletedAt())
-                .verifiedAt(labResult.getVerifiedAt())
-                .status(labResult.getStatus())
-                .isUrgent(labResult.getIsUrgent())
-                .resultCategory(labResult.getResultCategory())
+                .id(entity.getId())
+                .labRequestId(entity.getLabRequest() != null ?
+                        entity.getLabRequest().getId() : null)
+                .patientName(entity.getLabRequest() != null &&
+                        entity.getLabRequest().getPatient() != null ?
+                        entity.getLabRequest().getPatient().getFullName() : null)
+                .laboratoryName(entity.getLabRequest() != null &&
+                        entity.getLabRequest().getLaboratory() != null ?
+                        entity.getLabRequest().getLaboratory().getName() : null)
+                .testType(entity.getLabRequest() != null ?
+                        entity.getLabRequest().getTestType() : null)
+                .resultData(entity.getResultData())
+                .technicianName(entity.getTechnicianName())
+                .verifiedBy(entity.getVerifiedBy())
+                .abnormalFindings(entity.getAbnormalFindings())
+                .status(entity.getStatus())
+                .isAbnormal(entity.getIsAbnormal())
+                .completedAt(entity.getCompletedAt())
+                .verifiedAt(entity.getVerifiedAt())
                 .build();
     }
 
     public void updateFromDto(LabResultRequest dto, LabResult entity) {
-        if (dto == null || entity == null) {
-            return;
-        }
-        
-        entity.setResultFile(dto.getResultFile());
+        if (dto == null || entity == null) return;
+
         entity.setResultData(dto.getResultData());
-        entity.setTestType(dto.getTestType());
-        entity.setNormalValue(dto.getNormalValue());
-        entity.setAbnormalFindings(dto.getAbnormalFindings());
         entity.setTechnicianName(dto.getTechnicianName());
-        entity.setVerifiedBy(dto.getVerifiedBy());
         entity.setIsAbnormal(dto.getIsAbnormal());
-        entity.setRecommendations(dto.getRecommendations());
-        entity.setPriority(dto.getPriority());
+        entity.setStatus(dto.getStatus());
+        entity.setAbnormalFindings(dto.getAbnormalFindings());
+        entity.setVerifiedBy(dto.getVerifiedBy());
     }
 }
