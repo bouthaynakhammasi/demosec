@@ -2,7 +2,6 @@ package com.aziz.demosec.dto;
 
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Getter @Setter

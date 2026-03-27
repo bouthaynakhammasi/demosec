@@ -28,6 +28,15 @@ public class PatientController {
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
+    private final LifestyleGoalRepository lifestyleGoalRepository;
+    private final ProgressTrackingRepository progressTrackingRepository;
+
+    @GetMapping
+    public ResponseEntity<List<PatientProfileResponse>> getAll() {
+        return ResponseEntity.ok(patientRepository.findAll().stream()
+                .map(this::mapPatientToResponse)
+                .collect(Collectors.toList()));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<PatientProfileResponse> getPatientById(@PathVariable Long id) {
@@ -157,6 +166,18 @@ public class PatientController {
                 .collect(Collectors.toList());
         }
 
+        List<LifestyleGoalResponse> lifestyleGoals = lifestyleGoalRepository.findByPatientId(id).stream()
+                .map(com.aziz.demosec.Mapper.LifestyleGoalMapper::toGoalResponse)
+                .collect(Collectors.toList());
+
+        List<LifestylePlanResponse> lifestylePlans = lifestyleGoals.stream()
+                .flatMap(g -> g.getPlans().stream())
+                .collect(Collectors.toList());
+
+        List<ProgressTrackingResponse> progressTrackings = progressTrackingRepository.findByPatientId(id).stream()
+                .map(com.aziz.demosec.Mapper.ProgressTrackingMapper::toResponse)
+                .collect(Collectors.toList());
+
         PatientProfileResponse response = new PatientProfileResponse(
             patient.getId(),
             patient.getFullName(),
@@ -172,7 +193,10 @@ public class PatientController {
             consultations,
             treatments,
             prescriptions,
-            diagnoses
+            diagnoses,
+            lifestyleGoals,
+            lifestylePlans,
+            progressTrackings
         );
 
         return response;

@@ -1,7 +1,5 @@
 package com.aziz.demosec.dto;
 
-import com.aziz.demosec.Entities.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +18,9 @@ public record PatientProfileResponse(
     List<ConsultationResponse> consultations,
     List<TreatmentResponse> treatments,
     List<PrescriptionResponse> prescriptions,
-    List<DiagnosisResponse> diagnoses
+    List<DiagnosisResponse> diagnoses,
+    List<LifestyleGoalResponse> lifestyleGoals,
+    List<LifestylePlanResponse> lifestylePlans,
+    List<ProgressTrackingResponse> progressTrackings
 ) {
 }

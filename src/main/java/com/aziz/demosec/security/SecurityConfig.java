@@ -58,11 +58,11 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/home-care-services/**").permitAll()
 
-                        // Doctor medical module
-                        .requestMatchers("/treatment/**").hasRole("DOCTOR")
-                        .requestMatchers("/diagnosis/**").hasRole("DOCTOR")
-                        .requestMatchers("/consultation/**").hasRole("DOCTOR")
-                        .requestMatchers("/prescription/**").hasRole("DOCTOR")
+                        // Doctor & Nutritionist medical access
+                        .requestMatchers("/treatment/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
+                        .requestMatchers("/diagnosis/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
+                        .requestMatchers("/consultation/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
+                        .requestMatchers("/prescription/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
 
                         // Other roles
                         .requestMatchers("/admin/**").hasRole("ADMIN")

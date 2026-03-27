@@ -4,5 +4,7 @@ public enum GoalStatus {
     PENDING,
     IN_PROGRESS,
     ACHIEVED,
-    CANCELLED
-}
+    CANCELLED,
+    COMPLETED,
+    ABANDONED
+}

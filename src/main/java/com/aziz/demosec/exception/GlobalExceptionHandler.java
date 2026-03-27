@@ -32,4 +32,13 @@ public class GlobalExceptionHandler {
                 "details", details
         ));
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleAllExceptions(Exception ex) {
+        return ResponseEntity.internalServerError().body(Map.of(
+                "error", "Internal Server Error",
+                "message", ex.getMessage() != null ? ex.getMessage() : "No message available",
+                "type", ex.getClass().getName()
+        ));
+    }
 }
