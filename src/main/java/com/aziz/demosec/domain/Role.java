@@ -5,6 +5,7 @@ public enum Role {
     DOCTOR,
     CLINIC,
     PHARMACIST,
+    // ⚠️ Typo: missing 'T' — do not rename (DB migration risk)
     LABORATORYSAFF,
     NUTRITIONIST,
     VISITOR,

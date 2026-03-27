@@ -1,7 +1,6 @@
 package com.aziz.demosec.dto;
 
-import com.aziz.demosec.Entities.AvailabilityMode;
-import com.aziz.demosec.Entities.AvailabilityStatus;
+import com.aziz.demosec.Entities.appointment.Mode;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -10,14 +9,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class CalendarAvailabilityRequest {
-
-    private Long calendarId;
-
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
-    private AvailabilityMode mode;
-    private AvailabilityStatus status;
-
+    private Mode mode;
     private String address;
 }

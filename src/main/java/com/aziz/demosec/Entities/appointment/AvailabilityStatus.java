@@ -1,4 +1,4 @@
-package com.aziz.demosec.Entities;
+package com.aziz.demosec.Entities.appointment;
 
 public enum AvailabilityStatus {
     AVAILABLE,

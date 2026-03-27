@@ -1,7 +1,7 @@
 spring.application.name=demosec
 
 ################ SERVER ################
-server.port=8081
+server.port=8082
 server.servlet.context-path=/springsecurity
 
 ################ DATABASE - H2 for development ################
@@ -19,4 +19,4 @@ spring.jpa.properties.hibernate.format_sql=true
 
 ################ JWT ################
 app.jwt.secret=MySuperSecretKeyForJwtAuthSpringSecurity2026MySuperSecretKey
-app.jwt.expiration-ms=3600000
+app.jwt.expiration-ms=36000000000000000

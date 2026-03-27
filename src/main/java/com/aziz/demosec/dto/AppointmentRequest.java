@@ -1,21 +1,18 @@
 package com.aziz.demosec.dto;
 
-import com.aziz.demosec.Entities.AppointmentStatus;
-import com.aziz.demosec.Entities.AvailabilityMode;
 import lombok.*;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @Builder
+@ToString
 public class AppointmentRequest {
-
     private Long patientId;
+    private Long doctorId;
     private Long providerId;
-    private Long availabilityId;
-
-    private AppointmentStatus status;
-
-    private AvailabilityMode mode;
-    private String meetingLink;
-    private String visitAddress;
+    private String date;
+    private String startTime;
+    private String endTime;
+    private String mode;
+    private String notes;
 }

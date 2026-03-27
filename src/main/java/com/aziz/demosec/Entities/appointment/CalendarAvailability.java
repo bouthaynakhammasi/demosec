@@ -1,5 +1,6 @@
-package com.aziz.demosec.Entities;
+package com.aziz.demosec.Entities.appointment;
 
+import com.aziz.demosec.Entities.ProviderCalendar;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,23 +19,27 @@ public class CalendarAvailability {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "calendar_id", nullable = false)
     private ProviderCalendar calendar;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private LocalDateTime startTime;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private LocalDateTime endTime;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AvailabilityMode mode;
+    private Mode mode;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AvailabilityStatus status;
+    @Builder.Default
+    private AvailabilityStatus status = AvailabilityStatus.AVAILABLE;
+
     private String address;
 
+    @Version
+    private Long version;
 }

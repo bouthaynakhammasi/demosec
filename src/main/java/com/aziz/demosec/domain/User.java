@@ -40,4 +40,11 @@ public class User {
 
     @Builder.Default
     boolean enabled = true;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private boolean profileCompleted = false;
+
+    @Column(columnDefinition = "LONGTEXT")
+    String profilePicture;
 }

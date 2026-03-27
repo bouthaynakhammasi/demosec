@@ -51,20 +51,39 @@ public class SecurityConfig {
                 .authenticationProvider(authProvider())
                 .authorizeHttpRequests(auth -> auth
 
-                        // ✅ Endpoints publics (register + login)
+                        // ✅ Endpoints publics — auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
+
+                        // ✅ Endpoints publics — données de référence (accessibles sans token)
+                        .requestMatchers("/api/v1/clinics").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/doctors").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/doctors/**").permitAll()
+                        .requestMatchers("/api/home-care-services/**").permitAll()
+                        .requestMatchers("/api/home-care-services").permitAll()
 
                         // ✅ Endpoints protégés par rôle
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/api/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/api/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/api/laboratory/**").hasRole("LABORATORY")
+                        .requestMatchers("/api/laboratory/**").hasRole("LABORATORYSAFF")
                         .requestMatchers("/api/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/api/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/api/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
+
+                        // ✅ Accès patient aux docteurs
+                        .requestMatchers("/api/users/role/DOCTOR").hasAnyRole("PATIENT", "ADMIN")
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+
+                        // ✅ Appointments
+                        .requestMatchers("/api/v1/patients/*/appointments").hasRole("PATIENT")
+                        .requestMatchers("/api/v1/doctors/*/appointments").hasRole("DOCTOR")
+                        .requestMatchers("/api/v1/appointments/**").authenticated()
+                        .requestMatchers("/api/v1/**").authenticated()
+                        .requestMatchers("/availability/**").hasAnyRole("DOCTOR", "NUTRITIONIST", "HOME_CARE_PROVIDER")
+                        .requestMatchers("/provider-calendar/**").hasAnyRole("DOCTOR", "NUTRITIONIST", "HOME_CARE_PROVIDER")
 
                         .anyRequest().authenticated()
                 )
@@ -76,7 +95,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
+        config.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:4200"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
