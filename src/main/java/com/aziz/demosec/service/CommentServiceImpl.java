@@ -62,7 +62,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentResponse> getByPostId(Long postId) {
-        return commentRepository.findByPostId(postId)
+        // ✅ Corrigé : trié par date décroissante
+        return commentRepository.findByPostIdOrderByCreatedAtDesc(postId)
                 .stream()
                 .map(commentMapper::toDto)
                 .collect(Collectors.toList());

@@ -4,6 +4,7 @@ import com.aziz.demosec.security.jwt.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -44,23 +45,66 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider())
+
                 .authorizeHttpRequests(auth -> auth
+
+                        // ✅ Public endpoints
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/home-care-services/**").permitAll()
+                        .requestMatchers("/user/**").authenticated()
+
+                        // ✅ FORUM - Posts
+                        .requestMatchers(HttpMethod.GET, "/api/posts/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+
+                        // ✅ FORUM - Comments
+                        .requestMatchers(HttpMethod.GET, "/api/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/comments/**").hasAnyRole(
+                                "PATIENT", "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/comments/**").hasAnyRole(
+                                "PATIENT", "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+
+                        // Doctor medical module
+                        .requestMatchers("/treatment/**").hasRole("DOCTOR")
+                        .requestMatchers("/diagnosis/**").hasRole("DOCTOR")
+                        .requestMatchers("/consultation/**").hasRole("DOCTOR")
+                        .requestMatchers("/prescription/**").hasRole("DOCTOR")
+
+                        // Other roles
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/laboratory/**").hasRole("LABORATORY")
+                        .requestMatchers("/laboratory/**").hasRole("LABORATORY_STAFF")
                         .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")
-                        .requestMatchers("/home-care/**").hasRole("HOME_CARE_PROVIDER")
-                        .anyRequest().authenticated())
+
+                        .anyRequest().authenticated()
+                )
+
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

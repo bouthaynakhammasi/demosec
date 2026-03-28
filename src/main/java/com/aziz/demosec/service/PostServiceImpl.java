@@ -25,6 +25,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponse create(PostRequest request) {
+        // ✅ Vérifier que l'auteur existe
         User author = userRepository.findById(request.getAuthorId())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User not found with id: " + request.getAuthorId()));
@@ -32,6 +33,11 @@ public class PostServiceImpl implements PostService {
         Post post = postMapper.toEntity(request);
         post.setAuthor(author);
         post.setCreatedAt(LocalDateTime.now());
+
+        // ✅ Catégorie
+        if (request.getCategory() != null) {
+            post.setCategory(request.getCategory());
+        }
 
         return postMapper.toDto(postRepository.save(post));
     }
@@ -52,6 +58,15 @@ public class PostServiceImpl implements PostService {
                 .collect(Collectors.toList());
     }
 
+    // ✅ Nouveau : filtrer par catégorie
+    @Override
+    public List<PostResponse> getByCategory(String category) {
+        return postRepository.findByCategory(category)
+                .stream()
+                .map(postMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public PostResponse update(Long id, PostRequest request) {
         Post post = postRepository.findById(id)
@@ -59,6 +74,11 @@ public class PostServiceImpl implements PostService {
                         "Post not found with id: " + id));
 
         postMapper.updateFromDto(request, post);
+
+        // ✅ Mise à jour catégorie
+        if (request.getCategory() != null) {
+            post.setCategory(request.getCategory());
+        }
 
         return postMapper.toDto(postRepository.save(post));
     }

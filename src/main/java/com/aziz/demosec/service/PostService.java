@@ -8,6 +8,7 @@ public interface PostService {
     PostResponse create(PostRequest request);
     PostResponse getById(Long id);
     List<PostResponse> getAll();
+    List<PostResponse> getByCategory(String category);  // ✅ ajouté
     PostResponse update(Long id, PostRequest request);
     void delete(Long id);
 }

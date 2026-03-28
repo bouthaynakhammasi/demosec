@@ -22,17 +22,22 @@ public class CommentMapper {
                 .id(comment.getId())
                 .postId(comment.getPost().getId())
                 .authorName(comment.getAuthor().getFullName())
+                .authorRole(comment.getAuthor().getRole().name()) // ✅ ajouté
                 .content(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .build();
     }
 
     public List<Comment> toEntities(List<CommentRequest> dtos) {
-        return dtos == null ? null : dtos.stream().map(this::toEntity).collect(Collectors.toList());
+        return dtos == null ? null : dtos.stream()
+                .map(this::toEntity)
+                .collect(Collectors.toList());
     }
 
     public List<CommentResponse> toDtos(List<Comment> entities) {
-        return entities == null ? null : entities.stream().map(this::toDto).collect(Collectors.toList());
+        return entities == null ? null : entities.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     public void updateFromDto(CommentRequest dto, Comment entity) {

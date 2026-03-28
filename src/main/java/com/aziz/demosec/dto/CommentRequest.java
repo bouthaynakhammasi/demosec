@@ -8,15 +8,14 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class CommentRequest {
 
-    @NotNull
+    @NotNull(message = "Post ID is required")
     private Long postId;
 
-    @NotNull
+    @NotNull(message = "Author ID is required")
     private Long authorId;
 
-    @NotBlank
+    @NotBlank(message = "Content is required")
     private String content;
 }
