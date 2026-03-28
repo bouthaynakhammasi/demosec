@@ -1,0 +1,101 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aziz:demosec >--------------------------
+[INFO] Building demosec 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ demosec ---
+[INFO] Deleting C:\Users\LENOVO\IdeaProjects\demosecc\target
+[INFO] 
+[INFO] >>> spring-boot:3.5.11:run (default-cli) > test-compile @ demosec >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ demosec ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 196 source files with javac [debug parameters release 17] to target\classes
+[WARNING] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/Entities/ServiceProvider.java:[38,34] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[WARNING] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/Entities/LifestylePlan.java:[48,33] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[INFO] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/security/SecurityConfig.java: C:\Users\LENOVO\IdeaProjects\demosecc\src\main\java\com\aziz\demosec\security\SecurityConfig.java uses or overrides a deprecated API.
+[INFO] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/security/SecurityConfig.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ demosec ---
+[INFO] skip non existing resourceDirectory C:\Users\LENOVO\IdeaProjects\demosecc\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ demosec ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 17 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] /C:/Users/LENOVO/IdeaProjects/demosecc/src/test/java/com/aziz/demosec/security/SecurityConfig.java: C:\Users\LENOVO\IdeaProjects\demosecc\src\test\java\com\aziz\demosec\security\SecurityConfig.java uses or overrides a deprecated API.
+[INFO] /C:/Users/LENOVO/IdeaProjects/demosecc/src/test/java/com/aziz/demosec/security/SecurityConfig.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] <<< spring-boot:3.5.11:run (default-cli) < test-compile @ demosec <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.11:run (default-cli) @ demosec ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.11)
+
+2026-03-22T02:04:18.095+01:00  INFO 38268 --- [demosec] [           main] com.aziz.demosec.DemosecApplication      : Starting DemosecApplication using Java 17.0.12 with PID 38268 (C:\Users\LENOVO\IdeaProjects\demosecc\target\classes started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-22T02:04:18.098+01:00  INFO 38268 --- [demosec] [           main] com.aziz.demosec.DemosecApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-03-22T02:04:19.083+01:00  INFO 38268 --- [demosec] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-22T02:04:19.297+01:00  INFO 38268 --- [demosec] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 207 ms. Found 14 JPA repository interfaces.
+2026-03-22T02:04:19.926+01:00  INFO 38268 --- [demosec] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-03-22T02:04:19.938+01:00  INFO 38268 --- [demosec] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-22T02:04:19.939+01:00  INFO 38268 --- [demosec] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.52]
+2026-03-22T02:04:19.985+01:00  INFO 38268 --- [demosec] [           main] o.a.c.c.C.[.[.[/springsecurity]          : Initializing Spring embedded WebApplicationContext
+2026-03-22T02:04:19.986+01:00  INFO 38268 --- [demosec] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1849 ms
+2026-03-22T02:04:20.041+01:00  INFO 38268 --- [demosec] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-22T02:04:20.207+01:00  INFO 38268 --- [demosec] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@798cf6d2
+2026-03-22T02:04:20.209+01:00  INFO 38268 --- [demosec] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-22T02:04:20.814+01:00  INFO 38268 --- [demosec] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-22T02:04:20.865+01:00  INFO 38268 --- [demosec] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.42.Final
+2026-03-22T02:04:20.895+01:00  INFO 38268 --- [demosec] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-22T02:04:21.218+01:00  INFO 38268 --- [demosec] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-22T02:04:21.256+01:00  WARN 38268 --- [demosec] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-22T02:04:21.258+01:00  WARN 38268 --- [demosec] [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-03-22T02:04:21.270+01:00  INFO 38268 --- [demosec] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-22T02:04:22.868+01:00  INFO 38268 --- [demosec] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-22T02:04:24.437+01:00  INFO 38268 --- [demosec] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-22T02:04:24.787+01:00  INFO 38268 --- [demosec] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-22T02:04:24.788+01:00  WARN 38268 --- [demosec] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-22T02:04:25.204+01:00  WARN 38268 --- [demosec] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-22T02:04:25.688+01:00  INFO 38268 --- [demosec] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-03-22T02:04:25.689+01:00  INFO 38268 --- [demosec] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6e6d4a64]]
+2026-03-22T02:04:25.690+01:00  INFO 38268 --- [demosec] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-03-22T02:04:25.772+01:00  INFO 38268 --- [demosec] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/springsecurity'
+2026-03-22T02:04:25.782+01:00  INFO 38268 --- [demosec] [           main] com.aziz.demosec.DemosecApplication      : Started DemosecApplication in 8.131 seconds (process running for 8.445)
+2026-03-22T02:04:25.784+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    : ============================================================
+2026-03-22T02:04:25.784+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    : PAYMENT GATEWAY CONFIGURATION VALIDATION
+2026-03-22T02:04:25.784+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    : ============================================================
+2026-03-22T02:04:25.784+01:00  INFO 38268 --- [demosec] [           main] c.a.d.p.gateway.PaymentGatewayFactory    : === Payment Gateways Configuration Status ===
+2026-03-22T02:04:25.784+01:00  INFO 38268 --- [demosec] [           main] c.a.d.p.gateway.PaymentGatewayFactory    : Stripe: ? NOT CONFIGURED
+2026-03-22T02:04:25.784+01:00  INFO 38268 --- [demosec] [           main] c.a.d.p.gateway.PaymentGatewayFactory    : D17: ? NOT CONFIGURED
+2026-03-22T02:04:25.784+01:00  INFO 38268 --- [demosec] [           main] c.a.d.p.gateway.PaymentGatewayFactory    : ============================================
+2026-03-22T02:04:25.785+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    : ============================================================
+2026-03-22T02:04:25.785+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    : To configure payment gateways:
+2026-03-22T02:04:25.785+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    : 1. Stripe: Set STRIPE_API_KEY, STRIPE_PUBLIC_KEY, STRIPE_WEBHOOK_SECRET
+2026-03-22T02:04:25.785+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    : 2. D17:    Set D17_API_KEY, D17_MERCHANT_ID, D17_WEBHOOK_SECRET
+2026-03-22T02:04:25.785+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    : 3. Webhooks: Configure in Stripe/D17 dashboards:
+2026-03-22T02:04:25.785+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    :    - Stripe: /api/pharmacy/payments/webhook/stripe
+2026-03-22T02:04:25.785+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    :    - D17:    /api/pharmacy/payments/webhook/d17
+2026-03-22T02:04:25.785+01:00  INFO 38268 --- [demosec] [           main] c.a.d.c.PaymentGatewayConfigValidator    : ============================================================
+2026-03-22T02:05:25.696+01:00  INFO 38268 --- [demosec] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+^C

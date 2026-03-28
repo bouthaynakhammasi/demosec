@@ -50,12 +50,19 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleAll(Exception ex) {
+        String type = ex.getClass().getName();
+        String message = ex.getMessage();
         System.out.println("=== GENERIC ERROR ===");
-        System.out.println("Type: " + ex.getClass().getName());
-        System.out.println("Message: " + ex.getMessage());
+        System.out.println("Type: " + type);
+        System.out.println("Message: " + message);
         ex.printStackTrace();
         System.out.println("=====================");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("error", ex.getMessage()));
+        
+        java.util.Map<String, Object> body = new java.util.HashMap<>();
+        body.put("error", "Internal Server Error");
+        body.put("type", type);
+        body.put("message", message);
+        
+        return ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(body);
     }
 }

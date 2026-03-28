@@ -15,19 +15,21 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String name;
+
     private String description;
     private String imageUrl;
     private String manufacturer;
     private String brand;
     private String category;
-    @Enumerated(EnumType.STRING)
+
     @Column(nullable = false)
-    private ProductType type;
+    private String type;
+
     private String barcode;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ProductUnit unit;
+    private String unit;
 }

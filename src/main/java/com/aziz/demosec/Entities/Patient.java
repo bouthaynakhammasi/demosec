@@ -16,6 +16,7 @@ import java.time.LocalDate;
 public class Patient extends User {
 
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     @Enumerated(EnumType.STRING)
     private BloodType bloodType;

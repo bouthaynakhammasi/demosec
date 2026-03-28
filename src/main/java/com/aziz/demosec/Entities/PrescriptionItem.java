@@ -20,9 +20,13 @@ public class PrescriptionItem {
     @JoinColumn(name = "prescription_id", nullable = false)
     private Prescription prescription;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
     @Column(nullable = false)
-    private String medicationName;
+    private Integer quantity;
+
     private String dosage;
-    private String frequency;
     private String duration;
 }

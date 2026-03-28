@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class UserRequestDTO {
-    @NotBlank
+    @NotBlank 
     String fullName;
 
     @Email @NotBlank
@@ -20,7 +20,11 @@ public class UserRequestDTO {
     @NotNull
     Role role;
 
+    @NotNull @Size(min = 8)
     String phone;
-   LocalDate birthDate;
+    
+    @NotNull(message = "La date de naissance est obligatoire")
+    @Past(message = "La date de naissance doit être dans le passé")
+    LocalDate birthDate;
 }
 

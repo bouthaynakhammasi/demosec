@@ -3,24 +3,49 @@ package com.aziz.demosec.controller;
 import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
-import com.aziz.demosec.service.IAuthService;
+import com.aziz.demosec.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final IAuthService authService;
+    private final AuthService authService;
+    private final com.aziz.demosec.service.FileStorageService fileStorageService;
 
     // POST /auth/register
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest req) {
-        var saved = authService.register(req);
-        return ResponseEntity.ok("User created: " + saved.getEmail());
+    @PostMapping(value = "/register", consumes = {"multipart/form-data"})
+    public org.springframework.http.ResponseEntity<?> register(
+            @RequestParam("user") String userJson,
+            @RequestParam(value = "document", required = false) org.springframework.web.multipart.MultipartFile document) {
+        
+        System.out.println("=== REGISTRATION ATTEMPT ===");
+        System.out.println("User JSON received: " + userJson);
+        
+        try {
+            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+            mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+            RegisterRequest req = mapper.readValue(userJson, RegisterRequest.class);
+            
+            String documentUrl = null;
+            if ((req.role() == com.aziz.demosec.domain.Role.PHARMACIST || req.role() == com.aziz.demosec.domain.Role.HOME_CARE_PROVIDER) && document != null && !document.isEmpty()) {
+                System.out.println("Storing document: " + document.getOriginalFilename());
+                String folderName = req.role() == com.aziz.demosec.domain.Role.PHARMACIST ? "pharmacist_docs" : "provider_docs";
+                documentUrl = fileStorageService.storeFile(document, folderName);
+            }
+            
+            var saved = authService.register(req, documentUrl);
+            return org.springframework.http.ResponseEntity.ok("User created: " + saved.getEmail());
+        } catch (Exception e) {
+            System.err.println("Registration failed error detail: " + e.getMessage());
+            e.printStackTrace();
+            return org.springframework.http.ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
     }
 
     // POST /auth/login

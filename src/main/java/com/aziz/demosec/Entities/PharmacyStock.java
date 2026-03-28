@@ -3,6 +3,8 @@ package com.aziz.demosec.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "pharmacy_stocks")
 @Getter
@@ -29,5 +31,8 @@ public class PharmacyStock {
 
     @Column(nullable = false)
     private Integer minQuantityThreshold;
+
+    @Column(nullable = false, precision = 10, scale = 3)
+    private BigDecimal unitPrice;
 
 }

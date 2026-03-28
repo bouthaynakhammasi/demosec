@@ -14,4 +14,7 @@ public class UserResponseDTO {
     String phone;
     LocalDate birthDate;
     boolean enabled;
+    // For pharmacists - their associated pharmacy
+    Long pharmacyId;
+    String pharmacyName;
 }

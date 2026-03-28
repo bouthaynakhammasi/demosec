@@ -1,11 +1,12 @@
 package com.aziz.demosec.service;
 
+
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.dto.user.UserResponseDTO;
+import com.aziz.demosec.repository.PharmacistRepository;
 import com.aziz.demosec.repository.UserRepository;
-import com.aziz.demosec.service.IUserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,10 +19,11 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PharmacistRepository pharmacistRepository;
 
     @Override
     public UserResponseDTO create(UserRequestDTO dto) {
@@ -93,17 +95,31 @@ public class UserServiceImpl implements IUserService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
     }
 
-    // Conversion User -> UserResponseDTO
+    /**
+     * Converts User to UserResponseDTO.
+     * If the user is a PHARMACIST, also includes pharmacyId and pharmacyName.
+     */
     private UserResponseDTO toDTO(User user) {
-        return UserResponseDTO.builder()
+        UserResponseDTO.UserResponseDTOBuilder builder = UserResponseDTO.builder()
                 .id(user.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
                 .role(user.getRole())
                 .phone(user.getPhone())
                 .birthDate(user.getBirthDate())
-                .enabled(user.isEnabled())
-                .build();
+                .enabled(user.isEnabled());
+
+        // If user is a Pharmacist, fetch and include pharmacyId
+        if (user.getRole() == Role.PHARMACIST) {
+            pharmacistRepository.findById(user.getId()).ifPresent(pharmacist -> {
+                if (pharmacist.getPharmacy() != null) {
+                    builder.pharmacyId(pharmacist.getPharmacy().getId());
+                    builder.pharmacyName(pharmacist.getPharmacy().getName());
+                }
+            });
+        }
+
+        return builder.build();
     }
 
     @Transactional(readOnly = true)

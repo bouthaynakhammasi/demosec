@@ -1,0 +1,617 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aziz:demosec >--------------------------
+[INFO] Building demosec 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ demosec ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 197 source files with javac [debug parameters release 17] to target\classes
+[INFO] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/security/SecurityConfig.java: C:\Users\LENOVO\IdeaProjects\demosecc\src\main\java\com\aziz\demosec\security\SecurityConfig.java uses or overrides a deprecated API.
+[INFO] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/security/SecurityConfig.java: Recompile with -Xlint:deprecation for details.
+[INFO] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java: C:\Users\LENOVO\IdeaProjects\demosecc\src\main\java\com\aziz\demosec\payment\gateway\impl\D17PaymentProvider.java uses unchecked or unsafe operations.
+[INFO] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java: Recompile with -Xlint:unchecked for details.
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[33,8] class PaymentServiceImpl is public, should be declared in a file named PaymentServiceImpl.java
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[6,37] package com.aziz.demosec.domain.enums does not exist
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[15,31] cannot find symbol
+  symbol:   class Payment
+  location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[16,28] cannot find symbol
+  symbol:   class PaymentRequestDTO
+  location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayProvider.java:[3,31] cannot find symbol
+  symbol:   class Payment
+  location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayProvider.java:[4,28] cannot find symbol
+  symbol:   class PaymentRequestDTO
+  location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[15,31] cannot find symbol
+  symbol:   class Payment
+  location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[16,28] cannot find symbol
+  symbol:   class PaymentRequestDTO
+  location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[25,47] cannot find symbol
+  symbol:   class PaymentMethod
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[53,50] cannot find symbol
+  symbol:   class Payment
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[53,67] cannot find symbol
+  symbol:   class PaymentRequestDTO
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[157,51] cannot find symbol
+  symbol:   class Payment
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[157,68] cannot find symbol
+  symbol:   class PaymentRequestDTO
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[44,50] cannot find symbol
+  symbol:   class Payment
+  location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[44,67] cannot find symbol
+  symbol:   class PaymentRequestDTO
+  location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayProvider.java:[19,43] cannot find symbol
+  symbol:   class Payment
+  location: interface com.aziz.demosec.payment.gateway.PaymentGatewayProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayProvider.java:[19,60] cannot find symbol
+  symbol:   class PaymentRequestDTO
+  location: interface com.aziz.demosec.payment.gateway.PaymentGatewayProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[3,31] cannot find symbol
+  symbol:   class Payment
+  location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[4,31] cannot find symbol
+  symbol:   class PharmacyOrder
+  location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[5,37] package com.aziz.demosec.domain.enums does not exist
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[6,37] package com.aziz.demosec.domain.enums does not exist
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[7,37] package com.aziz.demosec.domain.enums does not exist
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[8,28] cannot find symbol
+  symbol:   class PaymentRequestDTO
+  location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[9,28] cannot find symbol
+  symbol:   class PaymentResponseDTO
+  location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[23,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[24,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[25,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[29,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[30,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[31,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[32,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[33,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[34,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[35,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[36,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[27,18] cannot find symbol
+  symbol:   variable STRIPE
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[29,21] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[33,18] cannot find symbol
+  symbol:   variable D17
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[35,21] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[39,18] cannot find symbol
+  symbol:   variable CASH_ON_DELIVERY
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[40,18] cannot find symbol
+  symbol:   variable BANK_CARD
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[42,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[56,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[76,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[77,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[78,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[79,9] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[74,46] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[83,51] cannot find symbol
+  symbol:   method getCharges()
+  location: variable intent of type com.stripe.model.PaymentIntent
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[85,39] cannot find symbol
+  symbol:   method getCharges()
+  location: variable intent of type com.stripe.model.PaymentIntent
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[86,49] cannot find symbol
+  symbol:   method getCharges()
+  location: variable intent of type com.stripe.model.PaymentIntent
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[94,46] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[109,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[121,42] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[132,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[151,42] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[163,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[179,42] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[183,59] cannot find symbol
+  symbol:   method getCanceled()
+  location: variable intent of type com.stripe.model.PaymentIntent
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[187,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[63,25] cannot find symbol
+  symbol:   method getSuccess()
+  location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[64,25] cannot find symbol
+  symbol:   method setTransactionId(java.lang.String)
+  location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[65,25] cannot find symbol
+  symbol:   method setMethod(java.lang.String)
+  location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[66,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[69,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[69,80] cannot find symbol
+  symbol:   method getErrorMessage()
+  location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[74,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[90,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[114,25] cannot find symbol
+  symbol:   method getSuccess()
+  location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[115,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[121,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[138,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[217,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[242,46] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[256,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayResponse.java:[37,38] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayResponse.java:[49,38] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayResponse.java:[59,38] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/AuthController.java:[22,58] cannot find symbol
+  symbol:   method getEmail()
+  location: variable saved of type com.aziz.demosec.domain.User
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[66,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[73,28] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[79,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[83,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[106,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[112,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[118,28] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[124,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[140,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[145,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[152,24] cannot find symbol
+  symbol:   method setStatus(com.aziz.demosec.Entities.PaymentStatus)
+  location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[153,24] cannot find symbol
+  symbol:   method setConfirmedAt(java.time.LocalDateTime)
+  location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[159,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[159,77] cannot find symbol
+  symbol:   method getPharmacyOrder()
+  location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[161,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[165,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[179,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[188,13] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[194,24] cannot find symbol
+  symbol:   method setStatus(com.aziz.demosec.Entities.PaymentStatus)
+  location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[195,24] cannot find symbol
+  symbol:   method setGatewayMetadata(java.lang.String)
+  location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[200,17] cannot find symbol
+  symbol:   variable log
+  location: class com.aziz.demosec.controller.PaymentWebhookController
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.853 s
+[INFO] Finished at: 2026-03-21T18:48:22+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project demosec: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[33,8] class PaymentServiceImpl is public, should be declared in a file named PaymentServiceImpl.java
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[6,37] package com.aziz.demosec.domain.enums does not exist
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[15,31] cannot find symbol
+[ERROR]   symbol:   class Payment
+[ERROR]   location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[16,28] cannot find symbol
+[ERROR]   symbol:   class PaymentRequestDTO
+[ERROR]   location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayProvider.java:[3,31] cannot find symbol
+[ERROR]   symbol:   class Payment
+[ERROR]   location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayProvider.java:[4,28] cannot find symbol
+[ERROR]   symbol:   class PaymentRequestDTO
+[ERROR]   location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[15,31] cannot find symbol
+[ERROR]   symbol:   class Payment
+[ERROR]   location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[16,28] cannot find symbol
+[ERROR]   symbol:   class PaymentRequestDTO
+[ERROR]   location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[25,47] cannot find symbol
+[ERROR]   symbol:   class PaymentMethod
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[53,50] cannot find symbol
+[ERROR]   symbol:   class Payment
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[53,67] cannot find symbol
+[ERROR]   symbol:   class PaymentRequestDTO
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[157,51] cannot find symbol
+[ERROR]   symbol:   class Payment
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[157,68] cannot find symbol
+[ERROR]   symbol:   class PaymentRequestDTO
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[44,50] cannot find symbol
+[ERROR]   symbol:   class Payment
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[44,67] cannot find symbol
+[ERROR]   symbol:   class PaymentRequestDTO
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayProvider.java:[19,43] cannot find symbol
+[ERROR]   symbol:   class Payment
+[ERROR]   location: interface com.aziz.demosec.payment.gateway.PaymentGatewayProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayProvider.java:[19,60] cannot find symbol
+[ERROR]   symbol:   class PaymentRequestDTO
+[ERROR]   location: interface com.aziz.demosec.payment.gateway.PaymentGatewayProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[3,31] cannot find symbol
+[ERROR]   symbol:   class Payment
+[ERROR]   location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[4,31] cannot find symbol
+[ERROR]   symbol:   class PharmacyOrder
+[ERROR]   location: package com.aziz.demosec.domain
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[5,37] package com.aziz.demosec.domain.enums does not exist
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[6,37] package com.aziz.demosec.domain.enums does not exist
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[7,37] package com.aziz.demosec.domain.enums does not exist
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[8,28] cannot find symbol
+[ERROR]   symbol:   class PaymentRequestDTO
+[ERROR]   location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/service/PaymentServiceImpl_Enhanced.java:[9,28] cannot find symbol
+[ERROR]   symbol:   class PaymentResponseDTO
+[ERROR]   location: package com.aziz.demosec.dto
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[23,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[24,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[25,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[29,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[30,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[31,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[32,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[33,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[34,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[35,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/config/PaymentGatewayConfigValidator.java:[36,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.config.PaymentGatewayConfigValidator
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[27,18] cannot find symbol
+[ERROR]   symbol:   variable STRIPE
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[29,21] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[33,18] cannot find symbol
+[ERROR]   symbol:   variable D17
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[35,21] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[39,18] cannot find symbol
+[ERROR]   symbol:   variable CASH_ON_DELIVERY
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[40,18] cannot find symbol
+[ERROR]   symbol:   variable BANK_CARD
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[42,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[56,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[76,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[77,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[78,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayFactory.java:[79,9] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayFactory
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[74,46] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[83,51] cannot find symbol
+[ERROR]   symbol:   method getCharges()
+[ERROR]   location: variable intent of type com.stripe.model.PaymentIntent
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[85,39] cannot find symbol
+[ERROR]   symbol:   method getCharges()
+[ERROR]   location: variable intent of type com.stripe.model.PaymentIntent
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[86,49] cannot find symbol
+[ERROR]   symbol:   method getCharges()
+[ERROR]   location: variable intent of type com.stripe.model.PaymentIntent
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[94,46] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[109,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[121,42] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[132,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[151,42] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[163,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[179,42] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[183,59] cannot find symbol
+[ERROR]   symbol:   method getCanceled()
+[ERROR]   location: variable intent of type com.stripe.model.PaymentIntent
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/StripePaymentProvider.java:[187,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.StripePaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[63,25] cannot find symbol
+[ERROR]   symbol:   method getSuccess()
+[ERROR]   location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[64,25] cannot find symbol
+[ERROR]   symbol:   method setTransactionId(java.lang.String)
+[ERROR]   location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[65,25] cannot find symbol
+[ERROR]   symbol:   method setMethod(java.lang.String)
+[ERROR]   location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[66,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[69,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[69,80] cannot find symbol
+[ERROR]   symbol:   method getErrorMessage()
+[ERROR]   location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[74,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[90,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[114,25] cannot find symbol
+[ERROR]   symbol:   method getSuccess()
+[ERROR]   location: variable response of type com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[115,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[121,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[138,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[217,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[242,46] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/impl/D17PaymentProvider.java:[256,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.payment.gateway.impl.D17PaymentProvider
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayResponse.java:[37,38] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayResponse.java:[49,38] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/payment/gateway/PaymentGatewayResponse.java:[59,38] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.payment.gateway.PaymentGatewayResponse
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/AuthController.java:[22,58] cannot find symbol
+[ERROR]   symbol:   method getEmail()
+[ERROR]   location: variable saved of type com.aziz.demosec.domain.User
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[66,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[73,28] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[79,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[83,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[106,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[112,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[118,28] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[124,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[140,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[145,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[152,24] cannot find symbol
+[ERROR]   symbol:   method setStatus(com.aziz.demosec.Entities.PaymentStatus)
+[ERROR]   location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[153,24] cannot find symbol
+[ERROR]   symbol:   method setConfirmedAt(java.time.LocalDateTime)
+[ERROR]   location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[159,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[159,77] cannot find symbol
+[ERROR]   symbol:   method getPharmacyOrder()
+[ERROR]   location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[161,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[165,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[179,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[188,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[194,24] cannot find symbol
+[ERROR]   symbol:   method setStatus(com.aziz.demosec.Entities.PaymentStatus)
+[ERROR]   location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[195,24] cannot find symbol
+[ERROR]   symbol:   method setGatewayMetadata(java.lang.String)
+[ERROR]   location: variable payment of type com.aziz.demosec.Entities.Payment
+[ERROR] /C:/Users/LENOVO/IdeaProjects/demosecc/src/main/java/com/aziz/demosec/controller/PaymentWebhookController.java:[200,17] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.aziz.demosec.controller.PaymentWebhookController
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

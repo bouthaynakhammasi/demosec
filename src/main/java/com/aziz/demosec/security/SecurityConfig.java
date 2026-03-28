@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -49,22 +51,41 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider())
+                .headers(headers -> headers
+                        .contentSecurityPolicy(csp -> csp
+                                .policyDirectives("default-src 'self'; " +
+                                        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; " +
+                                        "font-src 'self' https://fonts.gstatic.com; " +
+                                        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; " +
+                                        "img-src 'self' data: http://localhost:8081; " +
+                                        "connect-src 'self' http://localhost:8081 ws://localhost:8081 http://localhost:4200;")
+                        )
+                )
                 .authorizeHttpRequests(auth -> auth
 
-                        // ✅ Endpoints publics (register + login)
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
+                        // ✅ Endpoints publics (register + login + uploads + websocket + homecare catalogue)
+                        .requestMatchers("/api/auth/**", "/auth/**", "/api/upload/**", "/uploads/**",
+                                         "/ws/**", "/api/pharmacy/orders/*/invoice",
+                                         "/api/pharmacy/deliveries/**",
+                                         "/api/homecare/services",
+                                         "/api/homecare/services/**",
+                                         "/api/homecare/providers/**").permitAll()
 
                         // ✅ Endpoints protégés par rôle
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/api/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/api/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/api/laboratory/**").hasRole("LABORATORY")
+                        .requestMatchers("/api/laboratory/**").hasRole("LABORATORY_STAFF")
                         .requestMatchers("/api/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/api/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/api/patient/**").hasRole("PATIENT")
-                        .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
+                        .requestMatchers("/api/homecare/provider/**").hasRole("HOME_CARE_PROVIDER")
+
+                        // ✅ Accès spécifique aux commandes de pharmacie
+                        .requestMatchers("/api/pharmacy/orders/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/pharmacy/orders/pharmacy/**").hasRole("PHARMACIST")
+                        .requestMatchers("/api/pharmacy/orders/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
@@ -76,7 +97,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
+        config.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
