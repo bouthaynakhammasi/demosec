@@ -71,6 +71,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/api/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/api/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/baby-care/**").hasAnyRole("PATIENT", "ADMIN")
                         .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
 
                         // ✅ Accès patient aux docteurs

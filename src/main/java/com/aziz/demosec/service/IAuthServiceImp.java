@@ -74,14 +74,30 @@ public class IAuthServiceImp implements IAuthService {
 
         User user;
         switch (role) {
-            case PATIENT -> user = registerPatient(req);
-            case DOCTOR -> user = registerDoctor(req);
-            case CLINIC -> user = registerClinic(req);
-            case PHARMACIST -> user = registerPharmacist(req);
-            case LABORATORYSAFF -> user = registerLabStaff(req);
-            case NUTRITIONIST -> user = registerNutritionist(req);
-            case HOME_CARE_PROVIDER -> user = registerHomeCareProvider(req);
-            default -> user = registerGenericUser(req);
+            case PATIENT:
+                user = registerPatient(req);
+                break;
+            case DOCTOR:
+                user = registerDoctor(req);
+                break;
+            case CLINIC:
+                user = registerClinic(req);
+                break;
+            case PHARMACIST:
+                user = registerPharmacist(req);
+                break;
+            case LABORATORYSAFF:
+                user = registerLabStaff(req);
+                break;
+            case NUTRITIONIST:
+                user = registerNutritionist(req);
+                break;
+            case HOME_CARE_PROVIDER:
+                user = registerHomeCareProvider(req);
+                break;
+            default:
+                user = registerGenericUser(req);
+                break;
         }
 
         return user;
@@ -261,7 +277,13 @@ public class IAuthServiceImp implements IAuthService {
         UserDetails userDetails = userDetailsService.loadUserByUsername(req.email());
         User user = userRepository.findByEmail(req.email()).orElseThrow(() -> new RuntimeException("User not found"));
         String role = userDetails.getAuthorities().stream().findFirst().map(GrantedAuthority::getAuthority).orElse("ROLE_VISITOR");
-        String token = jwtService.generateToken(userDetails, user.getFullName(), user.getId());
+        
+        String gender = "UNKNOWN";
+        if (user instanceof Patient) {
+            gender = ((Patient) user).getGender() != null ? ((Patient) user).getGender().name() : "UNKNOWN";
+        }
+        
+        String token = jwtService.generateToken(userDetails, user.getFullName(), user.getId(), gender);
         return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
     }
 }

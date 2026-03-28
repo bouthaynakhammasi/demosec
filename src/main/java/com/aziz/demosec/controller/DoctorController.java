@@ -20,6 +20,7 @@ public class DoctorController {
     private final ClinicRepository clinicRepository;
     private final com.aziz.demosec.repository.ReviewRepository reviewRepository;
     private final com.aziz.demosec.repository.UserRepository userRepository;
+    private final com.aziz.demosec.repository.AppointmentRepository appointmentRepository;
 
     @GetMapping("/{id}/profile")
     public ResponseEntity<DoctorProfileDTO> getProfile(@PathVariable("id") Long id) {
@@ -80,13 +81,23 @@ public class DoctorController {
 
     private DoctorProfileDTO mapToDTO(Doctor doctor) {
         boolean isProfileComplete = doctor.getSpecialty() != null && doctor.getConsultationMode() != null;
+        // Dynamically calculate patient count and rating
+        long patientCount = appointmentRepository.findByDoctorId(doctor.getId()).stream()
+                .map(a -> a.getPatient().getId())
+                .distinct()
+                .count();
+        
+        java.util.List<com.aziz.demosec.Entities.Review> allReviews = reviewRepository.findByDoctorId(doctor.getId());
+        double avg = allReviews.stream().mapToInt(com.aziz.demosec.Entities.Review::getRating).average().orElse(0.0);
+        double finalRating = Math.round(avg * 10.0) / 10.0;
+
         return DoctorProfileDTO.builder()
                 .id(doctor.getId())
                 .fullName(doctor.getFullName())
                 .email(doctor.getEmail())
                 .specialty(doctor.getSpecialty())
                 .licenseNumber(doctor.getLicenseNumber() != null ? doctor.getLicenseNumber() : "PENDING")
-                .yearsOfExperience(doctor.getYearsOfExperience())
+                .yearsOfExperience(doctor.getYearsOfExperience() != null ? doctor.getYearsOfExperience() : 2) // Fallback for UX
                 .consultationFee(doctor.getConsultationFee())
                 .consultationMode(doctor.getConsultationMode())
                 .clinicAddress(doctor.getClinicAddress())
@@ -94,8 +105,8 @@ public class DoctorController {
                 .clinicName(doctor.getClinic() != null ? doctor.getClinic().getName() : null)
                 .isProfileComplete(isProfileComplete)
                 .bio(doctor.getBio())
-                .patientCount(doctor.getPatientCount())
-                .rating(doctor.getRating())
+                .patientCount((int) patientCount)
+                .rating(finalRating)
                 .profilePicture(doctor.getProfilePicture())
                 .build();
     }

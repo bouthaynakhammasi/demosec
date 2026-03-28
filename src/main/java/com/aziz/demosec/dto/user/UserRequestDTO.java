@@ -14,10 +14,9 @@ public class UserRequestDTO {
     @Email @NotBlank
     String email;
 
-    @NotBlank @Size(min = 6)
+    @Size(min = 6)
     String password;
 
-    @NotNull
     Role role;
 
     String phone;

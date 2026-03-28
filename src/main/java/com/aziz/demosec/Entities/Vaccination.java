@@ -2,8 +2,8 @@ package com.aziz.demosec.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vaccinations")
@@ -18,18 +18,21 @@ public class Vaccination {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "baby_id", nullable = false)
     private BabyProfile baby;
+
+    @Column(name = "due_date")
+    private LocalDate dueDate;
+
+    @Column(nullable = true)
+    private String status;
 
     @Column(nullable = false)
     private String vaccineName;
 
-    @Column(name = "due_date", nullable = false)
-    private LocalDate dueDate;
-
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private VaccinationStatus status;
+    private LocalDate administeredDate;
 
+    private String description;
 }
