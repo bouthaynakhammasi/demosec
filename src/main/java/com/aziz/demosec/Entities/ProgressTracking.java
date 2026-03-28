@@ -32,6 +32,7 @@ public class ProgressTracking {
 
     private LocalDate date;
 
+    @Column(name = "tracked_value")
     private BigDecimal value;
 
     private String notes;
