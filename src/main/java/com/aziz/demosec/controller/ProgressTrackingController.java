@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/progress-tracking")
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class ProgressTrackingController {
     private final IProgressTrackingService progressTrackingService;
 
     @PostMapping
-    public ResponseEntity<ProgressTrackingResponse> addTracking(@RequestBody ProgressTrackingRequest request) {
+    public ResponseEntity<ProgressTrackingResponse> addTracking(@Valid @RequestBody ProgressTrackingRequest request) {
         return ResponseEntity.ok(progressTrackingService.addTracking(request));
     }
 
@@ -37,7 +39,7 @@ public class ProgressTrackingController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProgressTrackingResponse> updateTracking(@PathVariable Long id, @RequestBody ProgressTrackingRequest request) {
+    public ResponseEntity<ProgressTrackingResponse> updateTracking(@PathVariable Long id, @Valid @RequestBody ProgressTrackingRequest request) {
         return ResponseEntity.ok(progressTrackingService.updateTracking(id, request));
     }
 

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "progress_tracking")
+@Table(name = "goal_progress")
 @Getter
 @Setter
 @NoArgsConstructor

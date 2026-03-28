@@ -4,6 +4,7 @@ import com.aziz.demosec.dto.DiagnosisRequest;
 import com.aziz.demosec.dto.DiagnosisResponse;
 import com.aziz.demosec.service.IDiagnosisService;
 import lombok.AllArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class DiagnosisController {
     private IDiagnosisService diagnosisService;
 
     @PostMapping("/add")
-    public DiagnosisResponse add(@RequestBody DiagnosisRequest request) {
+    public DiagnosisResponse add(@Valid @RequestBody DiagnosisRequest request) {
         return diagnosisService.addDiagnosis(request);
     }
 
@@ -32,7 +33,7 @@ public class DiagnosisController {
 
     @PutMapping("/update/{id}")
     public DiagnosisResponse update(@PathVariable Long id,
-                                    @RequestBody DiagnosisRequest request) {
+                                    @Valid @RequestBody DiagnosisRequest request) {
         return diagnosisService.updateDiagnosis(id, request);
     }
 

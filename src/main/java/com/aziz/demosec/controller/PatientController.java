@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Arrays;
 import com.aziz.demosec.domain.User;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/patients")
@@ -210,7 +211,7 @@ public class PatientController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<PatientProfileResponse> updateProfile(java.security.Principal principal, @RequestBody PatientProfileUpdateRequest request) {
+    public ResponseEntity<PatientProfileResponse> updateProfile(java.security.Principal principal, @Valid @RequestBody PatientProfileUpdateRequest request) {
         if (principal == null) return ResponseEntity.status(401).build();
         return patientRepository.findByEmail(principal.getName())
                 .map(patient -> {

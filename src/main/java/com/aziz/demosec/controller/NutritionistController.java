@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/nutritionists")
@@ -29,7 +30,7 @@ public class NutritionistController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<NutritionistProfileResponse> updateProfile(Principal principal, @RequestBody NutritionistProfileUpdateRequest request) {
+    public ResponseEntity<NutritionistProfileResponse> updateProfile(Principal principal, @Valid @RequestBody NutritionistProfileUpdateRequest request) {
         if (principal == null) return ResponseEntity.status(401).build();
         return nutritionistRepository.findByEmail(principal.getName())
                 .map(nutritionist -> {

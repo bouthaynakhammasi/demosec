@@ -4,6 +4,7 @@ import com.aziz.demosec.dto.TreatmentRequest;
 import com.aziz.demosec.dto.TreatmentResponse;
 import com.aziz.demosec.service.ITreatmentService;
 import lombok.AllArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class TreatmentController {
     private ITreatmentService treatmentService;
 
     @PostMapping("/add")
-    public TreatmentResponse add(@RequestBody TreatmentRequest request) {
+    public TreatmentResponse add(@Valid @RequestBody TreatmentRequest request) {
         return treatmentService.addTreatment(request);
     }
 
@@ -31,7 +32,7 @@ public class TreatmentController {
     }
 
     @PutMapping("/update/{id}")
-    public TreatmentResponse update(@PathVariable Long id, @RequestBody TreatmentRequest request) {
+    public TreatmentResponse update(@PathVariable Long id, @Valid @RequestBody TreatmentRequest request) {
         return treatmentService.updateTreatment(id, request);
     }
 

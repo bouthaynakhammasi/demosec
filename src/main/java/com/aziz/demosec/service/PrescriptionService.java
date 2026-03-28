@@ -51,7 +51,7 @@ public class PrescriptionService implements IPrescriptionService {
         }
 
         // Support flat payload (only if nested items are not provided)
-        if (request.getMedication() != null && (request.getItems() == null || request.getItems().isEmpty())) {
+        if (request.getMedication() != null && !request.getMedication().trim().isEmpty() && (request.getItems() == null || request.getItems().isEmpty())) {
             PrescriptionItem item = PrescriptionItem.builder()
                     .medicationName(request.getMedication())
                     .dosage(request.getDosage())
@@ -79,7 +79,7 @@ public class PrescriptionService implements IPrescriptionService {
         }
 
         // Final check: must have at least one item
-        if (prescription.getItems().isEmpty()) {
+        if (prescription.getItems().isEmpty() && (request.getMedication() == null || request.getMedication().isEmpty())) {
             System.out.println("DEBUG: No items found in prescription request");
             return null;
         }
@@ -143,7 +143,7 @@ public class PrescriptionService implements IPrescriptionService {
             prescription.getItems().clear();
             
             // Re-add from flat payload if present and no nested items
-            if (request.getMedication() != null && (request.getItems() == null || request.getItems().isEmpty())) {
+            if (request.getMedication() != null && !request.getMedication().trim().isEmpty() && (request.getItems() == null || request.getItems().isEmpty())) {
                 PrescriptionItem item = PrescriptionItem.builder()
                         .medicationName(request.getMedication())
                         .dosage(request.getDosage())

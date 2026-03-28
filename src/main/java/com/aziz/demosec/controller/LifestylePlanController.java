@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/lifestyle-plans")
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class LifestylePlanController {
     private final ILifestylePlanService lifestylePlanService;
 
     @PostMapping
-    public ResponseEntity<LifestylePlanResponse> addPlan(@RequestBody LifestylePlanRequest request) {
+    public ResponseEntity<LifestylePlanResponse> addPlan(@Valid @RequestBody LifestylePlanRequest request) {
         return ResponseEntity.ok(lifestylePlanService.addPlan(request));
     }
 
@@ -37,7 +39,7 @@ public class LifestylePlanController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LifestylePlanResponse> updatePlan(@PathVariable Long id, @RequestBody LifestylePlanRequest request) {
+    public ResponseEntity<LifestylePlanResponse> updatePlan(@PathVariable Long id, @Valid @RequestBody LifestylePlanRequest request) {
         return ResponseEntity.ok(lifestylePlanService.updatePlan(id, request));
     }
 

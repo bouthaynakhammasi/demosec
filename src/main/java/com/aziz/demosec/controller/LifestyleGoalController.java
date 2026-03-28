@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/lifestyle-goals")
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class LifestyleGoalController {
     private final ILifestyleGoalService lifestyleGoalService;
 
     @PostMapping
-    public ResponseEntity<LifestyleGoalResponse> addGoal(@RequestBody LifestyleGoalRequest request) {
+    public ResponseEntity<LifestyleGoalResponse> addGoal(@Valid @RequestBody LifestyleGoalRequest request) {
         return ResponseEntity.ok(lifestyleGoalService.addGoal(request));
     }
 
@@ -37,7 +39,7 @@ public class LifestyleGoalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LifestyleGoalResponse> updateGoal(@PathVariable Long id, @RequestBody LifestyleGoalRequest request) {
+    public ResponseEntity<LifestyleGoalResponse> updateGoal(@PathVariable Long id, @Valid @RequestBody LifestyleGoalRequest request) {
         return ResponseEntity.ok(lifestyleGoalService.updateGoal(id, request));
     }
 

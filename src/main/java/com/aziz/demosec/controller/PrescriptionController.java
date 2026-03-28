@@ -4,6 +4,7 @@ import com.aziz.demosec.dto.PrescriptionRequest;
 import com.aziz.demosec.dto.PrescriptionResponse;
 import com.aziz.demosec.service.IPrescriptionService;
 import lombok.AllArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class PrescriptionController {
     private IPrescriptionService prescriptionService;
 
     @PostMapping("/add")
-    public PrescriptionResponse add(@RequestBody PrescriptionRequest request) {
+    public PrescriptionResponse add(@Valid @RequestBody PrescriptionRequest request) {
         return prescriptionService.addPrescription(request);
     }
 
@@ -36,7 +37,7 @@ public class PrescriptionController {
     }
 
     @PutMapping("/update/{id}")
-    public PrescriptionResponse update(@PathVariable Long id, @RequestBody PrescriptionRequest request) {
+    public PrescriptionResponse update(@PathVariable Long id, @Valid @RequestBody PrescriptionRequest request) {
         return prescriptionService.updatePrescription(id, request);
     }
 

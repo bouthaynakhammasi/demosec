@@ -4,6 +4,7 @@ import com.aziz.demosec.dto.ConsultationRequest;
 import com.aziz.demosec.dto.ConsultationResponse;
 import com.aziz.demosec.service.IConsultationService;
 import lombok.AllArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class ConsultationController {
     private IConsultationService consultationService;
 
     @PostMapping("/add")
-    public ConsultationResponse add(@RequestBody ConsultationRequest request) {
+    public ConsultationResponse add(@Valid @RequestBody ConsultationRequest request) {
         return consultationService.addConsultation(request);
     }
 
@@ -32,7 +33,7 @@ public class ConsultationController {
 
     @PutMapping("/update/{id}")
     public ConsultationResponse update(@PathVariable Long id,
-                                       @RequestBody ConsultationRequest request) {
+                                       @Valid @RequestBody ConsultationRequest request) {
         return consultationService.updateConsultation(id, request);
     }
 

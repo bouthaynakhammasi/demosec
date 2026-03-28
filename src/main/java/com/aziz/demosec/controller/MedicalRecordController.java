@@ -4,6 +4,7 @@ import com.aziz.demosec.dto.MedicalRecordRequest;
 import com.aziz.demosec.dto.MedicalRecordResponse;
 import com.aziz.demosec.service.IMedicalRecordService;
 import lombok.AllArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class MedicalRecordController {
     private IMedicalRecordService medicalRecordService;
 
     @PostMapping("/add")
-    public MedicalRecordResponse addMedicalRecord(@RequestBody MedicalRecordRequest request) {
+    public MedicalRecordResponse addMedicalRecord(@Valid @RequestBody MedicalRecordRequest request) {
         return medicalRecordService.addMedicalRecord(request);
     }
 
@@ -36,7 +37,7 @@ public class MedicalRecordController {
     }
 
     @PutMapping("/update/{id}")
-    public MedicalRecordResponse update(@PathVariable Long id, @RequestBody MedicalRecordRequest request) {
+    public MedicalRecordResponse update(@PathVariable Long id, @Valid @RequestBody MedicalRecordRequest request) {
         return medicalRecordService.updateMedicalRecord(id, request);
     }
 
