@@ -8,6 +8,7 @@ import com.aziz.demosec.exception.ResourceNotFoundException;
 import com.aziz.demosec.mapper.LabRequestMapper;
 import com.aziz.demosec.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LabRequestServiceImpl implements LabRequestService {
 
     private final LabRequestRepository labRequestRepository;
@@ -25,6 +27,8 @@ public class LabRequestServiceImpl implements LabRequestService {
 
     @Override
     public LabRequestResponse create(LabRequestRequest request) {
+        log.info("💾 CRÉATION EN BASE - Patient ID: {}, Labo ID: {}, Test: {}", 
+                request.getPatientId(), request.getLaboratoryId(), request.getTestType());
 
         Patient patient = patientRepository.findById(request.getPatientId())
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -35,6 +39,7 @@ public class LabRequestServiceImpl implements LabRequestService {
                         "Laboratory not found with id: " + request.getLaboratoryId()));
 
         if (!laboratory.isActive()) {
+            log.error("❌ LABORATOIRE INACTIF - {}", laboratory.getName());
             throw new IllegalArgumentException(
                     "Laboratory '" + laboratory.getName() + "' is currently inactive");
         }
@@ -53,60 +58,98 @@ public class LabRequestServiceImpl implements LabRequestService {
         labRequest.setStatus(LabRequestStatus.PENDING);
         labRequest.setRequestedAt(LocalDateTime.now());
 
-        return labRequestMapper.toDto(labRequestRepository.save(labRequest));
+        LabRequest savedRequest = labRequestRepository.save(labRequest);
+        log.info("✅ SAUVEGARDE EN BASE - ID: {}, Status: {}", 
+                savedRequest.getId(), savedRequest.getStatus());
+        
+        return labRequestMapper.toDto(savedRequest);
     }
 
     @Override
     public LabRequestResponse getById(Long id) {
-        return labRequestMapper.toDto(findOrThrow(id));
+        log.info("🔍 REQUÊTE BASE - ID: {}", id);
+        LabRequest labRequest = findOrThrow(id);
+        log.info("📋 DEMANDE TROUVÉE - ID: {}, Status: {}", id, labRequest.getStatus());
+        return labRequestMapper.toDto(labRequest);
     }
 
     @Override
     public List<LabRequestResponse> getAll() {
-        return labRequestRepository.findAll()
-                .stream()
-                .map(labRequestMapper::toDto)
+        log.info("🔍 REQUÊTE BASE - Toutes les demandes");
+        List<LabRequest> requests = labRequestRepository.findAll();
+        log.info("📊 RÉSULTAT BASE - {} demandes trouvées", requests.size());
+        return requests.stream()
+                .map(request -> {
+                    log.debug("📋 Demande trouvée - ID: {}, Status: {}, Test: {}", 
+                            request.getId(), request.getStatus(), request.getTestType());
+                    return labRequestMapper.toDto(request);
+                })
                 .collect(Collectors.toList());
     }
 
     @Override
     public LabRequestResponse update(Long id, LabRequestRequest request) {
+        log.info("📝 MISE À JOUR BASE - ID: {}, Nouvelles données: {}", id, request);
+        
         LabRequest labRequest = findOrThrow(id);
+        log.info("📋 ÉTAT ACTUEL - ID: {}, Status: {}", id, labRequest.getStatus());
 
         if (labRequest.getStatus() == LabRequestStatus.COMPLETED ||
                 labRequest.getStatus() == LabRequestStatus.CANCELLED) {
+            log.error("❌ MISE À JOUR IMPOSSIBLE - Statut final: {}", labRequest.getStatus());
             throw new IllegalArgumentException(
                     "Cannot update a request with status: " + labRequest.getStatus());
         }
 
         labRequestMapper.updateFromDto(request, labRequest);
-        return labRequestMapper.toDto(labRequestRepository.save(labRequest));
+        LabRequest updatedRequest = labRequestRepository.save(labRequest);
+        log.info("✅ MISE À JOUR EFFECTUÉE - ID: {}, Nouveau statut: {}", 
+                updatedRequest.getId(), updatedRequest.getStatus());
+        
+        return labRequestMapper.toDto(updatedRequest);
     }
 
     @Override
     public void delete(Long id) {
+        log.info("🗑️ SUPPRESSION BASE - ID: {}", id);
+        
         LabRequest labRequest = findOrThrow(id);
+        log.info("📋 DEMANDE À SUPPRIMER - ID: {}, Status: {}", id, labRequest.getStatus());
 
         if (labRequest.getStatus() == LabRequestStatus.COMPLETED) {
+            log.error("❌ SUPPRESSION IMPOSSIBLE - Demande complétée: {}", labRequest.getStatus());
             throw new IllegalArgumentException(
                     "Cannot delete a COMPLETED lab request.");
         }
 
         labRequestRepository.deleteById(id);
+        log.info("✅ SUPPRESSION EFFECTUÉE - ID: {}", id);
     }
 
     @Override
     public List<LabRequestResponse> getByPatient(Long patientId) {
-        return labRequestRepository.findByPatientId(patientId)
-                .stream()
-                .map(labRequestMapper::toDto)
+        log.info("🔍 REQUÊTE BASE - Patient ID: {}", patientId);
+        
+        List<LabRequest> requests = labRequestRepository.findByPatientId(patientId);
+        log.info("📊 RÉSULTAT BASE - {} demandes trouvées pour patient {}", requests.size(), patientId);
+        
+        return requests.stream()
+                .map(request -> {
+                    log.debug("📋 Demande trouvée - ID: {}, Status: {}, Test: {}", 
+                            request.getId(), request.getStatus(), request.getTestType());
+                    return labRequestMapper.toDto(request);
+                })
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<LabRequestResponse> getByDoctor(Long doctorId) {
-        return labRequestRepository.findByDoctorId(doctorId)
-                .stream()
+        log.info("🔍 REQUÊTE BASE - Doctor ID: {}", doctorId);
+        
+        List<LabRequest> requests = labRequestRepository.findByDoctorId(doctorId);
+        log.info("📊 RÉSULTAT BASE - {} demandes trouvées pour doctor {}", requests.size(), doctorId);
+        
+        return requests.stream()
                 .map(labRequestMapper::toDto)
                 .collect(Collectors.toList());
     }
