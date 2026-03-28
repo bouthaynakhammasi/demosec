@@ -54,37 +54,31 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // ✅ Public endpoints
+                        // Public endpoints
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/home-care-services/**").permitAll()
                         .requestMatchers("/user/**").authenticated()
 
-                        // ✅ FORUM - Posts
-                        .requestMatchers(HttpMethod.GET, "/api/posts/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/posts/**").hasAnyRole(
+                        // FORUM - Posts and Comments (using /api/forum prefix)
+                        .requestMatchers(HttpMethod.GET, "/api/forum/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/forum/posts/**").hasAnyRole(
                                 "DOCTOR", "CLINIC", "PHARMACIST",
                                 "LABORATORY_STAFF", "NUTRITIONIST",
                                 "HOME_CARE_PROVIDER", "ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/posts/**").hasAnyRole(
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/posts/**").hasAnyRole(
                                 "DOCTOR", "CLINIC", "PHARMACIST",
                                 "LABORATORY_STAFF", "NUTRITIONIST",
                                 "HOME_CARE_PROVIDER", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasAnyRole(
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/posts/**").hasAnyRole(
                                 "DOCTOR", "CLINIC", "PHARMACIST",
                                 "LABORATORY_STAFF", "NUTRITIONIST",
                                 "HOME_CARE_PROVIDER", "ADMIN")
-
-                        // ✅ FORUM - Comments
-                        .requestMatchers(HttpMethod.GET, "/api/comments/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/comments/**").hasAnyRole(
-                                "PATIENT", "DOCTOR", "CLINIC", "PHARMACIST",
-                                "LABORATORY_STAFF", "NUTRITIONIST",
-                                "HOME_CARE_PROVIDER", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/comments/**").hasAnyRole(
-                                "PATIENT", "DOCTOR", "CLINIC", "PHARMACIST",
-                                "LABORATORY_STAFF", "NUTRITIONIST",
-                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/comments/**").authenticated()
+                        .requestMatchers("/api/forum/posts/*/like").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/posts/*/like").authenticated()
 
                         // Doctor medical module
                         .requestMatchers("/treatment/**").hasRole("DOCTOR")

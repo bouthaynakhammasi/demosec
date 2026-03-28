@@ -127,9 +127,9 @@ public class IAuthServiceImp implements IAuthService {
                 .map(GrantedAuthority::getAuthority)
                 .orElse("ROLE_VISITOR");
 
-        String token = jwtService.generateToken(userDetails, user.getFullName());
+        String token = jwtService.generateToken(userDetails, user.getFullName(), user.getId());
 
-        return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
+        return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role, user.getId());
     }
 
     // ✅ Étape 1 : Envoyer email de reset
