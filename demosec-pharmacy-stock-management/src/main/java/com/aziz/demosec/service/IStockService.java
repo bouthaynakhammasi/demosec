@@ -1,11 +1,11 @@
 package com.aziz.demosec.service;
 
-import com.aziz.demosec.dto.request.ReceiveBatchRequest;
-import com.aziz.demosec.dto.request.StockMovementRequest;
-import com.aziz.demosec.dto.response.PharmacyStockResponse;
-import com.aziz.demosec.dto.response.StockAlertResponse;
-import com.aziz.demosec.dto.response.StockBatchResponse;
-import com.aziz.demosec.dto.response.StockMovementResponse;
+import com.aziz.demosec.dto.ReceiveBatchRequest;
+import com.aziz.demosec.dto.StockMovementRequest;
+import com.aziz.demosec.dto.PharmacyStockResponse;
+import com.aziz.demosec.dto.StockAlertResponse;
+import com.aziz.demosec.dto.StockBatchResponse;
+import com.aziz.demosec.dto.StockMovementResponse;
 
 import java.util.List;
 

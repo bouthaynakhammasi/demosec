@@ -1,4 +1,4 @@
-package com.aziz.demosec.dto.response;
+package com.aziz.demosec.dto;
 
 import com.aziz.demosec.entities.StockAlertType;
 import lombok.Builder;

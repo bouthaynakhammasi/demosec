@@ -1,8 +1,9 @@
 package com.aziz.demosec.controller;
 
-import com.aziz.demosec.dto.request.ProductRequest;
-import com.aziz.demosec.dto.response.ProductResponse;
+import com.aziz.demosec.dto.ProductRequest;
+import com.aziz.demosec.dto.ProductResponse;
 import com.aziz.demosec.service.IProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +17,9 @@ public class ProductController {
 
     private final IProductService productService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse create(@RequestBody ProductRequest request) {
-        return productService.create(request);
-    }
-
-    @PutMapping("/{id}")
-    public ProductResponse update(@PathVariable Long id, @RequestBody ProductRequest request) {
-        return productService.update(id, request);
+    @GetMapping
+    public List<ProductResponse> getAll() {
+        return productService.getAll();
     }
 
     @GetMapping("/{id}")
@@ -32,9 +27,16 @@ public class ProductController {
         return productService.getById(id);
     }
 
-    @GetMapping
-    public List<ProductResponse> getAll() {
-        return productService.getAll();
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductResponse create(@Valid @RequestBody ProductRequest request) {
+        return productService.create(request);
+    }
+
+    @PutMapping("/{id}")
+    public ProductResponse update(@PathVariable Long id,
+                                  @Valid @RequestBody ProductRequest request) {
+        return productService.update(id, request);
     }
 
     @DeleteMapping("/{id}")

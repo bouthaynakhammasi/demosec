@@ -5,6 +5,7 @@ import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.security.jwt.JwtService;
 import com.aziz.demosec.service.EmailVerificationService;
 import com.aziz.demosec.service.PendingGoogleLoginService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,14 +21,13 @@ public class GoogleAuthController {
     private final JwtService jwtService;
 
     @PostMapping("/verify")
-    public AuthResponse verify(@RequestBody VerifyCodeRequest req) {
+    public AuthResponse verify(@Valid @RequestBody VerifyCodeRequest req) {
 
         emailService.verify(req.getEmail(), req.getCode());
 
         String role = pending.get(req.getEmail());
-
         if (role == null || role.isBlank()) {
-            role = "ROLE_PATIENT"; // ou ROLE_VISITOR
+            role = "ROLE_PATIENT";
         }
 
         UserDetails user = User.withUsername(req.getEmail())

@@ -2,8 +2,8 @@ package com.aziz.demosec.service;
 
 import com.aziz.demosec.entities.Pharmacy;
 import com.aziz.demosec.repository.PharmacyRepository;
-import com.aziz.demosec.dto.request.PharmacyRequest;
-import com.aziz.demosec.dto.response.PharmacyResponse;
+import com.aziz.demosec.dto.PharmacyRequest;
+import com.aziz.demosec.dto.PharmacyResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

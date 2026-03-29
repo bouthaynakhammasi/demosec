@@ -1,5 +1,5 @@
 
-package com.aziz.demosec.dto.response;
+package com.aziz.demosec.dto;
 
 import com.aziz.demosec.entities.MedicalEventType;
 import lombok.Builder;

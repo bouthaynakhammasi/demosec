@@ -1,7 +1,7 @@
 package com.aziz.demosec.service;
 
-import com.aziz.demosec.dto.request.EventRegistrationCreateRequest;
-import com.aziz.demosec.dto.response.EventRegistrationResponse;
+import com.aziz.demosec.dto.EventRegistrationCreateRequest;
+import com.aziz.demosec.dto.EventRegistrationResponse;
 
 import java.util.List;
 

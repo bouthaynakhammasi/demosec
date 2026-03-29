@@ -1,9 +1,9 @@
 package com.aziz.demosec.service;
 
 import com.aziz.demosec.domain.User;
-import com.aziz.demosec.dto.request.MedicalEventCreateRequest;
-import com.aziz.demosec.dto.request.MedicalEventUpdateRequest;
-import com.aziz.demosec.dto.response.MedicalEventResponse;
+import com.aziz.demosec.dto.MedicalEventCreateRequest;
+import com.aziz.demosec.dto.MedicalEventUpdateRequest;
+import com.aziz.demosec.dto.MedicalEventResponse;
 import com.aziz.demosec.entities.*;
 import com.aziz.demosec.repository.MedicalEventRepository;
 import com.aziz.demosec.repository.UserRepository;

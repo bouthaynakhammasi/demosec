@@ -1,7 +1,7 @@
 package com.aziz.demosec.controller;
 
-import com.aziz.demosec.dto.request.PharmacyRequest;
-import com.aziz.demosec.dto.response.PharmacyResponse;
+import com.aziz.demosec.dto.PharmacyRequest;
+import com.aziz.demosec.dto.PharmacyResponse;
 import com.aziz.demosec.service.IPharmacyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

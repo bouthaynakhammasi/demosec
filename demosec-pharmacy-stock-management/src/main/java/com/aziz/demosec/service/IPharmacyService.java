@@ -1,7 +1,7 @@
 package com.aziz.demosec.service;
 
-import com.aziz.demosec.dto.request.PharmacyRequest;
-import com.aziz.demosec.dto.response.PharmacyResponse;
+import com.aziz.demosec.dto.PharmacyRequest;
+import com.aziz.demosec.dto.PharmacyResponse;
 
 import java.util.List;
 

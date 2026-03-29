@@ -1,10 +1,10 @@
 package com.aziz.demosec.controller;
 
-import com.aziz.demosec.dto.request.MedicalEventCreateRequest;
-import com.aziz.demosec.dto.request.MedicalEventUpdateRequest;
-import com.aziz.demosec.dto.response.MedicalEventResponse;
-import com.aziz.demosec.entities.MedicalEventType;
+import com.aziz.demosec.dto.MedicalEventCreateRequest;
+import com.aziz.demosec.dto.MedicalEventUpdateRequest;
+import com.aziz.demosec.dto.MedicalEventResponse;
 import com.aziz.demosec.service.IMedicalEventService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +18,9 @@ public class MedicalEventController {
 
     private final IMedicalEventService medicalEventService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public MedicalEventResponse create(@RequestBody MedicalEventCreateRequest request) {
-        return medicalEventService.create(request);
-    }
-
-    @PutMapping("/{id}")
-    public MedicalEventResponse update(@PathVariable Long id, @RequestBody MedicalEventUpdateRequest request) {
-        return medicalEventService.update(id, request);
+    @GetMapping
+    public List<MedicalEventResponse> getAll() {
+        return medicalEventService.getAll();
     }
 
     @GetMapping("/{id}")
@@ -34,19 +28,16 @@ public class MedicalEventController {
         return medicalEventService.getById(id);
     }
 
-    @GetMapping
-    public List<MedicalEventResponse> getAll() {
-        return medicalEventService.getAll();
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public MedicalEventResponse create(@Valid @RequestBody MedicalEventCreateRequest request) {
+        return medicalEventService.create(request);
     }
 
-    @GetMapping("/upcoming")
-    public List<MedicalEventResponse> upcoming() {
-        return medicalEventService.getUpcoming();
-    }
-
-    @GetMapping("/type/{type}")
-    public List<MedicalEventResponse> byType(@PathVariable MedicalEventType type) {
-        return medicalEventService.getByType(type);
+    @PutMapping("/{id}")
+    public MedicalEventResponse update(@PathVariable Long id,
+                                       @Valid @RequestBody MedicalEventUpdateRequest request) {
+        return medicalEventService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
