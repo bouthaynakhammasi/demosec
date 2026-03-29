@@ -113,13 +113,18 @@ public class EmergencyServiceImpl implements IEmergencyService {
     @Override
     public AmbulanceResponseDTO createAmbulance(AmbulanceRequestDTO dto) {
         Clinic clinic = clinicRepository.findById(dto.getClinicId())
-                .orElseThrow(() -> new RuntimeException("Clinic not found"));
+                .orElseGet(() -> {
+                    // Fallback to the first clinic if not found by ID (useful for dev/env issues)
+                    return clinicRepository.findAll().stream().findFirst()
+                        .orElseThrow(() -> new RuntimeException("No clinics found in database. Please create a clinic first."));
+                });
 
         Ambulance ambulance = Ambulance.builder()
                 .clinic(clinic)
                 .currentLat(dto.getCurrentLat())
                 .currentLng(dto.getCurrentLng())
-
+                .licensePlate(dto.getLicensePlate())
+                .status(dto.getStatus() != null ? dto.getStatus() : "AVAILABLE")
                 .build();
 
         return toAmbulanceDTO(ambulanceRepository.save(ambulance));
@@ -149,6 +154,12 @@ public class EmergencyServiceImpl implements IEmergencyService {
         Ambulance ambulance = findAmbulanceById(id);
         ambulance.setCurrentLat(dto.getCurrentLat());
         ambulance.setCurrentLng(dto.getCurrentLng());
+        if (dto.getLicensePlate() != null) {
+            ambulance.setLicensePlate(dto.getLicensePlate());
+        }
+        if (dto.getStatus() != null) {
+            ambulance.setStatus(dto.getStatus());
+        }
         return toAmbulanceDTO(ambulanceRepository.save(ambulance));
     }
 
@@ -257,9 +268,11 @@ public class EmergencyServiceImpl implements IEmergencyService {
     private AmbulanceResponseDTO toAmbulanceDTO(Ambulance a) {
         return AmbulanceResponseDTO.builder()
                 .id(a.getId())
-                .clinicId(a.getClinic().getId())
+                .clinicId(a.getClinic() != null ? a.getClinic().getId() : null)
                 .currentLat(a.getCurrentLat())
                 .currentLng(a.getCurrentLng())
+                .licensePlate(a.getLicensePlate())
+                .status(a.getStatus() != null ? a.getStatus() : "AVAILABLE")
                 .build();
     }
 

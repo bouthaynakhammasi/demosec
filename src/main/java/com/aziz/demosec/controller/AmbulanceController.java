@@ -6,6 +6,7 @@ import com.aziz.demosec.service.IEmergencyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class AmbulanceController {
     private final IEmergencyService emergencyService;
 
     @PostMapping
-    public ResponseEntity<AmbulanceResponseDTO> create(@RequestBody AmbulanceRequestDTO dto) {
+    public ResponseEntity<AmbulanceResponseDTO> create(@Valid @RequestBody AmbulanceRequestDTO dto) {
         return ResponseEntity.ok(emergencyService.createAmbulance(dto));
     }
 
@@ -37,7 +38,7 @@ public class AmbulanceController {
 
     @PutMapping("/{id}")
     public ResponseEntity<AmbulanceResponseDTO> update(
-            @PathVariable Long id, @RequestBody AmbulanceRequestDTO dto) {
+            @PathVariable Long id, @Valid @RequestBody AmbulanceRequestDTO dto) {
         return ResponseEntity.ok(emergencyService.updateAmbulance(id, dto));
     }
 

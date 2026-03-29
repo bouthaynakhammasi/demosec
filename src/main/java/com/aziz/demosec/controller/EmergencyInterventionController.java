@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/interventions")
@@ -18,7 +19,7 @@ public class EmergencyInterventionController {
 
     @PostMapping("/dispatch")
     public ResponseEntity<EmergencyInterventionResponseDTO> dispatch(
-            @RequestBody EmergencyInterventionRequestDTO dto) {
+            @Valid @RequestBody EmergencyInterventionRequestDTO dto) {
         return ResponseEntity.ok(emergencyService.dispatchIntervention(dto));
     }
 

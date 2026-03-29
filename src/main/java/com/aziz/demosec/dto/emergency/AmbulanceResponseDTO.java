@@ -13,4 +13,5 @@ public class AmbulanceResponseDTO {
     private Double currentLat;
     private Double currentLng;
     private String licensePlate;
+    private String status;
 }

@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,46 +14,80 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import io.jsonwebtoken.ExpiredJwtException;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
+
+    // List of public endpoints to skip JWT
+    private static final List<String> PUBLIC_ENDPOINTS = List.of(
+            "/auth",
+            "/api/home-care-services",
+            "/api/v1/doctors",
+            "/error"
+    );
 
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
-        // 1. Lire le header Authorization
-         String authHeader = request.getHeader("Authorization");
-         String jwt;
-         String userEmail;
+
+        String path = request.getServletPath();
+
+        // 1️⃣ Read Authorization header
+        String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            log.debug("JWT filter skip: method={}, uri={}, hasAuthHeader={}", request.getMethod(), path, authHeader != null);
             filterChain.doFilter(request, response);
             return;
         }
-        // 2. Extraire le token
-        jwt = authHeader.substring(7);
-        userEmail = jwtService.extractEmail(jwt);
-        // 3. Valider le token
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities());
-                authToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+
+        String jwt = authHeader.substring(7);
+        String userEmail;
+
+        try {
+            // 3️⃣ Extract email from JWT
+            userEmail = jwtService.extractEmail(jwt);
+
+            // 4️⃣ Authenticate if not already authenticated
+            if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+                if (jwtService.isTokenValid(jwt, userDetails)) {
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                    log.debug("JWT valid: subject={}, authorities={}", userEmail, userDetails.getAuthorities());
+                } else {
+                    log.debug("JWT invalid: subject={}", userEmail);
+                }
             }
+
+        } catch (ExpiredJwtException e) {
+            log.warn("JWT expired: {}", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("JWT expired");
+            return;
+        } catch (Exception e) {
+            log.error("JWT processing failed", e);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid JWT");
+            return;
         }
-        // 4. Continuer la chaine
+
+        // 5️⃣ Continue filter chain
         filterChain.doFilter(request, response);
     }
 }
+

@@ -21,6 +21,7 @@ public interface IDonationService {
     List<AidRequestResponseDTO> getAllAidRequests();
     List<AidRequestResponseDTO> getAidRequestsByPatient(Long patientId);
     AidRequestResponseDTO updateAidRequestStatus(Long id, AidRequestStatus status);
+    AidRequestResponseDTO updateAidRequest(Long id, AidRequestDTO dto);
     void deleteAidRequest(Long id);
 
     // ─── ASSIGNMENT ───────────────────────────────────────────────

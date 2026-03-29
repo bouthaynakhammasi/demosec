@@ -7,7 +7,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "patients")
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class Patient extends User {
 
-    private LocalDate dateOfBirth;
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @Enumerated(EnumType.STRING)

@@ -23,6 +23,7 @@ public class DonationServiceImpl implements IDonationService {
     @Override
     public DonationResponseDTO createDonation(DonationRequestDTO dto) {
         Donation donation = Donation.builder()
+                .creatorId(dto.getCreatorId())
                 .donorName(dto.getDonorName())
                 .type(dto.getType())
                 .status(DonationStatus.AVAILABLE)
@@ -30,6 +31,7 @@ public class DonationServiceImpl implements IDonationService {
                 .categorie(dto.getCategorie())
                 .description(dto.getDescription())
                 .quantite(dto.getQuantite())
+                .photoData(dto.getImageData())
                 .build();
         return toResponseDTO(donationRepository.save(donation));
     }
@@ -61,6 +63,7 @@ public class DonationServiceImpl implements IDonationService {
         donation.setCategorie(dto.getCategorie());
         donation.setDescription(dto.getDescription());
         donation.setQuantite(dto.getQuantite());
+        donation.setPhotoData(dto.getImageData());
         return toResponseDTO(donationRepository.save(donation));
     }
 
@@ -79,7 +82,7 @@ public class DonationServiceImpl implements IDonationService {
         AidRequest request = AidRequest.builder()
                 .patient(patient)
                 .description(dto.getDescription())
-                .supportingDocument(dto.getSupportingDocument())
+                .documentFile(dto.getSupportingDocument())
                 .status(AidRequestStatus.PENDING)
                 .build();
 
@@ -115,6 +118,16 @@ public class DonationServiceImpl implements IDonationService {
     @Override
     public void deleteAidRequest(Long id) {
         aidRequestRepository.deleteById(id);
+    }
+
+    @Override
+    public AidRequestResponseDTO updateAidRequest(Long id, AidRequestDTO dto) {
+        AidRequest request = findAidRequestById(id);
+        request.setDescription(dto.getDescription());
+        if (dto.getSupportingDocument() != null && !dto.getSupportingDocument().isEmpty()) {
+            request.setDocumentFile(dto.getSupportingDocument());
+        }
+        return toAidResponseDTO(aidRequestRepository.save(request));
     }
 
     // ─── ASSIGNMENT ───────────────────────────────────────────────
@@ -157,15 +170,25 @@ public class DonationServiceImpl implements IDonationService {
     }
 
     private DonationResponseDTO toResponseDTO(Donation d) {
+        String profileImg = null;
+        if (d.getCreatorId() != null) {
+            profileImg = userRepository.findById(d.getCreatorId())
+                                       .map(user -> user.getProfileImage())
+                                       .orElse(null);
+        }
+
         return DonationResponseDTO.builder()
                 .id(d.getId())
+                .creatorId(d.getCreatorId())
                 .donorName(d.getDonorName())
+                .donorProfileImage(profileImg)
                 .type(d.getType())
                 .status(d.getStatus())
                 .amount(d.getAmount())
                 .categorie(d.getCategorie())
                 .description(d.getDescription())
                 .quantite(d.getQuantite())
+                .imageData(d.getPhotoData())
                 .createdAt(d.getCreatedAt())
                 .build();
     }
@@ -176,7 +199,7 @@ public class DonationServiceImpl implements IDonationService {
                 .patientId(r.getPatient().getId())
                 .patientName(r.getPatient().getFullName())
                 .description(r.getDescription())
-                .supportingDocument(r.getSupportingDocument())
+                .supportingDocument(r.getDocumentFile())
                 .status(r.getStatus())
                 .createdAt(r.getCreatedAt())
                 .build();

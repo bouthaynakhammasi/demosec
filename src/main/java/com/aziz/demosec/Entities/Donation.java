@@ -31,6 +31,7 @@ public class Donation {
 
     private String donorName;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private DonationStatus status = DonationStatus.AVAILABLE;
@@ -38,10 +39,17 @@ public class Donation {
     // ✅ Champs MONEY (nullable si type=MATERIEL)
     private Double amount;
 
-    // ✅ Champs MATERIEL (nullable si type=MONEY)
+    // ✅ Champs MATERIELe (nullable si type=MONEY)
     private String categorie;
     private String description;
     private Integer quantite;
+
+    @Column(name="creator_id")
+    private Long creatorId;
+
+    @Lob
+    @Column(name="photo_data", columnDefinition="LONGTEXT")
+    private String photoData;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

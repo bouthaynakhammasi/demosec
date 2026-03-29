@@ -8,6 +8,7 @@ import com.aziz.demosec.service.IDonationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class DonationController {
     // ─── DONATIONS ───────────────────────────────────────────────
 
     @PostMapping
-    public ResponseEntity<DonationResponseDTO> create(@RequestBody DonationRequestDTO dto) {
+    public ResponseEntity<DonationResponseDTO> create(@Valid @RequestBody DonationRequestDTO dto) {
         return ResponseEntity.ok(donationService.createDonation(dto));
     }
 
@@ -40,7 +41,7 @@ public class DonationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<DonationResponseDTO> update(
-            @PathVariable Long id, @RequestBody DonationRequestDTO dto) {
+            @PathVariable Long id, @Valid @RequestBody DonationRequestDTO dto) {
         return ResponseEntity.ok(donationService.updateDonation(id, dto));
     }
 

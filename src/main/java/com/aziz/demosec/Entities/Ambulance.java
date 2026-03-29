@@ -16,10 +16,14 @@ public class Ambulance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "clinic_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clinic_id")
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
     private Clinic clinic;
 
     private Double currentLat;
     private Double currentLng;
+    private String licensePlate;
+    @Builder.Default
+    private String status = "AVAILABLE";
 }

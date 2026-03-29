@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "clinics")
+@Table(name = "clinic")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,4 +33,8 @@ public class Clinic {
     private boolean hasAmbulance;
     private String emergencyPhone;
     private String ambulancePhone;
+
+    @Builder.Default
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean verified = false;
 }

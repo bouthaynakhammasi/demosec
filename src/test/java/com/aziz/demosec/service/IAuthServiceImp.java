@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-@RequiredArgsConstructor
 public class IAuthServiceImp implements IAuthService{
 
     private final UserRepository userRepository;
@@ -25,6 +24,20 @@ public class IAuthServiceImp implements IAuthService{
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
     private final JwtService jwtService;
+
+    public IAuthServiceImp(
+            UserRepository userRepository,
+            @org.springframework.context.annotation.Lazy PasswordEncoder passwordEncoder,
+            @org.springframework.context.annotation.Lazy AuthenticationManager authenticationManager,
+            CustomUserDetailsService userDetailsService,
+            JwtService jwtService
+    ) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.jwtService = jwtService;
+    }
 
     // ── Register ──────────────────────────────────────────
     @Override

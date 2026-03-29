@@ -25,7 +25,10 @@ public class AidRequest {
 
     @Column(nullable = false)
     private String description;
-    private String supportingDocument;
+    
+    @Lob
+    @Column(name="document_file", columnDefinition="LONGTEXT")
+    private String documentFile;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -1,6 +1,6 @@
 package com.aziz.demosec.Entities;
 
-public enum EmergencySeverity {
+public enum  EmergencySeverity {
     LOW,
     HIGH,
     CRITICAL

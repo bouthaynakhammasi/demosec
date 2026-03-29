@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/emergency-alerts")
@@ -17,7 +18,7 @@ public class EmergencyAlertController {
     private final IEmergencyService emergencyService;
 
     @PostMapping
-    public ResponseEntity<EmergencyAlertResponseDTO> create(@RequestBody EmergencyAlertRequestDTO dto) {
+    public ResponseEntity<EmergencyAlertResponseDTO> create(@Valid @RequestBody EmergencyAlertRequestDTO dto) {
         return ResponseEntity.ok(emergencyService.createAlert(dto));
     }
 

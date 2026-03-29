@@ -5,8 +5,9 @@ import com.aziz.demosec.Entities.AidRequestStatus;
 import com.aziz.demosec.dto.donation.*;
 import com.aziz.demosec.service.IDonationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,8 +16,9 @@ import java.util.List;
 public class AidRequestController {
 
     private final IDonationService donationService;
+    
     @PostMapping
-    public ResponseEntity<AidRequestResponseDTO> create(@RequestBody AidRequestDTO dto) {
+    public ResponseEntity<AidRequestResponseDTO> create(@Valid @RequestBody AidRequestDTO dto) {
         return ResponseEntity.ok(donationService.createAidRequest(dto));
     }
 
@@ -39,6 +41,12 @@ public class AidRequestController {
     public ResponseEntity<AidRequestResponseDTO> updateStatus(
             @PathVariable Long id, @RequestParam AidRequestStatus status) {
         return ResponseEntity.ok(donationService.updateAidRequestStatus(id, status));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AidRequestResponseDTO> update(
+            @PathVariable Long id, @Valid @RequestBody AidRequestDTO dto) {
+        return ResponseEntity.ok(donationService.updateAidRequest(id, dto));
     }
 
     @DeleteMapping("/{id}")

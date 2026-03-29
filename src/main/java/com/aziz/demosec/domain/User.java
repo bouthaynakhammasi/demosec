@@ -38,4 +38,13 @@ public class User {
 
     @Builder.Default
     boolean enabled = true;
+
+    @Builder.Default
+    boolean profileCompleted = false;
+
+    @Column(columnDefinition = "LONGTEXT")
+    String profileImage;
+
+    public String getProfileImage() { return this.profileImage; }
+    public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
 }

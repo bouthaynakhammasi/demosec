@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 
 @Entity
-@Table(name = "nutritionists")
+
 @Getter
 @Setter
 @NoArgsConstructor

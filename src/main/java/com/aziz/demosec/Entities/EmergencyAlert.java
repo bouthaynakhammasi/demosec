@@ -36,6 +36,7 @@ public class EmergencyAlert {
     @Column(nullable = false)
     private Double longitude;
 
+    @Builder.Default
     private Boolean canceledByPatient = false;
 
     @Column(nullable = false, updatable = false)
