@@ -40,7 +40,7 @@ public class ProgressTracking {
     @Column(nullable = false)
     private String metric;
 
-    @Column(nullable = false)
-    private String value;
+    @Column(name = "result_value", nullable = false)
+    private String resultValue;
 
 }
