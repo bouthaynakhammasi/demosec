@@ -78,6 +78,7 @@ public class SecurityConfig {
                         .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/laboratories/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
