@@ -37,4 +37,8 @@ public class Review {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
+ 
+    @Column(nullable = false)
+    @Builder.Default
+    private Boolean isAnonymous = false;
 }

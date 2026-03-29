@@ -34,6 +34,7 @@ public class AppointmentService implements IAppointmentService {
     private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
     private final AppointmentMapper appointmentMapper;
+    private final com.aziz.demosec.repository.CalendarAvailabilityRepository availabilityRepository;
 
     @Override
     @Transactional
@@ -81,6 +82,14 @@ public class AppointmentService implements IAppointmentService {
                 .patientNotes(request.getNotes())
                 .build();
 
+        // [MODIF] Occlure le créneau dans le calendrier des disponibilités
+        availabilityRepository.findByCalendar_Provider_IdAndStartTimeBetween(provider.getId(), start.minusSeconds(1), start.plusSeconds(1))
+                .forEach(slot -> {
+                    slot.setStatus(com.aziz.demosec.Entities.appointment.AvailabilityStatus.BOOKED);
+                    availabilityRepository.save(slot);
+                    System.out.println("[DEBUG] Slot " + slot.getId() + " marked as BOOKED for provider " + provider.getId());
+                });
+
         return appointmentMapper.toDto(appointmentRepository.save(appointment));
     }
 
@@ -109,6 +118,14 @@ public class AppointmentService implements IAppointmentService {
 
         appointment.setStatus(AppointmentStatus.CANCELLED);
         appointment.setCancelledAt(LocalDateTime.now());
+
+        // [MODIF] Libérer le créneau dans le calendrier des disponibilités
+        availabilityRepository.findByCalendar_Provider_IdAndStartTimeBetween(appointment.getProviderId(), 
+                appointment.getStartTime().minusSeconds(1), appointment.getStartTime().plusSeconds(1))
+                .forEach(slot -> {
+                    slot.setStatus(com.aziz.demosec.Entities.appointment.AvailabilityStatus.AVAILABLE);
+                    availabilityRepository.save(slot);
+                });
 
         return appointmentMapper.toDto(appointmentRepository.save(appointment));
     }
@@ -284,5 +301,10 @@ public class AppointmentService implements IAppointmentService {
         
         appointment.setStatus(AppointmentStatus.LIVE);
         return appointmentMapper.toDto(appointmentRepository.save(appointment));
+    }
+    @Override
+    @Transactional
+    public void deleteAppointment(Long appointmentId) {
+        appointmentRepository.deleteById(appointmentId);
     }
 }

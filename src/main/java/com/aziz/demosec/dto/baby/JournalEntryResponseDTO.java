@@ -10,5 +10,6 @@ public class JournalEntryResponseDTO {
     private String entryType;
     private String value;
     private String notes;
+    private String metadata;
     private LocalDateTime createdAt;
 }

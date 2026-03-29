@@ -24,6 +24,9 @@ public class JournalEntry {
     
     @Column(columnDefinition = "TEXT")
     private String notes;
+
+    @Column(columnDefinition = "TEXT")
+    private String metadata;
     
     private LocalDateTime createdAt;
 

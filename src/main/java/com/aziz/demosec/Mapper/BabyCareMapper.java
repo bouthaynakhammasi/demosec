@@ -18,6 +18,7 @@ public class BabyCareMapper {
                 .gender(baby.getGender().toString())
                 .birthWeight(baby.getBirthWeight())
                 .birthHeight(baby.getBirthHeight())
+                .photoUrl(baby.getPhotoUrl())
                 .createdAt(baby.getCreatedAt())
                 .updatedAt(baby.getUpdatedAt())
                 .preferences(baby.getPreferences() != null ? 
@@ -53,6 +54,7 @@ public class BabyCareMapper {
                 .entryType(j.getEntryType().toString())
                 .value(j.getValue())
                 .notes(j.getNotes())
+                .metadata(j.getMetadata())
                 .createdAt(j.getCreatedAt())
                 .build();
     }

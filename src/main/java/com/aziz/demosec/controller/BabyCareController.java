@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class BabyCareController {
     private final BabyCareService babyService;
 
     @PostMapping("/profile")
-    public ResponseEntity<BabyProfileResponseDTO> createProfile(@RequestParam Long parentId, @RequestBody BabyProfileRequestDTO dto) {
+    public ResponseEntity<BabyProfileResponseDTO> createProfile(@RequestParam Long parentId, @Valid @RequestBody BabyProfileRequestDTO dto) {
         return ResponseEntity.ok(babyService.createProfile(parentId, dto));
     }
 
@@ -47,8 +49,8 @@ public class BabyCareController {
     @PostMapping("/journal/{babyId}")
     public ResponseEntity<JournalEntryResponseDTO> addJournalEntry(
             @PathVariable Long babyId,
-            @RequestBody JournalEntryRequestDTO dto) {
-        return ResponseEntity.ok(babyService.addJournalEntry(babyId, dto.getType(), dto.getValue(), dto.getNotes()));
+            @Valid @RequestBody JournalEntryRequestDTO dto) {
+        return ResponseEntity.ok(babyService.addJournalEntry(babyId, dto.getType(), dto.getValue(), dto.getNotes(), dto.getMetadata()));
     }
 
     @DeleteMapping("/journal/{id}")
@@ -80,12 +82,12 @@ public class BabyCareController {
     }
 
     @PostMapping("/diapers/{babyId}")
-    public ResponseEntity<DiaperRecordDTO> addDiaper(@PathVariable Long babyId, @RequestBody DiaperRecordDTO dto) {
+    public ResponseEntity<DiaperRecordDTO> addDiaper(@PathVariable Long babyId, @Valid @RequestBody DiaperRecordDTO dto) {
         return ResponseEntity.ok(babyService.addDiaper(babyId, dto));
     }
 
     @PutMapping("/diapers/record/{id}")
-    public ResponseEntity<DiaperRecordDTO> updateDiaper(@PathVariable Long id, @RequestBody DiaperRecordDTO dto) {
+    public ResponseEntity<DiaperRecordDTO> updateDiaper(@PathVariable Long id, @Valid @RequestBody DiaperRecordDTO dto) {
         return ResponseEntity.ok(babyService.updateDiaper(id, dto));
     }
 

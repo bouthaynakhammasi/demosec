@@ -6,6 +6,7 @@ import com.aziz.demosec.dto.AppointmentRequest;
 import com.aziz.demosec.dto.AppointmentResponse;
 import com.aziz.demosec.dto.RescheduleRequest;
 import com.aziz.demosec.service.IAppointmentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -30,11 +31,9 @@ public class AppointmentController {
     @ResponseStatus(HttpStatus.CREATED)
     public AppointmentResponse bookAppointment(
             @RequestParam(name = "patientId", required = false) Long patientId,
-            @RequestBody Map<String, Object> rawRequest) {
-        System.out.println("[DEBUG] Raw request reçue: " + rawRequest);
+            @Valid @RequestBody AppointmentRequest request) {
         
-        AppointmentRequest request = objectMapper.convertValue(rawRequest, AppointmentRequest.class);
-        System.out.println("[DEBUG] Request convertie: " + request);
+        System.out.println("[DEBUG] Request reçue: " + request);
 
         Long idToUse = (patientId != null) ? patientId : request.getPatientId();
         if (idToUse == null) {
@@ -109,5 +108,11 @@ public class AppointmentController {
             @PathVariable("id") Long id,
             @RequestBody(required = false) Object body) {
         return ResponseEntity.ok(appointmentService.startTeleconsultation(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAppointment(@PathVariable("id") Long id) {
+        appointmentService.deleteAppointment(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -35,6 +35,10 @@ public class BabyProfile {
     private Double birthWeight;
     private Double birthHeight;
 
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String photoUrl;
+
     private java.time.LocalDateTime createdAt;
     private java.time.LocalDateTime updatedAt;
 

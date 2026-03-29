@@ -105,56 +105,73 @@ public class ScheduleController {
 
     @PutMapping("/{providerId}/specific-week")
     @Transactional
-    public ResponseEntity<Void> saveSpecificWeek(
+    public ResponseEntity<?> saveSpecificWeek(
             @PathVariable("providerId") Long providerId,
             @RequestParam(value = "startDate", required = false) String startDateParam,
             @RequestBody List<ScheduleException> weekDays) {
         
-        LocalDate minDate = null;
-        LocalDate maxDate = null;
+        System.out.println("[DEBUG] PUT /api/v1/providers/" + providerId + "/specific-week - startDateParam=" + startDateParam);
+        System.out.println("[DEBUG] weekDays received: " + (weekDays != null ? weekDays.size() : "null"));
 
-        if (startDateParam != null) {
-            minDate = LocalDate.parse(startDateParam);
-            maxDate = minDate.plusDays(6);
-        } else if (!weekDays.isEmpty()) {
-            minDate = weekDays.get(0).getStartDate();
-            maxDate = weekDays.get(0).getEndDate();
-            for (ScheduleException e : weekDays) {
-                if (e.getStartDate().isBefore(minDate)) minDate = e.getStartDate();
-                if (e.getEndDate().isAfter(maxDate)) maxDate = e.getEndDate();
-            }
-        }
-        
-        if (minDate != null && maxDate != null) {
-            // Delete old "Semaine Spécifique" exceptions in this week range
-            List<ScheduleException> existing = scheduleExceptionRepository.findByProviderId(providerId);
-            for(ScheduleException ex : existing) {
-                if(!ex.getStartDate().isBefore(minDate) && !ex.getStartDate().isAfter(maxDate) && "Semaine Spécifique".equals(ex.getReason())) {
-                    scheduleExceptionRepository.delete(ex);
+        try {
+            LocalDate minDate = null;
+            LocalDate maxDate = null;
+
+            if (startDateParam != null) {
+                minDate = LocalDate.parse(startDateParam);
+                maxDate = minDate.plusDays(6);
+            } else if (!weekDays.isEmpty()) {
+                minDate = weekDays.get(0).getStartDate();
+                maxDate = weekDays.get(0).getEndDate();
+                for (ScheduleException e : weekDays) {
+                    if (e.getStartDate().isBefore(minDate)) minDate = e.getStartDate();
+                    if (e.getEndDate().isAfter(maxDate)) maxDate = e.getEndDate();
                 }
             }
-        }
             
+            if (minDate != null && maxDate != null) {
+                System.out.println("[DEBUG] Range detected: " + minDate + " to " + maxDate);
+                // Delete old "Semaine Spécifique" exceptions in this week range
+                List<ScheduleException> existing = scheduleExceptionRepository.findByProviderId(providerId);
+                for(ScheduleException ex : existing) {
+                    if(!ex.getStartDate().isBefore(minDate) && !ex.getStartDate().isAfter(maxDate) && "Semaine Spécifique".equals(ex.getReason())) {
+                        scheduleExceptionRepository.delete(ex);
+                    }
+                }
+                scheduleExceptionRepository.flush(); // Ensure old are GONE before sync
+            }
+                
             // Save new
-            for(ScheduleException e : weekDays) {
-                e.setProviderId(providerId);
-                e.setReason("Semaine Spécifique");
-                e.setType(com.aziz.demosec.Entities.ExceptionType.PARTIAL_AVAILABILITY);
-                if (e.getTimeSlots() != null) {
-                    e.getTimeSlots().forEach(t -> {
-                        t.setId(null);
-                        t.setDaySchedule(null);
-                        t.setScheduleException(e);
-                    });
+            if (weekDays != null) {
+                for(ScheduleException e : weekDays) {
+                    System.out.println("[DEBUG] Saving exception for date: " + e.getStartDate() + " - Available: " + e.isAvailable());
+                    e.setProviderId(providerId);
+                    e.setReason("Semaine Spécifique");
+                    e.setType(com.aziz.demosec.Entities.ExceptionType.PARTIAL_AVAILABILITY);
+                    if (e.getTimeSlots() != null) {
+                        e.getTimeSlots().forEach(t -> {
+                            t.setId(null);
+                            t.setDaySchedule(null);
+                            t.setScheduleException(e);
+                        });
+                    }
+                    scheduleExceptionRepository.save(e);
                 }
-                scheduleExceptionRepository.save(e);
+                scheduleExceptionRepository.flush(); // Commit new before sync
             }
-        
-        // Sync with calendar availabilities to reflect the specific week changes
-        weeklyScheduleRepository.findByProvider_Id(providerId).ifPresent(templ -> 
-            syncWithCalendarAvailabilities(providerId, templ));
             
-        return ResponseEntity.ok().build();
+            // Sync with calendar availabilities
+            weeklyScheduleRepository.findByProvider_Id(providerId).ifPresent(templ -> {
+                System.out.println("[DEBUG] Syncing calendar availabilities for provider: " + providerId);
+                syncWithCalendarAvailabilities(providerId, templ);
+            });
+                
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to save specific week: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
     }
 
     @GetMapping("/{providerId}/schedule-exceptions")
@@ -189,17 +206,18 @@ public class ScheduleController {
     private void syncWithCalendarAvailabilities(Long providerId, WeeklySchedule template) {
         ProviderCalendar calendar = providerCalendarRepository.findByProvider_Id(providerId)
                 .orElseGet(() -> providerCalendarRepository.save(ProviderCalendar.builder()
-                        .provider(userRepository.findById(providerId).orElseThrow())
+                        .provider(userRepository.findById(providerId).orElseThrow(() -> new RuntimeException("Provider not found")))
                         .build()));
 
         // Delete future slots starting from today that are still available (don't delete booked slots)
         calendarAvailabilityRepository.deleteByCalendar_IdAndStartTimeAfterAndStatus(
             calendar.getId(), 
-            LocalDateTime.now(), 
+            LocalDateTime.now().minusMinutes(5), // Buffer for current day
             com.aziz.demosec.Entities.appointment.AvailabilityStatus.AVAILABLE
         );
 
         List<ScheduleException> exceptions = scheduleExceptionRepository.findByProviderId(providerId);
+        List<CalendarAvailability> slotsToSave = new ArrayList<>();
 
         // Generate next 30 days
         for (int i = 0; i < 30; i++) {
@@ -217,19 +235,23 @@ public class ScheduleController {
                     continue;
                 } else {
                     // Special working hours - use exception slots
-                    generateSlotsForDate(calendar, date, relevantException.getTimeSlots());
+                    generateSlotsForDate(calendar, date, relevantException.getTimeSlots(), slotsToSave);
                 }
             } else {
                 // Regular template
                 template.getDays().stream()
                     .filter(d -> d.getDayOfWeek().equals(dayName) && d.isActive())
                     .findFirst()
-                    .ifPresent(day -> generateSlotsForDate(calendar, date, day.getTimeSlots()));
+                    .ifPresent(day -> generateSlotsForDate(calendar, date, day.getTimeSlots(), slotsToSave));
             }
+        }
+        
+        if (!slotsToSave.isEmpty()) {
+            calendarAvailabilityRepository.saveAll(slotsToSave);
         }
     }
 
-    private void generateSlotsForDate(ProviderCalendar calendar, LocalDate date, List<WeeklyTimeSlot> templateSlots) {
+    private void generateSlotsForDate(ProviderCalendar calendar, LocalDate date, List<WeeklyTimeSlot> templateSlots, List<CalendarAvailability> collector) {
         if (templateSlots == null) return;
         
         for (WeeklyTimeSlot ws : templateSlots) {
@@ -244,7 +266,7 @@ public class ScheduleController {
                     .status(com.aziz.demosec.Entities.appointment.AvailabilityStatus.AVAILABLE)
                     .mode("ONLINE".equals(ws.getMode()) ? com.aziz.demosec.Entities.appointment.Mode.ONLINE : com.aziz.demosec.Entities.appointment.Mode.IN_PERSON)
                     .build();
-                calendarAvailabilityRepository.save(slot);
+                collector.add(slot);
             } catch (Exception e) {
                 // Ignore parsing errors for individual slots
             }

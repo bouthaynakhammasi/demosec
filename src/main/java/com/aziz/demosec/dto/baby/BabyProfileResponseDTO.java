@@ -14,6 +14,7 @@ public class BabyProfileResponseDTO {
     private String gender;
     private Double birthWeight;
     private Double birthHeight;
+    private String photoUrl;
     private List<ParentPreferenceDTO> preferences;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

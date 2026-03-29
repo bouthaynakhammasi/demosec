@@ -117,17 +117,19 @@ public class DoctorController {
                 .map(r -> com.aziz.demosec.dto.ReviewDTO.builder()
                         .id(r.getId())
                         .doctorId(r.getDoctor().getId())
-                        .patientName(anonymizeName(r.getPatient().getFullName()))
+                        .patientId(r.getPatient().getId())
+                        .patientName(Boolean.TRUE.equals(r.getIsAnonymous()) ? anonymizeName(r.getPatient().getFullName()) : r.getPatient().getFullName())
                         .rating(r.getRating())
                         .comment(r.getComment())
                         .createdAt(r.getCreatedAt())
+                        .isAnonymous(r.getIsAnonymous())
                         .build())
                 .collect(java.util.stream.Collectors.toList());
         return ResponseEntity.ok(reviews);
     }
-
+ 
     private String anonymizeName(String fullName) {
-        if (fullName == null || fullName.trim().isEmpty()) return "A***";
+        if (fullName == null || fullName.trim().isEmpty()) return "Patient Anonyme";
         String[] parts = fullName.split(" ");
         StringBuilder anon = new StringBuilder();
         for (String part : parts) {
@@ -137,6 +139,8 @@ public class DoctorController {
         }
         return anon.toString().trim();
     }
+
+
 
     @PostMapping("/{id}/reviews")
     @Transactional
@@ -161,23 +165,92 @@ public class DoctorController {
                 .doctor(doctor)
                 .rating(request.getRating())
                 .comment(request.getComment())
+                .isAnonymous(Boolean.TRUE.equals(request.getIsAnonymous()))
                 .build();
-                
+                 
         review = reviewRepository.save(review);
-        
+         
         // Update doctor rating calculation
         java.util.List<com.aziz.demosec.Entities.Review> allReviews = reviewRepository.findByDoctorId(id);
         double avg = allReviews.stream().mapToInt(com.aziz.demosec.Entities.Review::getRating).average().orElse(0.0);
         doctor.setRating(Math.round(avg * 10.0) / 10.0);
         doctorRepository.save(doctor);
-
+ 
         return ResponseEntity.ok(com.aziz.demosec.dto.ReviewDTO.builder()
                 .id(review.getId())
                 .doctorId(doctor.getId())
-                .patientName(anonymizeName(patient.getFullName()))
+                .patientId(patient.getId())
+                .patientName(Boolean.TRUE.equals(review.getIsAnonymous()) ? anonymizeName(patient.getFullName()) : patient.getFullName())
                 .rating(review.getRating())
                 .comment(review.getComment())
+                .isAnonymous(review.getIsAnonymous())
                 .createdAt(review.getCreatedAt() != null ? review.getCreatedAt() : java.time.LocalDateTime.now())
+                .build());
+    }
+
+    @DeleteMapping("/{id}/reviews/{reviewId}")
+    @Transactional
+    public ResponseEntity<Void> deleteReview(
+            @PathVariable("id") Long id,
+            @PathVariable("reviewId") Long reviewId,
+            org.springframework.security.core.Authentication authentication) {
+        
+        com.aziz.demosec.Entities.Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("Review not found"));
+        
+        if (!review.getPatient().getEmail().equals(authentication.getName())) {
+            throw new RuntimeException("Unauthorized: You can only delete your own reviews");
+        }
+        
+        reviewRepository.delete(review);
+        
+        // Update doctor rating calculation
+        java.util.List<com.aziz.demosec.Entities.Review> allReviews = reviewRepository.findByDoctorId(id);
+        double avg = allReviews.stream().mapToInt(com.aziz.demosec.Entities.Review::getRating).average().orElse(0.0);
+        Doctor doctor = doctorRepository.findById(id).orElseThrow();
+        doctor.setRating(Math.round(avg * 10.0) / 10.0);
+        doctorRepository.save(doctor);
+        
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/reviews/{reviewId}")
+    @Transactional
+    public ResponseEntity<com.aziz.demosec.dto.ReviewDTO> updateReview(
+            @PathVariable("id") Long id,
+            @PathVariable("reviewId") Long reviewId,
+            @RequestBody com.aziz.demosec.dto.ReviewRequest request,
+            org.springframework.security.core.Authentication authentication) {
+        
+        com.aziz.demosec.Entities.Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("Review not found"));
+        
+        if (!review.getPatient().getEmail().equals(authentication.getName())) {
+            throw new RuntimeException("Unauthorized: You can only update your own reviews");
+        }
+        
+        review.setRating(request.getRating());
+        review.setComment(request.getComment());
+        review.setIsAnonymous(Boolean.TRUE.equals(request.getIsAnonymous()));
+        
+        review = reviewRepository.save(review);
+        
+        // Update doctor rating calculation
+        java.util.List<com.aziz.demosec.Entities.Review> allReviews = reviewRepository.findByDoctorId(id);
+        double avg = allReviews.stream().mapToInt(com.aziz.demosec.Entities.Review::getRating).average().orElse(0.0);
+        Doctor doctor = doctorRepository.findById(id).orElseThrow();
+        doctor.setRating(Math.round(avg * 10.0) / 10.0);
+        doctorRepository.save(doctor);
+        
+        return ResponseEntity.ok(com.aziz.demosec.dto.ReviewDTO.builder()
+                .id(review.getId())
+                .doctorId(doctor.getId())
+                .patientId(review.getPatient().getId())
+                .patientName(Boolean.TRUE.equals(review.getIsAnonymous()) ? anonymizeName(review.getPatient().getFullName()) : review.getPatient().getFullName())
+                .rating(review.getRating())
+                .comment(review.getComment())
+                .isAnonymous(review.getIsAnonymous())
+                .createdAt(review.getCreatedAt())
                 .build());
     }
 }

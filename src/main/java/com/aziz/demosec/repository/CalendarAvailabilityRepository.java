@@ -36,5 +36,7 @@ public interface CalendarAvailabilityRepository extends JpaRepository<CalendarAv
     List<CalendarAvailability> findByCalendar_Provider_IdAndStartTimeBetweenAndStatusNot(
             Long providerId, LocalDateTime startTime, LocalDateTime endTime, AvailabilityStatus status);
 
+    @org.springframework.data.jpa.repository.Modifying
+    @org.springframework.transaction.annotation.Transactional
     void deleteByCalendar_IdAndStartTimeAfterAndStatus(Long calendarId, LocalDateTime startTime, AvailabilityStatus status);
 }

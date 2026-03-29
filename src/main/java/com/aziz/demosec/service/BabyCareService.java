@@ -25,6 +25,7 @@ public class BabyCareService {
     private final PatientRepository patientRepository;
     private final DiaperRecordRepository diaperRepository;
     private final BabyCareMapper mapper;
+    private final com.fasterxml.jackson.databind.ObjectMapper objectMapper;
 
     @Transactional
     public BabyProfileResponseDTO createProfile(Long parentId, BabyProfileRequestDTO dto) {
@@ -38,6 +39,7 @@ public class BabyCareService {
                 .gender(Gender.valueOf(dto.getGender()))
                 .birthWeight(dto.getBirthWeight())
                 .birthHeight(dto.getBirthHeight())
+                .photoUrl(dto.getPhotoUrl())
                 .build();
 
         BabyProfile saved = babyRepository.save(baby);
@@ -94,17 +96,29 @@ public class BabyCareService {
                 .filter(j -> j.getEntryType() == JournalEntryType.SLEEP && j.getCreatedAt().toLocalDate().equals(today))
                 .mapToLong(j -> {
                     try {
+                        // 1. Priority: Extract from metadata JSON for perfect precision
+                        if (j.getMetadata() != null && !j.getMetadata().isEmpty()) {
+                            try {
+                                com.fasterxml.jackson.databind.JsonNode node = objectMapper.readTree(j.getMetadata());
+                                if (node.has("totalDurationSeconds")) {
+                                    return node.get("totalDurationSeconds").asLong();
+                                }
+                            } catch (Exception e) { /* ignore and fallback */ }
+                        }
+
+                        // 2. Fallback: Parse string description
                         String val = j.getValue();
                         if (val == null) return 0;
                         
+                        java.util.regex.Matcher mHr = java.util.regex.Pattern.compile("(\\d+)\\s*h").matcher(val);
                         java.util.regex.Matcher mMin = java.util.regex.Pattern.compile("(\\d+)\\s*min").matcher(val);
                         java.util.regex.Matcher mSec = java.util.regex.Pattern.compile("(\\d+)\\s*sec").matcher(val);
                         
                         long totalS = 0;
+                        if (mHr.find()) totalS += Long.parseLong(mHr.group(1)) * 3600;
                         if (mMin.find()) totalS += Long.parseLong(mMin.group(1)) * 60;
                         if (mSec.find()) totalS += Long.parseLong(mSec.group(1));
                         
-                        // Fallback for purely numeric values or legacy
                         if (totalS == 0) {
                              java.util.regex.Matcher m = java.util.regex.Pattern.compile("\\d+").matcher(val);
                              if (m.find()) totalS = Long.parseLong(m.group()) * 60;
@@ -136,12 +150,23 @@ public class BabyCareService {
                 .filter(j -> j.getEntryType() == JournalEntryType.SLEEP && j.getCreatedAt().toLocalDate().equals(d))
                 .mapToLong(j -> {
                     try {
+                        if (j.getMetadata() != null && !j.getMetadata().isEmpty()) {
+                            try {
+                                com.fasterxml.jackson.databind.JsonNode node = objectMapper.readTree(j.getMetadata());
+                                if (node.has("totalDurationSeconds")) return node.get("totalDurationSeconds").asLong();
+                            } catch (Exception e) {}
+                        }
                         String val = j.getValue();
+                        if (val == null) return 0;
+                        java.util.regex.Matcher mHr = java.util.regex.Pattern.compile("(\\d+)\\s*h").matcher(val);
                         java.util.regex.Matcher mMin = java.util.regex.Pattern.compile("(\\d+)\\s*min").matcher(val);
                         java.util.regex.Matcher mSec = java.util.regex.Pattern.compile("(\\d+)\\s*sec").matcher(val);
+                        
                         long s = 0;
+                        if (mHr.find()) s += Long.parseLong(mHr.group(1)) * 3600;
                         if (mMin.find()) s += Long.parseLong(mMin.group(1)) * 60;
                         if (mSec.find()) s += Long.parseLong(mSec.group(1));
+                        
                         if (s == 0) {
                             java.util.regex.Matcher m = java.util.regex.Pattern.compile("\\d+").matcher(val);
                             if (m.find()) s = Long.parseLong(m.group()) * 60;
@@ -149,8 +174,7 @@ public class BabyCareService {
                         return s;
                     } catch (Exception e) { return 0; }
                 }).sum();
-            double hours = Math.round((secs / 3600.0) * 10.0) / 10.0;
-            weeklySleep.add(new SleepDayDTO(d.getDayOfWeek().toString().substring(0, 3), hours, secs));
+            weeklySleep.add(new SleepDayDTO(d.getDayOfWeek().toString().substring(0, 3), secs));
         }
 
         return BabyDashboardDTO.builder()
@@ -292,14 +316,33 @@ public class BabyCareService {
     }
 
     @Transactional
-    public JournalEntryResponseDTO addJournalEntry(Long babyId, JournalEntryType type, String value, String notes) {
+    public JournalEntryResponseDTO addJournalEntry(Long babyId, JournalEntryType type, String value, String notes, String metadata) {
         BabyProfile baby = babyRepository.findById(babyId).orElseThrow();
         JournalEntry entry = JournalEntry.builder()
                 .babyProfile(baby)
                 .entryType(type)
                 .value(value)
                 .notes(notes)
+                .metadata(metadata)
                 .build();
+        
+        // Protection against unrealistic durations (Max 24h)
+        if (type == JournalEntryType.SLEEP) {
+            try {
+                if (metadata != null && !metadata.isEmpty()) {
+                    com.fasterxml.jackson.databind.JsonNode node = objectMapper.readTree(metadata);
+                    if (node.has("totalDurationSeconds")) {
+                        long secs = node.get("totalDurationSeconds").asLong();
+                        if (secs < 60 || secs > 86400) {
+                            throw new RuntimeException("La durée de sommeil doit être entre 1 minute et 24 heures.");
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                if (e instanceof RuntimeException) throw (RuntimeException) e;
+            }
+        }
+        
         return mapper.toJournalResponseDTO(journalRepository.save(entry));
     }
 

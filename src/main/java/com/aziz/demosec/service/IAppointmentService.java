@@ -31,4 +31,6 @@ public interface IAppointmentService {
     AppointmentResponse confirmAppointment(Long appointmentId);
     
     AppointmentResponse startTeleconsultation(Long appointmentId);
+
+    void deleteAppointment(Long appointmentId);
 }

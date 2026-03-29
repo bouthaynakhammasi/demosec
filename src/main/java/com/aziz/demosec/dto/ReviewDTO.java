@@ -15,7 +15,9 @@ public class ReviewDTO {
     private Long id;
     private Long doctorId;
     private String patientName;
+    private Long patientId;
     private Integer rating;
     private String comment;
     private LocalDateTime createdAt;
+    private Boolean isAnonymous;
 }
