@@ -20,12 +20,12 @@ public record RegisterRequest(
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate birthDate,
 
-        // Champs Patient uniquement (nullable si autre rôle)
-
+        // Patient
         Gender gender,
         BloodType bloodType,
         String emergencyContactName,
         String emergencyContactPhone,
+
         String glucoseRate,
         String allergies,
         String diseases,

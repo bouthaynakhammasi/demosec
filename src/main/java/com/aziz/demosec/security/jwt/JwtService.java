@@ -27,8 +27,10 @@ public class JwtService {
         this.expirationMs = expirationMs;
     }
 
-    // 1. Générer le token
+   
+
     public String generateToken(UserDetails userDetails, String fullName, Long userId) {
+
         String role = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .findFirst()
@@ -39,7 +41,9 @@ public class JwtService {
 
         return Jwts.builder()
                 .subject(userDetails.getUsername())
+
                 .claims(Map.of("role", role, "fullName", fullName, "id", userId))
+
                 .issuedAt(now)
                 .expiration(exp)
                 .signWith(key, Jwts.SIG.HS256)

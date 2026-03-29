@@ -53,23 +53,28 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
+
                         // Public endpoints
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/home-care-services/**").permitAll()
+                        .requestMatchers("/user/**").authenticated()  
 
                         // Doctor & Nutritionist medical access
                         .requestMatchers("/treatment/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
                         .requestMatchers("/diagnosis/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
                         .requestMatchers("/consultation/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
                         .requestMatchers("/prescription/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
+       
 
                         // Other roles
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/laboratory/**").hasRole("LABORATORYSTAFF")
+
+                        .requestMatchers("/laboratory/**").hasRole("LABORATORY_STAFF") 
+
                         .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")

@@ -5,7 +5,7 @@ public enum Role {
     DOCTOR,
     CLINIC,
     PHARMACIST,
-    LABORATORYSTAFF,
+    LABORATORY_STAFF,
     NUTRITIONIST,
     VISITOR,
     PATIENT,
