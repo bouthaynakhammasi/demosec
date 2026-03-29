@@ -3,33 +3,71 @@ package com.aziz.demosec.mapper;
 import com.aziz.demosec.Entities.Post;
 import com.aziz.demosec.dto.PostRequest;
 import com.aziz.demosec.dto.PostResponse;
+import com.aziz.demosec.dto.CommentResponse;
+import com.aziz.demosec.mapper.CommentMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import com.aziz.demosec.domain.User;
+import com.aziz.demosec.repository.UserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Component
 public class PostMapper {
+
+    private final CommentMapper commentMapper;
+    private final UserRepository userRepository;
+
+    public PostMapper(CommentMapper commentMapper, UserRepository userRepository) {
+        this.commentMapper = commentMapper;
+        this.userRepository = userRepository;
+    }
 
     public Post toEntity(PostRequest dto) {
         return Post.builder()
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .category(dto.getCategory()) // ✅ ajouté
+                .category(dto.getCategory()) // 
                 .build();
     }
 
     public PostResponse toDto(Post post) {
+        // Get current user for like status
+        boolean isLikedByUser = false;
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.isAuthenticated()) {
+                String email = authentication.getName();
+                Optional<User> currentUser = userRepository.findByEmail(email);
+                if (currentUser.isPresent()) {
+                    isLikedByUser = post.getLikes() != null && 
+                        post.getLikes().stream()
+                            .anyMatch(like -> like.getUser().getId().equals(currentUser.get().getId()));
+                }
+            }
+        } catch (Exception e) {
+            // User not authenticated or other error, default to false
+            isLikedByUser = false;
+        }
+
         return PostResponse.builder()
                 .id(post.getId())
                 .authorName(post.getAuthor().getFullName())
-                .authorRole(post.getAuthor().getRole().name()) // ✅ ajouté
+                .authorRole(post.getAuthor().getRole().name()) // 
                 .title(post.getTitle())
                 .content(post.getContent())
-                .category(post.getCategory())                  // ✅ ajouté
+                .category(post.getCategory())                  // 
                 .createdAt(post.getCreatedAt())
-                .commentsCount(post.getComments() != null ? post.getComments().size() : 0) // ✅ ajouté
-                .likesCount(post.getLikes() != null ? post.getLikes().size() : 0)          // ✅ ajouté
+                .commentsCount(post.getComments() != null ? post.getComments().size() : 0) // 
+                .likesCount(post.getLikes() != null ? post.getLikes().size() : 0)          // 
+                .comments(post.getComments() != null ? 
+                    post.getComments().stream()
+                        .map(commentMapper::toDto)
+                        .collect(Collectors.toList()) : null) // 
+                .isLikedByUser(isLikedByUser) // 
                 .build();
     }
 
@@ -49,6 +87,6 @@ public class PostMapper {
         if (dto == null || entity == null) return;
         entity.setTitle(dto.getTitle());
         entity.setContent(dto.getContent());
-        entity.setCategory(dto.getCategory()); // ✅ ajouté
+        entity.setCategory(dto.getCategory()); // 
     }
 }

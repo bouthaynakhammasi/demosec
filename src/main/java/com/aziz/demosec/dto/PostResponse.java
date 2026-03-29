@@ -2,6 +2,7 @@ package com.aziz.demosec.dto;
 
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,4 +19,6 @@ public class PostResponse {
     private LocalDateTime createdAt;
     private int commentsCount;       // ✅ Nombre de commentaires
     private int likesCount;          // ✅ Nombre de likes
+    private List<CommentResponse> comments; // ✅ Liste des commentaires
+    private boolean isLikedByUser;   // ✅ Si l'utilisateur actuel a aimé ce post
 }
