@@ -64,4 +64,3 @@ public class DemoController {
         return "Hello HOME_CARE_PROVIDER";
     }
 }
-
