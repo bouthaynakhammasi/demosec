@@ -7,12 +7,10 @@ import lombok.experimental.SuperBuilder;
 
 
 @Entity
-@Table(name = "nutritionists")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Nutritionist extends User {
 
     @Column(name = "license_number", unique = true)

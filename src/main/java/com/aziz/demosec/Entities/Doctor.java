@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "doctors")
 @Getter
 @Setter
 @NoArgsConstructor

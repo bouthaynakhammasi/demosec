@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("")
+@RequestMapping("/api/demo")
 public class DemoController {
 
     // Accessible uniquement aux ADMIN
