@@ -1,8 +1,9 @@
 package com.aziz.demosec.controller;
 
-import com.aziz.demosec.dto.request.EventRegistrationCreateRequest;
-import com.aziz.demosec.dto.response.EventRegistrationResponse;
+import com.aziz.demosec.dto.EventRegistrationCreateRequest;
+import com.aziz.demosec.dto.EventRegistrationResponse;
 import com.aziz.demosec.service.IEventRegistrationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class EventRegistrationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public EventRegistrationResponse register(@RequestBody EventRegistrationCreateRequest request) {
+    public EventRegistrationResponse register(@Valid @RequestBody EventRegistrationCreateRequest request) {
         return registrationService.register(request);
     }
 

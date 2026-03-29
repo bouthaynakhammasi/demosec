@@ -1,7 +1,7 @@
 package com.aziz.demosec.service;
 
-import com.aziz.demosec.dto.request.ProductRequest;
-import com.aziz.demosec.dto.response.ProductResponse;
+import com.aziz.demosec.dto.ProductRequest;
+import com.aziz.demosec.dto.ProductResponse;
 
 import java.util.List;
 

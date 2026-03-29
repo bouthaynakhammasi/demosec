@@ -1,8 +1,8 @@
 package com.aziz.demosec.service;
 
-import com.aziz.demosec.dto.request.MedicalEventCreateRequest;
-import com.aziz.demosec.dto.request.MedicalEventUpdateRequest;
-import com.aziz.demosec.dto.response.MedicalEventResponse;
+import com.aziz.demosec.dto.MedicalEventCreateRequest;
+import com.aziz.demosec.dto.MedicalEventUpdateRequest;
+import com.aziz.demosec.dto.MedicalEventResponse;
 import com.aziz.demosec.entities.MedicalEventType;
 
 import java.util.List;

@@ -3,8 +3,8 @@ package com.aziz.demosec.service;
 import com.aziz.demosec.entities.Product;
 import com.aziz.demosec.repository.ProductRepository;
 
-import com.aziz.demosec.dto.request.ProductRequest;
-import com.aziz.demosec.dto.response.ProductResponse;
+import com.aziz.demosec.dto.ProductRequest;
+import com.aziz.demosec.dto.ProductResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

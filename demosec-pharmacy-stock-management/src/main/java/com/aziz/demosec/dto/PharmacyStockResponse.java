@@ -1,4 +1,4 @@
-package com.aziz.demosec.dto.response;
+package com.aziz.demosec.dto;
 
 import lombok.Builder;
 import lombok.Data;
