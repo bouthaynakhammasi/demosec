@@ -1,0 +1,84 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aziz:demosec >--------------------------
+[INFO] Building demosec 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ demosec ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ demosec ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ demosec ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ demosec ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.aziz.demosec.controller.ClinicControllerTest
+17:29:24.598 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.aziz.demosec.controller.ClinicControllerTest]: ClinicControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:29:24.791 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.aziz.demosec.DemosecApplication for test class com.aziz.demosec.controller.ClinicControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.11)
+
+2026-03-29T17:29:25.292+01:00  INFO 30448 --- [           main] c.a.d.controller.ClinicControllerTest    : Starting ClinicControllerTest using Java 17 with PID 30448 (started by Fathi in C:\Users\Fathi\demosec)
+2026-03-29T17:29:25.294+01:00  INFO 30448 --- [           main] c.a.d.controller.ClinicControllerTest    : No active profile set, falling back to 1 default profile: "default"
+.\mvnw.cmd : Java HotSpot(TM) 
+64-Bit Server VM warning: Sharing 
+is only supported for boot loader 
+classes because bootstrap 
+classpath has been appended
+Au caractère Ligne:1 : 1
++ .\mvnw.cmd test 
+-Dtest=ClinicControllerTest > 
+test_results_v3.log 2>& ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~
+    + CategoryInfo          : Not 
+   Specified: (Java HotSpot(TM..  
+  .s been appended:String) [],    
+ RemoteException
+    + FullyQualifiedErrorId : Nat 
+   iveCommandError
+ 
+2026-03-29T17:29:27.793+01:00  WARN 30448 --- [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-29T17:29:27.940+01:00  WARN 30448 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 521e1fca-9ac3-4a91-b8d0-bd37d4715c4e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-29T17:29:27.987+01:00  INFO 30448 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-03-29T17:29:27.988+01:00  INFO 30448 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-03-29T17:29:27.990+01:00  INFO 30448 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-03-29T17:29:28.031+01:00  INFO 30448 --- [           main] c.a.d.controller.ClinicControllerTest    : Started ClinicControllerTest in 3.17 seconds (process running for 4.192)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.080 s -- in com.aziz.demosec.controller.ClinicControllerTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.689 s
+[INFO] Finished at: 2026-03-29T17:29:28+01:00
+[INFO] ------------------------------------------------------------------------
+

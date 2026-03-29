@@ -41,10 +41,12 @@ public class LifestyleGoal {
     private GoalStatus status;
 
    
+    @Builder.Default
     @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LifestylePlan> plans = new ArrayList<>();
 
 
+    @Builder.Default
     @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProgressTracking> progressRecords = new ArrayList<>();
 }

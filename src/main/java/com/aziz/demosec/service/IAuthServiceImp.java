@@ -7,6 +7,8 @@ import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
 import com.aziz.demosec.Entities.*;
+import com.aziz.demosec.repository.ClinicRepository;
+import com.aziz.demosec.repository.PharmacistRepository;
 import com.aziz.demosec.repository.*;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
@@ -29,6 +31,15 @@ public class IAuthServiceImp implements IAuthService {
     private final UserRepository userRepository;
     private final PatientRepository patientRepository;
     private final MedicalRecordRepository medicalRecordRepository;
+    private final LaboratoryRepository laboratoryRepository;
+    private final LaboratoryStaffRepository laboratoryStaffRepository;
+    private final DoctorRepository doctorRepository;
+    private final ClinicRepository clinicRepository;
+    private final PharmacistRepository pharmacistRepository;
+    private final NutritionistRepository nutritionistRepository;
+    private final PharmacyRepository pharmacyRepository;
+    private final HomeCareServiceRepository homeCareServiceRepository;
+    private final ServiceProviderRepository serviceProviderRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
@@ -74,8 +85,7 @@ public class IAuthServiceImp implements IAuthService {
 
             patient.setEnabled(true);
 
-            Patient savedPatient = patientRepository.save(patient);
-            return savedPatient;
+            return patientRepository.save(patient);
         }
 
         // =========================
@@ -98,24 +108,54 @@ public class IAuthServiceImp implements IAuthService {
                 cEntity.setPhone(req.clinicPhone());
                 cEntity.setEmergencyPhone(req.emergencyPhone());
                 cEntity.setAmbulancePhone(req.ambulancePhone());
-                // Note: Clinic is not extending User... wait!
-                throw new IllegalArgumentException("Clinic registration not supported via this user endpoint if Clinic does not extend User directly");
+                u = cEntity;
+                break;
             case PHARMACIST:
                 Pharmacist pharm = new Pharmacist();
-                // Pharmacy handling requires linking a Pharmacy entity
+                
+                Pharmacy phEntity = new Pharmacy();
+                phEntity.setName(req.pharmacyName());
+                phEntity.setAddress(req.pharmacyAddress());
+                phEntity.setPhoneNumber(req.pharmacyPhone());
+                phEntity.setEmail(req.pharmacyEmail());
+                phEntity = pharmacyRepository.save(phEntity);
+                
+                pharm.setPharmacy(phEntity);
                 u = pharm;
                 break;
             case LABORATORYSTAFF:
-                LaboratoryStaff lab = new LaboratoryStaff();
-                u = lab;
+                LaboratoryStaff labStaff = new LaboratoryStaff();
+                
+                Laboratory labEntity = new Laboratory();
+                labEntity.setName(req.labName());
+                labEntity.setAddress(req.labAddress());
+                labEntity.setPhone(req.labPhone());
+                labEntity = laboratoryRepository.save(labEntity);
+                
+                labStaff.setLaboratory(labEntity);
+                u = labStaff;
                 break;
             case NUTRITIONIST:
                 Nutritionist nut = new Nutritionist();
+                nut.setSpecialties(req.specialty());
+                nut.setConsultationFee(req.consultationFee());
+                nut.setLicenseNumber(req.licenseNumber());
+                nut.setConsultationMode(req.consultationMode());
                 u = nut;
                 break;
             case HOME_CARE_PROVIDER:
                 ServiceProvider sp = new ServiceProvider();
                 sp.setCertificationDocument(req.certificationDocument());
+                
+                if (req.homeCareServices() != null && !req.homeCareServices().isEmpty()) {
+                    java.util.Set<HomeCareService> services = new java.util.HashSet<>();
+                    for (String serviceName : req.homeCareServices()) {
+                        homeCareServiceRepository.findByName(serviceName)
+                                .ifPresent(services::add);
+                    }
+                    sp.setSpecialties(services);
+                }
+                
                 u = sp;
                 break;
             default:
@@ -127,10 +167,22 @@ public class IAuthServiceImp implements IAuthService {
         u.setEmail(req.email());
         u.setPassword(passwordEncoder.encode(req.password()));
         u.setRole(req.role());
-        u.setPhone(req.phone());
+        
+        // Only set phone if not already set specifically (e.g., for Clinic)
+        if (req.role() != Role.CLINIC) {
+            u.setPhone(req.phone());
+        }
+        
         u.setBirthDate(req.birthDate());
         u.setEnabled(true);
 
+        // Use specific repositories for persistent health professionals/entities
+        if (u instanceof Doctor) return doctorRepository.save((Doctor) u);
+        if (u instanceof Clinic) return clinicRepository.save((Clinic) u);
+        if (u instanceof Pharmacist) return pharmacistRepository.save((Pharmacist) u);
+        if (u instanceof LaboratoryStaff) return laboratoryStaffRepository.save((LaboratoryStaff) u);
+        if (u instanceof Nutritionist) return nutritionistRepository.save((Nutritionist) u);
+        
         return userRepository.save(u);
     }
 

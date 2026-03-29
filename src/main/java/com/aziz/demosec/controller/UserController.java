@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -24,11 +25,11 @@ public class UserController {
         return userRepository.findByEmail(principal.getName())
                 .map(user -> {
                     if (!passwordEncoder.matches(request.currentPassword(), user.getPassword())) {
-                        return ResponseEntity.badRequest().body("Incorrect current password");
+                        return ResponseEntity.badRequest().body(Map.of("message", "Incorrect current password"));
                     }
                     user.setPassword(passwordEncoder.encode(request.newPassword()));
                     userRepository.save(user);
-                    return ResponseEntity.ok("Password updated successfully");
+                    return ResponseEntity.ok(Map.of("message", "Password updated successfully"));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }

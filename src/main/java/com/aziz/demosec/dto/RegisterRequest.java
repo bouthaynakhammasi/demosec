@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 
 public record RegisterRequest(
@@ -44,6 +45,18 @@ public record RegisterRequest(
         String emergencyPhone,
         String ambulancePhone,
 
+        // Champs LaboratoryStaff
+        String labName,
+        String labAddress,
+        String labPhone,
+
+        // Champs Pharmacist
+        String pharmacyName,
+        String pharmacyAddress,
+        String pharmacyPhone,
+        String pharmacyEmail,
+
         // Champs ServiceProvider
-        String certificationDocument
+        String certificationDocument,
+        List<String> homeCareServices
 ) {}
