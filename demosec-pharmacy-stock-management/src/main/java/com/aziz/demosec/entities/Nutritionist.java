@@ -6,7 +6,6 @@ import lombok.*;
 
 
 @Entity
-@Table(name = "nutritionists")
 @Getter
 @Setter
 @NoArgsConstructor
