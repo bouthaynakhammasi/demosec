@@ -4,7 +4,8 @@ import com.aziz.demosec.entities.MedicalEventType;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 
 @Data
 public class MedicalEventCreateRequest {
@@ -18,13 +19,15 @@ public class MedicalEventCreateRequest {
 
     @NotNull(message = "Date is required")
     @Future(message = "Event date must be in the future")
-    private LocalDateTime date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     @NotNull(message = "Event type is required")
     private MedicalEventType eventType;
 
     @Positive(message = "CreatedBy ID must be positive")
     private Long createdById;
+    private String imageUrl;
 
     // PHYSICAL
     @Size(max = 150, message = "Venue name must not exceed 150 characters")

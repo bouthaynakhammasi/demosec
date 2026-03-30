@@ -15,7 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,12 +44,12 @@ class MedicalEventServiceImplTest {
 
     @Test
     @DisplayName("shouldCreateOnlineEventSuccessfully")
-    void shouldCreateOnlineEventSuccessfully() {
+    void shouldCreateOnlineEventSuccessfully() throws IOException {
         // GIVEN
         MedicalEventCreateRequest request = new MedicalEventCreateRequest();
         request.setTitle("Webinar on Cardiology");
         request.setDescription("Live session");
-        request.setDate(LocalDateTime.now().plusDays(5));
+        request.setDate(LocalDate.now().plusDays(5));
         request.setEventType(MedicalEventType.ONLINE);
         request.setCreatedById(1L);
         request.setPlatformName("Zoom");
@@ -60,7 +62,7 @@ class MedicalEventServiceImplTest {
                 .id(10L)
                 .title(request.getTitle())
                 .description(request.getDescription())
-                .date(request.getDate())
+                .date(request.getDate().atStartOfDay())
                 .eventType(MedicalEventType.ONLINE)
                 .createdBy(creator)
                 .platformName("Zoom")
@@ -72,7 +74,7 @@ class MedicalEventServiceImplTest {
         when(medicalEventRepository.save(any(MedicalEvent.class))).thenReturn(savedEvent);
 
         // WHEN
-        MedicalEventResponse response = medicalEventService.create(request);
+        MedicalEventResponse response = medicalEventService.create(request, null);
 
         // THEN
         assertNotNull(response);
@@ -93,11 +95,11 @@ class MedicalEventServiceImplTest {
 
     @Test
     @DisplayName("shouldCreatePhysicalEventSuccessfully")
-    void shouldCreatePhysicalEventSuccessfully() {
+    void shouldCreatePhysicalEventSuccessfully() throws IOException {
         // GIVEN
         MedicalEventCreateRequest request = new MedicalEventCreateRequest();
         request.setTitle("Annual Health Conference");
-        request.setDate(LocalDateTime.now().plusDays(10));
+        request.setDate(LocalDate.now().plusDays(10));
         request.setEventType(MedicalEventType.PHYSICAL);
         request.setVenueName("Grand Hotel");
         request.setAddress("12 Rue de la Paix");
@@ -108,7 +110,7 @@ class MedicalEventServiceImplTest {
         PhysicalEvent savedEvent = PhysicalEvent.builder()
                 .id(20L)
                 .title(request.getTitle())
-                .date(request.getDate())
+                .date(request.getDate().atStartOfDay())
                 .eventType(MedicalEventType.PHYSICAL)
                 .venueName("Grand Hotel")
                 .address("12 Rue de la Paix")
@@ -120,7 +122,7 @@ class MedicalEventServiceImplTest {
         when(medicalEventRepository.save(any(MedicalEvent.class))).thenReturn(savedEvent);
 
         // WHEN
-        MedicalEventResponse response = medicalEventService.create(request);
+        MedicalEventResponse response = medicalEventService.create(request, null);
 
         // THEN
         assertNotNull(response);
@@ -141,14 +143,14 @@ class MedicalEventServiceImplTest {
         // GIVEN
         MedicalEventCreateRequest request = new MedicalEventCreateRequest();
         request.setTitle("Event");
-        request.setDate(LocalDateTime.now().plusDays(3));
+        request.setDate(LocalDate.now().plusDays(3));
         request.setEventType(MedicalEventType.ONLINE);
         request.setCreatedById(99L);
 
         when(userRepository.findById(99L)).thenReturn(Optional.empty());
 
         // WHEN / THEN
-        assertThrows(EntityNotFoundException.class, () -> medicalEventService.create(request));
+        assertThrows(EntityNotFoundException.class, () -> medicalEventService.create(request, null));
         verify(medicalEventRepository, never()).save(any());
     }
 
@@ -158,11 +160,11 @@ class MedicalEventServiceImplTest {
         // GIVEN
         MedicalEventCreateRequest request = new MedicalEventCreateRequest();
         request.setTitle("Event");
-        request.setDate(LocalDateTime.now().plusDays(3));
+        request.setDate(LocalDate.now().plusDays(3));
         request.setEventType(null);   // triggers the else branch → IllegalArgumentException
 
         // WHEN / THEN
-        assertThrows(IllegalArgumentException.class, () -> medicalEventService.create(request));
+        assertThrows(IllegalArgumentException.class, () -> medicalEventService.create(request, null));
         verify(medicalEventRepository, never()).save(any());
     }
 
@@ -172,7 +174,7 @@ class MedicalEventServiceImplTest {
 
     @Test
     @DisplayName("shouldUpdateEventSuccessfully")
-    void shouldUpdateEventSuccessfully() {
+    void shouldUpdateEventSuccessfully() throws IOException {
         // GIVEN
         OnlineEvent existingEvent = OnlineEvent.builder()
                 .id(10L)
@@ -185,6 +187,7 @@ class MedicalEventServiceImplTest {
 
         MedicalEventUpdateRequest updateRequest = new MedicalEventUpdateRequest();
         updateRequest.setTitle("New Title");
+        updateRequest.setDate(LocalDate.now().plusDays(10));
         updateRequest.setPlatformName("Zoom");
         updateRequest.setMeetingLink("https://zoom.us/j/999");
 
@@ -192,7 +195,7 @@ class MedicalEventServiceImplTest {
         when(medicalEventRepository.save(any(MedicalEvent.class))).thenAnswer(inv -> inv.getArgument(0));
 
         // WHEN
-        MedicalEventResponse response = medicalEventService.update(10L, updateRequest);
+        MedicalEventResponse response = medicalEventService.update(10L, updateRequest, null);
 
         // THEN
         assertNotNull(response);
@@ -212,7 +215,7 @@ class MedicalEventServiceImplTest {
 
         // WHEN / THEN
         assertThrows(EntityNotFoundException.class,
-                () -> medicalEventService.update(999L, new MedicalEventUpdateRequest()));
+                () -> medicalEventService.update(999L, new MedicalEventUpdateRequest(), null));
         verify(medicalEventRepository, never()).save(any());
     }
 

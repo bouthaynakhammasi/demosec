@@ -61,8 +61,8 @@ public class SecurityConfig {
 
                         // Public endpoints
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/oauth2/**").permitAll()   // 🔥 IMPORTANT
-                        .requestMatchers("/login/**").permitAll()    // 🔥 IMPORTANT
+                        .requestMatchers("/oauth2/**").permitAll() // 🔥 IMPORTANT
+                        .requestMatchers("/login/**").permitAll() // 🔥 IMPORTANT
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/home-care-services/**").permitAll()
 
@@ -74,6 +74,7 @@ public class SecurityConfig {
 
                         // Other roles
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/notifications/**").hasAnyRole("ADMIN", "PATIENT")
                         .requestMatchers("/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
@@ -81,9 +82,12 @@ public class SecurityConfig {
                         .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/events/*/participate").hasRole("PATIENT")
+                        .requestMatchers("/api/events/*/cancel-participation").hasRole("PATIENT")
+                        .requestMatchers("/api/events/*/is-participating").hasRole("PATIENT")
+                        .requestMatchers("/api/events/public/**").permitAll()
 
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
 
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
