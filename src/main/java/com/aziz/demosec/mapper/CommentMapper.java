@@ -17,12 +17,12 @@ public class CommentMapper {
                 .build();
     }
 
+    // Méthode simplifiée pour éviter la dépendance cyclique
     public CommentResponse toDto(Comment comment) {
         return CommentResponse.builder()
                 .id(comment.getId())
-                .postId(comment.getPost().getId())
                 .authorName(comment.getAuthor().getFullName())
-                .authorRole(comment.getAuthor().getRole().name()) // ✅ ajouté
+                .authorRole(comment.getAuthor().getRole().name())
                 .content(comment.getContent())
                 .createdAt(comment.getCreatedAt())
                 .build();

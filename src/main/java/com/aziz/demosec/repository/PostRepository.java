@@ -17,4 +17,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     // ✅ Trier par date décroissante
     List<Post> findAllByOrderByCreatedAtDesc();
+
+    @org.springframework.data.jpa.repository.Query("SELECT p.category, COUNT(p) as count FROM Post p GROUP BY p.category ORDER BY count DESC")
+    List<Object[]> findTrendingCategories();
 }

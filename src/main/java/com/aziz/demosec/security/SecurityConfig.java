@@ -54,13 +54,17 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public endpoints
+                        // ✅ OPTIONS preflight - DOIT être en premier
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/error/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/home-care-services/**").permitAll()
                         .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/api/notifications/**").authenticated()
 
-                        // FORUM - Posts and Comments (using /api/forum prefix)
+                        // FORUM - Posts and Comments
                         .requestMatchers(HttpMethod.GET, "/api/forum/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/forum/posts/**").hasAnyRole(
                                 "DOCTOR", "CLINIC", "PHARMACIST",

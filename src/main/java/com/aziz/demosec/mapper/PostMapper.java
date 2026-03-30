@@ -3,8 +3,6 @@ package com.aziz.demosec.mapper;
 import com.aziz.demosec.Entities.Post;
 import com.aziz.demosec.dto.PostRequest;
 import com.aziz.demosec.dto.PostResponse;
-import com.aziz.demosec.dto.CommentResponse;
-import com.aziz.demosec.mapper.CommentMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,11 +16,9 @@ import java.util.Optional;
 @Component
 public class PostMapper {
 
-    private final CommentMapper commentMapper;
     private final UserRepository userRepository;
 
-    public PostMapper(CommentMapper commentMapper, UserRepository userRepository) {
-        this.commentMapper = commentMapper;
+    public PostMapper(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -60,13 +56,11 @@ public class PostMapper {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .category(post.getCategory())                  // 
+                .imageUrl(post.getImageUrl())                 // 
                 .createdAt(post.getCreatedAt())
                 .commentsCount(post.getComments() != null ? post.getComments().size() : 0) // 
                 .likesCount(post.getLikes() != null ? post.getLikes().size() : 0)          // 
-                .comments(post.getComments() != null ? 
-                    post.getComments().stream()
-                        .map(commentMapper::toDto)
-                        .collect(Collectors.toList()) : null) // 
+                .comments(null) // Éviter la dépendance cyclique pour l'instant
                 .isLikedByUser(isLikedByUser) // 
                 .build();
     }

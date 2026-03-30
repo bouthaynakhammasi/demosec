@@ -28,6 +28,9 @@ public class Post {
     @Column                          // Catégorie ajoutée
     private String category;
 
+    @Column(name = "image_url")      // URL de l'image
+    private String imageUrl;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
