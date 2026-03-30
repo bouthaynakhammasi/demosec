@@ -19,7 +19,9 @@ public class RegisterRequest {
     private String phone;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
+
     private String profileImage;
+
 
     // Patient Fields
     private String gender; // Use String for robust JSON parsing
@@ -72,8 +74,10 @@ public class RegisterRequest {
     public void setPhone(String phone) { this.phone = phone; }
     public LocalDate getBirthDate() { return birthDate; }
     public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
+
     public String getProfileImage() { return profileImage; }
     public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
+
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = gender; }
     public String getBloodType() { return bloodType; }

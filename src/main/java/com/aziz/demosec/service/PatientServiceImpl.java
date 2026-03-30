@@ -35,7 +35,11 @@ public class PatientServiceImpl implements IPatientService {
         patient.setPassword(passwordEncoder.encode(dto.getPassword()));
         patient.setRole(Role.PATIENT);
         patient.setPhone(dto.getPhone());
+<<<<<<< HEAD
         patient.setBirthDate(dto.getBirthDate() != null ? dto.getBirthDate().toString() : null);
+=======
+        patient.setBirthDate(dto.getBirthDate());
+>>>>>>> appointment
 
         patient.setGender(dto.getGender());
         patient.setBloodType(dto.getBloodType());
@@ -81,7 +85,11 @@ public class PatientServiceImpl implements IPatientService {
         patient.setEmail(dto.getEmail());
         patient.setPassword(passwordEncoder.encode(dto.getPassword()));
         patient.setPhone(dto.getPhone());
+<<<<<<< HEAD
         patient.setBirthDate(dto.getBirthDate() != null ? dto.getBirthDate().toString() : null);
+=======
+        patient.setBirthDate(dto.getBirthDate());
+>>>>>>> appointment
 
         patient.setGender(dto.getGender());
         patient.setBloodType(dto.getBloodType());
@@ -121,7 +129,11 @@ public class PatientServiceImpl implements IPatientService {
                 .fullName(patient.getFullName())
                 .email(patient.getEmail())
                 .phone(patient.getPhone())
+<<<<<<< HEAD
                 .birthDate(patient.getBirthDate() != null && !patient.getBirthDate().isEmpty() ? java.time.LocalDate.parse(patient.getBirthDate()) : null)
+=======
+                .birthDate(patient.getBirthDate())
+>>>>>>> appointment
                 .enabled(patient.isEnabled())
                 .gender(patient.getGender())
                 .bloodType(patient.getBloodType())
@@ -132,4 +144,8 @@ public class PatientServiceImpl implements IPatientService {
                 .hereditaryDiseases(patient.getHereditaryDiseases())
                 .build();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> appointment

@@ -25,4 +25,3 @@ public class PatientResponseDTO {
     String hereditaryDiseases;
 }
 
-

@@ -1,7 +1,11 @@
 package com.aziz.demosec.controller;
 
 import com.aziz.demosec.Entities.Clinic;
+
 import com.aziz.demosec.service.IClinicService;
+
+import com.aziz.demosec.repository.ClinicRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+
 @RestController
 @RequestMapping("/api/clinics")
+
 @RequiredArgsConstructor
 public class ClinicController {
 
@@ -44,3 +50,6 @@ public class ClinicController {
         return ResponseEntity.ok().build();
     }
 }
+
+
+

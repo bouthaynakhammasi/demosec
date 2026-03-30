@@ -1,6 +1,8 @@
 package com.aziz.demosec.dto.patient;
 
 
+
+
 import com.aziz.demosec.Entities.BloodType;
 import com.aziz.demosec.Entities.Gender;
 import com.aziz.demosec.domain.Role;
@@ -15,12 +17,16 @@ public class PatientRequestDTO {
     @NotBlank
     String fullName;
 
+
     @Email
     @NotBlank
     String email;
 
-    @NotBlank
-    @Size(min = 6)
+
+
+
+
+
     String password;
 
     String phone;

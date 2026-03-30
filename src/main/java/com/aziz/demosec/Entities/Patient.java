@@ -16,12 +16,16 @@ import java.time.LocalDate;
 public class Patient extends User {
 
     @Enumerated(EnumType.STRING)
+
     private Gender gender;
     @Enumerated(EnumType.STRING)
     private BloodType bloodType;
     private String emergencyContactName;
     private String emergencyContactPhone;
     private String chronicDiseases;
+
     private String hereditaryDiseases;
     private String drugAllergies;
 }
+
+

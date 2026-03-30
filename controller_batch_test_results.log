@@ -1,0 +1,132 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aziz:demosec >--------------------------
+[INFO] Building demosec 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ demosec ---
+[INFO] Recompiling the module because of added or removed source files.
+[INFO] Compiling 194 source files with javac [debug parameters release 17] to target\classes
+[WARNING] /C:/Users/khame/demosec/src/main/java/com/aziz/demosec/Entities/LifestylePlan.java:[48,33] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[WARNING] /C:/Users/khame/demosec/src/main/java/com/aziz/demosec/Entities/PharmacyOrder.java:[53,29] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[WARNING] /C:/Users/khame/demosec/src/main/java/com/aziz/demosec/Entities/ServiceProvider.java:[38,34] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[WARNING] /C:/Users/khame/demosec/src/main/java/com/aziz/demosec/Entities/Prescription.java:[31,36] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[INFO] /C:/Users/khame/demosec/src/main/java/com/aziz/demosec/security/SecurityConfig.java: C:\Users\khame\demosec\src\main\java\com\aziz\demosec\security\SecurityConfig.java uses or overrides a deprecated API.
+[INFO] /C:/Users/khame/demosec/src/main/java/com/aziz/demosec/security/SecurityConfig.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ demosec ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ demosec ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 12 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ demosec ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.aziz.demosec.controller.CalendarAvailabilityControllerTest
+17:35:51.134 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.aziz.demosec.controller.CalendarAvailabilityControllerTest]: CalendarAvailabilityControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:35:51.421 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.aziz.demosec.DemosecApplication for test class com.aziz.demosec.controller.CalendarAvailabilityControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.11)
+
+2026-03-29T17:35:52.384+01:00  INFO 6916 --- [demosec] [           main] a.d.c.CalendarAvailabilityControllerTest : Starting CalendarAvailabilityControllerTest using Java 17.0.12 with PID 6916 (started by khame in C:\Users\khame\demosec)
+2026-03-29T17:35:52.384+01:00  INFO 6916 --- [demosec] [           main] a.d.c.CalendarAvailabilityControllerTest : No active profile set, falling back to 1 default profile: "default"
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-03-29T17:35:57.047+01:00  WARN 6916 --- [demosec] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-29T17:35:57.334+01:00  WARN 6916 --- [demosec] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 96d9902a-0ada-4345-9e6a-528ee70017ea
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-29T17:35:57.414+01:00  INFO 6916 --- [demosec] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-03-29T17:35:57.414+01:00  INFO 6916 --- [demosec] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-03-29T17:35:57.418+01:00  INFO 6916 --- [demosec] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-03-29T17:35:57.471+01:00  INFO 6916 --- [demosec] [           main] a.d.c.CalendarAvailabilityControllerTest : Started CalendarAvailabilityControllerTest in 5.958 seconds (process running for 8.088)
+[DEBUG] POST /api/v1/providers/1/availabilities
+[DEBUG] Request: Start=2026-03-30T17:35:57.754566200, End=2026-03-30T18:05:57.754566200, Mode=null
+[DEBUG] GET /api/v1/providers/1/availabilities - from=null, to=null
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.192 s -- in com.aziz.demosec.controller.CalendarAvailabilityControllerTest
+[INFO] Running com.aziz.demosec.controller.ProviderCalendarControllerTest
+2026-03-29T17:35:58.079+01:00  INFO 6916 --- [demosec] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.aziz.demosec.controller.ProviderCalendarControllerTest]: ProviderCalendarControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-03-29T17:35:58.158+01:00  INFO 6916 --- [demosec] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.aziz.demosec.DemosecApplication for test class com.aziz.demosec.controller.ProviderCalendarControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.11)
+
+2026-03-29T17:35:58.205+01:00  INFO 6916 --- [demosec] [           main] c.a.d.c.ProviderCalendarControllerTest   : Starting ProviderCalendarControllerTest using Java 17.0.12 with PID 6916 (started by khame in C:\Users\khame\demosec)
+2026-03-29T17:35:58.212+01:00  INFO 6916 --- [demosec] [           main] c.a.d.c.ProviderCalendarControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2026-03-29T17:36:01.219+01:00  WARN 6916 --- [demosec] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-29T17:36:01.267+01:00  WARN 6916 --- [demosec] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 0c3bcd05-3517-4d49-b0b6-51696fe7f86b
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-29T17:36:01.284+01:00  INFO 6916 --- [demosec] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-03-29T17:36:01.286+01:00  INFO 6916 --- [demosec] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-03-29T17:36:01.290+01:00  INFO 6916 --- [demosec] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-03-29T17:36:01.323+01:00  INFO 6916 --- [demosec] [           main] c.a.d.c.ProviderCalendarControllerTest   : Started ProviderCalendarControllerTest in 3.154 seconds (process running for 11.938)
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.532 s -- in com.aziz.demosec.controller.ProviderCalendarControllerTest
+[INFO] Running com.aziz.demosec.controller.ScheduleControllerTest
+2026-03-29T17:36:01.668+01:00  INFO 6916 --- [demosec] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.aziz.demosec.controller.ScheduleControllerTest]: ScheduleControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-03-29T17:36:01.727+01:00  INFO 6916 --- [demosec] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.aziz.demosec.DemosecApplication for test class com.aziz.demosec.controller.ScheduleControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.11)
+
+2026-03-29T17:36:01.872+01:00  INFO 6916 --- [demosec] [           main] c.a.d.controller.ScheduleControllerTest  : Starting ScheduleControllerTest using Java 17.0.12 with PID 6916 (started by khame in C:\Users\khame\demosec)
+2026-03-29T17:36:01.872+01:00  INFO 6916 --- [demosec] [           main] c.a.d.controller.ScheduleControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2026-03-29T17:36:03.544+01:00  WARN 6916 --- [demosec] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-29T17:36:03.563+01:00  WARN 6916 --- [demosec] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: bf721622-3c47-4928-9c62-4da8f30926f6
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-29T17:36:03.569+01:00  INFO 6916 --- [demosec] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-03-29T17:36:03.569+01:00  INFO 6916 --- [demosec] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-03-29T17:36:03.571+01:00  INFO 6916 --- [demosec] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-03-29T17:36:03.585+01:00  INFO 6916 --- [demosec] [           main] c.a.d.controller.ScheduleControllerTest  : Started ScheduleControllerTest in 1.809 seconds (process running for 14.203)
+[DEBUG] Saving Weekly Schedule for Provider: 1
+[DEBUG] Successfully saved schedule ID: 1 - Days: 0
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.070 s -- in com.aziz.demosec.controller.ScheduleControllerTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  31.295 s
+[INFO] Finished at: 2026-03-29T17:36:03+01:00
+[INFO] ------------------------------------------------------------------------

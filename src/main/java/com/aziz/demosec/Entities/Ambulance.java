@@ -23,7 +23,9 @@ public class Ambulance {
 
     private Double currentLat;
     private Double currentLng;
+
     private String licensePlate;
     @Builder.Default
     private String status = "AVAILABLE";
 }
+

@@ -16,4 +16,6 @@ public class UserResponseDTO {
     LocalDate birthDate;
     boolean enabled;
     String specialty;
+
 }
+

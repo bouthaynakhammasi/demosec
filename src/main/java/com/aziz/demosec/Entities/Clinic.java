@@ -3,6 +3,8 @@ package com.aziz.demosec.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "clinic")
 @Getter
@@ -10,6 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Clinic {
 
     @Id
@@ -19,9 +22,6 @@ public class Clinic {
     @Column(nullable = false)
     private String name;
     private String address;
-
-    private Double latitude;
-    private Double longitude;
     private String phone;
 
 
@@ -34,7 +34,9 @@ public class Clinic {
     private String emergencyPhone;
     private String ambulancePhone;
 
+
     @Builder.Default
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean verified = false;
 }
+

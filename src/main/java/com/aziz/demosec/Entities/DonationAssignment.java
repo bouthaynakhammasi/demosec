@@ -29,9 +29,11 @@ public class DonationAssignment {
     @Column(nullable = false, updatable = false)
     private LocalDateTime assignedAt;
 
+
     @PrePersist
     protected void onCreate() {
         this.assignedAt = LocalDateTime.now();
     }
 
 }
+

@@ -5,6 +5,7 @@ import com.aziz.demosec.dto.user.UserResponseDTO;
 
 import java.util.List;
 
+
 public interface IUserService {
     UserResponseDTO create(UserRequestDTO dto);
     UserResponseDTO getById(Long id);
@@ -14,3 +15,5 @@ public interface IUserService {
     void toggleEnabled(Long id);
     List<UserResponseDTO> getByRole(Role role);
 }
+
+

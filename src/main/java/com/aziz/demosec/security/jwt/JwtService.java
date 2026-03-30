@@ -28,7 +28,10 @@ public class JwtService {
     }
 
     // 1. Générer le token
-    public String generateToken(UserDetails userDetails, String fullName, Long id) {
+
+
+    public String generateToken(UserDetails userDetails, String fullName, Long id, String gender) {
+
         String role = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .findFirst()
@@ -39,7 +42,16 @@ public class JwtService {
 
         return Jwts.builder()
                 .subject(userDetails.getUsername())
+
                 .claims(Map.of("role", role, "fullName", fullName, "id", id))
+
+                .claims(Map.of(
+                        "role", role,
+                        "fullName", fullName,
+                        "id", id,
+                        "gender", gender != null ? gender : "UNKNOWN"
+                ))
+
                 .issuedAt(now)
                 .expiration(exp)
                 .signWith(key, Jwts.SIG.HS256)
@@ -77,4 +89,3 @@ public class JwtService {
                 .getPayload();
     }
 }
-
