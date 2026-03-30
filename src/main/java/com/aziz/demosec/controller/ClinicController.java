@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ClinicController {
 
-    private  IClinicService clinicService;
+    private final IClinicService clinicService;
 
     @GetMapping
     public List<Clinic> getAllClinics() {

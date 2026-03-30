@@ -31,7 +31,7 @@ public class WeeklySchedule {
     @Column(name = "doctor_id")
     private Long doctorId; // Found in DB screenshot, adding to avoid missing column errors
 
-    @OneToMany(mappedBy = "weeklySchedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "weeklySchedule", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @Builder.Default
     private List<WeeklyDaySchedule> days = new ArrayList<>();
 }

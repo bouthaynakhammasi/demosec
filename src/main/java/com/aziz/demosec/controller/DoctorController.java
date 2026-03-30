@@ -43,7 +43,7 @@ public class DoctorController {
         doctor.setYearsOfExperience(dto.getYearsOfExperience());
         
         if (dto.getProfilePicture() != null) {
-            doctor.setProfilePicture(dto.getProfilePicture());
+            doctor.setProfileImage(dto.getProfilePicture());
         }
         
         if (dto.getClinicId() != null) {
@@ -64,6 +64,7 @@ public class DoctorController {
     }
 
     @GetMapping
+    @Transactional(readOnly = true)
     public ResponseEntity<java.util.List<DoctorProfileDTO>> getAllDoctors() {
         java.util.List<DoctorProfileDTO> doctors = doctorRepository.findAll().stream()
                 .filter(d -> d.isEnabled() && d.getSpecialty() != null)
@@ -107,7 +108,7 @@ public class DoctorController {
                 .bio(doctor.getBio())
                 .patientCount((int) patientCount)
                 .rating(finalRating)
-                .profilePicture(doctor.getProfilePicture())
+                .profilePicture(doctor.getProfileImage())
                 .build();
     }
 

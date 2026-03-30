@@ -91,6 +91,7 @@ public class CalendarAvailabilityService implements ICalendarAvailabilityService
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CalendarAvailabilityResponse> getAvailabilities(Long providerId, LocalDateTime from, LocalDateTime to, AvailabilityStatus status) {
         if (from == null) from = LocalDateTime.now();
         if (to == null) to = from.plusDays(30);
@@ -104,7 +105,7 @@ public class CalendarAvailabilityService implements ICalendarAvailabilityService
 
         // Fetch doctor's custom slot duration or default to 30
         int slotDuration = doctorRepository.findById(providerId)
-                .map(d -> d.getSlotDuration() != null ? d.getSlotDuration() : 30)
+                .map(d -> d.getSlotDuration() != null && d.getSlotDuration() > 0 ? d.getSlotDuration() : 30)
                 .orElse(30);
 
         LocalDateTime current = from;
@@ -113,9 +114,8 @@ public class CalendarAvailabilityService implements ICalendarAvailabilityService
             String dayOfWeekName = date.getDayOfWeek().name();
 
             // 1. Check exceptions (Holidays / Special Hours)
-            // Fix: Prioritize exceptions by duration. A specific single-day exception (0 days between start and end) 
-            // MUST override a multi-day ABSENCE bridging the date. If tied on duration, highest ID (newest) wins.
-            ScheduleException relevantEx = exceptions.stream()
+            ScheduleException relevantEx = exceptions == null ? null : exceptions.stream()
+                    .filter(e -> e.getStartDate() != null && e.getEndDate() != null)
                     .filter(e -> !date.isBefore(e.getStartDate()) && !date.isAfter(e.getEndDate()))
                     .min(java.util.Comparator.<ScheduleException>comparingLong(e -> 
                             java.time.temporal.ChronoUnit.DAYS.between(e.getStartDate(), e.getEndDate()))
@@ -131,7 +131,7 @@ public class CalendarAvailabilityService implements ICalendarAvailabilityService
             } else if (template != null && template.getDays() != null) {
                 // Fallback to regular template
                 template.getDays().stream()
-                    .filter(d -> d.getDayOfWeek().equalsIgnoreCase(dayOfWeekName) && d.isActive())
+                    .filter(d -> d != null && d.getDayOfWeek() != null && d.getDayOfWeek().equalsIgnoreCase(dayOfWeekName) && (d.isActive() || d.isEnabled()))
                     .findFirst()
                     .ifPresent(day -> generateSlots(results, providerId, date, day.getTimeSlots(), appointments, slotDuration));
             }
@@ -149,29 +149,39 @@ public class CalendarAvailabilityService implements ICalendarAvailabilityService
                                List<WeeklyTimeSlot> templateSlots, 
                                List<Appointment> appointments,
                                int slotDuration) {
+        if (templateSlots == null || slotDuration <= 0) return;
+
         for (WeeklyTimeSlot ws : templateSlots) {
-            java.time.LocalTime blockStart = java.time.LocalTime.parse(ws.getStartTime());
-            java.time.LocalTime blockEnd = java.time.LocalTime.parse(ws.getEndTime());
+            if (ws.getStartTime() == null || ws.getEndTime() == null) continue;
+            
+            try {
+                java.time.LocalTime blockStart = java.time.LocalTime.parse(ws.getStartTime());
+                java.time.LocalTime blockEnd = java.time.LocalTime.parse(ws.getEndTime());
 
-            java.time.LocalTime current = blockStart;
-            while (!current.plusMinutes(slotDuration).isAfter(blockEnd)) {
-                LocalDateTime start = date.atTime(current);
-                LocalDateTime end = date.atTime(current.plusMinutes(slotDuration));
+                java.time.LocalTime current = blockStart;
+                while (!current.plusMinutes(slotDuration).isAfter(blockEnd)) {
+                    LocalDateTime start = date.atTime(current);
+                    LocalDateTime end = date.atTime(current.plusMinutes(slotDuration));
 
-                // Check if any booking starts at exactly this time
-                boolean isBooked = appointments.stream()
-                        .anyMatch(a -> a.getProviderId().equals(providerId) && 
-                                      a.getStartTime().equals(start));
+                    // Check if any booking starts at exactly this time
+                    boolean isBooked = appointments != null && appointments.stream()
+                            .anyMatch(a -> a.getProviderId() != null && a.getProviderId().equals(providerId) && 
+                                          a.getStartTime() != null && a.getStartTime().equals(start));
 
-                results.add(CalendarAvailabilityResponse.builder()
-                        .providerId(providerId)
-                        .startTime(start)
-                        .endTime(end)
-                        .mode("ONLINE".equals(ws.getMode()) ? com.aziz.demosec.Entities.appointment.Mode.ONLINE : com.aziz.demosec.Entities.appointment.Mode.IN_PERSON)
-                        .status(isBooked ? AvailabilityStatus.BOOKED : AvailabilityStatus.AVAILABLE)
-                        .build());
-                
-                current = current.plusMinutes(slotDuration);
+                    results.add(CalendarAvailabilityResponse.builder()
+                            .providerId(providerId)
+                            .startTime(start)
+                            .endTime(end)
+                            .mode("ONLINE".equals(ws.getMode()) ? com.aziz.demosec.Entities.appointment.Mode.ONLINE : com.aziz.demosec.Entities.appointment.Mode.IN_PERSON)
+                            .status(isBooked ? AvailabilityStatus.BOOKED : AvailabilityStatus.AVAILABLE)
+                            .build());
+                    
+                    current = current.plusMinutes(slotDuration);
+                    if (current.equals(java.time.LocalTime.MIDNIGHT)) break; // Prevent infinite loop if slot duration wraps around
+                }
+            } catch (Exception e) {
+                // Log and skip invalid slots
+                System.err.println("[ERROR] Failed to generate slots for slot ID " + ws.getId() + ": " + e.getMessage());
             }
         }
     }

@@ -40,7 +40,7 @@ public class WeeklyDaySchedule {
         this.enabled = active;
     }
 
-    @OneToMany(mappedBy = "daySchedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "daySchedule", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @Builder.Default
     private List<WeeklyTimeSlot> timeSlots = new ArrayList<>();
 }

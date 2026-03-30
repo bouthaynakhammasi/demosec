@@ -43,7 +43,7 @@ public class ScheduleException {
     @Enumerated(EnumType.STRING)
     private ExceptionType type;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "exception_id")
     @Builder.Default
     private List<WeeklyTimeSlot> timeSlots = new ArrayList<>();

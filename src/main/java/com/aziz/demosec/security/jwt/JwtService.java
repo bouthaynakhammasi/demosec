@@ -30,7 +30,7 @@ public class JwtService {
     // 1. Générer le token
 
 
-    public String generateToken(UserDetails userDetails, String fullName, Long id, String gender) {
+    public String generateToken(UserDetails userDetails, String fullName, Long id) {
 
         String role = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -48,8 +48,7 @@ public class JwtService {
                 .claims(Map.of(
                         "role", role,
                         "fullName", fullName,
-                        "id", id,
-                        "gender", gender != null ? gender : "UNKNOWN"
+                        "id", id
                 ))
 
                 .issuedAt(now)

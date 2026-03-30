@@ -36,7 +36,7 @@ public class Doctor extends User {
 
     private Double rating = 0.0;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "clinic_id")
     private Clinic clinic;
 }

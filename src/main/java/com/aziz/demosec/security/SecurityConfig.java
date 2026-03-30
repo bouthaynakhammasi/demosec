@@ -81,7 +81,7 @@ public class SecurityConfig {
 
 
                         // ✅ Endpoints publics — données de référence (accessibles sans token)
-                        .requestMatchers("/api/v1/clinics").permitAll()
+                        .requestMatchers("/api/clinics").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/doctors").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/doctors/**").permitAll()
                         .requestMatchers("/api/home-care-services/**").permitAll()

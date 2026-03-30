@@ -42,7 +42,7 @@ public class BabyProfile {
     private java.time.LocalDateTime createdAt;
     private java.time.LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "babyProfile", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "babyProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private java.util.List<ParentPreference> preferences;
 
     @PrePersist

@@ -33,6 +33,8 @@ public class Clinic {
     private boolean hasAmbulance;
     private String emergencyPhone;
     private String ambulancePhone;
+    private String Latitude ;
+    private String Longitude;
 
 
     @Builder.Default

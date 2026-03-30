@@ -242,12 +242,12 @@ public class AppointmentService implements IAppointmentService {
                     if (doctor != null) {
                         dto.setDoctorName(doctor.getFullName());
                         
-                        String photo = doctor.getProfilePicture();
+                        String photo = doctor.getProfileImage();
                         
                         Doctor doctorProfile = doctorRepository.findById(appt.getDoctorId()).orElse(null);
                         if (doctorProfile != null) {
                             if (photo == null || photo.isEmpty()) {
-                                photo = doctorProfile.getProfilePicture();
+                                photo = doctorProfile.getProfileImage();
                             }
                             dto.setDoctorSpecialty(doctorProfile.getSpecialty());
                             if (doctorProfile.getClinic() != null) {

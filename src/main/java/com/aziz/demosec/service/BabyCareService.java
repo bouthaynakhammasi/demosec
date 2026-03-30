@@ -58,6 +58,7 @@ public class BabyCareService {
         return mapper.toResponseDTO(saved);
     }
 
+    @Transactional(readOnly = true)
     public BabyProfileResponseDTO getProfileByPatientId(Long patientId) {
         List<BabyProfile> profiles = babyRepository.findByParentId(patientId);
         if (profiles.isEmpty()) return null;
@@ -333,8 +334,8 @@ public class BabyCareService {
                     com.fasterxml.jackson.databind.JsonNode node = objectMapper.readTree(metadata);
                     if (node.has("totalDurationSeconds")) {
                         long secs = node.get("totalDurationSeconds").asLong();
-                        if (secs < 60 || secs > 86400) {
-                            throw new RuntimeException("La durée de sommeil doit être entre 1 minute et 24 heures.");
+                        if (secs < 0 || secs > 172800) { // Just ensure it's not negative or absurd
+                            throw new RuntimeException("La durée de sommeil est invalide.");
                         }
                     }
                 }

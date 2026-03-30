@@ -13,19 +13,21 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    // === Handler pour EntityNotFoundException ===
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> handleNotFound(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Map.of("error", ex.getMessage()));
     }
 
+    // === Handler pour IllegalArgumentException ===
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<?> handleIllegalArgument(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("error", ex.getMessage()));
     }
 
-    // ✅ Un seul handler pour les erreurs de parsing JSON
+    // === Handler pour erreurs de parsing JSON ===
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleParseError(HttpMessageNotReadableException ex) {
         System.out.println("=== PARSE ERROR ===");
@@ -34,51 +36,35 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("error", ex.getMessage()));
     }
+
+    // === Handler pour validation des arguments ===
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationError(MethodArgumentNotValidException ex) {
-        System.out.println("=== VALIDATION ERROR ===");
-        ex.getBindingResult().getFieldErrors().forEach(err ->
-                System.out.println("Field: " + err.getField() + " → " + err.getDefaultMessage())
-        );
-        System.out.println("========================");
-
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(err ->
                 errors.put(err.getField(), err.getDefaultMessage())
         );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of(
+                        "error", "Validation failed",
+                        "details", errors
+                ));
     }
+
+    // === Handler générique pour toutes les autres exceptions ===
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleAll(Exception ex) {
+    public ResponseEntity<?> handleGenericException(Exception ex) {
         System.out.println("=== GENERIC ERROR ===");
         System.out.println("Type: " + ex.getClass().getName());
         System.out.println("Message: " + ex.getMessage());
         ex.printStackTrace();
         System.out.println("=====================");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("error", ex.getMessage()));
-    }
 
-    @ExceptionHandler(org.springframework.web.bind.MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleValidationExceptions(
-            org.springframework.web.bind.MethodArgumentNotValidException ex) {
-        java.util.Map<String, String> errors = new java.util.HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((org.springframework.validation.FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return ResponseEntity.badRequest().body(Map.of(
-                "error", "Validation failed",
-                "details", errors
-        ));
-    }
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleAllExceptions(Exception ex) {
-        return ResponseEntity.status(500).body(Map.of(
-                "error", "Internal Server Error",
-                "message", ex.getMessage() != null ? ex.getMessage() : "Unknown error",
-                "type", ex.getClass().getName()
-        ));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of(
+                        "error", "Internal Server Error",
+                        "message", ex.getMessage() != null ? ex.getMessage() : "Unknown error",
+                        "type", ex.getClass().getName()
+                ));
     }
 }
