@@ -50,4 +50,6 @@ public class ServiceProvider {
             inverseJoinColumns = @JoinColumn(name = "home_care_service_id")
     )
     private Set<HomeCareService> specialties = new HashSet<>();
+
+
 }

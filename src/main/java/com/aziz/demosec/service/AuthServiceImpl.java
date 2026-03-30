@@ -3,20 +3,20 @@ package com.aziz.demosec.service;
 import com.aziz.demosec.Entities.Patient;
 import com.aziz.demosec.Entities.Pharmacist;
 import com.aziz.demosec.Entities.Pharmacy;
+import com.aziz.demosec.domain.PasswordResetToken;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
+import com.aziz.demosec.repository.PasswordResetTokenRepository;
 import com.aziz.demosec.repository.PatientRepository;
 import com.aziz.demosec.repository.PharmacistRepository;
 import com.aziz.demosec.repository.PharmacyRepository;
 import com.aziz.demosec.repository.UserRepository;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +24,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +43,8 @@ public class AuthServiceImpl implements AuthService {
     private final NotificationService notificationService;
     private final com.aziz.demosec.repository.ServiceProviderRepository serviceProviderRepository;
     private final com.aziz.demosec.repository.HomeCareServiceRepository homeCareServiceRepository;
+    private final PasswordResetTokenRepository tokenRepository;
+    private final EmailService emailService;
 
     @Override
     @Transactional
@@ -194,8 +199,53 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByEmail(req.email())
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + req.email()));
 
-        String token = jwtService.generateToken(userDetails, user.getId());
+        String token = jwtService.generateToken(userDetails, user.getId(), user.getFullName());
 
         return new AuthResponse(token, userDetails.getUsername(), role);
+    }
+
+    @Override
+    @Transactional
+    public void forgotPassword(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Email non trouvé"));
+
+        tokenRepository.deleteByUser_Id(user.getId());
+
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken resetToken = PasswordResetToken.builder()
+                .token(token)
+                .user(user)
+                .expiryDate(LocalDateTime.now().plusHours(1))
+                .used(false)
+                .build();
+
+        tokenRepository.save(resetToken);
+
+        String resetLink = "http://localhost:4200/auth/reset-password?token=" + token;
+        emailService.sendPasswordResetEmail(email, resetLink);
+    }
+
+    @Override
+    @Transactional
+    public void resetPassword(String token, String newPassword) {
+        PasswordResetToken resetToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new IllegalArgumentException("Token invalide"));
+
+        if (resetToken.isExpired())
+            throw new IllegalArgumentException("Token expiré");
+
+        if (resetToken.isUsed())
+            throw new IllegalArgumentException("Token déjà utilisé");
+
+        if (newPassword == null || newPassword.length() < 8)
+            throw new IllegalArgumentException("Le mot de passe doit contenir au moins 8 caractères");
+
+        User user = resetToken.getUser();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        resetToken.setUsed(true);
+        tokenRepository.save(resetToken);
     }
 }

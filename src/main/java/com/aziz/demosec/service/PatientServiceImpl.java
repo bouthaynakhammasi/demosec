@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PatientServiceImpl implements PatientService {
+public class PatientServiceImpl implements IPatientService {
 
     private final PatientRepository patientRepository;
     private final PasswordEncoder passwordEncoder;

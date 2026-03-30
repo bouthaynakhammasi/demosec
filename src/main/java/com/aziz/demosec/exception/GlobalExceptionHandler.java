@@ -55,6 +55,8 @@ public class GlobalExceptionHandler {
         System.out.println("=== GENERIC ERROR ===");
         System.out.println("Type: " + type);
         System.out.println("Message: " + message);
+        System.out.println("Type: " + ex.getClass().getName());
+        System.out.println("Message: " + ex.getMessage());
         ex.printStackTrace();
         System.out.println("=====================");
         
@@ -63,6 +65,8 @@ public class GlobalExceptionHandler {
         body.put("type", type);
         body.put("message", message);
         
-        return ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(body);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("error", ex.getMessage()));
     }
 }

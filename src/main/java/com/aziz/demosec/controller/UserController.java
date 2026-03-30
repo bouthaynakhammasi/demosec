@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,23 @@ public class UserController {
 
     private final UserService userService;
 
+
+    // ✅ Fix: endpoint appelé par le frontend Angular
+    @GetMapping("/user/profile")
+    public ResponseEntity<UserResponseDTO> getProfile(Authentication authentication) {
+        return ResponseEntity.ok(userService.getByEmail(authentication.getName()));
+    }
+
     @PostMapping
+    @PutMapping("/user/profile")
+    public ResponseEntity<UserResponseDTO> updateProfile(
+            Authentication authentication,
+            @Valid @RequestBody UserRequestDTO dto) {
+        return ResponseEntity.ok(userService.updateByEmail(authentication.getName(), dto));
+    }
+
+    // --- Endpoints /api/users ---
+    @PostMapping("/api/users")
     public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody UserRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(dto));
     }
@@ -57,10 +74,14 @@ public class UserController {
     }
     @GetMapping("/role/{role}")
     public ResponseEntity<List<UserResponseDTO>> getByRole(@PathVariable("role") String role) {
+
+
         try {
             Role r = Role.valueOf(role.toUpperCase()); // Convertit la String en Enum
             List<UserResponseDTO> users = userService.getByRole(r);
             return ResponseEntity.ok(users);
+            Role r = Role.valueOf(role.toUpperCase());
+            return ResponseEntity.ok(userService.getByRole(r));
         } catch (IllegalArgumentException ex) {
             // Si le rôle fourni n’existe pas dans l’Enum
             return ResponseEntity.badRequest().build();
@@ -86,3 +107,4 @@ public class UserController {
             );
         }
     }}
+}

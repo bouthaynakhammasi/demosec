@@ -36,6 +36,10 @@ public record RegisterRequest(
         String drugAllergies,
         String hereditaryDiseases,
 
+        // ✅ Laboratory Staff
+        String labName,
+        String labAddress,
+        String labPhone
         // Champs Pharmacist uniquement (nullable si autre rôle)
         String pharmacyName,
         String pharmacyAddress,

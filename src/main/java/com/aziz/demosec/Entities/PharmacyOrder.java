@@ -45,6 +45,7 @@ public class PharmacyOrder {
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal totalPrice;
 
+
     private String deliveryAddress;
 
     private LocalDate scheduledDeliveryDate;

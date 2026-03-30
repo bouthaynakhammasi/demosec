@@ -1,6 +1,5 @@
 package com.aziz.demosec.service;
 
-
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.user.ChangePasswordDTO;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -41,7 +40,6 @@ public class UserServiceImpl implements UserService {
                 .birthDate(dto.getBirthDate())
                 .enabled(true)
                 .build();
-
         return toDTO(userRepository.save(user));
     }
 
@@ -70,7 +68,9 @@ public class UserServiceImpl implements UserService {
 
         user.setFullName(dto.getFullName());
         user.setEmail(dto.getEmail());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+           user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
         user.setRole(dto.getRole());
         user.setPhone(dto.getPhone());
         user.setBirthDate(dto.getBirthDate());
@@ -92,14 +92,44 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<UserResponseDTO> getByRole(Role role) {
+        return userRepository.findByRole(role)
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserResponseDTO getByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + email));
+        return toDTO(user);
+    }
+
+    @Override
+    public UserResponseDTO updateByEmail(String email, UserRequestDTO dto) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + email));
+        user.setFullName(dto.getFullName());
+        user.setPhone(dto.getPhone());
+        user.setBirthDate(dto.getBirthDate());
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+        return toDTO(userRepository.save(user));
+    }
+
+    @Override
     public void changePassword(Long id, ChangePasswordDTO dto) {
         User user = findOrThrow(id);
-        
+
         // Verify the current password
         if (!passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())) {
             throw new IllegalArgumentException("Current password is incorrect");
         }
-        
+
         // Update password
         user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         userRepository.save(user);
@@ -135,13 +165,5 @@ public class UserServiceImpl implements UserService {
         }
 
         return builder.build();
-    }
-
-    @Transactional(readOnly = true)
-    public List<UserResponseDTO> getByRole(Role role) {
-        return userRepository.findByRole(role)
-                .stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
     }
 }

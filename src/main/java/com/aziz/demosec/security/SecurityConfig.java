@@ -46,6 +46,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -61,6 +62,7 @@ public class SecurityConfig {
                                         "connect-src 'self' http://localhost:8081 ws://localhost:8081 http://localhost:4200;")
                         )
                 )
+
                 .authorizeHttpRequests(auth -> auth
 
                         // ✅ Endpoints publics (register + login + uploads + websocket + homecare catalogue)
@@ -70,6 +72,11 @@ public class SecurityConfig {
                                          "/api/homecare/services",
                                          "/api/homecare/services/**",
                                          "/api/homecare/providers/**").permitAll()
+                        // ✅ Public endpoints
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/home-care-services/**").permitAll()
+                        .requestMatchers("/user/**").authenticated()  // ✅ ajoute cette ligne
 
                         // ✅ Endpoints protégés par rôle
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
@@ -81,14 +88,29 @@ public class SecurityConfig {
                         .requestMatchers("/api/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/api/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/homecare/provider/**").hasRole("HOME_CARE_PROVIDER")
+                        // Doctor medical module
+                        .requestMatchers("/treatment/**").hasRole("DOCTOR")
+                        .requestMatchers("/diagnosis/**").hasRole("DOCTOR")
+                        .requestMatchers("/consultation/**").hasRole("DOCTOR")
+                        .requestMatchers("/prescription/**").hasRole("DOCTOR")
 
                         // ✅ Accès spécifique aux commandes de pharmacie
                         .requestMatchers("/api/pharmacy/orders/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/pharmacy/orders/pharmacy/**").hasRole("PHARMACIST")
                         .requestMatchers("/api/pharmacy/orders/**").authenticated()
+                        // Other roles
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/doctor/**").hasRole("DOCTOR")
+                        .requestMatchers("/clinic/**").hasRole("CLINIC")
+                        .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
+                        .requestMatchers("/laboratory/**").hasRole("LABORATORY_STAFF") // ✅ corrigé
+                        .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
+                        .requestMatchers("/visitor/**").hasRole("VISITOR")
+                        .requestMatchers("/patient/**").hasRole("PATIENT")
 
                         .anyRequest().authenticated()
                 )
+
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
