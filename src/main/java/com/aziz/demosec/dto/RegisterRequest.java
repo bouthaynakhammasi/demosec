@@ -66,7 +66,7 @@ public class RegisterRequest {
     // --- Service Provider fields ---
     private String certificationDocument;
     private List<String> homeCareServices;
-    
+
     // --- Other potential fields ---
     private String profileImage;
     private Long clinicId;

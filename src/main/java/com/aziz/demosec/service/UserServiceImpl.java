@@ -127,6 +127,7 @@ public class UserServiceImpl implements IUserService {
                 .role(user.getRole())
                 .phone(user.getPhone())
                 .birthDate(user.getBirthDate())
+                .photo(user.getPhoto())
                 .enabled(user.isEnabled())
                 .specialty(specialty)
                 .photo(user.getPhoto())

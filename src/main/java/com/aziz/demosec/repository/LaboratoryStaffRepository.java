@@ -13,4 +13,3 @@ public interface LaboratoryStaffRepository extends JpaRepository<LaboratoryStaff
     Optional<LaboratoryStaff> findByEmail(String email);
 
 }
-

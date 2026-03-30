@@ -8,6 +8,7 @@ public interface LabResultService {
     LabResultResponse create(LabResultRequest request);
     LabResultResponse getById(Long id);
     LabResultResponse getByLabRequestId(Long labRequestId);
+    List<LabResultResponse> getByLaboratory(Long laboratoryId);
     List<LabResultResponse> getAll();
     LabResultResponse update(Long id, LabResultRequest request);
     void delete(Long id);

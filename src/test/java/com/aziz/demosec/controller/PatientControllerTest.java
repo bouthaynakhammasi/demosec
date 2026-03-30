@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -31,33 +31,33 @@ class PatientControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockitoBean
+    @MockBean
     private PatientRepository patientRepository;
-    @MockitoBean
+    @MockBean
     private MedicalRecordRepository medicalRecordRepository;
-    @MockitoBean
+    @MockBean
     private ConsultationRepository consultationRepository;
-    @MockitoBean
+    @MockBean
     private TreatmentRepository treatmentRepository;
-    @MockitoBean
+    @MockBean
     private PrescriptionRepository prescriptionRepository;
-    @MockitoBean
+    @MockBean
     private DiagnosisRepository diagnosisRepository;
-    @MockitoBean
+    @MockBean
     private AppointmentRepository appointmentRepository;
-    @MockitoBean
+    @MockBean
     private UserRepository userRepository;
-    @MockitoBean
+    @MockBean
     private DoctorRepository doctorRepository;
-    @MockitoBean
+    @MockBean
     private LifestyleGoalRepository lifestyleGoalRepository;
-    @MockitoBean
+    @MockBean
     private ProgressTrackingRepository progressTrackingRepository;
 
-    @MockitoBean
+    @MockBean
     private JwtService jwtService;
 
-    @MockitoBean
+    @MockBean
     private com.aziz.demosec.security.CustomUserDetailsService userDetailsService;
 
     @Autowired

@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AuthController.class)
-@AutoConfigureMockMvc 
+@AutoConfigureMockMvc
 class AuthControllerTest {
 
     @Autowired
@@ -40,7 +40,7 @@ class AuthControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @WithMockUser 
+    @WithMockUser
     void register_ShouldReturnOk_WhenSuccessful() throws Exception {
         RegisterRequest request = RegisterRequest.builder()
                 .fullName("John Doe")

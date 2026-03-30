@@ -39,20 +39,19 @@ public class LabResultServiceImpl implements LabResultService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "LabRequest not found with id: " + request.getLabRequestId()));
 
-        LabResult result = labResultMapper.toEntity(request);
-        result.setLabRequest(labRequest);
+        LabResult result = labResultMapper.toEntity(request, labRequest);
         result.setCompletedAt(LocalDateTime.now());
         result.setStatus("COMPLETED");
 
         labRequest.setStatus(LabRequestStatus.COMPLETED);
         labRequestRepository.save(labRequest);
 
-        return LabResultMapper.toDto(labResultRepository.save(result));
+        return labResultMapper.toResponse(labResultRepository.save(result));
     }
 
     @Override
     public LabResultResponse getById(Long id) {
-        return LabResultMapper.toDto(findOrThrow(id));
+        return labResultMapper.toResponse(findOrThrow(id));
     }
 
     @Override
@@ -61,23 +60,31 @@ public class LabResultServiceImpl implements LabResultService {
                 .findByLabRequestId(labRequestId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "LabResult not found for labRequest id: " + labRequestId));
-        return LabResultMapper.toDto(result);
+        return labResultMapper.toResponse(result);
+    }
+
+    @Override
+    public List<LabResultResponse> getByLaboratory(Long laboratoryId) {
+        return labResultRepository.findByLabRequest_Laboratory_Id(laboratoryId)
+                .stream()
+                .map(labResultMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<LabResultResponse> getAll() {
         return labResultRepository.findAll()
                 .stream()
-                .map(LabResultMapper::toDto)
+                .map(labResultMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
     public LabResultResponse update(Long id, LabResultRequest request) {
         LabResult result = findOrThrow(id);
-        labResultMapper.updateFromDto(request, result);
+        labResultMapper.updateEntityFromRequest(request, result);
         result.setCompletedAt(LocalDateTime.now());
-        return LabResultMapper.toDto(labResultRepository.save(result));
+        return labResultMapper.toResponse(labResultRepository.save(result));
     }
 
     @Override
@@ -93,7 +100,7 @@ public class LabResultServiceImpl implements LabResultService {
     public List<LabResultResponse> getByStatus(String status) {
         return labResultRepository.findAll().stream()
                 .filter(r -> status.equals(r.getStatus()))
-                .map(LabResultMapper::toDto)
+                .map(labResultMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -101,7 +108,7 @@ public class LabResultServiceImpl implements LabResultService {
     public List<LabResultResponse> getAbnormalResults() {
         return labResultRepository.findAll().stream()
                 .filter(r -> Boolean.TRUE.equals(r.getIsAbnormal()))
-                .map(LabResultMapper::toDto)
+                .map(labResultMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -111,14 +118,14 @@ public class LabResultServiceImpl implements LabResultService {
         result.setVerifiedBy(verifiedBy);
         result.setVerifiedAt(LocalDateTime.now());
         result.setStatus("VERIFIED");
-        return LabResultMapper.toDto(labResultRepository.save(result));
+        return labResultMapper.toResponse(labResultRepository.save(result));
     }
 
     @Override
     public LabResultResponse updateStatus(Long id, String status) {
         LabResult result = findOrThrow(id);
         result.setStatus(status);
-        return LabResultMapper.toDto(labResultRepository.save(result));
+        return labResultMapper.toResponse(labResultRepository.save(result));
     }
 
     private LabResult findOrThrow(Long id) {

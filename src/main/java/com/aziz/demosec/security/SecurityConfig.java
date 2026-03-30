@@ -4,6 +4,7 @@ import com.aziz.demosec.security.jwt.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -50,28 +51,59 @@ public class SecurityConfig {
                 .authenticationProvider(authProvider())
                 .authorizeHttpRequests(auth -> auth
 
-                        // ─── PUBLIC ──────────────────────────────────────────
-                        .requestMatchers("/auth/**", "/error", "/api/home-care-services/**").permitAll()
+                        // ─── OPTIONS PREFLIGHT ─────────────────────────────────────
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // ─── PUBLIC ────────────────────────────────────────────────
+                        .requestMatchers("/auth/**", "/error/**", "/uploads/**").permitAll()
+                        .requestMatchers("/api/home-care-services/**").permitAll()
                         .requestMatchers("/api/donations/**", "/api/aid-requests/**").permitAll()
                         .requestMatchers("/api/emergency-alerts/**", "/api/interventions/**").permitAll()
                         .requestMatchers("/api/ambulances/**", "/api/smart-devices/**").permitAll()
                         .requestMatchers("/api/laboratories/**").permitAll()
 
-                        // ─── SHARED AUTHENTICATED (any logged-in role) ───────
+                        // ─── FORUM ─────────────────────────────────────────────────
+                        .requestMatchers(HttpMethod.GET, "/api/forum/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/comments/**").authenticated()
+                        .requestMatchers("/api/forum/posts/*/like").authenticated()
+
+                        // ─── SHARED AUTHENTICATED ───────────────────────────────────
+                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/api/notifications/**").authenticated()
                         .requestMatchers("/api/v1/doctors/**").authenticated()
                         .requestMatchers("/api/clinics/**").permitAll()
 
-                        // ─── ROLE-BASED ─────────────────────────────────────
+                        // ─── MEDICAL ROLES ─────────────────────────────────────────
+                        .requestMatchers("/treatment/**", "/diagnosis/**",
+                                "/consultation/**", "/prescription/**")
+                        .hasAnyRole("DOCTOR", "NUTRITIONIST")
+
+                        // ─── ROLE-BASED (api/ prefix) ───────────────────────────────
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/doctor/**", "/doctor/**").hasRole("DOCTOR")
-                        .requestMatchers("/api/clinic/**").hasRole("CLINIC")
-                        .requestMatchers("/api/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/api/laboratory/**").hasRole("LABORATORY_STAFF")
-                        .requestMatchers("/api/nutritionist/**").hasRole("NUTRITIONIST")
-                        .requestMatchers("/api/visitor/**").hasRole("VISITOR")
-                        .requestMatchers("/api/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/clinic/**", "/clinic/**").hasRole("CLINIC")
+                        .requestMatchers("/api/pharmacist/**", "/pharmacist/**").hasRole("PHARMACIST")
+                        .requestMatchers("/api/laboratory/**", "/laboratory/**").hasRole("LABORATORY_STAFF")
+                        .requestMatchers("/api/nutritionist/**", "/nutritionist/**").hasRole("NUTRITIONIST")
+                        .requestMatchers("/api/visitor/**", "/visitor/**").hasRole("VISITOR")
+                        .requestMatchers("/api/patient/**", "/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
-                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

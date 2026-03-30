@@ -40,4 +40,3 @@ public class PatientRequestDTO {
     String drugAllergies;
     String hereditaryDiseases;
 }
-
