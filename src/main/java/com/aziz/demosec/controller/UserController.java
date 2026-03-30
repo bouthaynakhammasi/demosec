@@ -1,7 +1,7 @@
 package com.aziz.demosec.controller;
 
-import com.aziz.demosec.domain.User;
-import com.aziz.demosec.dto.UserResponseDTO;
+
+import com.aziz.demosec.dto.user.UserResponseDTO;
 import com.aziz.demosec.repository.UserRepository;
 
 import com.aziz.demosec.domain.Role;
@@ -10,6 +10,7 @@ import com.aziz.demosec.service.IUserService;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+    private final IUserService userService;
 
     @PutMapping("/change-password")
     public ResponseEntity<?> changePassword(Principal principal, @RequestBody com.aziz.demosec.dto.PasswordChangeRequest request) {
@@ -57,7 +59,7 @@ public ResponseEntity<UserResponseDTO> updateProfile(
 // --- Endpoints /api/users ---
 @PostMapping("/api/users")
 public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody UserRequestDTO dto) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(dto));
+    return ResponseEntity.status(201).body(userService.create(dto));
 }
 
 @GetMapping("/api/users/{id}")
@@ -95,5 +97,6 @@ public ResponseEntity<List<UserResponseDTO>> getByRole(@PathVariable String role
         return ResponseEntity.ok(userService.getByRole(r));
     } catch (IllegalArgumentException ex) {
         return ResponseEntity.badRequest().build();
+    }
     }
 }

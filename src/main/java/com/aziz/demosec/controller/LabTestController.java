@@ -20,7 +20,13 @@ public class LabTestController {
 
     @PostMapping
     public ResponseEntity<LabTestResponse> create(@Valid @RequestBody LabTestRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(labTestService.create(request));
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(labTestService.create(request));
+        } catch (Exception e) {
+            System.err.println("❌ ERROR CREATING LAB TEST: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @GetMapping("/{id}")

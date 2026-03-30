@@ -22,13 +22,19 @@ public class LabRequestController {
     private final LabRequestService labRequestService;
 
     @PostMapping
-    public ResponseEntity<LabRequestResponse> create(
+    public ResponseEntity<?> create(
             @Valid @RequestBody LabRequestRequest request) {
-        log.info(" CREATION LAB REQUEST - Requête reçue: {}", request);
-        LabRequestResponse response = labRequestService.create(request);
-        log.info(" LAB REQUEST CRÉÉE - ID: {}, Patient: {}, Labo: {}", 
-                response.getId(), response.getPatientId(), response.getLaboratoryId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        try {
+            log.info(" 💾 CRÉATION LAB REQUEST - Requête reçue: {}", request);
+            LabRequestResponse response = labRequestService.create(request);
+            log.info(" ✅ LAB REQUEST CRÉÉE - ID: {}, Patient: {}, Labo: {}", 
+                    response.getId(), response.getPatientId(), response.getLaboratoryId());
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            log.error(" ❌ ERREUR CRÉATION LAB REQUEST: {}", e.getMessage());
+            e.printStackTrace();
+            throw e; // Rethrow to let GlobalExceptionHandler handle it
+        }
     }
 
     @GetMapping("/{id}")

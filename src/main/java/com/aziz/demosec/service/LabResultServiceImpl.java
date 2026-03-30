@@ -6,7 +6,7 @@ import com.aziz.demosec.Entities.LabResult;
 import com.aziz.demosec.dto.LabResultRequest;
 import com.aziz.demosec.dto.LabResultResponse;
 import com.aziz.demosec.exception.ResourceNotFoundException;
-import com.aziz.demosec.mapper.LabResultMapper;
+import com.aziz.demosec.Mapper.LabResultMapper;
 import com.aziz.demosec.repository.LabRequestRepository;
 import com.aziz.demosec.repository.LabResultRepository;
 import lombok.RequiredArgsConstructor;

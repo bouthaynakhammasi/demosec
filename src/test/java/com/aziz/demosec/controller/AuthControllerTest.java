@@ -43,7 +43,12 @@ class AuthControllerTest {
     @WithMockUser // Auth endpoints are public but it's good practice for consistency
     void register_ShouldReturnOk_WhenSuccessful() throws Exception {
         // Arrange
-        RegisterRequest request = new RegisterRequest("John Doe", "john@example.com", "password123", com.aziz.demosec.domain.Role.VISITOR, "12345678", null, null, null, null, null, null, null, null, null, null, null);
+        RegisterRequest request = new RegisterRequest(
+                "John Doe", "john@example.com", "password123", com.aziz.demosec.domain.Role.VISITOR, "12345678",
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null
+        );
         User user = new User();
         user.setEmail("john@example.com");
 
@@ -62,7 +67,12 @@ class AuthControllerTest {
     @WithMockUser
     void register_ShouldReturnBadRequest_WhenExceptionThrown() throws Exception {
         // Arrange
-        RegisterRequest request = new RegisterRequest("John Doe", "john@example.com", "password123", com.aziz.demosec.domain.Role.VISITOR, "12345678", null, null, null, null, null, null, null, null, null, null, null);
+        RegisterRequest request = new RegisterRequest(
+                "John Doe", "john@example.com", "password123", com.aziz.demosec.domain.Role.VISITOR, "12345678",
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null
+        );
 
         when(authService.register(any(RegisterRequest.class))).thenThrow(new IllegalArgumentException("Email already used"));
 

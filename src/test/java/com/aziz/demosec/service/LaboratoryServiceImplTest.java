@@ -4,7 +4,7 @@ import com.aziz.demosec.Entities.Laboratory;
 import com.aziz.demosec.dto.LaboratoryRequest;
 import com.aziz.demosec.dto.LaboratoryResponse;
 import com.aziz.demosec.exception.ResourceNotFoundException;
-import com.aziz.demosec.mapper.LaboratoryMapper;
+import com.aziz.demosec.Mapper.LaboratoryMapper;
 import com.aziz.demosec.repository.LaboratoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

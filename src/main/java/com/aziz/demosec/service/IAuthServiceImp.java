@@ -48,7 +48,9 @@ public class IAuthServiceImp implements IAuthService {
     private final EmailService emailService;
 
     @Override
+    @Transactional
     public User register(RegisterRequest req) {
+        System.out.println("Processing registration for role: " + req.role() + " and email: " + req.email());
 
         if (req.email() == null || req.email().isBlank())
             throw new IllegalArgumentException("Email required");
@@ -111,12 +113,14 @@ public class IAuthServiceImp implements IAuthService {
                 u = pharm;
                 break;
             case LABORATORY_STAFF:
+                System.out.println("Registering LaboratoryStaff: " + req.labName());
                 LaboratoryStaff labStaff = new LaboratoryStaff();
                 Laboratory labEntity = new Laboratory();
                 labEntity.setName(req.labName());
                 labEntity.setAddress(req.labAddress());
                 labEntity.setPhone(req.labPhone());
                 labEntity = laboratoryRepository.save(labEntity);
+                System.out.println("Laboratory saved with ID: " + labEntity.getId());
                 labStaff.setLaboratory(labEntity);
                 u = labStaff;
                 break;
@@ -187,11 +191,6 @@ public class IAuthServiceImp implements IAuthService {
 
         Long userId = user.getId();
 
-        Long patientId = null;
-        if (user instanceof Patient patient) {
-            patientId = patient.getId();
-        }
-
         Long laboratoryId = null;
         if (user instanceof LaboratoryStaff staff) {
             laboratoryId = staff.getLaboratory() != null
@@ -202,7 +201,6 @@ public class IAuthServiceImp implements IAuthService {
                 userDetails,
                 user.getFullName(),
                 userId,
-                patientId,
                 laboratoryId
         );
 

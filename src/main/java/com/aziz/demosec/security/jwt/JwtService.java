@@ -31,9 +31,7 @@ public class JwtService {
 
    
 
-    public String generateToken(UserDetails userDetails, String fullName, Long userId) {
-
-
+    public String generateToken(UserDetails userDetails, String fullName, Long userId, Long laboratoryId) {
         String role = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .findFirst()
@@ -45,22 +43,19 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
         claims.put("fullName", fullName);
+        claims.put("id", userId);
 
         if (userId != null) {
             claims.put("userId", userId);
-        }
-        if (patientId != null) {
-            claims.put("patientId", patientId);
         }
         if (laboratoryId != null) {
             claims.put("laboratoryId", laboratoryId);
         }
 
+        // Fix the Map.of issue and use the claims map
         return Jwts.builder()
                 .subject(userDetails.getUsername())
-
-                .claims(Map.of("role", role, "fullName", fullName, "id", userId))
-
+                .claims(claims)
                 .issuedAt(now)
                 .expiration(exp)
                 .signWith(key, Jwts.SIG.HS256)

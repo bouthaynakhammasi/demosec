@@ -1,16 +1,14 @@
 package com.aziz.demosec.service;
 
+import com.aziz.demosec.Entities.BloodType;
+import com.aziz.demosec.Entities.Gender;
 import com.aziz.demosec.Entities.Patient;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
-import com.aziz.demosec.repository.LaboratoryRepository;
-import com.aziz.demosec.repository.LaboratoryStaffRepository;
-import com.aziz.demosec.repository.PasswordResetTokenRepository;
-import com.aziz.demosec.repository.PatientRepository;
-import com.aziz.demosec.repository.UserRepository;
+import com.aziz.demosec.repository.*;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,9 +39,25 @@ class IAuthServiceImpTest {
     @Mock
     private PatientRepository patientRepository;
     @Mock
+    private MedicalRecordRepository medicalRecordRepository;
+    @Mock
     private LaboratoryRepository laboratoryRepository;
     @Mock
     private LaboratoryStaffRepository laboratoryStaffRepository;
+    @Mock
+    private DoctorRepository doctorRepository;
+    @Mock
+    private ClinicRepository clinicRepository;
+    @Mock
+    private PharmacistRepository pharmacistRepository;
+    @Mock
+    private NutritionistRepository nutritionistRepository;
+    @Mock
+    private PharmacyRepository pharmacyRepository;
+    @Mock
+    private HomeCareServiceRepository homeCareServiceRepository;
+    @Mock
+    private ServiceProviderRepository serviceProviderRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
     @Mock
@@ -65,17 +79,25 @@ class IAuthServiceImpTest {
 
     @BeforeEach
     void setUp() {
-        registerRequest = new RegisterRequest(
+        registerRequest = createRegisterRequest(
                 "John Doe",
                 "john@example.com",
                 "Password123",
                 Role.VISITOR,
-                "12345678",
-                LocalDate.of(1990, 1, 1),
-                null, null, null, null, null, null, null, null, null, null
+                "12345678"
         );
 
         loginRequest = new LoginRequest("john@example.com", "Password123");
+    }
+
+    private RegisterRequest createRegisterRequest(String fullName, String email, String password, Role role, String phone) {
+        return new RegisterRequest(
+                fullName, email, password, role, phone,
+                LocalDate.of(1990, 1, 1),
+                null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null
+        );
     }
 
     @Test
@@ -99,14 +121,23 @@ class IAuthServiceImpTest {
     @Test
     void register_ShouldRegisterPatient_WhenRoleIsPatient() {
         // Arrange
-        RegisterRequest patientRequest = new RegisterRequest(
+        RegisterRequest patientRequest = createRegisterRequest(
                 "Patient Patient",
                 "patient@example.com",
                 "Password123",
                 Role.PATIENT,
-                "87654321",
+                "87654321"
+        );
+        // Add specific patient fields if needed via reflection or just use the constructor if it's too much, 
+        // but the constructor is public and it's a record. 
+        // Let's just create a more flexible helper or reuse the logic.
+        patientRequest = new RegisterRequest(
+                "Patient Patient", "patient@example.com", "Password123", Role.PATIENT, "87654321",
                 LocalDate.of(1995, 5, 5),
-                com.aziz.demosec.Entities.Gender.MALE, com.aziz.demosec.Entities.BloodType.B_POS, "Emergency contact", "111222333", null, null, null, null, null, null
+                Gender.MALE, BloodType.B_POS, "Emergency contact", "111222333",
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null,
+                null, null, null
         );
 
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
@@ -138,14 +169,12 @@ class IAuthServiceImpTest {
     @Test
     void register_ShouldThrowException_WhenPasswordTooShort() {
         // Arrange
-        RegisterRequest shortPasswordRequest = new RegisterRequest(
+        RegisterRequest shortPasswordRequest = createRegisterRequest(
                 "John Doe",
                 "john@example.com",
                 "123",
                 Role.VISITOR,
-                "12345678",
-                LocalDate.of(1990, 1, 1),
-                null, null, null, null, null, null, null, null, null, null
+                "12345678"
         );
 
         // Act & Assert
@@ -168,7 +197,7 @@ class IAuthServiceImpTest {
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
         when(userDetails.getUsername()).thenReturn("john@example.com");
         doReturn(Collections.singletonList(new SimpleGrantedAuthority("ROLE_VISITOR"))).when(userDetails).getAuthorities();
-        when(jwtService.generateToken(any(org.springframework.security.core.userdetails.UserDetails.class), any(String.class), any(Long.class), any(), any())).thenReturn("mocked-token");
+        when(jwtService.generateToken(any(org.springframework.security.core.userdetails.UserDetails.class), any(String.class), any(Long.class), any())).thenReturn("mocked-token");
 
         // Act
         AuthResponse response = authService.login(loginRequest);

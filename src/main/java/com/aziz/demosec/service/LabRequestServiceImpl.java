@@ -5,7 +5,7 @@ import com.aziz.demosec.dto.LabRequestRequest;
 import com.aziz.demosec.dto.LabRequestResponse;
 import com.aziz.demosec.dto.RequestedBy;
 import com.aziz.demosec.exception.ResourceNotFoundException;
-import com.aziz.demosec.mapper.LabRequestMapper;
+import com.aziz.demosec.Mapper.LabRequestMapper;
 import com.aziz.demosec.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

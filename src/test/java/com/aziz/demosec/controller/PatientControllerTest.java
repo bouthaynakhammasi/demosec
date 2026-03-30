@@ -1,8 +1,8 @@
 package com.aziz.demosec.controller;
 
-import com.aziz.demosec.dto.patient.PatientRequestDTO;
-import com.aziz.demosec.dto.patient.PatientResponseDTO;
-import com.aziz.demosec.service.IPatientService;
+import com.aziz.demosec.Entities.*;
+import com.aziz.demosec.dto.*;
+import com.aziz.demosec.repository.*;
 import com.aziz.demosec.security.jwt.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,12 +13,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -32,7 +32,27 @@ class PatientControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private IPatientService patientService;
+    private PatientRepository patientRepository;
+    @MockitoBean
+    private MedicalRecordRepository medicalRecordRepository;
+    @MockitoBean
+    private ConsultationRepository consultationRepository;
+    @MockitoBean
+    private TreatmentRepository treatmentRepository;
+    @MockitoBean
+    private PrescriptionRepository prescriptionRepository;
+    @MockitoBean
+    private DiagnosisRepository diagnosisRepository;
+    @MockitoBean
+    private AppointmentRepository appointmentRepository;
+    @MockitoBean
+    private UserRepository userRepository;
+    @MockitoBean
+    private DoctorRepository doctorRepository;
+    @MockitoBean
+    private LifestyleGoalRepository lifestyleGoalRepository;
+    @MockitoBean
+    private ProgressTrackingRepository progressTrackingRepository;
 
     @MockitoBean
     private JwtService jwtService;
@@ -43,77 +63,65 @@ class PatientControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private PatientResponseDTO patientResponseDTO;
-    private PatientRequestDTO patientRequestDTO;
+    private Patient patient;
 
     @BeforeEach
     void setUp() {
-        patientResponseDTO = new PatientResponseDTO();
-        patientResponseDTO.setId(1L);
-        patientResponseDTO.setFullName("Patient Zero");
-        patientResponseDTO.setEmail("patient@example.com");
-
-        patientRequestDTO = new PatientRequestDTO();
-        patientRequestDTO.setFullName("Patient Zero");
-        patientRequestDTO.setEmail("patient@example.com");
-        patientRequestDTO.setPassword("password123");
+        patient = new Patient();
+        patient.setId(1L);
+        patient.setFullName("Patient Zero");
+        patient.setEmail("patient@example.com");
     }
 
     @Test
-    void create_ShouldReturnCreatedPatient() throws Exception {
-        when(patientService.create(any(PatientRequestDTO.class))).thenReturn(patientResponseDTO);
+    @WithMockUser
+    void getPatientById_ShouldReturnPatient() throws Exception {
+        when(patientRepository.findById(1L)).thenReturn(Optional.of(patient));
 
-        mockMvc.perform(post("/api/patients")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(patientRequestDTO))
-                        .with(csrf()))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1L));
-    }
-
-    @Test
-    void getById_ShouldReturnPatient() throws Exception {
-        when(patientService.getById(1L)).thenReturn(patientResponseDTO);
-
-        mockMvc.perform(get("/api/patients/1").with(csrf()))
+        mockMvc.perform(get("/api/patients/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L));
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.fullName").value("Patient Zero"));
     }
 
     @Test
+    @WithMockUser
     void getAll_ShouldReturnListOfPatients() throws Exception {
-        when(patientService.getAll()).thenReturn(Collections.singletonList(patientResponseDTO));
+        when(patientRepository.findAll()).thenReturn(Collections.singletonList(patient));
 
-        mockMvc.perform(get("/api/patients").with(csrf()))
+        mockMvc.perform(get("/api/patients"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1L));
     }
 
     @Test
-    void update_ShouldReturnUpdatedPatient() throws Exception {
-        when(patientService.update(anyLong(), any(PatientRequestDTO.class))).thenReturn(patientResponseDTO);
+    @WithMockUser(username = "patient@example.com")
+    void getMyProfile_ShouldReturnCurrentPatient() throws Exception {
+        when(patientRepository.findByEmail("patient@example.com")).thenReturn(Optional.of(patient));
 
-        mockMvc.perform(put("/api/patients/1")
+        mockMvc.perform(get("/api/patients/me"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email").value("patient@example.com"));
+    }
+
+    @Test
+    @WithMockUser(username = "patient@example.com")
+    void updateProfile_ShouldReturnUpdatedPatient() throws Exception {
+        PatientProfileUpdateRequest request = new PatientProfileUpdateRequest(
+                "Updated Name", "patient@example.com", "12345678", 
+                java.time.LocalDate.parse("1990-01-01"), "MALE",
+                "Emergency", "111222333", 180.0, 75.0, 
+                "B_POS", "None", "None", "photo.jpg"
+        );
+
+        when(patientRepository.findByEmail("patient@example.com")).thenReturn(Optional.of(patient));
+        when(patientRepository.save(any(Patient.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        mockMvc.perform(put("/api/patients/profile")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(patientRequestDTO))
+                        .content(objectMapper.writeValueAsString(request))
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L));
-    }
-
-    @Test
-    void delete_ShouldReturnNoContent() throws Exception {
-        doNothing().when(patientService).delete(1L);
-
-        mockMvc.perform(delete("/api/patients/1").with(csrf()))
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    void toggleEnabled_ShouldReturnNoContent() throws Exception {
-        doNothing().when(patientService).toggleEnabled(1L);
-
-        mockMvc.perform(patch("/api/patients/1/toggle").with(csrf()))
-                .andExpect(status().isNoContent());
+                .andExpect(jsonPath("$.fullName").value("Updated Name"));
     }
 }

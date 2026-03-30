@@ -30,10 +30,11 @@ public class LabRequest {
 
     // Optionnel — juste pour info (PATIENT ou DOCTOR)
     @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private RequestedBy requestedBy;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     private LabRequestStatus status;
 
     // Type d'analyse : "Blood Test", "Urine Test", "MRI"...
