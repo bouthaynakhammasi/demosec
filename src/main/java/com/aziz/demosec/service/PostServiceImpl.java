@@ -5,7 +5,7 @@ import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.PostRequest;
 import com.aziz.demosec.dto.PostResponse;
 import com.aziz.demosec.exception.ResourceNotFoundException;
-import com.aziz.demosec.mapper.PostMapper;
+import com.aziz.demosec.Mapper.PostMapper;
 import com.aziz.demosec.repository.PostRepository;
 import com.aziz.demosec.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

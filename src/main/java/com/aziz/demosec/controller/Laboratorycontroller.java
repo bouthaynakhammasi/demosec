@@ -2,7 +2,7 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.dto.LaboratoryRequest;
 import com.aziz.demosec.dto.LaboratoryResponse;
-import com.aziz.demosec.service.Laboratoryservice;
+import com.aziz.demosec.service.LaboratoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,9 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/laboratories")
 @RequiredArgsConstructor
-public class Laboratorycontroller {
+public class LaboratoryController {
 
-    private final Laboratoryservice laboratoryService;
+    private final LaboratoryService laboratoryService;
     
     @GetMapping("/me")
     public ResponseEntity<LaboratoryResponse> getMyLaboratory(Authentication authentication) {

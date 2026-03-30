@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class LaboratoryServiceImpl implements Laboratoryservice {
+public class LaboratoryServiceImpl implements LaboratoryService {
 
     private final LaboratoryRepository laboratoryRepository;
     private final LaboratoryStaffRepository laboratoryStaffRepository;

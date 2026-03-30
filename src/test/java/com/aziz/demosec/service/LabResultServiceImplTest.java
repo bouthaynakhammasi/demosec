@@ -66,7 +66,7 @@ class LabResultServiceImplTest {
     void create_ShouldReturnLabResultResponse_WhenValidRequest() {
         when(labResultRepository.existsByLabRequestId(anyLong())).thenReturn(false);
         when(labRequestRepository.findById(anyLong())).thenReturn(Optional.of(request));
-        when(labResultMapper.toEntity(any(LabResultRequest.class))).thenReturn(result);
+        when(labResultMapper.toEntity(any(LabResultRequest.class), any(LabRequest.class))).thenReturn(result);
         when(labResultRepository.save(any(LabResult.class))).thenReturn(result);
         when(labRequestRepository.save(any(LabRequest.class))).thenReturn(request);
 
@@ -130,7 +130,7 @@ class LabResultServiceImplTest {
         LabResultResponse response = labResultService.update(1L, resultRequest);
 
         assertNotNull(response);
-        verify(labResultMapper).updateFromDto(any(LabResultRequest.class), any(LabResult.class));
+        verify(labResultMapper).updateEntityFromRequest(any(LabResultRequest.class), any(LabResult.class));
         verify(labResultRepository).save(any(LabResult.class));
     }
 

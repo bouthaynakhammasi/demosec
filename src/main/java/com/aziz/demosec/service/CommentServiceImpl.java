@@ -6,7 +6,7 @@ import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.CommentRequest;
 import com.aziz.demosec.dto.CommentResponse;
 import com.aziz.demosec.exception.ResourceNotFoundException;
-import com.aziz.demosec.mapper.CommentMapper;
+import com.aziz.demosec.Mapper.CommentMapper;
 import com.aziz.demosec.repository.CommentRepository;
 import com.aziz.demosec.repository.PostRepository;
 import com.aziz.demosec.repository.UserRepository;

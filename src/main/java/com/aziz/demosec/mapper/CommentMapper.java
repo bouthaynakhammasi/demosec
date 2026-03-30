@@ -1,4 +1,4 @@
-package com.aziz.demosec.mapper;
+package com.aziz.demosec.Mapper;
 
 import com.aziz.demosec.Entities.Comment;
 import com.aziz.demosec.dto.CommentRequest;

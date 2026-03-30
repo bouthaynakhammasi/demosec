@@ -124,10 +124,7 @@ public class UserServiceImpl implements IUserService {
                 .role(user.getRole())
                 .phone(user.getPhone())
                 .birthDate(user.getBirthDate())
-<<<<<<< HEAD
                 .photo(user.getPhoto())
-=======
->>>>>>> origin/forum-management
                 .enabled(user.isEnabled())
                 .build();
     }

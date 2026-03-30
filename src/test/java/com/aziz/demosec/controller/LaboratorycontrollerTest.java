@@ -2,7 +2,7 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.dto.LaboratoryRequest;
 import com.aziz.demosec.dto.LaboratoryResponse;
-import com.aziz.demosec.service.Laboratoryservice;
+import com.aziz.demosec.service.LaboratoryService;
 import com.aziz.demosec.security.jwt.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 
 
@@ -26,20 +26,20 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(Laboratorycontroller.class)
+@WebMvcTest(LaboratoryController.class)
 @AutoConfigureMockMvc // Enable security filters
-class LaboratorycontrollerTest {
+class LaboratoryControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockitoBean
-    private Laboratoryservice laboratoryService;
+    @MockBean
+    private LaboratoryService laboratoryService;
 
-    @MockitoBean
+    @MockBean
     private JwtService jwtService;
 
-    @MockitoBean
+    @MockBean
     private com.aziz.demosec.security.CustomUserDetailsService userDetailsService;
 
     @Autowired

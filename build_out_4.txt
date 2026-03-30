@@ -1,0 +1,124 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aziz:demosec >--------------------------
+[INFO] Building demosec 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ demosec ---
+[INFO] Deleting C:\Users\Fathi\demosec\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ demosec ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 245 source files with javac [debug parameters release 17] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[39,43] method toEntity in class com.aziz.demosec.Mapper.LabResultMapper cannot be applied to given types;
+  required: com.aziz.demosec.dto.LabResultRequest,com.aziz.demosec.Entities.LabRequest
+  found:    com.aziz.demosec.dto.LabResultRequest
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[47,31] cannot find symbol
+  symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+  location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[52,31] cannot find symbol
+  symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+  location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[61,31] cannot find symbol
+  symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+  location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[68,22] invalid method reference
+  cannot find symbol
+    symbol:   method toDto()
+    location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[76,22] invalid method reference
+  cannot find symbol
+    symbol:   method toDto()
+    location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[83,24] cannot find symbol
+  symbol:   method updateFromDto(com.aziz.demosec.dto.LabResultRequest,com.aziz.demosec.Entities.LabResult)
+  location: variable labResultMapper of type com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[85,31] cannot find symbol
+  symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+  location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[101,22] invalid method reference
+  cannot find symbol
+    symbol:   method toDto()
+    location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[109,22] invalid method reference
+  cannot find symbol
+    symbol:   method toDto()
+    location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[119,31] cannot find symbol
+  symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+  location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[126,31] cannot find symbol
+  symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+  location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/UserServiceImpl.java:[128,17] cannot find symbol
+  symbol:   method enabled(boolean)
+  location: class com.aziz.demosec.dto.user.UserResponseDTO.UserResponseDTOBuilder
+[INFO] 13 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.280 s
+[INFO] Finished at: 2026-03-30T20:45:59+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project demosec: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[39,43] method toEntity in class com.aziz.demosec.Mapper.LabResultMapper cannot be applied to given types;
+[ERROR]   required: com.aziz.demosec.dto.LabResultRequest,com.aziz.demosec.Entities.LabRequest
+[ERROR]   found:    com.aziz.demosec.dto.LabResultRequest
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[47,31] cannot find symbol
+[ERROR]   symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+[ERROR]   location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[52,31] cannot find symbol
+[ERROR]   symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+[ERROR]   location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[61,31] cannot find symbol
+[ERROR]   symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+[ERROR]   location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[68,22] invalid method reference
+[ERROR]   cannot find symbol
+[ERROR]     symbol:   method toDto()
+[ERROR]     location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[76,22] invalid method reference
+[ERROR]   cannot find symbol
+[ERROR]     symbol:   method toDto()
+[ERROR]     location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[83,24] cannot find symbol
+[ERROR]   symbol:   method updateFromDto(com.aziz.demosec.dto.LabResultRequest,com.aziz.demosec.Entities.LabResult)
+[ERROR]   location: variable labResultMapper of type com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[85,31] cannot find symbol
+[ERROR]   symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+[ERROR]   location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[101,22] invalid method reference
+[ERROR]   cannot find symbol
+[ERROR]     symbol:   method toDto()
+[ERROR]     location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[109,22] invalid method reference
+[ERROR]   cannot find symbol
+[ERROR]     symbol:   method toDto()
+[ERROR]     location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[119,31] cannot find symbol
+[ERROR]   symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+[ERROR]   location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/LabResultServiceImpl.java:[126,31] cannot find symbol
+[ERROR]   symbol:   method toDto(com.aziz.demosec.Entities.LabResult)
+[ERROR]   location: class com.aziz.demosec.Mapper.LabResultMapper
+[ERROR] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/service/UserServiceImpl.java:[128,17] cannot find symbol
+[ERROR]   symbol:   method enabled(boolean)
+[ERROR]   location: class com.aziz.demosec.dto.user.UserResponseDTO.UserResponseDTOBuilder
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
