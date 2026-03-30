@@ -33,6 +33,10 @@ public abstract class MedicalEvent {
     @Column(nullable = false)
     private MedicalEventType eventType;
 
+    @Lob
+    @Column(name = "image_url", columnDefinition = "LONGTEXT")
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "created_by_id")
     private User createdBy;

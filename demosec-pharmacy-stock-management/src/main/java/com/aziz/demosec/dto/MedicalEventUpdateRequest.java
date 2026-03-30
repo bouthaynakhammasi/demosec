@@ -3,7 +3,9 @@ package com.aziz.demosec.dto;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
+import java.time.LocalDate;
 
 @Data
 public class MedicalEventUpdateRequest {
@@ -15,7 +17,9 @@ public class MedicalEventUpdateRequest {
     private String description;
 
     @Future(message = "Event date must be in the future")
-    private LocalDateTime date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+    private String imageUrl;
 
     @Size(max = 150, message = "Venue name must not exceed 150 characters")
     private String venueName;

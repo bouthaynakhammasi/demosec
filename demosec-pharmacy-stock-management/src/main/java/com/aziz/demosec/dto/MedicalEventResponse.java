@@ -18,6 +18,7 @@ public class MedicalEventResponse {
     private MedicalEventType eventType;
 
     private Long createdById;
+    private String imageUrl;
 
     // PHYSICAL
     private String venueName;
