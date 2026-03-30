@@ -43,13 +43,12 @@ public class UserController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
-// ✅ Fix: endpoint appelé par le frontend Angular
-@GetMapping("/user/profile")
+@GetMapping("/profile")
 public ResponseEntity<UserResponseDTO> getProfile(Authentication authentication) {
     return ResponseEntity.ok(userService.getByEmail(authentication.getName()));
 }
 
-@PutMapping("/user/profile")
+@PutMapping("/profile")
 public ResponseEntity<UserResponseDTO> updateProfile(
         Authentication authentication,
         @Valid @RequestBody UserRequestDTO dto) {

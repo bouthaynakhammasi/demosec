@@ -13,5 +13,6 @@ public class UserResponseDTO {
     Role role;
     String phone;
     LocalDate birthDate;
+    String photo;
     boolean enabled;
 }

@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,18 @@ import java.util.List;
 public class Laboratorycontroller {
 
     private final Laboratoryservice laboratoryService;
+    
+    @GetMapping("/me")
+    public ResponseEntity<LaboratoryResponse> getMyLaboratory(Authentication authentication) {
+        return ResponseEntity.ok(laboratoryService.getMyLaboratory(authentication.getName()));
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<LaboratoryResponse> updateProfile(
+            Authentication authentication,
+            @Valid @RequestBody com.aziz.demosec.dto.LaboratoryStaffProfileUpdateRequest request) {
+        return ResponseEntity.ok(laboratoryService.updateProfile(authentication.getName(), request));
+    }
 
     @PostMapping
     public ResponseEntity<LaboratoryResponse> create(@Valid @RequestBody LaboratoryRequest request) {

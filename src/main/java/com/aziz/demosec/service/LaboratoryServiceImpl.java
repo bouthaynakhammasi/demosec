@@ -1,10 +1,12 @@
 package com.aziz.demosec.service;
 
 import com.aziz.demosec.Entities.Laboratory;
+import com.aziz.demosec.Entities.LaboratoryStaff;
 import com.aziz.demosec.dto.LaboratoryRequest;
 import com.aziz.demosec.dto.LaboratoryResponse;
 import com.aziz.demosec.exception.ResourceNotFoundException;
 import com.aziz.demosec.Mapper.LaboratoryMapper;
+import com.aziz.demosec.repository.LaboratoryStaffRepository;
 import com.aziz.demosec.repository.LaboratoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import java.util.List;
 public class LaboratoryServiceImpl implements Laboratoryservice {
 
     private final LaboratoryRepository laboratoryRepository;
+    private final LaboratoryStaffRepository laboratoryStaffRepository;
     private final LaboratoryMapper laboratoryMapper;
 
     @Override
@@ -77,6 +80,49 @@ public class LaboratoryServiceImpl implements Laboratoryservice {
     public void delete(Long id) {
         findOrThrow(id);
         laboratoryRepository.deleteById(id);
+    }
+
+    @Override
+    public LaboratoryResponse getMyLaboratory(String email) {
+        LaboratoryStaff staff = laboratoryStaffRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Laboratory Staff not found with email: " + email));
+        
+        if (staff.getLaboratory() == null) {
+            throw new ResourceNotFoundException("No laboratory associated with this staff member");
+        }
+        
+        return laboratoryMapper.toDto(staff.getLaboratory());
+    }
+
+    @Override
+    public LaboratoryResponse updateProfile(String email, com.aziz.demosec.dto.LaboratoryStaffProfileUpdateRequest request) {
+        LaboratoryStaff staff = laboratoryStaffRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Laboratory Staff not found with email: " + email));
+
+        if (request.fullName() != null && !request.fullName().isBlank()) {
+            staff.setFullName(request.fullName());
+        }
+        if (request.phone() != null) staff.setPhone(request.phone());
+        if (request.birthDate() != null) staff.setBirthDate(request.birthDate());
+        if (request.photo() != null) staff.setPhoto(request.photo());
+
+        Laboratory laboratory = staff.getLaboratory();
+        if (laboratory != null) {
+            if (request.laboratoryName() != null && !request.laboratoryName().isBlank()) {
+                laboratory.setName(request.laboratoryName());
+            }
+            if (request.laboratoryAddress() != null) laboratory.setAddress(request.laboratoryAddress());
+            if (request.laboratoryPhone() != null) laboratory.setPhone(request.laboratoryPhone());
+            if (request.laboratoryEmail() != null) laboratory.setEmail(request.laboratoryEmail());
+            if (request.openingHours() != null) laboratory.setOpeningHours(request.openingHours());
+            if (request.specializations() != null) laboratory.setSpecializations(request.specializations());
+            if (request.active() != null) laboratory.setActive(request.active());
+            
+            laboratoryRepository.save(laboratory);
+        }
+
+        laboratoryStaffRepository.save(staff);
+        return laboratoryMapper.toDto(laboratory);
     }
 
     private Laboratory findOrThrow(Long id) {

@@ -62,6 +62,14 @@ public class LabResultServiceImpl implements LabResultService {
     }
 
     @Override
+    public List<LabResultResponse> getByLaboratory(Long laboratoryId) {
+        return labResultRepository.findByLabRequest_Laboratory_Id(laboratoryId)
+                .stream()
+                .map(LabResultMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<LabResultResponse> getAll() {
         return labResultRepository.findAll()
                 .stream()

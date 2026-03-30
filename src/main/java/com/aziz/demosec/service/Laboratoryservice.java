@@ -15,4 +15,6 @@ public interface Laboratoryservice {
     LaboratoryResponse update(Long id, LaboratoryRequest request);
     LaboratoryResponse toggleActive(Long id);
     void delete(Long id);
+    LaboratoryResponse getMyLaboratory(String email);
+    LaboratoryResponse updateProfile(String email, com.aziz.demosec.dto.LaboratoryStaffProfileUpdateRequest request);
 }

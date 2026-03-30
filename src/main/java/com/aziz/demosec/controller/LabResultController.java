@@ -29,6 +29,11 @@ public class LabResultController {
         return ResponseEntity.ok(labResultService.getAll());
     }
 
+    @GetMapping("/laboratory/{laboratoryId}")
+    public ResponseEntity<List<LabResultResponse>> getByLaboratory(@PathVariable Long laboratoryId) {
+        return ResponseEntity.ok(labResultService.getByLaboratory(laboratoryId));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<LabResultResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(labResultService.getById(id));
