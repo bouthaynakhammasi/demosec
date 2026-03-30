@@ -61,7 +61,7 @@ public class ProfileServiceImpl implements IProfileService {
                     throw new IllegalArgumentException("Doctor license number is required to complete profile.");
                 }
 
-                doctorRepository.save((Doctor) user); // To sync references, wait we should save doctor.
+                doctorRepository.save(doctor); // ✅ save doctor, pas (Doctor) user
             }
             case NUTRITIONIST -> {
                 Nutritionist n = nutritionistRepository.findById(user.getId())
@@ -85,7 +85,7 @@ public class ProfileServiceImpl implements IProfileService {
                 sp.setVerified(false);
                 serviceProviderRepository.save(sp);
             }
-            case PHARMACIST, LABORATORYSAFF -> {
+            case PHARMACIST, LABORATORYSAFF-> {
                 // No extra fields at this stage
             }
             default -> {

@@ -2,7 +2,6 @@ package com.aziz.demosec.service;
 
 
 
-
 import com.aziz.demosec.dto.patient.PatientRequestDTO;
 import com.aziz.demosec.dto.patient.PatientResponseDTO;
 
@@ -16,5 +15,6 @@ public interface IPatientService {
     void delete(Long id);
     void toggleEnabled(Long id);
 }
+
 
 
