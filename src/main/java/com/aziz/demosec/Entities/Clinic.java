@@ -1,8 +1,9 @@
 package com.aziz.demosec.Entities;
 
+import com.aziz.demosec.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
-
+import lombok.experimental.SuperBuilder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -11,32 +12,30 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Clinic {
+public class Clinic extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
+
     private String address;
+
     private String phone;
 
+    private Double latitude;
+    private Double longitude;
 
-
-    @Column(name = "has_emergency", nullable = false)
+    @Column(name = "has_emergency", nullable = false, columnDefinition = "boolean default false")
     private boolean hasEmergency;
 
-    @Column(name = "has_ambulance", nullable = false)
+    @Column(name = "has_ambulance", nullable = false, columnDefinition = "boolean default false")
     private boolean hasAmbulance;
+
     private String emergencyPhone;
     private String ambulancePhone;
 
-
-    @Builder.Default
+    // FIX: removed inline "= false", kept columnDefinition for DB default
     @Column(nullable = false, columnDefinition = "boolean default false")
-    private boolean verified = false;
+    private boolean verified;
 }
-

@@ -25,10 +25,24 @@ public class BabyCareController {
     }
 
     @GetMapping("/profile/{patientId}")
-    public ResponseEntity<BabyProfileResponseDTO> getProfileByPatientId(@PathVariable Long patientId) {
-        BabyProfileResponseDTO profile = babyService.getProfileByPatientId(patientId);
-        if (profile == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(profile);
+    public ResponseEntity<List<BabyProfileResponseDTO>> getProfileByPatientId(@PathVariable Long patientId) {
+        return ResponseEntity.ok(babyService.getProfileByPatientId(patientId));
+    }
+
+    @PostMapping("/profile/{babyId}/photo")
+    public ResponseEntity<BabyProfileResponseDTO> updateProfilePhoto(@PathVariable Long babyId, @RequestBody String photoUrl) {
+        return ResponseEntity.ok(babyService.updateProfilePhoto(babyId, photoUrl));
+    }
+
+    @PutMapping("/profile/{babyId}")
+    public ResponseEntity<BabyProfileResponseDTO> updateProfile(@PathVariable Long babyId, @Valid @RequestBody BabyProfileRequestDTO dto) {
+        return ResponseEntity.ok(babyService.updateProfile(babyId, dto));
+    }
+
+    @DeleteMapping("/profile/{babyId}")
+    public ResponseEntity<Void> deleteProfile(@PathVariable Long babyId) {
+        babyService.deleteProfile(babyId);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/dashboard/{babyId}")

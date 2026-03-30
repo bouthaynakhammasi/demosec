@@ -1,103 +1,81 @@
 package com.aziz.demosec.controller;
 
 import com.aziz.demosec.Entities.Clinic;
-import com.aziz.demosec.service.IClinicService;
+import com.aziz.demosec.dto.ClinicProfileResponse;
+import com.aziz.demosec.dto.ClinicProfileUpdateRequest;
+import com.aziz.demosec.repository.ClinicRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+// import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
-public class ClinicControllerTest {
+@WebMvcTest(ClinicController.class)
+@AutoConfigureMockMvc
+class ClinicControllerTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
-    private IClinicService clinicService;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    @InjectMocks
-    private ClinicController clinicController;
+    @MockBean
+    private ClinicRepository clinicRepository;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    @MockBean
+    private com.aziz.demosec.security.jwt.JwtService jwtService; // Required for Security context in WebMvcTest
+
+    @MockBean
+    private com.aziz.demosec.security.CustomUserDetailsService userDetailsService;
+
+    private Clinic mockClinic;
 
     @BeforeEach
-    public void setup() {
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(clinicController)
-                .build();
+    void setUp() {
+        mockClinic = new Clinic();
+        mockClinic.setId(1L);
+        mockClinic.setEmail("clinic@test.com");
+        mockClinic.setPhone("12345678");
+        mockClinic.setBirthDate(LocalDate.of(1990, 1, 1));
+        mockClinic.setName("Test Clinic Name");
+        mockClinic.setAddress("Test Address");
+        mockClinic.setFullName("Test Clinic");
     }
 
     @Test
-    public void testGetAllClinics() throws Exception {
-        Clinic c1 = Clinic.builder().id(1L).name("Clinic A").build();
-        Clinic c2 = Clinic.builder().id(2L).name("Clinic B").build();
+    @WithMockUser(username = "clinic@test.com")
+    void getMe_ShouldReturnProfile() throws Exception {
+        when(clinicRepository.findByEmail("clinic@test.com")).thenReturn(Optional.of(mockClinic));
 
-        when(clinicService.getAllClinics()).thenReturn(Arrays.asList(c1, c2));
-
-        mockMvc.perform(get("/api/clinics"))
+        mockMvc.perform(get("/api/clinics/me"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].name", is("Clinic A")));
+                .andExpect(jsonPath("$.fullName").value("Test Clinic"))
+                .andExpect(jsonPath("$.email").value("clinic@test.com"));
     }
 
     @Test
-    public void testGetClinicById_Success() throws Exception {
-        Clinic c1 = Clinic.builder().id(10L).name("Clinic A").build();
+    @WithMockUser(username = "clinic@test.com")
+    void getMe_WhenNotFound_ShouldReturn404() throws Exception {
+        when(clinicRepository.findByEmail("clinic@test.com")).thenReturn(Optional.empty());
 
-        when(clinicService.getClinicById(10L)).thenReturn(Optional.of(c1));
-
-        mockMvc.perform(get("/api/clinics/10"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(10)))
-                .andExpect(jsonPath("$.name", is("Clinic A")));
-    }
-
-    @Test
-    public void testGetClinicById_NotFound() throws Exception {
-        when(clinicService.getClinicById(10L)).thenReturn(Optional.empty());
-
-        mockMvc.perform(get("/api/clinics/10"))
+        mockMvc.perform(get("/api/clinics/me"))
                 .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void testCreateClinic() throws Exception {
-        Clinic req = Clinic.builder().name("New Clinic").build();
-        Clinic res = Clinic.builder().id(5L).name("New Clinic").build();
-        
-        when(clinicService.createClinic(any(Clinic.class))).thenReturn(res);
-
-        mockMvc.perform(post("/api/clinics")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(req)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(5)))
-                .andExpect(jsonPath("$.name", is("New Clinic")));
-    }
-
-    @Test
-    public void testDeleteClinic() throws Exception {
-        doNothing().when(clinicService).deleteClinic(5L);
-
-        mockMvc.perform(delete("/api/clinics/5"))
-                .andExpect(status().isOk());
     }
 }

@@ -2,8 +2,7 @@ package com.aziz.demosec.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-
+import lombok.experimental.SuperBuilder;
 import java.time.LocalDate;
 
 @Entity
@@ -13,38 +12,57 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode
+@SuperBuilder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(nullable = false)
-    String fullName;
+    private String fullName;
 
     @Column(nullable = false, unique = true)
-    String email;
+    private String email;
 
     @Column(nullable = false)
-    String password;
+    private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    Role role;
+    @Column(nullable = false, columnDefinition = "VARCHAR(50)")
+    private Role role;
 
-    String phone;
+    private String phone;
 
-    LocalDate birthDate;
+    private LocalDate birthDate;
 
-    @Builder.Default
-    boolean enabled = true;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String photo;
 
-    @Column(nullable = false)
-    @Builder.Default
-    boolean profileCompleted = false;
+    // FIX: removed inline defaults, moved to columnDefinition + @PrePersist
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean enabled;
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean profileCompleted;
 
     @Column(columnDefinition = "LONGTEXT")
-    String profileImage;
+    private String profileImage;
+
+    // FIX: ensures Java-side defaults are set before first DB insert
+    @PrePersist
+    protected void prePersist() {
+        this.enabled = true;
+        // profileCompleted stays false by default
+    }
+
+    public String getProfilePicture() {
+        return profileImage;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profileImage = profilePicture;
+    }
 }

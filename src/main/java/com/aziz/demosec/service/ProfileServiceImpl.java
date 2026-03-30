@@ -1,6 +1,7 @@
 package com.aziz.demosec.service;
 
 import com.aziz.demosec.Entities.*;
+import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.CompleteProfileRequest;
 import com.aziz.demosec.dto.CompleteProfileResponse;
@@ -8,6 +9,7 @@ import com.aziz.demosec.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,10 +24,8 @@ public class ProfileServiceImpl implements IProfileService {
     private final ServiceProviderRepository serviceProviderRepository;
     private final HomeCareServiceRepository homeCareServiceRepository;
 
-    // ================= GET PROFILE =================
     @Override
     public CompleteProfileResponse getProfileStatus(String email) {
-
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
@@ -38,38 +38,26 @@ public class ProfileServiceImpl implements IProfileService {
         );
     }
 
-    // ================= COMPLETE PROFILE =================
     @Override
+    @Transactional
     public CompleteProfileResponse completeProfile(String email, CompleteProfileRequest request) {
-
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
-        switch (user.getRole()) {
+        Role role = user.getRole();
+        if (role == null) throw new IllegalArgumentException("User role not found");
 
+        switch (role) {
             case DOCTOR -> {
                 Doctor doctor = doctorRepository.findById(user.getId())
                         .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
 
-                if (request.specialty() != null)
-                    doctor.setSpecialty(request.specialty());
-
-                if (request.licenseNumber() != null)
-                    doctor.setLicenseNumber(request.licenseNumber());
-
-                if (request.yearsOfExperience() != null)
-                    doctor.setYearsOfExperience(request.yearsOfExperience());
-
-                if (request.consultationFee() != null)
-                    doctor.setConsultationFee(request.consultationFee());
-
-                if (request.consultationMode() != null)
-                    doctor.setConsultationMode(request.consultationMode());
-
-                if (doctor.getLicenseNumber() == null || doctor.getLicenseNumber().isBlank()) {
-                    throw new IllegalArgumentException("License number is required");
-                }
-
+                if (request.specialty() != null) doctor.setSpecialty(request.specialty());
+                if (request.licenseNumber() != null) doctor.setLicenseNumber(request.licenseNumber());
+                if (request.yearsOfExperience() != null) doctor.setYearsOfExperience(request.yearsOfExperience());
+                if (request.consultationFee() != null) doctor.setConsultationFee(request.consultationFee());
+                if (request.consultationMode() != null) doctor.setConsultationMode(request.consultationMode());
+                
                 doctorRepository.save(doctor);
             }
 
@@ -77,44 +65,29 @@ public class ProfileServiceImpl implements IProfileService {
                 Nutritionist n = nutritionistRepository.findById(user.getId())
                         .orElseThrow(() -> new EntityNotFoundException("Nutritionist not found"));
 
-                if (request.licenseNumber() != null)
-                    n.setLicenseNumber(request.licenseNumber());
-
-                if (request.specialties() != null)
-                    n.setSpecialties(request.specialties());
-
-                if (request.yearsOfExperience() != null)
-                    n.setYearsOfExperience(request.yearsOfExperience());
-
-                if (request.bio() != null)
-                    n.setBio(request.bio());
-
+                if (request.licenseNumber() != null) n.setLicenseNumber(request.licenseNumber());
+                if (request.specialties() != null) n.setSpecialties(request.specialties());
+                if (request.yearsOfExperience() != null) n.setYearsOfExperience(request.yearsOfExperience());
+                if (request.bio() != null) n.setBio(request.bio());
+                
                 n.setVerified(false);
                 nutritionistRepository.save(n);
             }
 
             case HOME_CARE_PROVIDER -> {
-                ServiceProvider sp = serviceProviderRepository.findByUser_Id(user.getId())
-                        .orElse(new ServiceProvider());
+                ServiceProvider sp = serviceProviderRepository.findById(user.getId())
+                        .orElseThrow(() -> new EntityNotFoundException("Service Provider not found"));
 
-                sp.setUser(user);
-
-                if (request.certificationDocument() != null)
-                    sp.setCertificationDocument(request.certificationDocument());
-
+                if (request.certificationDocument() != null) sp.setCertificationDocument(request.certificationDocument());
                 if (request.serviceIds() != null && !request.serviceIds().isEmpty()) {
-                    List<HomeCareService> services =
-                            homeCareServiceRepository.findAllById(request.serviceIds());
+                    List<HomeCareService> services = homeCareServiceRepository.findAllById(request.serviceIds());
                     sp.setSpecialties(new HashSet<>(services));
                 }
-
                 sp.setVerified(false);
                 serviceProviderRepository.save(sp);
             }
 
-            default -> {
-                // PATIENT, PHARMACIST, LABORATORYSAFF, etc.
-            }
+            default -> { }
         }
 
         user.setProfileCompleted(true);

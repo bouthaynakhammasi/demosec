@@ -26,10 +26,8 @@ public class ProviderCalendar {
     private User provider;
 
     @Column(nullable = false)
-    @Builder.Default
     private String timezone = "UTC";
 
     @OneToMany(mappedBy = "calendar", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private List<CalendarAvailability> availabilities = new ArrayList<>();
+    private List<WeeklySchedule> weeklySchedule = new ArrayList<>();
 }

@@ -10,6 +10,7 @@ public class BabyDashboardDTO {
     private String age;
     private Double weightAtBirth;
     private Double heightAtBirth;
+    private String photoUrl;
     private String nextCheckupDate;
     private String dailyTip;
     

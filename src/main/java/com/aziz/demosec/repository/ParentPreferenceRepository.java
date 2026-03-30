@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ParentPreferenceRepository extends JpaRepository<ParentPreference, Long> {
     List<ParentPreference> findByBabyProfileId(Long babyProfileId);
+    void deleteByBabyProfileId(Long babyProfileId);
 }

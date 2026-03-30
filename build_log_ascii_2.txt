@@ -1,0 +1,621 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aziz:demosec >--------------------------
+[INFO] Building demosec 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ demosec ---
+[INFO] Deleting C:\Users\user\demosec\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ demosec ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 332 source files with javac [debug parameters release 17] to target\classes
+[INFO] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/security/SecurityConfig.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/security/SecurityConfig.java: Recompile with -Xlint:deprecation for details.
+[INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/controller/Laboratorycontroller.java:[20,8] class LaboratoryController is public, should be declared in a file named LaboratoryController.java
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/IAuthServiceImp.java:[27,1] a type with the same simple name is already defined by the single-type-import of jakarta.transaction.Transactional
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/UserServiceImpl.java:[173,34] method getByRole(com.aziz.demosec.domain.Role) is already defined in class com.aziz.demosec.service.UserServiceImpl
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/controller/ClinicController.java:[54,33] cannot find symbol
+  symbol:   class ClinicProfileUpdateRequest
+  location: class com.aziz.demosec.controller.ClinicController
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/controller/ClinicController.java:[52,27] cannot find symbol
+  symbol:   class ClinicProfileResponse
+  location: class com.aziz.demosec.controller.ClinicController
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/controller/ClinicController.java:[79,13] cannot find symbol
+  symbol:   class ClinicProfileResponse
+  location: class com.aziz.demosec.controller.ClinicController
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/IAuthServiceImp.java:[64,6] reference to Transactional is ambiguous
+  both class jakarta.transaction.Transactional in jakarta.transaction and class org.springframework.transaction.annotation.Transactional in org.springframework.transaction.annotation match
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/IAuthServiceImp.java:[413,6] reference to Transactional is ambiguous
+  both class jakarta.transaction.Transactional in jakarta.transaction and class org.springframework.transaction.annotation.Transactional in org.springframework.transaction.annotation match
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/IAuthServiceImp.java:[438,6] reference to Transactional is ambiguous
+  both class jakarta.transaction.Transactional in jakarta.transaction and class org.springframework.transaction.annotation.Transactional in org.springframework.transaction.annotation match
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[19,38] cannot find symbol
+  symbol:   method getDoctor()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[26,26] cannot find symbol
+  symbol:   method getSpecialty()
+  location: variable d of type com.aziz.demosec.Entities.Doctor
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[27,18] cannot find symbol
+  symbol:   method getClinic()
+  location: variable d of type com.aziz.demosec.Entities.Doctor
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[28,31] cannot find symbol
+  symbol:   method getClinic()
+  location: variable d of type com.aziz.demosec.Entities.Doctor
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[29,34] cannot find symbol
+  symbol:   method getClinic()
+  location: variable d of type com.aziz.demosec.Entities.Doctor
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[33,37] cannot find symbol
+  symbol:   method getStartTime()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[33,74] cannot find symbol
+  symbol:   method getStartTime()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[34,38] cannot find symbol
+  symbol:   method getStartTime()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[34,75] cannot find symbol
+  symbol:   method getStartTime()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[35,36] cannot find symbol
+  symbol:   method getEndTime()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[35,71] cannot find symbol
+  symbol:   method getEndTime()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[37,35] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[38,32] cannot find symbol
+  symbol:   method getId()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[39,39] cannot find symbol
+  symbol:   method getPatientId()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[40,41] cannot find symbol
+  symbol:   method getPatient()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[40,76] cannot find symbol
+  symbol:   method getPatient()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[41,40] cannot find symbol
+  symbol:   method getDoctorId()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[42,42] cannot find symbol
+  symbol:   method getDoctor()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[42,76] cannot find symbol
+  symbol:   method getDoctor()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[43,38] cannot find symbol
+  symbol:   method getStartTime()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[47,34] cannot find symbol
+  symbol:   method getVisitAddress()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[48,36] cannot find symbol
+  symbol:   method getStatus()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[49,41] cannot find symbol
+  symbol:   method getMeetingLink()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[50,42] cannot find symbol
+  symbol:   method getVisitAddress()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[51,42] cannot find symbol
+  symbol:   method getPatientNotes()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[52,43] cannot find symbol
+  symbol:   method getProviderNotes()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[56,41] cannot find symbol
+  symbol:   method getCancelledAt()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[57,41] cannot find symbol
+  symbol:   method getCompletedAt()
+  location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[66,30] cannot find symbol
+  symbol:   method getId()
+  location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[67,34] cannot find symbol
+  symbol:   method getStatus()
+  location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[68,39] cannot find symbol
+  symbol:   method getMeetingLink()
+  location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[69,40] cannot find symbol
+  symbol:   method getVisitAddress()
+  location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[70,40] cannot find symbol
+  symbol:   method getPatientNotes()
+  location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[71,41] cannot find symbol
+  symbol:   method getProviderNotes()
+  location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[72,39] cannot find symbol
+  symbol:   method getCancelledAt()
+  location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[73,39] cannot find symbol
+  symbol:   method getCompletedAt()
+  location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[13,38] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.dto.baby.BabyProfileResponseDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[14,25] cannot find symbol
+  symbol:   method getId()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[15,32] cannot find symbol
+  symbol:   method getParent()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[15,59] cannot find symbol
+  symbol:   method getParent()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[16,27] cannot find symbol
+  symbol:   method getName()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[17,32] cannot find symbol
+  symbol:   method getBirthDate()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[18,29] cannot find symbol
+  symbol:   method getGender()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[19,34] cannot find symbol
+  symbol:   method getBirthWeight()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[20,34] cannot find symbol
+  symbol:   method getBirthHeight()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[21,31] cannot find symbol
+  symbol:   method getPhotoUrl()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[22,32] cannot find symbol
+  symbol:   method getCreatedAt()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[23,32] cannot find symbol
+  symbol:   method getUpdatedAt()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[24,34] cannot find symbol
+  symbol:   method getPreferences()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[25,25] cannot find symbol
+  symbol:   method getPreferences()
+  location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[31,35] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.dto.baby.ParentPreferenceDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[32,25] cannot find symbol
+  symbol:   method getId()
+  location: variable pref of type com.aziz.demosec.Entities.ParentPreference
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[33,35] cannot find symbol
+  symbol:   method getPriorityType()
+  location: variable pref of type com.aziz.demosec.Entities.ParentPreference
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[34,31] cannot find symbol
+  symbol:   method isSelected()
+  location: variable pref of type com.aziz.demosec.Entities.ParentPreference
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[40,33] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.dto.baby.VaccineSummaryDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[41,22] cannot find symbol
+  symbol:   method getId()
+  location: variable v of type com.aziz.demosec.Entities.Vaccination
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[42,24] cannot find symbol
+  symbol:   method getVaccineName()
+  location: variable v of type com.aziz.demosec.Entities.Vaccination
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[43,31] cannot find symbol
+  symbol:   method getDescription()
+  location: variable v of type com.aziz.demosec.Entities.Vaccination
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[44,27] cannot find symbol
+  symbol:   method getAdministeredDate()
+  location: variable v of type com.aziz.demosec.Entities.Vaccination
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[51,39] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.dto.baby.JournalEntryResponseDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[52,22] cannot find symbol
+  symbol:   method getId()
+  location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[53,33] cannot find symbol
+  symbol:   method getBabyProfile()
+  location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[53,62] cannot find symbol
+  symbol:   method getBabyProfile()
+  location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[54,29] cannot find symbol
+  symbol:   method getEntryType()
+  location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[55,25] cannot find symbol
+  symbol:   method getValue()
+  location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[56,25] cannot find symbol
+  symbol:   method getNotes()
+  location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[57,28] cannot find symbol
+  symbol:   method getMetadata()
+  location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[58,29] cannot find symbol
+  symbol:   method getCreatedAt()
+  location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[64,31] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.dto.baby.DiaperRecordDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[65,22] cannot find symbol
+  symbol:   method getId()
+  location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[66,26] cannot find symbol
+  symbol:   method getBabyProfile()
+  location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[66,55] cannot find symbol
+  symbol:   method getBabyProfile()
+  location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[67,30] cannot find symbol
+  symbol:   method getDiaperType()
+  location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[68,29] cannot find symbol
+  symbol:   method isRashNoted()
+  location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[69,30] cannot find symbol
+  symbol:   method getStoolColor()
+  location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[70,32] cannot find symbol
+  symbol:   method getStoolTexture()
+  location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[71,25] cannot find symbol
+  symbol:   method getNotes()
+  location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[72,29] cannot find symbol
+  symbol:   method getChangedAt()
+  location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[14,25] cannot find symbol
+  symbol:   method getCalendar()
+  location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[14,63] cannot find symbol
+  symbol:   method getCalendar()
+  location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[15,38] cannot find symbol
+  symbol:   method getCalendar()
+  location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[18,44] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.dto.CalendarAvailabilityResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[19,33] cannot find symbol
+  symbol:   method getId()
+  location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[21,40] cannot find symbol
+  symbol:   method getStartTime()
+  location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[22,38] cannot find symbol
+  symbol:   method getEndTime()
+  location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[23,35] cannot find symbol
+  symbol:   method getMode()
+  location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[24,37] cannot find symbol
+  symbol:   method getStatus()
+  location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[25,38] cannot find symbol
+  symbol:   method getAddress()
+  location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/ConsultationMapper.java:[13,36] cannot find symbol
+  symbol:   method builder()
+  location: class com.aziz.demosec.dto.ConsultationResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/ConsultationMapper.java:[14,33] cannot find symbol
+  symbol:   method getId()
+  location: variable consultation of type com.aziz.demosec.Entities.Consultation
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/ConsultationMapper.java:[16,37] cannot find symbol
+  symbol:   method getMedicalRecord()
+  location: variable consultation of type com.aziz.demosec.Entities.Consultation
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.951 s
+[INFO] Finished at: 2026-03-30T06:26:17+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project demosec: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/controller/Laboratorycontroller.java:[20,8] class LaboratoryController is public, should be declared in a file named LaboratoryController.java
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/IAuthServiceImp.java:[27,1] a type with the same simple name is already defined by the single-type-import of jakarta.transaction.Transactional
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/UserServiceImpl.java:[173,34] method getByRole(com.aziz.demosec.domain.Role) is already defined in class com.aziz.demosec.service.UserServiceImpl
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/controller/ClinicController.java:[54,33] cannot find symbol
+[ERROR]   symbol:   class ClinicProfileUpdateRequest
+[ERROR]   location: class com.aziz.demosec.controller.ClinicController
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/controller/ClinicController.java:[52,27] cannot find symbol
+[ERROR]   symbol:   class ClinicProfileResponse
+[ERROR]   location: class com.aziz.demosec.controller.ClinicController
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/controller/ClinicController.java:[79,13] cannot find symbol
+[ERROR]   symbol:   class ClinicProfileResponse
+[ERROR]   location: class com.aziz.demosec.controller.ClinicController
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/IAuthServiceImp.java:[64,6] reference to Transactional is ambiguous
+[ERROR]   both class jakarta.transaction.Transactional in jakarta.transaction and class org.springframework.transaction.annotation.Transactional in org.springframework.transaction.annotation match
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/IAuthServiceImp.java:[413,6] reference to Transactional is ambiguous
+[ERROR]   both class jakarta.transaction.Transactional in jakarta.transaction and class org.springframework.transaction.annotation.Transactional in org.springframework.transaction.annotation match
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/service/IAuthServiceImp.java:[438,6] reference to Transactional is ambiguous
+[ERROR]   both class jakarta.transaction.Transactional in jakarta.transaction and class org.springframework.transaction.annotation.Transactional in org.springframework.transaction.annotation match
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[19,38] cannot find symbol
+[ERROR]   symbol:   method getDoctor()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[26,26] cannot find symbol
+[ERROR]   symbol:   method getSpecialty()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.Doctor
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[27,18] cannot find symbol
+[ERROR]   symbol:   method getClinic()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.Doctor
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[28,31] cannot find symbol
+[ERROR]   symbol:   method getClinic()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.Doctor
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[29,34] cannot find symbol
+[ERROR]   symbol:   method getClinic()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.Doctor
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[33,37] cannot find symbol
+[ERROR]   symbol:   method getStartTime()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[33,74] cannot find symbol
+[ERROR]   symbol:   method getStartTime()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[34,38] cannot find symbol
+[ERROR]   symbol:   method getStartTime()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[34,75] cannot find symbol
+[ERROR]   symbol:   method getStartTime()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[35,36] cannot find symbol
+[ERROR]   symbol:   method getEndTime()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[35,71] cannot find symbol
+[ERROR]   symbol:   method getEndTime()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[37,35] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[38,32] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[39,39] cannot find symbol
+[ERROR]   symbol:   method getPatientId()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[40,41] cannot find symbol
+[ERROR]   symbol:   method getPatient()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[40,76] cannot find symbol
+[ERROR]   symbol:   method getPatient()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[41,40] cannot find symbol
+[ERROR]   symbol:   method getDoctorId()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[42,42] cannot find symbol
+[ERROR]   symbol:   method getDoctor()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[42,76] cannot find symbol
+[ERROR]   symbol:   method getDoctor()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[43,38] cannot find symbol
+[ERROR]   symbol:   method getStartTime()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[47,34] cannot find symbol
+[ERROR]   symbol:   method getVisitAddress()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[48,36] cannot find symbol
+[ERROR]   symbol:   method getStatus()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[49,41] cannot find symbol
+[ERROR]   symbol:   method getMeetingLink()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[50,42] cannot find symbol
+[ERROR]   symbol:   method getVisitAddress()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[51,42] cannot find symbol
+[ERROR]   symbol:   method getPatientNotes()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[52,43] cannot find symbol
+[ERROR]   symbol:   method getProviderNotes()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[56,41] cannot find symbol
+[ERROR]   symbol:   method getCancelledAt()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[57,41] cannot find symbol
+[ERROR]   symbol:   method getCompletedAt()
+[ERROR]   location: variable appointment of type com.aziz.demosec.Entities.appointment.Appointment
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[66,30] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[67,34] cannot find symbol
+[ERROR]   symbol:   method getStatus()
+[ERROR]   location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[68,39] cannot find symbol
+[ERROR]   symbol:   method getMeetingLink()
+[ERROR]   location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[69,40] cannot find symbol
+[ERROR]   symbol:   method getVisitAddress()
+[ERROR]   location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[70,40] cannot find symbol
+[ERROR]   symbol:   method getPatientNotes()
+[ERROR]   location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[71,41] cannot find symbol
+[ERROR]   symbol:   method getProviderNotes()
+[ERROR]   location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[72,39] cannot find symbol
+[ERROR]   symbol:   method getCancelledAt()
+[ERROR]   location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/AppointmentMapper.java:[73,39] cannot find symbol
+[ERROR]   symbol:   method getCompletedAt()
+[ERROR]   location: variable dto of type com.aziz.demosec.dto.AppointmentResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[13,38] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.dto.baby.BabyProfileResponseDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[14,25] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[15,32] cannot find symbol
+[ERROR]   symbol:   method getParent()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[15,59] cannot find symbol
+[ERROR]   symbol:   method getParent()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[16,27] cannot find symbol
+[ERROR]   symbol:   method getName()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[17,32] cannot find symbol
+[ERROR]   symbol:   method getBirthDate()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[18,29] cannot find symbol
+[ERROR]   symbol:   method getGender()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[19,34] cannot find symbol
+[ERROR]   symbol:   method getBirthWeight()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[20,34] cannot find symbol
+[ERROR]   symbol:   method getBirthHeight()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[21,31] cannot find symbol
+[ERROR]   symbol:   method getPhotoUrl()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[22,32] cannot find symbol
+[ERROR]   symbol:   method getCreatedAt()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[23,32] cannot find symbol
+[ERROR]   symbol:   method getUpdatedAt()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[24,34] cannot find symbol
+[ERROR]   symbol:   method getPreferences()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[25,25] cannot find symbol
+[ERROR]   symbol:   method getPreferences()
+[ERROR]   location: variable baby of type com.aziz.demosec.Entities.BabyProfile
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[31,35] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.dto.baby.ParentPreferenceDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[32,25] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable pref of type com.aziz.demosec.Entities.ParentPreference
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[33,35] cannot find symbol
+[ERROR]   symbol:   method getPriorityType()
+[ERROR]   location: variable pref of type com.aziz.demosec.Entities.ParentPreference
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[34,31] cannot find symbol
+[ERROR]   symbol:   method isSelected()
+[ERROR]   location: variable pref of type com.aziz.demosec.Entities.ParentPreference
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[40,33] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.dto.baby.VaccineSummaryDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[41,22] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable v of type com.aziz.demosec.Entities.Vaccination
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[42,24] cannot find symbol
+[ERROR]   symbol:   method getVaccineName()
+[ERROR]   location: variable v of type com.aziz.demosec.Entities.Vaccination
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[43,31] cannot find symbol
+[ERROR]   symbol:   method getDescription()
+[ERROR]   location: variable v of type com.aziz.demosec.Entities.Vaccination
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[44,27] cannot find symbol
+[ERROR]   symbol:   method getAdministeredDate()
+[ERROR]   location: variable v of type com.aziz.demosec.Entities.Vaccination
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[51,39] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.dto.baby.JournalEntryResponseDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[52,22] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[53,33] cannot find symbol
+[ERROR]   symbol:   method getBabyProfile()
+[ERROR]   location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[53,62] cannot find symbol
+[ERROR]   symbol:   method getBabyProfile()
+[ERROR]   location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[54,29] cannot find symbol
+[ERROR]   symbol:   method getEntryType()
+[ERROR]   location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[55,25] cannot find symbol
+[ERROR]   symbol:   method getValue()
+[ERROR]   location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[56,25] cannot find symbol
+[ERROR]   symbol:   method getNotes()
+[ERROR]   location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[57,28] cannot find symbol
+[ERROR]   symbol:   method getMetadata()
+[ERROR]   location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[58,29] cannot find symbol
+[ERROR]   symbol:   method getCreatedAt()
+[ERROR]   location: variable j of type com.aziz.demosec.Entities.JournalEntry
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[64,31] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.dto.baby.DiaperRecordDTO
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[65,22] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[66,26] cannot find symbol
+[ERROR]   symbol:   method getBabyProfile()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[66,55] cannot find symbol
+[ERROR]   symbol:   method getBabyProfile()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[67,30] cannot find symbol
+[ERROR]   symbol:   method getDiaperType()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[68,29] cannot find symbol
+[ERROR]   symbol:   method isRashNoted()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[69,30] cannot find symbol
+[ERROR]   symbol:   method getStoolColor()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[70,32] cannot find symbol
+[ERROR]   symbol:   method getStoolTexture()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[71,25] cannot find symbol
+[ERROR]   symbol:   method getNotes()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/BabyCareMapper.java:[72,29] cannot find symbol
+[ERROR]   symbol:   method getChangedAt()
+[ERROR]   location: variable d of type com.aziz.demosec.Entities.DiaperRecord
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[14,25] cannot find symbol
+[ERROR]   symbol:   method getCalendar()
+[ERROR]   location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[14,63] cannot find symbol
+[ERROR]   symbol:   method getCalendar()
+[ERROR]   location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[15,38] cannot find symbol
+[ERROR]   symbol:   method getCalendar()
+[ERROR]   location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[18,44] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.dto.CalendarAvailabilityResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[19,33] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[21,40] cannot find symbol
+[ERROR]   symbol:   method getStartTime()
+[ERROR]   location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[22,38] cannot find symbol
+[ERROR]   symbol:   method getEndTime()
+[ERROR]   location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[23,35] cannot find symbol
+[ERROR]   symbol:   method getMode()
+[ERROR]   location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[24,37] cannot find symbol
+[ERROR]   symbol:   method getStatus()
+[ERROR]   location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/CalendarAvailabilityMapper.java:[25,38] cannot find symbol
+[ERROR]   symbol:   method getAddress()
+[ERROR]   location: variable availability of type com.aziz.demosec.Entities.appointment.CalendarAvailability
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/ConsultationMapper.java:[13,36] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.aziz.demosec.dto.ConsultationResponse
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/ConsultationMapper.java:[14,33] cannot find symbol
+[ERROR]   symbol:   method getId()
+[ERROR]   location: variable consultation of type com.aziz.demosec.Entities.Consultation
+[ERROR] /C:/Users/user/demosec/src/main/java/com/aziz/demosec/Mapper/ConsultationMapper.java:[16,37] cannot find symbol
+[ERROR]   symbol:   method getMedicalRecord()
+[ERROR]   location: variable consultation of type com.aziz.demosec.Entities.Consultation
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

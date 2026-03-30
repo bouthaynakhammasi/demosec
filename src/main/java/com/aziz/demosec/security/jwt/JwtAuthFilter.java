@@ -27,11 +27,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
 
-    // List of public endpoints to skip JWT
     private static final List<String> PUBLIC_ENDPOINTS = List.of(
             "/auth",
             "/api/home-care-services",
-            "/api/v1/doctors",
             "/error"
     );
 
@@ -43,7 +41,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String path = request.getServletPath();
 
+
         // 1️⃣ Read Authorization header
+
+        // 1️⃣ Skip public endpoints
+        for (String endpoint : PUBLIC_ENDPOINTS) {
+            if (path.startsWith(endpoint)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+        }
+
+        // 2️⃣ Read Authorization header
+
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             log.debug("JWT filter skip: method={}, uri={}, hasAuthHeader={}", request.getMethod(), path, authHeader != null);
@@ -89,5 +99,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         // 5️⃣ Continue filter chain
         filterChain.doFilter(request, response);
     }
+
 }
+
 

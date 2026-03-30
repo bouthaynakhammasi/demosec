@@ -1,65 +1,101 @@
 package com.aziz.demosec.controller;
 
-
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.dto.user.UserResponseDTO;
+import com.aziz.demosec.dto.PasswordChangeRequest;
+import com.aziz.demosec.repository.UserRepository;
 import com.aziz.demosec.service.IUserService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/user")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class UserController {
 
+    private final UserRepository userRepository;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
     private final IUserService userService;
 
-    @PostMapping
-    public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody UserRequestDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(dto));
+    // --- Changement de mot de passe ---
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(Principal principal, @RequestBody PasswordChangeRequest request) {
+        if (principal == null) return ResponseEntity.status(401).build();
+        return userRepository.findByEmail(principal.getName())
+                .map(user -> {
+                    if (!passwordEncoder.matches(request.currentPassword(), user.getPassword())) {
+                        return ResponseEntity.badRequest().body(Map.of("message", "Incorrect current password"));
+                    }
+                    user.setPassword(passwordEncoder.encode(request.newPassword()));
+                    userRepository.save(user);
+                    return ResponseEntity.ok(Map.of("message", "Password updated successfully"));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> getById(@PathVariable("id") Long id) {
+    // --- Profil de l'utilisateur ---
+    @GetMapping("/profile")
+    public ResponseEntity<UserResponseDTO> getProfile(Authentication authentication) {
+        return ResponseEntity.ok(userService.getByEmail(authentication.getName()));
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<UserResponseDTO> updateProfile(
+            Authentication authentication,
+            @Valid @RequestBody UserRequestDTO dto) {
+        return ResponseEntity.ok(userService.updateByEmail(authentication.getName(), dto));
+    }
+
+    // --- CRUD utilisateurs ---
+    @PostMapping("/api/users")
+    public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody UserRequestDTO dto) {
+        return ResponseEntity.status(201).body(userService.create(dto));
+    }
+
+    @GetMapping("/api/users/{id}")
+    public ResponseEntity<UserResponseDTO> getById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getById(id));
     }
 
-    @GetMapping
+    @GetMapping("/api/users")
     public ResponseEntity<List<UserResponseDTO>> getAll() {
         return ResponseEntity.ok(userService.getAll());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> update(@PathVariable("id") Long id,
+    @PutMapping("/api/users/{id}")
+    public ResponseEntity<UserResponseDTO> update(@PathVariable Long id,
                                                   @Valid @RequestBody UserRequestDTO dto) {
         return ResponseEntity.ok(userService.update(id, dto));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+    @DeleteMapping("/api/users/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}/toggle")
-    public ResponseEntity<Void> toggleEnabled(@PathVariable("id") Long id) {
+    @PatchMapping("/api/users/{id}/toggle")
+    public ResponseEntity<Void> toggleEnabled(@PathVariable Long id) {
         userService.toggleEnabled(id);
         return ResponseEntity.noContent().build();
     }
-    @GetMapping("/role/{role}")
-    public ResponseEntity<List<UserResponseDTO>> getByRole(@PathVariable("role") String role) {
+
+    @GetMapping("/api/users/role/{role}")
+    public ResponseEntity<List<UserResponseDTO>> getByRole(@PathVariable String role) {
         try {
-            Role r = Role.valueOf(role.toUpperCase()); // Convertit la String en Enum
-            List<UserResponseDTO> users = userService.getByRole(r);
-            return ResponseEntity.ok(users);
+            Role r = Role.valueOf(role.toUpperCase());
+            return ResponseEntity.ok(userService.getByRole(r));
         } catch (IllegalArgumentException ex) {
-            // Si le rôle fourni n’existe pas dans l’Enum
             return ResponseEntity.badRequest().build();
         }
     }

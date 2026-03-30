@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DiaperRecordRepository extends JpaRepository<DiaperRecord, Long> {
     List<DiaperRecord> findByBabyProfileIdOrderByChangedAtDesc(Long babyProfileId);
+    void deleteByBabyProfileId(Long babyProfileId);
 }

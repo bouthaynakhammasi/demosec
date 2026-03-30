@@ -41,6 +41,5 @@ public class WeeklyDaySchedule {
     }
 
     @OneToMany(mappedBy = "daySchedule", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
     private List<WeeklyTimeSlot> timeSlots = new ArrayList<>();
 }

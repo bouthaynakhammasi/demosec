@@ -36,7 +36,7 @@ public class BabyProfile {
     private Double birthHeight;
 
     @Lob
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(name = "photo_data_url", columnDefinition = "LONGTEXT")
     private String photoUrl;
 
     private java.time.LocalDateTime createdAt;

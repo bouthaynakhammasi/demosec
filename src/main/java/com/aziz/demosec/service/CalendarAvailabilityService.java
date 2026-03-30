@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CalendarAvailabilityService implements ICalendarAvailabilityService {
 
     private final CalendarAvailabilityRepository availabilityRepository;

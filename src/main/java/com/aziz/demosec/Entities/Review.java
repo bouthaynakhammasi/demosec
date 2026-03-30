@@ -39,6 +39,5 @@ public class Review {
     private LocalDateTime createdAt;
  
     @Column(nullable = false)
-    @Builder.Default
     private Boolean isAnonymous = false;
 }

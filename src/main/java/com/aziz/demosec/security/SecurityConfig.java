@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,19 +20,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthFilter jwtAuthFilter;
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
-    public DaoAuthenticationProvider authProvider(PasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider p = new DaoAuthenticationProvider();
-        p.setUserDetailsService(userDetailsService);
-        p.setPasswordEncoder(passwordEncoder);
-        return p;
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
     }
 
     @Bean
@@ -42,81 +41,37 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider authProvider) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authProvider)
+                .authenticationProvider(authProvider())
                 .authorizeHttpRequests(auth -> auth
 
-
                         // ─── PUBLIC ──────────────────────────────────────────
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/**", "/error", "/api/home-care-services/**").permitAll()
+                        .requestMatchers("/api/donations/**", "/api/aid-requests/**").permitAll()
+                        .requestMatchers("/api/emergency-alerts/**", "/api/interventions/**").permitAll()
+                        .requestMatchers("/api/ambulances/**", "/api/smart-devices/**").permitAll()
+                        .requestMatchers("/api/laboratories/**").permitAll()
 
-                        // ─── DONATION (temporairement public pour tester) ─────
-                        .requestMatchers("/api/donations").permitAll()
-                        .requestMatchers("/api/donations/**").permitAll()
-                        .requestMatchers("/api/aid-requests").permitAll()
-                        .requestMatchers("/api/aid-requests/**").permitAll()
+                        // ─── SHARED AUTHENTICATED (any logged-in role) ───────
+                        .requestMatchers("/api/v1/doctors/**").authenticated()
+                        .requestMatchers("/api/clinics/**").permitAll()
 
-                        // ─── EMERGENCY (temporairement public pour tester) ────
-                        .requestMatchers("/api/emergency-alerts").permitAll()
-                        .requestMatchers("/api/emergency-alerts/**").permitAll()
-                        .requestMatchers("/api/interventions").permitAll()
-                        .requestMatchers("/api/interventions/**").permitAll()
-                        .requestMatchers("/api/ambulances").permitAll()
-                        .requestMatchers("/api/ambulances/**").permitAll()
-                        .requestMatchers("/api/smart-devices").permitAll()
-                        .requestMatchers("/api/smart-devices/**").permitAll()
-
-                        // ✅ Endpoints publics — auth
-
-
-                        .requestMatchers("/error").permitAll()
-
-
-                        // ✅ Endpoints publics — auth
-                        .requestMatchers("/api/auth/**").permitAll()
-
-
-                        // ✅ Endpoints publics — données de référence (accessibles sans token)
-                        .requestMatchers("/api/v1/clinics").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/doctors").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/doctors/**").permitAll()
-                        .requestMatchers("/api/home-care-services/**").permitAll()
-                        .requestMatchers("/api/home-care-services").permitAll()
-
-                        // ✅ Endpoints protégés par rôle
+                        // ─── ROLE-BASED ─────────────────────────────────────
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/doctor/**").hasRole("DOCTOR")
+                        .requestMatchers("/api/doctor/**", "/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/api/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/api/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/api/laboratory/**").hasRole("LABORATORYSAFF")
+                        .requestMatchers("/api/laboratory/**").hasRole("LABORATORY_STAFF")
                         .requestMatchers("/api/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/api/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/api/patient/**").hasRole("PATIENT")
-
-                        .requestMatchers("/api/baby-care/**").hasRole("PATIENT")
                         .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
-
-
-                        .requestMatchers("/api/baby-care/**").hasAnyRole("PATIENT", "ADMIN")
-                        .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
-
-                        // ✅ Accès patient aux docteurs
-                        .requestMatchers("/api/users/role/DOCTOR").hasAnyRole("PATIENT", "ADMIN")
-                        .requestMatchers("/api/users/**").hasRole("ADMIN")
-
-                        // ✅ Appointments
-                        .requestMatchers("/api/v1/patients/*/appointments").hasRole("PATIENT")
-                        .requestMatchers("/api/v1/doctors/*/appointments").hasRole("DOCTOR")
-                        .requestMatchers("/api/v1/appointments/**").authenticated()
-                        .requestMatchers("/api/v1/**").authenticated()
-                        .requestMatchers("/availability/**").hasAnyRole("DOCTOR", "NUTRITIONIST", "HOME_CARE_PROVIDER")
-                        .requestMatchers("/provider-calendar/**").hasAnyRole("DOCTOR", "NUTRITIONIST", "HOME_CARE_PROVIDER")
-
-
+                        .requestMatchers("/user/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -128,11 +83,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:4200"));
-
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 

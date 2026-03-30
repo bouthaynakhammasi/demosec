@@ -7,4 +7,5 @@ import java.util.List;
 public interface VaccinationRepository extends JpaRepository<Vaccination, Long> {
     List<Vaccination> findByBabyId(Long babyId);
     List<Vaccination> findByBabyIdAndVaccineName(Long babyId, String vaccineName);
+    void deleteByBabyId(Long babyId);
 }

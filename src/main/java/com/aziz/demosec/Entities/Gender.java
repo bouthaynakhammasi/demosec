@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public enum Gender {
     MALE,
 
+
     FEMALE;
 
     @JsonCreator
@@ -20,4 +21,5 @@ public enum Gender {
         }
     }
 }
+
 

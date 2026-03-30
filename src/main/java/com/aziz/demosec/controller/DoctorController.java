@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/doctors")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
+@Transactional
 public class DoctorController {
 
     private final DoctorRepository doctorRepository;

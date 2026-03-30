@@ -24,14 +24,17 @@ public class WeeklySchedule {
     @JoinColumn(name = "provider_id", nullable = false, unique = true)
     private User provider;
 
+    // ✅ AJOUTÉ : champ manquant référencé par mappedBy = "calendar"
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "calendar_id")
+    private ProviderCalendar calendar;
+
     @Column(name = "appointment_duration")
-    @Builder.Default
     private int appointmentDuration = 30;
 
     @Column(name = "doctor_id")
-    private Long doctorId; // Found in DB screenshot, adding to avoid missing column errors
+    private Long doctorId;
 
     @OneToMany(mappedBy = "weeklySchedule", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
     private List<WeeklyDaySchedule> days = new ArrayList<>();
 }

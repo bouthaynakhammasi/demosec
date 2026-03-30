@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BabyCareService {
     private final BabyProfileRepository babyRepository;
     private final VaccinationRepository vaccineRepository;
@@ -58,10 +59,61 @@ public class BabyCareService {
         return mapper.toResponseDTO(saved);
     }
 
-    public BabyProfileResponseDTO getProfileByPatientId(Long patientId) {
+    public List<BabyProfileResponseDTO> getProfileByPatientId(Long patientId) {
         List<BabyProfile> profiles = babyRepository.findByParentId(patientId);
-        if (profiles.isEmpty()) return null;
-        return mapper.toResponseDTO(profiles.get(0));
+        return profiles.stream()
+                .map(mapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public BabyProfileResponseDTO updateProfilePhoto(Long babyId, String photoUrl) {
+        BabyProfile baby = babyRepository.findById(babyId)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+        baby.setPhotoUrl(photoUrl);
+        return mapper.toResponseDTO(babyRepository.save(baby));
+    }
+
+    @Transactional
+    public BabyProfileResponseDTO updateProfile(Long babyId, BabyProfileRequestDTO dto) {
+        BabyProfile baby = babyRepository.findById(babyId)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+        
+        baby.setName(dto.getName());
+        baby.setBirthDate(dto.getBirthDate());
+        baby.setGender(Gender.valueOf(dto.getGender()));
+        baby.setBirthWeight(dto.getBirthWeight());
+        baby.setBirthHeight(dto.getBirthHeight());
+        if (dto.getPhotoUrl() != null) baby.setPhotoUrl(dto.getPhotoUrl());
+
+        // Update preferences
+        preferenceRepository.deleteByBabyProfileId(babyId);
+        if (dto.getPriorities() != null) {
+            List<ParentPreference> prefs = dto.getPriorities().stream()
+                    .map(p -> ParentPreference.builder()
+                            .babyProfile(baby)
+                            .priorityType(p)
+                            .selected(true)
+                            .build())
+                    .collect(Collectors.toList());
+            preferenceRepository.saveAll(prefs);
+        }
+
+        return mapper.toResponseDTO(babyRepository.save(baby));
+    }
+
+    @Transactional
+    public void deleteProfile(Long babyId) {
+        BabyProfile baby = babyRepository.findById(babyId)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+        
+        // Manual delete of relations to avoid FK constraint errors
+        journalRepository.deleteByBabyProfileId(babyId);
+        vaccineRepository.deleteByBabyId(babyId);
+        diaperRepository.deleteByBabyProfileId(babyId);
+        preferenceRepository.deleteByBabyProfileId(babyId);
+        
+        babyRepository.delete(baby);
     }
 
     public BabyDashboardDTO getDashboard(Long babyId) {
@@ -183,6 +235,7 @@ public class BabyCareService {
                 .age(ageDisplay)
                 .weightAtBirth(baby.getBirthWeight())
                 .heightAtBirth(baby.getBirthHeight())
+                .photoUrl(baby.getPhotoUrl())
                 .dailyTip(dailyTip)
                 .upcomingVaccines(administered)
                 .recentLogs(recentLogs)
@@ -326,20 +379,21 @@ public class BabyCareService {
                 .metadata(metadata)
                 .build();
         
-        // Protection against unrealistic durations (Max 24h)
+        // Protection against unrealistic durations (Max 30h)
         if (type == JournalEntryType.SLEEP) {
             try {
                 if (metadata != null && !metadata.isEmpty()) {
                     com.fasterxml.jackson.databind.JsonNode node = objectMapper.readTree(metadata);
                     if (node.has("totalDurationSeconds")) {
                         long secs = node.get("totalDurationSeconds").asLong();
-                        if (secs < 60 || secs > 86400) {
-                            throw new RuntimeException("La durée de sommeil doit être entre 1 minute et 24 heures.");
+                        if (secs < 0 || secs > 108000) { 
+                            throw new RuntimeException("Durée de sommeil invalide (0s - 30h)");
                         }
                     }
                 }
             } catch (Exception e) {
-                if (e instanceof RuntimeException) throw (RuntimeException) e;
+                // Log and continue if it's just a parsing error, unless it's our own RuntimeException
+                if (e instanceof RuntimeException && e.getMessage().contains("Durée")) throw (RuntimeException) e;
             }
         }
         

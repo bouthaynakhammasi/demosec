@@ -22,4 +22,3 @@ public class UserRequestDTO {
     String phone;
     LocalDate birthDate;
 }
-
