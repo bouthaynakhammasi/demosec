@@ -1,4 +1,5 @@
 package com.aziz.demosec.repository;
+
 import com.aziz.demosec.Entities.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,6 +12,3 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     boolean existsByEmail(String email);
     
 }
-
-       
-

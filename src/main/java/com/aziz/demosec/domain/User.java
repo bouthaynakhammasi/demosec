@@ -42,6 +42,7 @@ public class User {
     @Column(columnDefinition = "LONGTEXT")
     String photo;
 
+
     @Builder.Default
     boolean enabled = true;
 }

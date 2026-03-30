@@ -21,11 +21,12 @@ public class Laboratory {
     private String name;
 
     private String address;
-    private String phone;
+
     private boolean active;
     private String email;
     private String openingHours;
     private String specializations; // ✅ String au lieu de List<String>
+
 
     @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL)
     private List<LaboratoryStaff> staffMembers;

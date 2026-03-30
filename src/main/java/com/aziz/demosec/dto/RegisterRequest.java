@@ -2,6 +2,7 @@ package com.aziz.demosec.dto;
 
 import com.aziz.demosec.Entities.BloodType;
 import com.aziz.demosec.Entities.Gender;
+
 import com.aziz.demosec.Entities.ConsultationMode;
 import com.aziz.demosec.domain.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -25,6 +26,7 @@ public record RegisterRequest(
         BloodType bloodType,
         String emergencyContactName,
         String emergencyContactPhone,
+
 
         String glucoseRate,
         String allergies,
@@ -60,3 +62,4 @@ public record RegisterRequest(
         String certificationDocument,
         List<String> homeCareServices
 ) {}
+

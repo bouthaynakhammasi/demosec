@@ -10,3 +10,4 @@ import java.util.Optional;
 public interface HomeCareServiceRepository extends JpaRepository<HomeCareService, Long> {
     Optional<HomeCareService> findByName(String name);
 }
+

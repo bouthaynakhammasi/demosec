@@ -5,4 +5,5 @@ public record AuthResponse(
         String fullName,
         String role
 ) {
+
 }

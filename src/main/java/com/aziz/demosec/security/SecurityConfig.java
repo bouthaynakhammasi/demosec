@@ -4,6 +4,7 @@ import com.aziz.demosec.security.jwt.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -54,18 +55,41 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
 
-                        // Public endpoints
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/error").permitAll()
-                        .requestMatchers("/api/home-care-services/**").permitAll()
-                        .requestMatchers("/user/**").authenticated()  
+                        // ✅ OPTIONS preflight - DOIT être en premier
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Doctor & Nutritionist medical access
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/error/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
+                        .requestMatchers("/api/home-care-services/**").permitAll()
+                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/api/notifications/**").authenticated()
+
+                        // FORUM - Posts and Comments
+                        .requestMatchers(HttpMethod.GET, "/api/forum/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST",
+                                "LABORATORY_STAFF", "NUTRITIONIST",
+                                "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/comments/**").authenticated()
+                        .requestMatchers("/api/forum/posts/*/like").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/posts/*/like").authenticated()
+
+                         // Doctor & Nutritionist medical access
                         .requestMatchers("/treatment/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
                         .requestMatchers("/diagnosis/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
                         .requestMatchers("/consultation/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
                         .requestMatchers("/prescription/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
-       
 
                         // Other roles
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -79,6 +103,7 @@ public class SecurityConfig {
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/laboratories/**").permitAll()
+
 
                         .anyRequest().authenticated()
                 )

@@ -1,12 +1,14 @@
 package com.aziz.demosec.service;
 
 import com.aziz.demosec.Entities.*;
+
 import com.aziz.demosec.domain.PasswordResetToken;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
+
 import com.aziz.demosec.repository.*;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -29,6 +32,7 @@ public class IAuthServiceImp implements IAuthService {
 
     private final UserRepository userRepository;
     private final PatientRepository patientRepository;
+
     private final MedicalRecordRepository medicalRecordRepository;
     private final LaboratoryRepository laboratoryRepository;
     private final LaboratoryStaffRepository laboratoryStaffRepository;
@@ -47,10 +51,16 @@ public class IAuthServiceImp implements IAuthService {
     private final PasswordResetTokenRepository tokenRepository;
     private final EmailService emailService;
 
+    // ✅ Nouveaux
+    private final PasswordResetTokenRepository tokenRepository;
+    private final EmailService emailService;
+
     @Override
     @Transactional
     public User register(RegisterRequest req) {
+
         System.out.println("Processing registration for role: " + req.role() + " and email: " + req.email());
+
 
         if (req.email() == null || req.email().isBlank())
             throw new IllegalArgumentException("Email required");
@@ -60,6 +70,7 @@ public class IAuthServiceImp implements IAuthService {
             throw new IllegalArgumentException("Role required");
         if (userRepository.findByEmail(req.email()).isPresent())
             throw new IllegalArgumentException("Email already used");
+
 
         if (req.role() == Role.PATIENT) {
             Patient patient = new Patient();
@@ -73,11 +84,13 @@ public class IAuthServiceImp implements IAuthService {
             patient.setBloodType(req.bloodType());
             patient.setEmergencyContactName(req.emergencyContactName());
             patient.setEmergencyContactPhone(req.emergencyContactPhone());
+
             patient.setGlucoseRate(req.glucoseRate());
             patient.setAllergies(req.allergies());
             patient.setDiseases(req.diseases());
             patient.setHeight(req.height());
             patient.setWeight(req.weight());
+
             patient.setEnabled(true);
             return patientRepository.save(patient);
         }
@@ -184,6 +197,9 @@ public class IAuthServiceImp implements IAuthService {
                 .orElseThrow(() -> new RuntimeException(
                         "User not found after authentication"));
 
+        User user = userRepository.findByEmail(req.email())
+                .orElseThrow(() -> new RuntimeException("User not found after authentication"));
+
         String role = userDetails.getAuthorities().stream()
                 .findFirst()
                 .map(GrantedAuthority::getAuthority)
@@ -212,14 +228,17 @@ public class IAuthServiceImp implements IAuthService {
         );
     }
 
+
     @Override
     @Transactional
     public void forgotPassword(String email) {
         User user = userRepository.findByEmail(email)
+
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Email not found"));
 
         tokenRepository.deleteByUser_Id(user.getId());
+
 
         String token = UUID.randomUUID().toString();
 
@@ -241,6 +260,7 @@ public class IAuthServiceImp implements IAuthService {
     @Transactional
     public void resetPassword(String token, String newPassword) {
         PasswordResetToken resetToken = tokenRepository.findByToken(token)
+
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Invalid token"));
 
@@ -251,6 +271,7 @@ public class IAuthServiceImp implements IAuthService {
         if (newPassword == null || newPassword.length() < 8)
             throw new IllegalArgumentException(
                     "Password must contain at least 8 characters");
+
 
         User user = resetToken.getUser();
         user.setPassword(passwordEncoder.encode(newPassword));

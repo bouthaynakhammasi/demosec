@@ -1,6 +1,5 @@
 package com.aziz.demosec.controller;
 
-
 import com.aziz.demosec.dto.user.UserResponseDTO;
 import com.aziz.demosec.repository.UserRepository;
 
@@ -8,6 +7,7 @@ import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.service.IUserService;
 import jakarta.validation.Valid;
+
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -97,5 +97,6 @@ public ResponseEntity<List<UserResponseDTO>> getByRole(@PathVariable String role
     } catch (IllegalArgumentException ex) {
         return ResponseEntity.badRequest().build();
     }
+
     }
 }
