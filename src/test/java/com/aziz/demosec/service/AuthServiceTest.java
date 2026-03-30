@@ -73,7 +73,8 @@ class AuthServiceTest {
                 LocalDate.of(1990, 1, 1),
                 null, null, null, null, null, null, null,
                 null, null, null,
-                null
+                null, null, null,
+                Collections.emptyList()
         );
 
         loginRequest = new LoginRequest("aziz@test.com", "password123");
@@ -113,10 +114,11 @@ class AuthServiceTest {
         User user = new User();
         user.setId(1L);
         user.setEmail("aziz@test.com");
+        user.setFullName("Aziz Test");
 
         when(userDetailsService.loadUserByUsername("aziz@test.com")).thenReturn(userDetails);
         when(userRepository.findByEmail("aziz@test.com")).thenReturn(Optional.of(user));
-        when(jwtService.generateToken(any(UserDetails.class), anyLong())).thenReturn("mockToken");
+        when(jwtService.generateToken(any(UserDetails.class), anyLong(), anyString())).thenReturn("mockToken");
         when(userDetails.getUsername()).thenReturn("aziz@test.com");
         when(userDetails.getAuthorities()).thenReturn(Collections.emptySet());
 

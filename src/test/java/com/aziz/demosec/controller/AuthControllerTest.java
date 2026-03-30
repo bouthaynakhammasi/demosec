@@ -48,7 +48,7 @@ class AuthControllerTest {
     void login_ShouldReturnOk_WhenCredentialsAreValid() throws Exception {
         // Arrange
         LoginRequest loginRequest = new LoginRequest("user@example.com", "password");
-        AuthResponse authResponse = new AuthResponse("mockToken", "user@example.com", "ROLE_PATIENT");
+        AuthResponse authResponse = new AuthResponse("mockToken", "user@example.com", "User Name", "ROLE_PATIENT");
         
         when(authService.login(any(LoginRequest.class))).thenReturn(authResponse);
 

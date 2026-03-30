@@ -4,7 +4,6 @@ import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.dto.user.UserResponseDTO;
-import com.aziz.demosec.repository.PharmacistRepository;
 import com.aziz.demosec.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,8 +28,6 @@ class UserServiceTest {
     private UserRepository userRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
-    @Mock
-    private PharmacistRepository pharmacistRepository;
 
     @InjectMocks
     private UserServiceImpl userService;

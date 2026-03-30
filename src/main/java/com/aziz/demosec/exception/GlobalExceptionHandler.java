@@ -34,20 +34,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("error", ex.getMessage()));
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationError(MethodArgumentNotValidException ex) {
         System.out.println("=== VALIDATION ERROR ===");
-        ex.getBindingResult().getFieldErrors().forEach(err ->
-                System.out.println("Field: " + err.getField() + " → " + err.getDefaultMessage())
-        );
+        ex.getBindingResult().getFieldErrors()
+                .forEach(err -> System.out.println("Field: " + err.getField() + " → " + err.getDefaultMessage()));
         System.out.println("========================");
 
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(err ->
-                errors.put(err.getField(), err.getDefaultMessage())
-        );
+        ex.getBindingResult().getFieldErrors().forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleAll(Exception ex) {
         String type = ex.getClass().getName();
@@ -59,12 +58,11 @@ public class GlobalExceptionHandler {
         System.out.println("Message: " + ex.getMessage());
         ex.printStackTrace();
         System.out.println("=====================");
-        
+
         java.util.Map<String, Object> body = new java.util.HashMap<>();
         body.put("error", "Internal Server Error");
         body.put("type", type);
         body.put("message", message);
-        
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("error", ex.getMessage()));

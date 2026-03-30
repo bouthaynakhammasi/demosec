@@ -6,15 +6,24 @@ import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.dto.user.UserResponseDTO;
 import java.util.List;
 
-public interface IUserService {
+public interface UserService {
     UserResponseDTO create(UserRequestDTO dto);
+
     UserResponseDTO getById(Long id);
+
     List<UserResponseDTO> getAll();
+
     UserResponseDTO update(Long id, UserRequestDTO dto);
+
     void delete(Long id);
+
     void toggleEnabled(Long id);
+
     List<UserResponseDTO> getByRole(Role role);
-    UserResponseDTO getByEmail(String email);              // ✅ nouveau
-    UserResponseDTO updateByEmail(String email, UserRequestDTO dto); // ✅ nouveau
+
+    UserResponseDTO getByEmail(String email);
+
+    UserResponseDTO updateByEmail(String email, UserRequestDTO dto);
+
     void changePassword(Long id, ChangePasswordDTO dto);
 }

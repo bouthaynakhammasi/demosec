@@ -1,0 +1,2431 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aziz:demosec >--------------------------
+[INFO] Building demosec 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ demosec ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ demosec ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ demosec ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ demosec ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.aziz.demosec.controller.AuthControllerTest
+05:14:32.339 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.aziz.demosec.controller.AuthControllerTest]: AuthControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+05:14:32.612 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.aziz.demosec.DemosecApplication for test class com.aziz.demosec.controller.AuthControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:33.173+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.AuthControllerTest      : Starting AuthControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:33.173+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.controller.AuthControllerTest      : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:33.174+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.AuthControllerTest      : The following 1 profile is active: "test"
+2026-03-30T05:14:37.062+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:37.342+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 02748876-2e82-4821-9c7c-8f1700bdc2e4
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:37.738+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.AuthControllerTest      : Started AuthControllerTest in 5.041 seconds (process running for 6.404)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /auth/login
+       Parameters = {}
+          Headers = [Content-Type:"application/json", Content-Length:"50"]
+             Body = <no character encoding set>
+    Session Attrs = {}
+
+Handler:
+             Type = org.springframework.web.servlet.resource.ResourceHttpRequestHandler
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.servlet.resource.NoResourceFoundException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = No static resource auth/login.
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /auth/register
+       Parameters = {user=[{"fullName":"John Doe","email":"john@example.com","password":"password123","role":"PATIENT","phone":"12345678","birthDate":"1990-01-01"}]}
+          Headers = [Content-Type:"multipart/form-data"]
+             Body = <no character encoding set>
+    Session Attrs = {}
+
+Handler:
+             Type = org.springframework.web.servlet.resource.ResourceHttpRequestHandler
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.servlet.resource.NoResourceFoundException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = No static resource auth/register.
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+[ERROR] Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 5.919 s <<< FAILURE! -- in com.aziz.demosec.controller.AuthControllerTest
+[ERROR] com.aziz.demosec.controller.AuthControllerTest.login_ShouldReturnOk_WhenCredentialsAreValid -- Time elapsed: 0.227 s <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:640)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at com.aziz.demosec.controller.AuthControllerTest.login_ShouldReturnOk_WhenCredentialsAreValid(AuthControllerTest.java:59)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[ERROR] com.aziz.demosec.controller.AuthControllerTest.register_ShouldReturnOk_WhenRequestIsValid -- Time elapsed: 0.021 s <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:640)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at com.aziz.demosec.controller.AuthControllerTest.register_ShouldReturnOk_WhenRequestIsValid(AuthControllerTest.java:77)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[INFO] Running com.aziz.demosec.controller.DeliveryControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:38.114+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.DeliveryControllerTest  : Starting DeliveryControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:38.114+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.controller.DeliveryControllerTest  : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:38.115+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.DeliveryControllerTest  : The following 1 profile is active: "test"
+2026-03-30T05:14:39.131+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:39.156+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 61f78667-e90c-4712-8fcb-81cbf29ef719
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:39.176+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.DeliveryControllerTest  : Started DeliveryControllerTest in 1.111 seconds (process running for 7.841)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.368 s -- in com.aziz.demosec.controller.DeliveryControllerTest
+[INFO] Running com.aziz.demosec.controller.FileUploadControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:39.459+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.FileUploadControllerTest         : Starting FileUploadControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:39.459+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.c.FileUploadControllerTest         : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:39.459+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.FileUploadControllerTest         : The following 1 profile is active: "test"
+2026-03-30T05:14:39.987+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:40.007+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f37a094d-0e05-4961-bc18-9c1ed209f8c2
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:40.022+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.FileUploadControllerTest         : Started FileUploadControllerTest in 0.594 seconds (process running for 8.688)
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.657 s -- in com.aziz.demosec.controller.FileUploadControllerTest
+[INFO] Running com.aziz.demosec.controller.HomeCareControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:40.116+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.HomeCareControllerTest  : Starting HomeCareControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:40.117+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.controller.HomeCareControllerTest  : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:40.117+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.HomeCareControllerTest  : The following 1 profile is active: "test"
+2026-03-30T05:14:40.753+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:40.773+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: eb7e89d0-ca2e-4603-8ecd-452f76fa04c0
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:40.790+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.HomeCareControllerTest  : Started HomeCareControllerTest in 0.703 seconds (process running for 9.455)
+2026-03-30T05:14:41.002+01:00  WARN 2936 --- [demosec-test] [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [1] in public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.String>> com.aziz.demosec.controller.HomeCareController.createRequest(org.springframework.security.core.userdetails.UserDetails,com.aziz.demosec.dto.homecare.CreateServiceRequestDTO): [Field error in object 'createServiceRequestDTO' on field 'address': rejected value [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]; codes [Size.createServiceRequestDTO.address,Size.address,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [createServiceRequestDTO.address,address]; arguments []; default message [address],500,0]; default message [L'adresse ne peut pas dépasser 500 caractères]] ]
+2026-03-30T05:14:41.040+01:00  WARN 2936 --- [demosec-test] [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [2] in public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.String>> com.aziz.demosec.controller.HomeCareController.completeRequest(java.lang.Long,org.springframework.security.core.userdetails.UserDetails,com.aziz.demosec.dto.homecare.CompleteRequestDTO): [Field error in object 'completeRequestDTO' on field 'providerNotes': rejected value [nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn]; codes [Size.completeRequestDTO.providerNotes,Size.providerNotes,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [completeRequestDTO.providerNotes,providerNotes]; arguments []; default message [providerNotes],1000,0]; default message [Les notes du prestataire ne peuvent pas dépasser 1000 caractères]] ]
+2026-03-30T05:14:41.054+01:00  WARN 2936 --- [demosec-test] [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [2] in public org.springframework.http.ResponseEntity<com.aziz.demosec.Entities.ServiceReview> com.aziz.demosec.controller.HomeCareController.submitReview(java.lang.Long,org.springframework.security.core.userdetails.UserDetails,com.aziz.demosec.dto.homecare.SubmitReviewDTO): [Field error in object 'submitReviewDTO' on field 'comment': rejected value [ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc]; codes [Size.submitReviewDTO.comment,Size.comment,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [submitReviewDTO.comment,comment]; arguments []; default message [comment],1000,0]; default message [Le commentaire ne peut pas dépasser 1000 caractères]] ]
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.013 s -- in com.aziz.demosec.controller.HomeCareControllerTest
+[INFO] Running com.aziz.demosec.controller.NotificationControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:41.135+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.NotificationControllerTest       : Starting NotificationControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:41.135+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.c.NotificationControllerTest       : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:41.135+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.NotificationControllerTest       : The following 1 profile is active: "test"
+2026-03-30T05:14:41.655+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:41.670+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: a80531ce-9bba-4577-a880-8edba371d005
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:41.694+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.NotificationControllerTest       : Started NotificationControllerTest in 0.587 seconds (process running for 10.358)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.650 s -- in com.aziz.demosec.controller.NotificationControllerTest
+[INFO] Running com.aziz.demosec.controller.PaymentControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:41.785+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.PaymentControllerTest   : Starting PaymentControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:41.786+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.controller.PaymentControllerTest   : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:41.786+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.PaymentControllerTest   : The following 1 profile is active: "test"
+2026-03-30T05:14:42.326+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:42.342+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 0d8b97cf-ee52-4453-a24e-8b7153f995f0
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:42.358+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.PaymentControllerTest   : Started PaymentControllerTest in 0.599 seconds (process running for 11.023)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.679 s -- in com.aziz.demosec.controller.PaymentControllerTest
+[INFO] Running com.aziz.demosec.controller.PaymentWebhookControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:42.478+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookControllerTest     : Starting PaymentWebhookControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:42.478+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookControllerTest     : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:42.479+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookControllerTest     : The following 1 profile is active: "test"
+2026-03-30T05:14:43.095+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:43.108+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: b6f840c9-35df-4770-b2c4-57f988d2a15c
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:43.118+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookControllerTest     : Started PaymentWebhookControllerTest in 0.679 seconds (process running for 11.782)
+2026-03-30T05:14:43.130+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookController         : D17 webhook received - Event: payment.failed
+2026-03-30T05:14:43.131+01:00  WARN 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookController         : D17 payment failed - Transaction: D17-TX-FAIL, Reason: Insufficient funds
+2026-03-30T05:14:43.135+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookController         : D17 payment failure recorded - Order: 2
+2026-03-30T05:14:43.151+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookController         : D17 webhook received - Event: payment.completed
+2026-03-30T05:14:43.151+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookController         : D17 payment completed - Transaction: D17-TX-123
+2026-03-30T05:14:43.152+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PaymentWebhookController         : D17 payment confirmed and Order set to PAID - Order: 1
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.735 s -- in com.aziz.demosec.controller.PaymentWebhookControllerTest
+[INFO] Running com.aziz.demosec.controller.PharmacyControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:43.207+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.PharmacyControllerTest  : Starting PharmacyControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:43.208+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.controller.PharmacyControllerTest  : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:43.208+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.PharmacyControllerTest  : The following 1 profile is active: "test"
+2026-03-30T05:14:43.686+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:43.698+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f4a0eaf5-34fc-402d-981b-f68c376e4aa6
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:43.708+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.PharmacyControllerTest  : Started PharmacyControllerTest in 0.521 seconds (process running for 12.372)
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.616 s -- in com.aziz.demosec.controller.PharmacyControllerTest
+[INFO] Running com.aziz.demosec.controller.PharmacyOrderControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:43.829+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PharmacyOrderControllerTest      : Starting PharmacyOrderControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:43.829+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.c.PharmacyOrderControllerTest      : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:43.829+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PharmacyOrderControllerTest      : The following 1 profile is active: "test"
+2026-03-30T05:14:44.542+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:44.552+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 61265cec-4385-4fa5-a369-e2664eac6e86
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:44.561+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PharmacyOrderControllerTest      : Started PharmacyOrderControllerTest in 0.758 seconds (process running for 13.226)
+2026-03-30T05:14:44.680+01:00  WARN 2936 --- [demosec-test] [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.aziz.demosec.dto.pharmacy.PharmacyOrderResponseDTO> com.aziz.demosec.controller.PharmacyOrderController.create(com.aziz.demosec.dto.pharmacy.PharmacyOrderRequestDTO): [Field error in object 'pharmacyOrderRequestDTO' on field 'deliveryAddress': rejected value [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]; codes [Size.pharmacyOrderRequestDTO.deliveryAddress,Size.deliveryAddress,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [pharmacyOrderRequestDTO.deliveryAddress,deliveryAddress]; arguments []; default message [deliveryAddress],255,0]; default message [Delivery address must not exceed 255 characters]] ]
+2026-03-30T05:14:44.691+01:00  WARN 2936 --- [demosec-test] [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [1] in public org.springframework.http.ResponseEntity<com.aziz.demosec.dto.pharmacy.PharmacyOrderResponseDTO> com.aziz.demosec.controller.PharmacyOrderController.rejectOrder(java.lang.Long,com.aziz.demosec.dto.pharmacy.RejectOrderRequestDTO): [Field error in object 'rejectOrderRequestDTO' on field 'note': rejected value [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]; codes [Size.rejectOrderRequestDTO.note,Size.note,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [rejectOrderRequestDTO.note,note]; arguments []; default message [note],1000,0]; default message [Rejection note must not exceed 1000 characters]] ]
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.912 s -- in com.aziz.demosec.controller.PharmacyOrderControllerTest
+[INFO] Running com.aziz.demosec.controller.PharmacyStockControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:44.728+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PharmacyStockControllerTest      : Starting PharmacyStockControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:44.728+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.c.PharmacyStockControllerTest      : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:44.729+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PharmacyStockControllerTest      : The following 1 profile is active: "test"
+2026-03-30T05:14:45.140+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:45.164+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 1474552f-957a-46ad-9d50-2f578227e18d
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:45.176+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.c.PharmacyStockControllerTest      : Started PharmacyStockControllerTest in 0.466 seconds (process running for 13.841)
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.544 s -- in com.aziz.demosec.controller.PharmacyStockControllerTest
+[INFO] Running com.aziz.demosec.controller.ProductControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:45.279+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.ProductControllerTest   : Starting ProductControllerTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:45.280+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.controller.ProductControllerTest   : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:45.280+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.ProductControllerTest   : The following 1 profile is active: "test"
+2026-03-30T05:14:45.703+01:00  WARN 2936 --- [demosec-test] [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-30T05:14:45.712+01:00  WARN 2936 --- [demosec-test] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: b8147b4a-4db7-4834-a877-99881c992092
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-30T05:14:45.721+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.controller.ProductControllerTest   : Started ProductControllerTest in 0.463 seconds (process running for 14.385)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.514 s -- in com.aziz.demosec.controller.ProductControllerTest
+[INFO] Running com.aziz.demosec.controller.WebSocketControllerTest
+? WebSocket connection established for user: anonymous
+? WebSocket connection established for user: testuser
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 s -- in com.aziz.demosec.controller.WebSocketControllerTest
+[INFO] Running com.aziz.demosec.DemosecApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:45.910+01:00  INFO 2936 --- [demosec-test] [           main] c.aziz.demosec.DemosecApplicationTests   : Starting DemosecApplicationTests using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:45.910+01:00 DEBUG 2936 --- [demosec-test] [           main] c.aziz.demosec.DemosecApplicationTests   : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:45.910+01:00  INFO 2936 --- [demosec-test] [           main] c.aziz.demosec.DemosecApplicationTests   : The following 1 profile is active: "test"
+2026-03-30T05:14:47.665+01:00  WARN 2936 --- [demosec-test] [           main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: java.lang.IllegalArgumentException: Unresolvable class definition for class [com.aziz.demosec.controller.DemoController]
+2026-03-30T05:14:47.713+01:00 ERROR 2936 --- [demosec-test] [           main] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.IllegalArgumentException: Unresolvable class definition for class [com.aziz.demosec.controller.DemoController]
+	at org.springframework.util.ClassUtils.resolveClassName(ClassUtils.java:369) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.getConfigurationClasses(MockitoPostProcessor.java:154) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.postProcessBeanFactory(MockitoPostProcessor.java:141) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.postProcessBeanFactory(MockitoPostProcessor.java:135) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:197) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:791) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:609) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1461) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:160) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:128) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:128) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.2.jar:3.5.2]
+Caused by: java.lang.NoClassDefFoundError: com/aziz/demosec/controller/Democontroller (wrong name: com/aziz/demosec/controller/DemoController)
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method) ~[na:na]
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1017) ~[na:na]
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	at java.base/java.lang.Class.forName0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:467) ~[na:na]
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:321) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.util.ClassUtils.resolveClassName(ClassUtils.java:362) ~[spring-core-6.2.3.jar:6.2.3]
+	... 94 common frames omitted
+
+2026-03-30T05:14:47.725+01:00  WARN 2936 --- [demosec-test] [           main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [com.aziz.demosec.DemosecApplicationTests@6ff9b4f2]
+
+java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@78bc7456 testClass = com.aziz.demosec.DemosecApplicationTests, locations = [], classes = [com.aziz.demosec.DemosecApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@ab7395e, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@e70f13a, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@25036ea, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@3b754b1a, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@3a4621bd, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@12f9af83, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@4f1bfe23, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@d0be391d], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:180) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:160) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:128) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:128) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.2.jar:3.5.2]
+Caused by: java.lang.IllegalArgumentException: Unresolvable class definition for class [com.aziz.demosec.controller.DemoController]
+	at org.springframework.util.ClassUtils.resolveClassName(ClassUtils.java:369) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.getConfigurationClasses(MockitoPostProcessor.java:154) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.postProcessBeanFactory(MockitoPostProcessor.java:141) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.postProcessBeanFactory(MockitoPostProcessor.java:135) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:197) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:791) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:609) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1461) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152) ~[spring-test-6.2.3.jar:6.2.3]
+	... 75 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: com/aziz/demosec/controller/Democontroller (wrong name: com/aziz/demosec/controller/DemoController)
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method) ~[na:na]
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1017) ~[na:na]
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681) ~[na:na]
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	at java.base/java.lang.Class.forName0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:467) ~[na:na]
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:321) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.util.ClassUtils.resolveClassName(ClassUtils.java:362) ~[spring-core-6.2.3.jar:6.2.3]
+	... 94 common frames omitted
+
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.858 s <<< FAILURE! -- in com.aziz.demosec.DemosecApplicationTests
+[ERROR] com.aziz.demosec.DemosecApplicationTests.contextLoads -- Time elapsed: 0.002 s <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@78bc7456 testClass = com.aziz.demosec.DemosecApplicationTests, locations = [], classes = [com.aziz.demosec.DemosecApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@ab7395e, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@e70f13a, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@25036ea, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@3b754b1a, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@3a4621bd, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@12f9af83, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@4f1bfe23, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@d0be391d], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:180)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:160)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.lang.IllegalArgumentException: Unresolvable class definition for class [com.aziz.demosec.controller.DemoController]
+	at org.springframework.util.ClassUtils.resolveClassName(ClassUtils.java:369)
+	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.getConfigurationClasses(MockitoPostProcessor.java:154)
+	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.postProcessBeanFactory(MockitoPostProcessor.java:141)
+	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.postProcessBeanFactory(MockitoPostProcessor.java:135)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:363)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:197)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:791)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:609)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1461)
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
+	... 19 more
+Caused by: java.lang.NoClassDefFoundError: com/aziz/demosec/controller/Democontroller (wrong name: com/aziz/demosec/controller/DemoController)
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method)
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1017)
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:467)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:321)
+	at org.springframework.util.ClassUtils.resolveClassName(ClassUtils.java:362)
+	... 38 more
+
+[INFO] Running com.aziz.demosec.dto.PaymentResponseDTOTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in com.aziz.demosec.dto.PaymentResponseDTOTest
+[INFO] Running com.aziz.demosec.Entities.PaymentEntityTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in com.aziz.demosec.Entities.PaymentEntityTest
+[INFO] Running com.aziz.demosec.repository.UserRepositoryTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-03-30T05:14:47.842+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.repository.UserRepositoryTest      : Starting UserRepositoryTest using Java 17.0.12 with PID 2936 (started by LENOVO in C:\Users\LENOVO\IdeaProjects\demosecc)
+2026-03-30T05:14:47.843+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.d.repository.UserRepositoryTest      : Running with Spring Boot v3.4.3, Spring v6.2.3
+2026-03-30T05:14:47.843+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.repository.UserRepositoryTest      : The following 1 profile is active: "test"
+2026-03-30T05:14:49.063+01:00  WARN 2936 --- [demosec-test] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+Hibernate: 
+    create global temporary table HT_medical_events(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_medical_events(capacity integer, HTE_IDENTITY bigint generated 
+by
+    default as identity, created_by_id bigint, date timestamp(6), id bigint, event_kind varchar(31) not null, address varchar(255), city varchar(255), country varchar(255), description varchar(255), meeting_link varchar(255), meeting_password varchar(255), platform_name varchar(255), postal_code varchar(255), title varchar(255), venue_name varchar(255), event_type enum ('ONLINE', 'PHYSICAL'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_online_events(HTE_IDENTITY bigint generated 
+by
+    default as identity, created_by_id bigint, date timestamp(6), id bigint, event_kind varchar(31) not null, description varchar(255), meeting_link varchar(255), meeting_password varchar(255), platform_name varchar(255), title varchar(255), event_type enum ('ONLINE', 'PHYSICAL'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HT_donations(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_donations(money numeric(12, 2), quantite integer, HTE_IDENTITY bigint generated 
+by
+    default as identity, created_at timestamp(6), id bigint, description varchar(255), donor_name varchar(255), title varchar(255), status enum ('ASSIGNED', 'AVAILABLE'), type enum ('MATERIEL', 'MONEY'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_materiel_donations(quantite integer, HTE_IDENTITY bigint generated 
+by
+    default as identity, created_at timestamp(6), id bigint, description varchar(255), donor_name varchar(255), title varchar(255), status enum ('ASSIGNED', 'AVAILABLE'), type enum ('MATERIEL', 'MONEY'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HT_users(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_users(birth_date date, consultation_fee numeric(38, 2), enabled boolean, verified boolean, years_of_experience integer, years_of_experience integer, HTE_IDENTITY bigint generated 
+by
+    default as identity, id bigint, laboratory_id bigint, bio varchar(255), chronic_diseases varchar(255), drug_allergies varchar(255), email varchar(255), emergency_contact_name varchar(255), emergency_contact_phone varchar(255), full_name varchar(255), hereditary_diseases varchar(255), license_number varchar(255), license_number varchar(255), password varchar(255), phone varchar(255), professional_document varchar(255), specialties varchar(255), specialty varchar(255), blood_type enum ('AB_NEG', 'AB_POS', 'A_NEG', 'A_POS', 'B_NEG', 'B_POS', 'O_NEG', 'O_POS'), consultation_mode enum ('BOTH', 'IN_PERSON', 'ONLINE'), gender enum ('FEMALE', 'MALE'), role enum ('ADMIN', 'CLINIC', 'DOCTOR', 'HOME_CARE_PROVIDER', 'LABORATORY_STAFF', 'NUTRITIONIST', 'PATIENT', 'PHARMACIST', 'VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_laboratory_staff(birth_date date, enabled boolean, HTE_IDENTITY bigint generated 
+by
+    default as identity, id bigint, laboratory_id bigint, email varchar(255), full_name varchar(255), password varchar(255), phone varchar(255), professional_document varchar(255), role enum ('ADMIN', 'CLINIC', 'DOCTOR', 'HOME_CARE_PROVIDER', 'LABORATORY_STAFF', 'NUTRITIONIST', 'PATIENT', 'PHARMACIST', 'VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_patients(birth_date date, enabled boolean, HTE_IDENTITY bigint generated 
+by
+    default as identity, id bigint, chronic_diseases varchar(255), drug_allergies varchar(255), email varchar(255), emergency_contact_name varchar(255), emergency_contact_phone varchar(255), full_name varchar(255), hereditary_diseases varchar(255), password varchar(255), phone varchar(255), professional_document varchar(255), blood_type enum ('AB_NEG', 'AB_POS', 'A_NEG', 'A_POS', 'B_NEG', 'B_POS', 'O_NEG', 'O_POS'), gender enum ('FEMALE', 'MALE'), role enum ('ADMIN', 'CLINIC', 'DOCTOR', 'HOME_CARE_PROVIDER', 'LABORATORY_STAFF', 'NUTRITIONIST', 'PATIENT', 'PHARMACIST', 'VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_physical_events(capacity integer, HTE_IDENTITY bigint generated 
+by
+    default as identity, created_by_id bigint, date timestamp(6), id bigint, event_kind varchar(31) not null, address varchar(255), city varchar(255), country varchar(255), description varchar(255), postal_code varchar(255), title varchar(255), venue_name varchar(255), event_type enum ('ONLINE', 'PHYSICAL'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_nutritionists(birth_date date, enabled boolean, verified boolean, years_of_experience integer, HTE_IDENTITY bigint generated 
+by
+    default as identity, id bigint, bio varchar(255), email varchar(255), full_name varchar(255), license_number varchar(255), password varchar(255), phone varchar(255), professional_document varchar(255), specialties varchar(255), role enum ('ADMIN', 'CLINIC', 'DOCTOR', 'HOME_CARE_PROVIDER', 'LABORATORY_STAFF', 'NUTRITIONIST', 'PATIENT', 'PHARMACIST', 'VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_doctors(birth_date date, consultation_fee numeric(38, 2), enabled boolean, years_of_experience integer, HTE_IDENTITY bigint generated 
+by
+    default as identity, id bigint, email varchar(255), full_name varchar(255), license_number varchar(255), password varchar(255), phone varchar(255), professional_document varchar(255), specialty varchar(255), consultation_mode enum ('BOTH', 'IN_PERSON', 'ONLINE'), role enum ('ADMIN', 'CLINIC', 'DOCTOR', 'HOME_CARE_PROVIDER', 'LABORATORY_STAFF', 'NUTRITIONIST', 'PATIENT', 'PHARMACIST', 'VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_pharmacists(birth_date date, enabled boolean, HTE_IDENTITY bigint generated 
+by
+    default as identity, id bigint, pharmacy_id bigint, email varchar(255), full_name varchar(255), password varchar(255), phone varchar(255), professional_document varchar(255), role enum ('ADMIN', 'CLINIC', 'DOCTOR', 'HOME_CARE_PROVIDER', 'LABORATORY_STAFF', 'NUTRITIONIST', 'PATIENT', 'PHARMACIST', 'VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    create global temporary table HTE_money_donations(money numeric(12, 2), HTE_IDENTITY bigint generated 
+by
+    default as identity, created_at timestamp(6), id bigint, description varchar(255), donor_name varchar(255), title varchar(255), status enum ('ASSIGNED', 'AVAILABLE'), type enum ('MATERIEL', 'MONEY'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: 
+    drop table if exists aid_requests cascade 
+Hibernate: 
+    drop table if exists ambulances cascade 
+Hibernate: 
+    drop table if exists appointments cascade 
+Hibernate: 
+    drop table if exists baby_profiles cascade 
+Hibernate: 
+    drop table if exists calendar_availabilities cascade 
+Hibernate: 
+    drop table if exists clinics cascade 
+Hibernate: 
+    drop table if exists comments cascade 
+Hibernate: 
+    drop table if exists consultations cascade 
+Hibernate: 
+    drop table if exists deliveries cascade 
+Hibernate: 
+    drop table if exists delivery_agencies cascade 
+Hibernate: 
+    drop table if exists delivery_agents cascade 
+Hibernate: 
+    drop table if exists diagnoses cascade 
+Hibernate: 
+    drop table if exists doctors cascade 
+Hibernate: 
+    drop table if exists donation_assignments cascade 
+Hibernate: 
+    drop table if exists donations cascade 
+Hibernate: 
+    drop table if exists emergency_alerts cascade 
+Hibernate: 
+    drop table if exists emergency_interventions cascade 
+Hibernate: 
+    drop table if exists event_registrations cascade 
+Hibernate: 
+    drop table if exists growth_records cascade 
+Hibernate: 
+    drop table if exists home_care_services cascade 
+Hibernate: 
+    drop table if exists lab_requests cascade 
+Hibernate: 
+    drop table if exists lab_results cascade 
+Hibernate: 
+    drop table if exists lab_tests cascade 
+Hibernate: 
+    drop table if exists laboratories cascade 
+Hibernate: 
+    drop table if exists laboratory_staff cascade 
+Hibernate: 
+    drop table if exists lifestyle_goals cascade 
+Hibernate: 
+    drop table if exists lifestyle_plans cascade 
+Hibernate: 
+    drop table if exists likes cascade 
+Hibernate: 
+    drop table if exists materiel_donations cascade 
+Hibernate: 
+    drop table if exists medical_events cascade 
+Hibernate: 
+    drop table if exists medical_histories cascade 
+Hibernate: 
+    drop table if exists medical_records cascade 
+Hibernate: 
+    drop table if exists money_donations cascade 
+Hibernate: 
+    drop table if exists notifications cascade 
+Hibernate: 
+    drop table if exists nutritionists cascade 
+Hibernate: 
+    drop table if exists online_events cascade 
+Hibernate: 
+    drop table if exists order_items cascade 
+Hibernate: 
+    drop table if exists order_tracking cascade 
+Hibernate: 
+    drop table if exists password_reset_tokens cascade 
+Hibernate: 
+    drop table if exists patients cascade 
+Hibernate: 
+    drop table if exists payments cascade 
+Hibernate: 
+    drop table if exists pharmacies cascade 
+Hibernate: 
+    drop table if exists pharmacists cascade 
+Hibernate: 
+    drop table if exists pharmacy_orders cascade 
+Hibernate: 
+    drop table if exists pharmacy_stocks cascade 
+Hibernate: 
+    drop table if exists physical_events cascade 
+Hibernate: 
+    drop table if exists posts cascade 
+Hibernate: 
+    drop table if exists prescription_items cascade 
+Hibernate: 
+    drop table if exists prescription_notes cascade 
+Hibernate: 
+    drop table if exists prescriptions cascade 
+Hibernate: 
+    drop table if exists products cascade 
+Hibernate: 
+    drop table if exists progress_trackings cascade 
+Hibernate: 
+    drop table if exists provider_availability cascade 
+Hibernate: 
+    drop table if exists provider_calendars cascade 
+Hibernate: 
+    drop table if exists rehabilitation_programs cascade 
+Hibernate: 
+    drop table if exists service_provider_specialties cascade 
+Hibernate: 
+    drop table if exists service_providers cascade 
+Hibernate: 
+    drop table if exists service_requests cascade 
+Hibernate: 
+    drop table if exists service_reviews cascade 
+Hibernate: 
+    drop table if exists smart_devices cascade 
+Hibernate: 
+    drop table if exists stock_alerts cascade 
+Hibernate: 
+    drop table if exists stock_batches cascade 
+Hibernate: 
+    drop table if exists stock_movements cascade 
+Hibernate: 
+    drop table if exists treatments cascade 
+Hibernate: 
+    drop table if exists users cascade 
+Hibernate: 
+    drop table if exists vaccinations cascade 
+Hibernate: 
+    create table aid_requests (
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        patient_id bigint not null,
+        description varchar(255) not null,
+        supporting_document varchar(255),
+        status enum ('APPROVED','PENDING','REJECTED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table ambulances (
+        current_lat float(53),
+        current_lng float(53),
+        clinic_id bigint not null,
+        id bigint generated by default as identity,
+        primary key (id)
+    )
+Hibernate: 
+    create table appointments (
+        availability_id bigint not null unique,
+        id bigint generated by default as identity,
+        patient_id bigint not null,
+        provider_id bigint not null,
+        meeting_link varchar(255),
+        visit_address varchar(255),
+        mode enum ('IN_PERSON','ONLINE'),
+        status enum ('BOOKED','CANCELLED','COMPLETED','RESCHEDULED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table baby_profiles (
+        birth_date date not null,
+        id bigint generated by default as identity,
+        parent_id bigint not null,
+        name varchar(255) not null,
+        gender enum ('FEMALE','MALE') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table calendar_availabilities (
+        calendar_id bigint not null,
+        end_time timestamp(6) not null,
+        id bigint generated by default as identity,
+        start_time timestamp(6) not null,
+        address varchar(255),
+        mode enum ('IN_PERSON','ONLINE') not null,
+        status enum ('AVAILABLE','BLOCKED','BOOKED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table clinics (
+        has_ambulance boolean not null,
+        has_emergency boolean not null,
+        latitude float(53),
+        longitude float(53),
+        verified boolean not null,
+        id bigint generated by default as identity,
+        address varchar(255),
+        ambulance_phone varchar(255),
+        emergency_phone varchar(255),
+        name varchar(255) not null,
+        phone varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table comments (
+        author_id bigint not null,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        post_id bigint not null,
+        content TEXT not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table consultations (
+        date timestamp(6) not null,
+        doctor_id bigint not null,
+        id bigint generated by default as identity,
+        medical_record_id bigint not null,
+        notes varchar(255),
+        observations varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table deliveries (
+        agency_id bigint,
+        agent_id bigint,
+        created_at timestamp(6),
+        delivered_at timestamp(6),
+        estimated_arrival timestamp(6),
+        estimated_delivery_date timestamp(6),
+        id bigint generated by default as identity,
+        order_id bigint not null unique,
+        requested_at timestamp(6),
+        updated_at timestamp(6),
+        agency_name varchar(255),
+        courier_name varchar(255),
+        courier_phone varchar(255),
+        external_tracking_id varchar(255),
+        tracking_number varchar(255),
+        tracking_url varchar(255),
+        status enum ('ASSIGNED','CANCELLED','DELIVERED','FAILED','IN_TRANSIT','OUT_FOR_DELIVERY','PENDING','PICKED_UP','REQUESTED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table delivery_agencies (
+        id bigint generated by default as identity,
+        address varchar(255),
+        city varchar(255),
+        logo_url varchar(255),
+        name varchar(255) not null,
+        phone_number varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table delivery_agents (
+        agency_id bigint,
+        id bigint generated by default as identity,
+        name varchar(255) not null,
+        phone_number varchar(255),
+        vehicle_plate varchar(255),
+        vehicle_type varchar(255),
+        status enum ('AVAILABLE','BUSY','OFFLINE'),
+        primary key (id)
+    )
+Hibernate: 
+    create table diagnoses (
+        consultation_id bigint not null,
+        id bigint generated by default as identity,
+        description varchar(255) not null,
+        type enum ('PRIMARY','SECONDARY') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table doctors (
+        consultation_fee numeric(38,2),
+        years_of_experience integer,
+        id bigint not null,
+        license_number varchar(255) not null,
+        specialty varchar(255),
+        consultation_mode enum ('BOTH','IN_PERSON','ONLINE'),
+        primary key (id)
+    )
+Hibernate: 
+    create table donation_assignments (
+        aid_request_id bigint not null,
+        assigned_at timestamp(6) not null,
+        donation_id bigint not null,
+        id bigint generated by default as identity,
+        primary key (id)
+    )
+Hibernate: 
+    create table donations (
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        description varchar(255),
+        donor_name varchar(255),
+        title varchar(255) not null,
+        status enum ('ASSIGNED','AVAILABLE') not null,
+        type enum ('MATERIEL','MONEY') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table emergency_alerts (
+        latitude float(53) not null,
+        longitude float(53) not null,
+        created_at timestamp(6) not null,
+        device_id bigint not null,
+        id bigint generated by default as identity,
+        severity enum ('CRITICAL','HIGH','LOW') not null,
+        status enum ('CLINIC_NOTIFIED','CONTACT_NOTIFIED','PATIENT_NOTIFIED','PENDING','RESOLVED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table emergency_interventions (
+        ambulance_id bigint,
+        arrived_at timestamp(6),
+        clinic_id bigint not null,
+        completed_at timestamp(6),
+        dispatched_at timestamp(6),
+        emergency_alert_id bigint not null unique,
+        id bigint generated by default as identity,
+        status enum ('ARRIVED','CANCELLED','COMPLETED','DISPATCHED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table event_registrations (
+        created_at timestamp(6) not null,
+        event_id bigint not null,
+        id bigint generated by default as identity,
+        participant_id bigint not null,
+        status enum ('REGISTERED','VALIDATED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table growth_records (
+        height numeric(5,2) not null,
+        weight numeric(5,2) not null,
+        baby_id bigint not null,
+        id bigint generated by default as identity,
+        recorded_at timestamp(6) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table home_care_services (
+        active boolean not null,
+        duration_minutes integer,
+        price numeric(12,2) not null,
+        id bigint generated by default as identity,
+        category varchar(255),
+        description varchar(255),
+        icon_url varchar(255),
+        name varchar(255) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table lab_requests (
+        doctor_id bigint not null,
+        id bigint generated by default as identity,
+        laboratory_id bigint not null,
+        patient_id bigint not null,
+        requested_at timestamp(6) not null,
+        status enum ('COMPLETED','IN_PROGRESS','PENDING') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table lab_results (
+        completed_at timestamp(6),
+        id bigint generated by default as identity,
+        lab_request_id bigint not null unique,
+        result_file varchar(255),
+        result_data clob,
+        primary key (id)
+    )
+Hibernate: 
+    create table lab_tests (
+        price numeric(38,2) not null,
+        id bigint generated by default as identity,
+        laboratory_id bigint not null,
+        description varchar(255),
+        name varchar(255) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table laboratories (
+        active boolean not null,
+        id bigint generated by default as identity,
+        address varchar(255),
+        name varchar(255) not null,
+        phone varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table laboratory_staff (
+        id bigint not null,
+        laboratory_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table lifestyle_goals (
+        baseline_value numeric(38,2),
+        target_date date,
+        target_value numeric(38,2),
+        id bigint generated by default as identity,
+        lifestyle_plan_id bigint not null,
+        category enum ('NUTRITION','WEIGHT') not null,
+        status enum ('ACHIEVED','CANCELLED','IN_PROGRESS','PENDING') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table lifestyle_plans (
+        end_date date,
+        start_date date,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        nutritionist_id bigint,
+        patient_id bigint not null,
+        description varchar(255),
+        title varchar(255) not null,
+        status enum ('ACTIVE','CANCELLED','COMPLETED','DRAFT') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table likes (
+        id bigint generated by default as identity,
+        post_id bigint not null,
+        user_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table materiel_donations (
+        quantite integer not null,
+        id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table medical_events (
+        created_by_id bigint,
+        date timestamp(6) not null,
+        id bigint generated by default as identity,
+        event_kind varchar(31) not null,
+        description varchar(255),
+        title varchar(255) not null,
+        event_type enum ('ONLINE','PHYSICAL') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table medical_histories (
+        end_date date,
+        start_date date,
+        id bigint generated by default as identity,
+        medical_record_id bigint not null,
+        description varchar(255) not null,
+        status enum ('ACTIVE','RESOLVED') not null,
+        type enum ('ALLERGY','CHRONIC_DISEASE','CONDITION','FAMILY_HISTORY','SURGERY') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table medical_records (
+        id bigint generated by default as identity,
+        patient_id bigint not null unique,
+        primary key (id)
+    )
+Hibernate: 
+    create table money_donations (
+        money numeric(12,2) not null,
+        id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table notifications (
+        is_read boolean not null,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        order_id bigint,
+        recipient_id bigint not null,
+        message varchar(1000) not null,
+        title varchar(255) not null,
+        type enum ('ACCOUNT_ACTIVATED','DELIVERED','DELIVERY_ASSIGNED','DELIVERY_CHOICE_REQUIRED','DELIVERY_PICKED_UP','HOMECARE_COMPLETED','HOMECARE_IN_PROGRESS','HOMECARE_REQUEST_ACCEPTED','NEW_HOMECARE_REQUEST','NO_DRIVER_AVAILABLE','ORDER_CANCELLED','ORDER_CREATED','ORDER_REJECTED','ORDER_VALIDATED','OUT_FOR_DELIVERY','PAYMENT_CONFIRMED','REG_REQ') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table nutritionists (
+        verified boolean not null,
+        years_of_experience integer,
+        id bigint not null,
+        bio varchar(255),
+        license_number varchar(255) unique,
+        specialties varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table online_events (
+        id bigint not null,
+        meeting_link varchar(255),
+        meeting_password varchar(255),
+        platform_name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table order_items (
+        price numeric(38,2) not null,
+        quantity integer not null,
+        id bigint generated by default as identity,
+        order_id bigint not null,
+        product_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table order_tracking (
+        changed_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        order_id bigint not null,
+        note varchar(1000),
+        changed_by varchar(255) not null,
+        status enum ('ASSIGNED','ASSIGNING','AWAITING_CHOICE','CANCELLED','DELIVERED','DELIVERY_REQUESTED','OUT_FOR_DELIVERY','PAID','PAYMENT_PENDING','PENDING','PICKED_UP','READY_FOR_PICKUP','REJECTED','RESERVED','REVIEWING','VALIDATED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table password_reset_tokens (
+        used boolean not null,
+        expiry_date timestamp(6) not null,
+        id bigint generated by default as identity,
+        user_id bigint not null,
+        token varchar(255) not null unique,
+        primary key (id)
+    )
+Hibernate: 
+    create table patients (
+        id bigint not null,
+        chronic_diseases varchar(255),
+        drug_allergies varchar(255),
+        emergency_contact_name varchar(255),
+        emergency_contact_phone varchar(255),
+        hereditary_diseases varchar(255),
+        blood_type enum ('AB_NEG','AB_POS','A_NEG','A_POS','B_NEG','B_POS','O_NEG','O_POS'),
+        gender enum ('FEMALE','MALE'),
+        primary key (id)
+    )
+Hibernate: 
+    create table payments (
+        amount numeric(12,2) not null,
+        confirmed_at timestamp(6),
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        order_id bigint not null unique,
+        paid_at timestamp(6),
+        currency varchar(255),
+        gateway_metadata varchar(255),
+        transaction_id varchar(255),
+        method enum ('BANK_CARD','CASH_ON_DELIVERY','D17','STRIPE') not null,
+        status enum ('COMPLETED','FAILED','PENDING','REFUNDED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table pharmacies (
+        location_lat float(53),
+        location_lng float(53),
+        id bigint generated by default as identity,
+        address varchar(255),
+        email varchar(255),
+        name varchar(255) not null,
+        phone_number varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table pharmacists (
+        id bigint not null,
+        pharmacy_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    create table pharmacy_orders (
+        scheduled_delivery_date date,
+        total_price numeric(12,2) not null,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        patient_id bigint not null,
+        pharmacy_id bigint not null,
+        prescription_id bigint,
+        updated_at timestamp(6),
+        pharmacist_note varchar(1000),
+        delivery_address varchar(255),
+        prescription_image_url varchar(255),
+        delivery_type enum ('HOME_DELIVERY','PICKUP'),
+        status enum ('ASSIGNED','ASSIGNING','AWAITING_CHOICE','CANCELLED','DELIVERED','DELIVERY_REQUESTED','OUT_FOR_DELIVERY','PAID','PAYMENT_PENDING','PENDING','PICKED_UP','READY_FOR_PICKUP','REJECTED','RESERVED','REVIEWING','VALIDATED') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table pharmacy_stocks (
+        min_quantity_threshold integer not null,
+        total_quantity integer not null,
+        unit_price numeric(10,3) not null,
+        id bigint generated by default as identity,
+        pharmacy_id bigint not null,
+        product_id bigint not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table physical_events (
+        capacity integer,
+        id bigint not null,
+        address varchar(255),
+        city varchar(255),
+        country varchar(255),
+        postal_code varchar(255),
+        venue_name varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table posts (
+        author_id bigint not null,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        content TEXT not null,
+        title varchar(255) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table prescription_items (
+        quantity integer not null,
+        id bigint generated by default as identity,
+        prescription_id bigint not null,
+        product_id bigint not null,
+        dosage varchar(255),
+        duration varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table prescription_notes (
+        id bigint generated by default as identity,
+        order_id bigint not null,
+        pharmacist_id bigint not null,
+        comment varchar(1000),
+        dosage varchar(255),
+        duration varchar(255),
+        medication_name varchar(255) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table prescriptions (
+        date_created date not null,
+        consultation_id bigint not null,
+        id bigint generated by default as identity,
+        primary key (id)
+    )
+Hibernate: 
+    create table products (
+        id bigint generated by default as identity,
+        barcode varchar(255),
+        brand varchar(255),
+        category varchar(255),
+        description varchar(255),
+        image_url varchar(255),
+        manufacturer varchar(255),
+        name varchar(255) not null,
+        type varchar(255) not null,
+        unit varchar(255) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table progress_trackings (
+        id bigint generated by default as identity,
+        lifestyle_plan_id bigint,
+        recorded_at timestamp(6) not null,
+        recorded_by_id bigint,
+        rehabilitation_program_id bigint,
+        metric varchar(255) not null,
+        value varchar(255) not null,
+        tracking_type enum ('LIFESTYLE','REHAB') not null,
+        primary key (id)
+    )
+2026-03-30T05:14:51.220+01:00  WARN 2936 --- [demosec-test] [           main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "
+    create table progress_trackings (
+        id bigint generated by default as identity,
+        lifestyle_plan_id bigint,
+        recorded_at timestamp(6) not null,
+        recorded_by_id bigint,
+        rehabilitation_program_id bigint,
+        metric varchar(255) not null,
+        value varchar(255) not null,
+        tracking_type enum ('LIFESTYLE','REHAB') not null,
+        primary key (id)
+    )" via JDBC [Erreur de syntaxe dans l'instruction SQL "\000d\000a    create table progress_trackings (\000d\000a        id bigint generated by default as identity,\000d\000a        lifestyle_plan_id bigint,\000d\000a        recorded_at timestamp(6) not null,\000d\000a        recorded_by_id bigint,\000d\000a        rehabilitation_program_id bigint,\000d\000a        metric varchar(255) not null,\000d\000a        [*]value varchar(255) not null,\000d\000a        tracking_type enum ('LIFESTYLE','REHAB') not null,\000d\000a        primary key (id)\000d\000a    )"; attendu "identifier"
+Syntax error in SQL statement "\000d\000a    create table progress_trackings (\000d\000a        id bigint generated by default as identity,\000d\000a        lifestyle_plan_id bigint,\000d\000a        recorded_at timestamp(6) not null,\000d\000a        recorded_by_id bigint,\000d\000a        rehabilitation_program_id bigint,\000d\000a        metric varchar(255) not null,\000d\000a        [*]value varchar(255) not null,\000d\000a        tracking_type enum ('LIFESTYLE','REHAB') not null,\000d\000a        primary key (id)\000d\000a    )"; expected "identifier";]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create table progress_trackings (
+        id bigint generated by default as identity,
+        lifestyle_plan_id bigint,
+        recorded_at timestamp(6) not null,
+        recorded_by_id bigint,
+        rehabilitation_program_id bigint,
+        metric varchar(255) not null,
+        value varchar(255) not null,
+        tracking_type enum ('LIFESTYLE','REHAB') not null,
+        primary key (id)
+    )" via JDBC [Erreur de syntaxe dans l'instruction SQL "\000d\000a    create table progress_trackings (\000d\000a        id bigint generated by default as identity,\000d\000a        lifestyle_plan_id bigint,\000d\000a        recorded_at timestamp(6) not null,\000d\000a        recorded_by_id bigint,\000d\000a        rehabilitation_program_id bigint,\000d\000a        metric varchar(255) not null,\000d\000a        [*]value varchar(255) not null,\000d\000a        tracking_type enum ('LIFESTYLE','REHAB') not null,\000d\000a        primary key (id)\000d\000a    )"; attendu "identifier"
+Syntax error in SQL statement "\000d\000a    create table progress_trackings (\000d\000a        id bigint generated by default as identity,\000d\000a        lifestyle_plan_id bigint,\000d\000a        recorded_at timestamp(6) not null,\000d\000a        recorded_by_id bigint,\000d\000a        rehabilitation_program_id bigint,\000d\000a        metric varchar(255) not null,\000d\000a        [*]value varchar(255) not null,\000d\000a        tracking_type enum ('LIFESTYLE','REHAB') not null,\000d\000a        primary key (id)\000d\000a    )"; expected "identifier";]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:430) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:346) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:241) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:174) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:144) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:120) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1517) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66) ~[spring-orm-6.2.3.jar:6.2.3]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.2.3.jar:6.2.3]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419) ~[spring-orm-6.2.3.jar:6.2.3]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400) ~[spring-orm-6.2.3.jar:6.2.3]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.2.3.jar:6.2.3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1859) ~[spring-beans-6.2.3.jar:6.2.3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1808) ~[spring-beans-6.2.3.jar:6.2.3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601) ~[spring-beans-6.2.3.jar:6.2.3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.3.jar:6.2.3]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.3.jar:6.2.3]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346) ~[spring-beans-6.2.3.jar:6.2.3]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.3.jar:6.2.3]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-6.2.3.jar:6.2.3]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.3.jar:6.2.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46) ~[spring-core-6.2.3.jar:6.2.3]
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1461) ~[spring-boot-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108) ~[spring-boot-test-3.4.3.jar:3.4.3]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:155) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:111) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:160) ~[spring-test-6.2.3.jar:6.2.3]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at java.base/java.util.Optional.orElseGet(Optional.java:364) ~[na:na]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.11.4.jar:5.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:128) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:128) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.11.4.jar:1.11.4]
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) ~[surefire-junit-platform-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) ~[surefire-booter-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) ~[surefire-booter-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) ~[surefire-booter-3.5.2.jar:3.5.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) ~[surefire-booter-3.5.2.jar:3.5.2]
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "\000d\000a    create table progress_trackings (\000d\000a        id bigint generated by default as identity,\000d\000a        lifestyle_plan_id bigint,\000d\000a        recorded_at timestamp(6) not null,\000d\000a        recorded_by_id bigint,\000d\000a        rehabilitation_program_id bigint,\000d\000a        metric varchar(255) not null,\000d\000a        [*]value varchar(255) not null,\000d\000a        tracking_type enum ('LIFESTYLE','REHAB') not null,\000d\000a        primary key (id)\000d\000a    )"; attendu "identifier"
+Syntax error in SQL statement "\000d\000a    create table progress_trackings (\000d\000a        id bigint generated by default as identity,\000d\000a        lifestyle_plan_id bigint,\000d\000a        recorded_at timestamp(6) not null,\000d\000a        recorded_by_id bigint,\000d\000a        rehabilitation_program_id bigint,\000d\000a        metric varchar(255) not null,\000d\000a        [*]value varchar(255) not null,\000d\000a        tracking_type enum ('LIFESTYLE','REHAB') not null,\000d\000a        primary key (id)\000d\000a    )"; expected "identifier"; SQL statement:
+
+    create table progress_trackings (
+        id bigint generated by default as identity,
+        lifestyle_plan_id bigint,
+        recorded_at timestamp(6) not null,
+        recorded_by_id bigint,
+        rehabilitation_program_id bigint,
+        metric varchar(255) not null,
+        value varchar(255) not null,
+        tracking_type enum ('LIFESTYLE','REHAB') not null,
+        primary key (id)
+    ) [42001-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.message.DbException.getSyntaxError(DbException.java:261) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.command.Parser.readIdentifier(Parser.java:5527) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8871) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.command.Parser.parseCreate(Parser.java:6398) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.command.Parser.parsePrepared(Parser.java:645) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.command.Parser.parse(Parser.java:581) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.command.Parser.parse(Parser.java:556) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.command.Parser.prepareCommand(Parser.java:484) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245) ~[h2-2.3.232.jar:2.3.232]
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231) ~[h2-2.3.232.jar:2.3.232]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.6.8.Final.jar:6.6.8.Final]
+	... 119 common frames omitted
+
+Hibernate: 
+    create table provider_availability (
+        available boolean not null,
+        end_time time(6) not null,
+        specific_date date,
+        start_time time(6) not null,
+        id bigint generated by default as identity,
+        provider_id bigint not null,
+        day_of_week enum ('FRIDAY','MONDAY','SATURDAY','SUNDAY','THURSDAY','TUESDAY','WEDNESDAY'),
+        primary key (id)
+    )
+Hibernate: 
+    create table provider_calendars (
+        id bigint generated by default as identity,
+        provider_id bigint not null unique,
+        primary key (id)
+    )
+Hibernate: 
+    create table rehabilitation_programs (
+        end_date date,
+        start_date date,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        patient_id bigint not null,
+        provider_id bigint,
+        description varchar(255),
+        name varchar(255) not null,
+        status enum ('ACTIVE','CANCELLED','COMPLETED','DRAFT') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table service_provider_specialties (
+        home_care_service_id bigint not null,
+        service_provider_id bigint not null,
+        primary key (home_care_service_id, service_provider_id)
+    )
+Hibernate: 
+    create table service_providers (
+        average_rating float(53) not null,
+        total_reviews integer not null,
+        verified boolean not null,
+        id bigint generated by default as identity,
+        user_id bigint not null unique,
+        bio varchar(255),
+        certification_document varchar(255),
+        profile_picture_url varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table service_requests (
+        price numeric(12,2) not null,
+        assigned_date_time timestamp(6),
+        completed_at timestamp(6),
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        patient_id bigint not null,
+        provider_id bigint,
+        requested_date_time timestamp(6) not null,
+        service_id bigint not null,
+        address varchar(255) not null,
+        patient_notes varchar(255),
+        provider_notes varchar(255),
+        status enum ('ACCEPTED','CANCELLED','COMPLETED','IN_PROGRESS','PENDING') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table service_reviews (
+        rating integer not null,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        patient_id bigint not null,
+        provider_id bigint not null,
+        request_id bigint not null unique,
+        comment varchar(1000),
+        primary key (id)
+    )
+Hibernate: 
+    create table smart_devices (
+        id bigint generated by default as identity,
+        patient_id bigint not null unique,
+        primary key (id)
+    )
+Hibernate: 
+    create table stock_alerts (
+        resolved boolean not null,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        pharmacy_stock_id bigint not null,
+        resolved_at timestamp(6),
+        message varchar(255) not null,
+        alert_type enum ('EXPIRED','EXPIRING_SOON','LOW_STOCK','OUT_OF_STOCK') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table stock_batches (
+        expiration_date date,
+        purchase_price numeric(38,2),
+        quantity integer not null,
+        selling_price numeric(38,2),
+        id bigint generated by default as identity,
+        pharmacy_stock_id bigint not null,
+        received_at timestamp(6) not null,
+        batch_number varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table stock_movements (
+        quantity integer not null,
+        created_at timestamp(6) not null,
+        id bigint generated by default as identity,
+        performed_by_id bigint,
+        pharmacy_stock_id bigint not null,
+        reference varchar(255),
+        movement_type enum ('ADJUSTMENT','IN','OUT','RETURN','TRANSFER') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table treatments (
+        end_date date,
+        start_date date,
+        consultation_id bigint not null,
+        id bigint generated by default as identity,
+        description varchar(255) not null,
+        status enum ('CANCELLED','COMPLETED','ONGOING') not null,
+        treatment_type enum ('MEDICATION','PROCEDURE','REHABILITATION','SURGERY','THERAPY') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table users (
+        birth_date date,
+        enabled boolean not null,
+        id bigint generated by default as identity,
+        email varchar(255) not null unique,
+        full_name varchar(255) not null,
+        password varchar(255) not null,
+        phone varchar(255),
+        professional_document varchar(255),
+        role enum ('ADMIN','CLINIC','DOCTOR','HOME_CARE_PROVIDER','LABORATORY_STAFF','NUTRITIONIST','PATIENT','PHARMACIST','VISITOR') not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table vaccinations (
+        due_date date not null,
+        baby_id bigint not null,
+        id bigint generated by default as identity,
+        vaccine_name varchar(255) not null,
+        status enum ('DONE','MISSED','PENDING') not null,
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists aid_requests 
+       add constraint FK8vk8jjm5ymfy0tbwy784l9n7u 
+       foreign key (patient_id) 
+       references users
+Hibernate: 
+    alter table if exists ambulances 
+       add constraint FKaspc7fl9ur8mir8gni8lmp0ha 
+       foreign key (clinic_id) 
+       references clinics
+Hibernate: 
+    alter table if exists appointments 
+       add constraint FK4rntms8li6gv1r4w168s5rnes 
+       foreign key (availability_id) 
+       references calendar_availabilities
+Hibernate: 
+    alter table if exists appointments 
+       add constraint FKopb2h9yhin1rb4dqote8bws6w 
+       foreign key (patient_id) 
+       references users
+Hibernate: 
+    alter table if exists appointments 
+       add constraint FK4fu75bopbpvwtgr881n5o84yr 
+       foreign key (provider_id) 
+       references users
+Hibernate: 
+    alter table if exists baby_profiles 
+       add constraint FK8r64qf1aah4pmwv6aa6gk89wi 
+       foreign key (parent_id) 
+       references patients
+Hibernate: 
+    alter table if exists calendar_availabilities 
+       add constraint FKldeyyibptwrks38s8s66u0thr 
+       foreign key (calendar_id) 
+       references provider_calendars
+Hibernate: 
+    alter table if exists comments 
+       add constraint FKn2na60ukhs76ibtpt9burkm27 
+       foreign key (author_id) 
+       references users
+Hibernate: 
+    alter table if exists comments 
+       add constraint FKh4c7lvsc298whoyd4w9ta25cr 
+       foreign key (post_id) 
+       references posts
+Hibernate: 
+    alter table if exists consultations 
+       add constraint FKkog17uvjvkkg4bv6l5eu1ysqw 
+       foreign key (doctor_id) 
+       references users
+Hibernate: 
+    alter table if exists consultations 
+       add constraint FK4p8su3x8lamshi6ebh6vrt6a8 
+       foreign key (medical_record_id) 
+       references medical_records
+Hibernate: 
+    alter table if exists deliveries 
+       add constraint FKjv8v6hkylcl9nrhd999is9tsg 
+       foreign key (agency_id) 
+       references delivery_agencies
+Hibernate: 
+    alter table if exists deliveries 
+       add constraint FKqvnv1r5jcm2peqk8rxi9aglcs 
+       foreign key (agent_id) 
+       references delivery_agents
+Hibernate: 
+    alter table if exists deliveries 
+       add constraint FKjeyv8vd2l5tfj7gpausrd5nc4 
+       foreign key (order_id) 
+       references pharmacy_orders
+Hibernate: 
+    alter table if exists delivery_agents 
+       add constraint FK46umsu8px2en0d6tf5lln8s4i 
+       foreign key (agency_id) 
+       references delivery_agencies
+Hibernate: 
+    alter table if exists diagnoses 
+       add constraint FKgfts0yrddn59v61ywhksr56a6 
+       foreign key (consultation_id) 
+       references consultations
+Hibernate: 
+    alter table if exists doctors 
+       add constraint FKgisys6qm9qflq8w4npdhxafne 
+       foreign key (id) 
+       references users
+Hibernate: 
+    alter table if exists donation_assignments 
+       add constraint FKgdt8twkoey2asuc0nin24lt5p 
+       foreign key (aid_request_id) 
+       references aid_requests
+Hibernate: 
+    alter table if exists donation_assignments 
+       add constraint FKf4go7ivgn63p53uhhb22nvj1a 
+       foreign key (donation_id) 
+       references donations
+Hibernate: 
+    alter table if exists emergency_alerts 
+       add constraint FKf77rwu6n28qadgdarstogc8nr 
+       foreign key (device_id) 
+       references smart_devices
+Hibernate: 
+    alter table if exists emergency_interventions 
+       add constraint FKoemo2ei1bf0d18qvlx1k3i037 
+       foreign key (ambulance_id) 
+       references ambulances
+Hibernate: 
+    alter table if exists emergency_interventions 
+       add constraint FK5aua68fpqqixoneptfx4iwd4s 
+       foreign key (clinic_id) 
+       references clinics
+Hibernate: 
+    alter table if exists emergency_interventions 
+       add constraint FKfx276poiw21k6mx23xanxtx6g 
+       foreign key (emergency_alert_id) 
+       references emergency_alerts
+Hibernate: 
+    alter table if exists event_registrations 
+       add constraint FKjqvemfb05leskcxkhv36r5ivj 
+       foreign key (event_id) 
+       references medical_events
+Hibernate: 
+    alter table if exists event_registrations 
+       add constraint FKp9y6buinf98h9nm47goe0prgc 
+       foreign key (participant_id) 
+       references users
+Hibernate: 
+    alter table if exists growth_records 
+       add constraint FK4uqfiaj57bm9dr1o8y8c8ynwp 
+       foreign key (baby_id) 
+       references baby_profiles
+Hibernate: 
+    alter table if exists lab_requests 
+       add constraint FKtjd143t1c550vtiy65m45u3kd 
+       foreign key (doctor_id) 
+       references doctors
+Hibernate: 
+    alter table if exists lab_requests 
+       add constraint FK423xwxn7hn70ufiw1vlhgi8b 
+       foreign key (laboratory_id) 
+       references laboratories
+Hibernate: 
+    alter table if exists lab_requests 
+       add constraint FK75p4ko3xn9k8k5xiypggyfk24 
+       foreign key (patient_id) 
+       references patients
+Hibernate: 
+    alter table if exists lab_results 
+       add constraint FKndnvq4dpij5gb5eglqxoh6lov 
+       foreign key (lab_request_id) 
+       references lab_requests
+Hibernate: 
+    alter table if exists lab_tests 
+       add constraint FKpbj5y8bj1ac8u32rc3rkg9ipg 
+       foreign key (laboratory_id) 
+       references laboratories
+Hibernate: 
+    alter table if exists laboratory_staff 
+       add constraint FKdplyvl8bw5jkq0nqi193qgnj1 
+       foreign key (laboratory_id) 
+       references laboratories
+Hibernate: 
+    alter table if exists laboratory_staff 
+       add constraint FKau9aaaygnuideb4avqsw1ampn 
+       foreign key (id) 
+       references users
+Hibernate: 
+    alter table if exists lifestyle_goals 
+       add constraint FK1bqmi4hnm46w01vgwlejm85ja 
+       foreign key (lifestyle_plan_id) 
+       references lifestyle_plans
+Hibernate: 
+    alter table if exists lifestyle_plans 
+       add constraint FKf7r59jg53ttm94lmox4b50rii 
+       foreign key (nutritionist_id) 
+       references users
+Hibernate: 
+    alter table if exists lifestyle_plans 
+       add constraint FKoa3bwltlu2p1khw8ydsjmsitu 
+       foreign key (patient_id) 
+       references users
+Hibernate: 
+    alter table if exists likes 
+       add constraint FKry8tnr4x2vwemv2bb0h5hyl0x 
+       foreign key (post_id) 
+       references posts
+Hibernate: 
+    alter table if exists likes 
+       add constraint FKnvx9seeqqyy71bij291pwiwrg 
+       foreign key (user_id) 
+       references users
+Hibernate: 
+    alter table if exists materiel_donations 
+       add constraint FKoalu34qxxuy0u9c5eqbhrduwx 
+       foreign key (id) 
+       references donations
+Hibernate: 
+    alter table if exists medical_events 
+       add constraint FKbqy87cm9j71evnr9l8e4lthwu 
+       foreign key (created_by_id) 
+       references users
+Hibernate: 
+    alter table if exists medical_histories 
+       add constraint FKd0rvjm043cgfkgnm152nsv57a 
+       foreign key (medical_record_id) 
+       references medical_records
+Hibernate: 
+    alter table if exists medical_records 
+       add constraint FKe3g9v0pbec2843wd1rxeb0is3 
+       foreign key (patient_id) 
+       references users
+Hibernate: 
+    alter table if exists money_donations 
+       add constraint FKb4f74ndnusgex3bcd14osdwud 
+       foreign key (id) 
+       references donations
+Hibernate: 
+    alter table if exists notifications 
+       add constraint FK11936pu2buoyi95joj67jjv5s 
+       foreign key (order_id) 
+       references pharmacy_orders
+Hibernate: 
+    alter table if exists notifications 
+       add constraint FKqqnsjxlwleyjbxlmm213jaj3f 
+       foreign key (recipient_id) 
+       references users
+Hibernate: 
+    alter table if exists nutritionists 
+       add constraint FKed56h4g02cknt9tihg51u75qc 
+       foreign key (id) 
+       references users
+Hibernate: 
+    alter table if exists online_events 
+       add constraint FKg84e7xoy7r8bhv2nmre81y512 
+       foreign key (id) 
+       references medical_events
+Hibernate: 
+    alter table if exists order_items 
+       add constraint FK4a3i2l6lb2yl0ratr0iulmttq 
+       foreign key (order_id) 
+       references pharmacy_orders
+Hibernate: 
+    alter table if exists order_items 
+       add constraint FKocimc7dtr037rh4ls4l95nlfi 
+       foreign key (product_id) 
+       references products
+Hibernate: 
+    alter table if exists order_tracking 
+       add constraint FKfmsglo9dgi01oebwf4d4x1r3q 
+       foreign key (order_id) 
+       references pharmacy_orders
+Hibernate: 
+    alter table if exists password_reset_tokens 
+       add constraint FKk3ndxg5xp6v7wd4gjyusp15gq 
+       foreign key (user_id) 
+       references users
+Hibernate: 
+    alter table if exists patients 
+       add constraint FKn8xphvlp05nd3ydg0p1rbdaom 
+       foreign key (id) 
+       references users
+Hibernate: 
+    alter table if exists payments 
+       add constraint FKr2if8pfo46niu0q1j8ndart3b 
+       foreign key (order_id) 
+       references pharmacy_orders
+Hibernate: 
+    alter table if exists pharmacists 
+       add constraint FK274bkgrys2ol3eou3904fidrn 
+       foreign key (pharmacy_id) 
+       references pharmacies
+Hibernate: 
+    alter table if exists pharmacists 
+       add constraint FK18tc2lcdiutko6gm005qfyq8 
+       foreign key (id) 
+       references users
+Hibernate: 
+    alter table if exists pharmacy_orders 
+       add constraint FK4n11hhmwv4y4mqy73hwbkjxpq 
+       foreign key (patient_id) 
+       references users
+Hibernate: 
+    alter table if exists pharmacy_orders 
+       add constraint FK6g7rd8jtl1j4i5pilc61poq9w 
+       foreign key (pharmacy_id) 
+       references pharmacies
+Hibernate: 
+    alter table if exists pharmacy_orders 
+       add constraint FKdw8oqqyfk6sbc7i8tw6w7d6yl 
+       foreign key (prescription_id) 
+       references prescriptions
+Hibernate: 
+    alter table if exists pharmacy_stocks 
+       add constraint FKqbaf4pj05yb6n18vs1d3l7osp 
+       foreign key (pharmacy_id) 
+       references pharmacies
+Hibernate: 
+    alter table if exists pharmacy_stocks 
+       add constraint FKl4l0mirtq4rbom2euurk6rfeo 
+       foreign key (product_id) 
+       references products
+Hibernate: 
+    alter table if exists physical_events 
+       add constraint FKj8a830sk8fedh8lbo6ujity8j 
+       foreign key (id) 
+       references medical_events
+Hibernate: 
+    alter table if exists posts 
+       add constraint FK6xvn0811tkyo3nfjk2xvqx6ns 
+       foreign key (author_id) 
+       references users
+Hibernate: 
+    alter table if exists prescription_items 
+       add constraint FK6uh7tdy2lv6sx34u1365acqsf 
+       foreign key (prescription_id) 
+       references prescriptions
+Hibernate: 
+    alter table if exists prescription_items 
+       add constraint FK4y3vj4smw06t15iyiu02hvk5a 
+       foreign key (product_id) 
+       references products
+Hibernate: 
+    alter table if exists prescription_notes 
+       add constraint FKg3yvfuyh3c37mdgqe538k7mar 
+       foreign key (order_id) 
+       references pharmacy_orders
+Hibernate: 
+    alter table if exists prescription_notes 
+       add constraint FKcyduymlhcf3r7malwon178x7i 
+       foreign key (pharmacist_id) 
+       references users
+Hibernate: 
+    alter table if exists prescriptions 
+       add constraint FKj6varr98psv2onkoxks6jin14 
+       foreign key (consultation_id) 
+       references consultations
+Hibernate: 
+    alter table if exists progress_trackings 
+       add constraint FKlwaheyhssa5qw34g5pgt68gwi 
+       foreign key (lifestyle_plan_id) 
+       references lifestyle_plans
+Hibernate: 
+    alter table if exists progress_trackings 
+       add constraint FK6xwf2ywpa9yy8l70wdu880wg 
+       foreign key (recorded_by_id) 
+       references users
+Hibernate: 
+    alter table if exists progress_trackings 
+       add constraint FKir9qqkartjqgplu7t1o9iihf7 
+       foreign key (rehabilitation_program_id) 
+       references rehabilitation_programs
+Hibernate: 
+    alter table if exists provider_availability 
+       add constraint FKayuyw5xx2l2vj5lop53cy8xn6 
+       foreign key (provider_id) 
+       references service_providers
+Hibernate: 
+    alter table if exists provider_calendars 
+       add constraint FKbu6ulwvctrobnnn2mwqu6asfe 
+       foreign key (provider_id) 
+       references users
+Hibernate: 
+    alter table if exists rehabilitation_programs 
+       add constraint FKpyxu42rbp37obnd13232746ls 
+       foreign key (patient_id) 
+       references users
+Hibernate: 
+    alter table if exists rehabilitation_programs 
+       add constraint FKmw2gt5mgbcw3jlvhhqmwgodti 
+       foreign key (provider_id) 
+       references users
+Hibernate: 
+    alter table if exists service_provider_specialties 
+       add constraint FKt6x15ej4y5yss9e1no3ye4070 
+       foreign key (home_care_service_id) 
+       references home_care_services
+Hibernate: 
+    alter table if exists service_provider_specialties 
+       add constraint FK6wg08wmy31o8xd7qm9kuqvew7 
+       foreign key (service_provider_id) 
+       references service_providers
+Hibernate: 
+    alter table if exists service_providers 
+       add constraint FK8b8mme5feiiglgjkw0fin13iu 
+       foreign key (user_id) 
+       references users
+Hibernate: 
+    alter table if exists service_requests 
+       add constraint FKss0tu804jnh3hydt12r1h881o 
+       foreign key (provider_id) 
+       references service_providers
+Hibernate: 
+    alter table if exists service_requests 
+       add constraint FKn49ojfktkik5u7queq97l15dr 
+       foreign key (patient_id) 
+       references users
+Hibernate: 
+    alter table if exists service_requests 
+       add constraint FKi7k5ysj0xn3mmu4rrti2wfdy6 
+       foreign key (service_id) 
+       references home_care_services
+Hibernate: 
+    alter table if exists service_reviews 
+       add constraint FKcp2acg3wgmrhpl0e4lj2lqsvr 
+       foreign key (patient_id) 
+       references users
+Hibernate: 
+    alter table if exists service_reviews 
+       add constraint FK4m8p5w4yennbgf8wnb2egrjkf 
+       foreign key (provider_id) 
+       references service_providers
+Hibernate: 
+    alter table if exists service_reviews 
+       add constraint FKcufkdvlklh8kq85vuo5ina2it 
+       foreign key (request_id) 
+       references service_requests
+Hibernate: 
+    alter table if exists smart_devices 
+       add constraint FKpiogcpibuopg80ut7n0hpieih 
+       foreign key (patient_id) 
+       references users
+Hibernate: 
+    alter table if exists stock_alerts 
+       add constraint FKnb7jmpwyvdvb0t1qikq7sl2p5 
+       foreign key (pharmacy_stock_id) 
+       references pharmacy_stocks
+Hibernate: 
+    alter table if exists stock_batches 
+       add constraint FKkra63gofx8kkfgbmimkjbk3v6 
+       foreign key (pharmacy_stock_id) 
+       references pharmacy_stocks
+Hibernate: 
+    alter table if exists stock_movements 
+       add constraint FK45yhs5thi26xrhdd6vxu25erh 
+       foreign key (performed_by_id) 
+       references users
+Hibernate: 
+    alter table if exists stock_movements 
+       add constraint FKg082tearac4tc7c41xm5vw04i 
+       foreign key (pharmacy_stock_id) 
+       references pharmacy_stocks
+Hibernate: 
+    alter table if exists treatments 
+       add constraint FKrf6frtb6q7ta8vbqc24enwmo0 
+       foreign key (consultation_id) 
+       references consultations
+Hibernate: 
+    alter table if exists vaccinations 
+       add constraint FK8bmy4ddmhwvgcvasor04t8ng8 
+       foreign key (baby_id) 
+       references baby_profiles
+2026-03-30T05:14:53.016+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.repository.UserRepositoryTest      : Started UserRepositoryTest in 5.207 seconds (process running for 21.682)
+Hibernate: 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null 
+                then 1 
+            when u1_2.id is not null 
+                then 2 
+            when u1_3.id is not null 
+                then 3 
+            when u1_4.id is not null 
+                then 4 
+            when u1_5.id is not null 
+                then 5 
+            when u1_0.id is not null 
+                then 0 
+        end,
+        u1_0.birth_date,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.full_name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.professional_document,
+        u1_0.role,
+        u1_1.consultation_fee,
+        u1_1.consultation_mode,
+        u1_1.license_number,
+        u1_1.specialty,
+        u1_1.years_of_experience,
+        u1_2.laboratory_id,
+        u1_3.bio,
+        u1_3.license_number,
+        u1_3.specialties,
+        u1_3.verified,
+        u1_3.years_of_experience,
+        u1_4.blood_type,
+        u1_4.chronic_diseases,
+        u1_4.drug_allergies,
+        u1_4.emergency_contact_name,
+        u1_4.emergency_contact_phone,
+        u1_4.gender,
+        u1_4.hereditary_diseases,
+        u1_5.pharmacy_id 
+    from
+        users u1_0 
+    left join
+        doctors u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        laboratory_staff u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        nutritionists u1_3 
+            on u1_0.id=u1_3.id 
+    left join
+        patients u1_4 
+            on u1_0.id=u1_4.id 
+    left join
+        pharmacists u1_5 
+            on u1_0.id=u1_5.id 
+    where
+        u1_0.email=?
+Hibernate: 
+    insert 
+    into
+        users
+        (birth_date, email, enabled, full_name, password, phone, professional_document, role, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    select
+        u1_0.id,
+        case 
+            when u1_1.id is not null 
+                then 1 
+            when u1_2.id is not null 
+                then 2 
+            when u1_3.id is not null 
+                then 3 
+            when u1_4.id is not null 
+                then 4 
+            when u1_5.id is not null 
+                then 5 
+            when u1_0.id is not null 
+                then 0 
+        end,
+        u1_0.birth_date,
+        u1_0.email,
+        u1_0.enabled,
+        u1_0.full_name,
+        u1_0.password,
+        u1_0.phone,
+        u1_0.professional_document,
+        u1_0.role,
+        u1_1.consultation_fee,
+        u1_1.consultation_mode,
+        u1_1.license_number,
+        u1_1.specialty,
+        u1_1.years_of_experience,
+        u1_2.laboratory_id,
+        u1_3.bio,
+        u1_3.license_number,
+        u1_3.specialties,
+        u1_3.verified,
+        u1_3.years_of_experience,
+        u1_4.blood_type,
+        u1_4.chronic_diseases,
+        u1_4.drug_allergies,
+        u1_4.emergency_contact_name,
+        u1_4.emergency_contact_phone,
+        u1_4.gender,
+        u1_4.hereditary_diseases,
+        u1_5.pharmacy_id 
+    from
+        users u1_0 
+    left join
+        doctors u1_1 
+            on u1_0.id=u1_1.id 
+    left join
+        laboratory_staff u1_2 
+            on u1_0.id=u1_2.id 
+    left join
+        nutritionists u1_3 
+            on u1_0.id=u1_3.id 
+    left join
+        patients u1_4 
+            on u1_0.id=u1_4.id 
+    left join
+        pharmacists u1_5 
+            on u1_0.id=u1_5.id 
+    where
+        u1_0.email=?
+Hibernate: 
+    insert 
+    into
+        users
+        (birth_date, email, enabled, full_name, password, phone, professional_document, role, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, default)
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    fetch
+        first ? rows only
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.588 s -- in com.aziz.demosec.repository.UserRepositoryTest
+[INFO] Running com.aziz.demosec.service.AuthServiceTest
+Login attempt for email: [aziz@test.com]
+Registering user: aziz@test.com with role: PATIENT
+Registering user: aziz@test.com with role: PATIENT
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.637 s -- in com.aziz.demosec.service.AuthServiceTest
+[INFO] Running com.aziz.demosec.service.DeliveryServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.305 s -- in com.aziz.demosec.service.DeliveryServiceTest
+[INFO] Running com.aziz.demosec.service.DeliveryWebSocketServiceTest
+2026-03-30T05:14:54.300+01:00  INFO 2936 --- [demosec-test] [           main] c.a.d.service.DeliveryWebSocketService   : [WebSocket] Delivery update broadcast to /topic/delivery/123 — status: IN_TRANSIT, lat: 36.8, lng: 10.2
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in com.aziz.demosec.service.DeliveryWebSocketServiceTest
+[INFO] Running com.aziz.demosec.service.FileStorageServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 s -- in com.aziz.demosec.service.FileStorageServiceTest
+[INFO] Running com.aziz.demosec.service.HomeCareManagementServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.231 s -- in com.aziz.demosec.service.HomeCareManagementServiceTest
+[INFO] Running com.aziz.demosec.service.InvoiceServiceTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.281 s -- in com.aziz.demosec.service.InvoiceServiceTest
+[INFO] Running com.aziz.demosec.service.NotificationServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s -- in com.aziz.demosec.service.NotificationServiceTest
+[INFO] Running com.aziz.demosec.service.PaymentServiceTest
+2026-03-30T05:14:54.904+01:00  INFO 2936 --- [demosec-test] [           main] c.a.demosec.service.PaymentServiceImpl   : Payment created - Order: 1, Amount: 100.0, Method: CASH_ON_DELIVERY
+2026-03-30T05:14:54.905+01:00 DEBUG 2936 --- [demosec-test] [           main] c.a.demosec.service.PaymentServiceImpl   : Order status updated to PAID - Order: 1
+2026-03-30T05:14:54.905+01:00  INFO 2936 --- [demosec-test] [           main] c.a.demosec.service.PaymentServiceImpl   : Cash on Delivery payment confirmed - Order: 1, TxnId: COD-6FDE16AA-2B5
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.106 s -- in com.aziz.demosec.service.PaymentServiceTest
+[INFO] Running com.aziz.demosec.service.PharmacyOrderServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.270 s -- in com.aziz.demosec.service.PharmacyOrderServiceTest
+[INFO] Running com.aziz.demosec.service.PharmacyServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in com.aziz.demosec.service.PharmacyServiceTest
+[INFO] Running com.aziz.demosec.service.PharmacyStockServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in com.aziz.demosec.service.PharmacyStockServiceTest
+[INFO] Running com.aziz.demosec.service.ProductServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in com.aziz.demosec.service.ProductServiceTest
+[INFO] Running com.aziz.demosec.service.UserServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s -- in com.aziz.demosec.service.UserServiceTest
+[INFO] Running com.aziz.demosec.service.WebSocketNotificationServiceTest
+? Notification sent to user #100: Alert
+? Notification broadcasted: Alert
+? Order update sent to user #100 - Order #5 status: SHIPPED
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in com.aziz.demosec.service.WebSocketNotificationServiceTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   AuthControllerTest.login_ShouldReturnOk_WhenCredentialsAreValid:59 Status expected:<200> but was:<404>
+[ERROR]   AuthControllerTest.register_ShouldReturnOk_WhenRequestIsValid:77 Status expected:<200> but was:<404>
+[ERROR] Errors: 
+[ERROR]   DemosecApplicationTests.contextLoads » IllegalState Failed to load ApplicationContext for [WebMergedContextConfiguration@78bc7456 testClass = com.aziz.demosec.DemosecApplicationTests, locations = [], classes = [com.aziz.demosec.DemosecApplication], contextInitializerClasses = [], activeProfiles = ["test"], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@ab7395e, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@e70f13a, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@25036ea, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@3b754b1a, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@3a4621bd, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@12f9af83, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@4f1bfe23, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@d0be391d], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+[INFO] 
+[ERROR] Tests run: 104, Failures: 2, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  27.065 s
+[INFO] Finished at: 2026-03-30T05:14:55+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project demosec: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\LENOVO\IdeaProjects\demosecc\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -39,7 +39,7 @@ public record RegisterRequest(
         // ✅ Laboratory Staff
         String labName,
         String labAddress,
-        String labPhone
+        String labPhone,
         // Champs Pharmacist uniquement (nullable si autre rôle)
         String pharmacyName,
         String pharmacyAddress,

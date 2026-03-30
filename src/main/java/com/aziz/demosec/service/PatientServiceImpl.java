@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PatientServiceImpl implements IPatientService {
+public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
     private final PasswordEncoder passwordEncoder;
@@ -111,8 +111,7 @@ public class PatientServiceImpl implements IPatientService {
 
     private Patient findOrThrow(Long id) {
         return patientRepository.findById(id)
-                .orElseThrow(() ->
-                        new EntityNotFoundException("Patient not found with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + id));
     }
 
     private PatientResponseDTO toDTO(Patient patient) {

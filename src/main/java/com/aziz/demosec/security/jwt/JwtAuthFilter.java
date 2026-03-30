@@ -31,18 +31,26 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private static final List<String> PUBLIC_ENDPOINTS = List.of(
             "/auth",
             "/api/home-care-services",
-            "/error"
-    );
+            "/error");
 
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
-        // 1. Lire le header Authorization
-         String authHeader = request.getHeader("Authorization");
-         String jwt;
-         String userEmail;
+
+        String path = request.getServletPath();
+
+        // 1. Skip public endpoints
+        for (String endpoint : PUBLIC_ENDPOINTS) {
+            if (path.startsWith(endpoint)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+        }
+
+        // 2. Read Authorization header
+        String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             log.debug("JWT filter skip: method={}, uri={}, hasAuthHeader={}", request.getMethod(), path, authHeader != null);
             filterChain.doFilter(request, response);
@@ -52,13 +60,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String jwt = authHeader.substring(7);
         String userEmail;
 
-        // 2. Extraire et valider le token
-        jwt = authHeader.substring(7);
         try {
-            // 3️⃣ Extract email from JWT
+            // 3. Extract email from JWT
             userEmail = jwtService.extractEmail(jwt);
 
-            // 4️⃣ Authenticate if not already authenticated
+            // 4. Authenticate if not already authenticated
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
                 if (jwtService.isTokenValid(jwt, userDetails)) {
@@ -66,26 +72,26 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                             userDetails,
                             null,
                             userDetails.getAuthorities());
-                    authToken.setDetails(
-                            new WebAuthenticationDetailsSource().buildDetails(request));
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                     log.debug("JWT valid: subject={}, authorities={}", userEmail, userDetails.getAuthorities());
                 } else {
                     log.debug("JWT invalid: subject={}", userEmail);
                 }
             }
-
         } catch (ExpiredJwtException e) {
             log.warn("JWT expired: {}", e.getMessage());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("JWT expired");
             return;
         } catch (Exception e) {
-            // Si le token est malformé ou invalide, on continue simplement la chaine.
-            // La sécurité Spring bloquera l'accès plus tard si la route est protégée.
-            logger.warn("JWT validation failed: " + e.getMessage());
+            log.error("JWT processing failed", e);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid JWT");
+            return;
         }
-        // 4. Continuer la chaine
+
+        // 5. Continue filter chain
         filterChain.doFilter(request, response);
     }
 }

@@ -35,7 +35,7 @@ public class Notification {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 100)
-    private NotificationType type; // ORDER_CREATED, ORDER_VALIDATED, PAYMENT_CONFIRMED, etc.
+    private NotificationType type;
 
     @Column(nullable = false)
     private boolean isRead;

@@ -80,8 +80,6 @@ public class UserController {
             Role r = Role.valueOf(role.toUpperCase()); // Convertit la String en Enum
             List<UserResponseDTO> users = userService.getByRole(r);
             return ResponseEntity.ok(users);
-            Role r = Role.valueOf(role.toUpperCase());
-            return ResponseEntity.ok(userService.getByRole(r));
         } catch (IllegalArgumentException ex) {
             // Si le rôle fourni n’existe pas dans l’Enum
             return ResponseEntity.badRequest().build();
@@ -106,5 +104,5 @@ public class UserController {
                 Map.of("message", "An error occurred while changing password", "error", "Internal Server Error")
             );
         }
-    }}
+    }
 }

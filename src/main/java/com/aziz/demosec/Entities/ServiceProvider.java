@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ServiceProvider {
 
     @Id
@@ -44,12 +44,7 @@ public class ServiceProvider {
 
     @Builder.Default
     @ManyToMany
-    @JoinTable(
-            name = "service_provider_specialties",
-            joinColumns = @JoinColumn(name = "service_provider_id"),
-            inverseJoinColumns = @JoinColumn(name = "home_care_service_id")
-    )
+    @JoinTable(name = "service_provider_specialties", joinColumns = @JoinColumn(name = "service_provider_id"), inverseJoinColumns = @JoinColumn(name = "home_care_service_id"))
     private Set<HomeCareService> specialties = new HashSet<>();
-
 
 }
