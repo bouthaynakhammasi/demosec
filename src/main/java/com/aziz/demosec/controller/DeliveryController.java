@@ -4,7 +4,7 @@ import com.aziz.demosec.Entities.DeliveryAgency;
 import com.aziz.demosec.Entities.DeliveryAgent;
 import com.aziz.demosec.Entities.Delivery;
 import com.aziz.demosec.Entities.DeliveryStatus;
-import com.aziz.demosec.service.DeliveryService;
+import com.aziz.demosec.service.IDeliveryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DeliveryController {
 
-    private final DeliveryService deliveryService;
+    private final IDeliveryService deliveryService;
 
     @PostMapping("/dispatch")
     public ResponseEntity<Delivery> dispatchOrder(@RequestBody com.aziz.demosec.dto.pharmacy.DispatchOrderRequest request) {

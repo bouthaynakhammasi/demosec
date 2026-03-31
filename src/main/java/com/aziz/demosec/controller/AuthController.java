@@ -4,9 +4,10 @@ import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.dto.ForgotPasswordRequest;
 import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
-import com.aziz.demosec.service.AuthService;
+import com.aziz.demosec.service.IAuthService;
 import com.aziz.demosec.dto.ResetPasswordRequest;
 
+import com.aziz.demosec.service.IFileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthService authService;
-    private final com.aziz.demosec.service.FileStorageService fileStorageService;
+    private final IAuthService authService;
+    private final IFileStorageService fileStorageService;
 
     // POST /auth/register
     @PostMapping(value = "/register", consumes = {"multipart/form-data"})

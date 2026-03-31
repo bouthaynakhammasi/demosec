@@ -1,8 +1,6 @@
 package com.aziz.demosec.service;
 
 import com.aziz.demosec.Entities.Patient;
-import com.aziz.demosec.Entities.Pharmacist;
-import com.aziz.demosec.Entities.Pharmacy;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.AuthResponse;
@@ -50,7 +48,7 @@ class AuthServiceTest {
     @Mock
     private JwtService jwtService;
     @Mock
-    private NotificationService notificationService;
+    private INotificationService notificationService;
     @Mock
     private ServiceProviderRepository serviceProviderRepository;
     @Mock

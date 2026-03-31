@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 @Service
-public class FileStorageServiceImpl implements FileStorageService {
+public class FileStorageServiceImpl implements IFileStorageService {
 
     private final Path fileStorageLocation;
 

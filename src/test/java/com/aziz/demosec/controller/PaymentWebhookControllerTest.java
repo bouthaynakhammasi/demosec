@@ -7,7 +7,7 @@ import com.aziz.demosec.payment.PaymentWebSocketService;
 import com.aziz.demosec.repository.PaymentRepository;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
-import com.aziz.demosec.service.PaymentService;
+import com.aziz.demosec.service.IPaymentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ class PaymentWebhookControllerTest {
     private PaymentRepository paymentRepository;
 
     @MockBean
-    private PaymentService paymentService;
+    private IPaymentService paymentService;
 
     @MockBean
     private PaymentWebSocketService paymentWebSocketService;

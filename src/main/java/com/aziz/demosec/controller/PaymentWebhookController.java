@@ -1,6 +1,5 @@
 package com.aziz.demosec.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
 import com.stripe.model.EventDataObjectDeserializer;
@@ -20,7 +19,7 @@ import com.aziz.demosec.Entities.Payment;
 import com.aziz.demosec.Entities.PaymentStatus;
 import com.aziz.demosec.repository.PaymentRepository;
 import com.aziz.demosec.payment.PaymentWebSocketService;
-import com.aziz.demosec.service.PaymentService;
+import com.aziz.demosec.service.IPaymentService;
 
 /**
  * Webhook Controller for Payment Gateway Callbacks
@@ -43,7 +42,7 @@ public class PaymentWebhookController {
     private String d17WebhookSecret;
 
     private final PaymentRepository paymentRepository;
-    private final PaymentService paymentService;
+    private final IPaymentService paymentService;
     private final PaymentWebSocketService paymentWebSocketService;
     // Removed unused ObjectMapper
 

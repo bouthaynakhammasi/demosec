@@ -5,7 +5,7 @@ import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.dto.user.ChangePasswordDTO;
 import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.dto.user.UserResponseDTO;
-import com.aziz.demosec.service.UserService;
+import com.aziz.demosec.service.IUserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final IUserService userService;
 
 
     // ✅ Fix: endpoint appelé par le frontend Angular

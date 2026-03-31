@@ -3,14 +3,13 @@ package com.aziz.demosec.controller;
 import com.aziz.demosec.dto.pharmacy.NotificationResponseDTO;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
-import com.aziz.demosec.service.NotificationService;
+import com.aziz.demosec.service.INotificationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -30,7 +29,7 @@ class NotificationControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private NotificationService notificationService;
+    private INotificationService notificationService;
 
     @MockBean
     private JwtService jwtService;

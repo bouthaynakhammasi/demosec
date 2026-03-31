@@ -4,7 +4,7 @@ import com.aziz.demosec.Entities.PharmacyOrder;
 import com.aziz.demosec.dto.pharmacy.PaymentRequestDTO;
 import com.aziz.demosec.dto.pharmacy.PaymentResponseDTO;
 
-public interface PaymentService {
+public interface IPaymentService {
     PaymentResponseDTO initiatePayment(PaymentRequestDTO dto);
     PaymentResponseDTO createPaymentIntent(Long orderId);
     PaymentResponseDTO getByOrderId(Long orderId);

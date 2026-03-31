@@ -3,8 +3,8 @@ package com.aziz.demosec.controller;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.repository.UserRepository;
-import com.aziz.demosec.service.NotificationService;
-import com.aziz.demosec.service.HomeCareManagementService;
+import com.aziz.demosec.service.INotificationService;
+import com.aziz.demosec.service.IHomeCareManagementService;
 import com.aziz.demosec.Entities.ServiceProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +20,8 @@ import java.util.List;
 public class AdminController {
 
     private final UserRepository userRepository;
-    private final NotificationService notificationService;
-    private final HomeCareManagementService homeCareService;
+    private final INotificationService notificationService;
+    private final IHomeCareManagementService homeCareService;
 
     @GetMapping("/pending-pharmacists")
     public ResponseEntity<List<User>> getPendingPharmacists() {

@@ -2,8 +2,8 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.dto.LoginRequest;
-import com.aziz.demosec.service.AuthService;
-import com.aziz.demosec.service.FileStorageService;
+import com.aziz.demosec.service.IAuthService;
+import com.aziz.demosec.service.IFileStorageService;
 import com.aziz.demosec.security.jwt.JwtService;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,10 +30,10 @@ class AuthControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private AuthService authService;
+    private IAuthService authService;
 
     @MockBean
-    private FileStorageService fileStorageService;
+    private IFileStorageService fileStorageService;
 
     @MockBean
     private JwtService jwtService;

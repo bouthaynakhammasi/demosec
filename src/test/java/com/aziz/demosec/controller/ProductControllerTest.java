@@ -5,7 +5,7 @@ import com.aziz.demosec.dto.pharmacy.ProductRequestDTO;
 import com.aziz.demosec.dto.pharmacy.ProductResponseDTO;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
-import com.aziz.demosec.service.ProductService;
+import com.aziz.demosec.service.IProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ class ProductControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ProductService productService;
+    private IProductService productService;
 
     @MockBean
     private JwtService jwtService;

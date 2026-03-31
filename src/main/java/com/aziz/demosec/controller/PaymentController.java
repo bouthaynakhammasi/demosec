@@ -2,7 +2,7 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.dto.pharmacy.PaymentRequestDTO;
 import com.aziz.demosec.dto.pharmacy.PaymentResponseDTO;
-import com.aziz.demosec.service.PaymentService;
+import com.aziz.demosec.service.IPaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PaymentController {
 
-    private final PaymentService paymentService;
+    private final IPaymentService paymentService;
 
     @PostMapping
     public ResponseEntity<PaymentResponseDTO> initiatePayment(@Valid @RequestBody PaymentRequestDTO dto) {

@@ -4,6 +4,7 @@ import com.aziz.demosec.dto.pharmacy.ProductRequestDTO;
 import com.aziz.demosec.dto.pharmacy.ProductResponseDTO;
 import com.aziz.demosec.Entities.Product;
 import com.aziz.demosec.Entities.ProductType;
+import com.aziz.demosec.Entities.ProductUnit;
 import com.aziz.demosec.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements IProductService {
 
     private final ProductRepository productRepository;
 
@@ -56,8 +57,8 @@ public class ProductServiceImpl implements ProductService {
                 .manufacturer(dto.getManufacturer())
                 .barcode(dto.getBarcode())
                 .imageUrl(dto.getImageUrl())
-                .type(dto.getType())
-                .unit(dto.getUnit())
+                .type(dto.getType() != null ? dto.getType().name() : null)
+                .unit(dto.getUnit() != null ? dto.getUnit().name() : null)
                 .build();
         
         Product savedProduct = productRepository.save(product);
@@ -85,8 +86,8 @@ public class ProductServiceImpl implements ProductService {
         product.setManufacturer(dto.getManufacturer());
         product.setBarcode(dto.getBarcode());
         product.setImageUrl(dto.getImageUrl());
-        product.setType(dto.getType());
-        product.setUnit(dto.getUnit());
+        product.setType(dto.getType() != null ? dto.getType().name() : null);
+        product.setUnit(dto.getUnit() != null ? dto.getUnit().name() : null);
 
         Product updatedProduct = productRepository.save(product);
         return convertToDTO(updatedProduct);
@@ -101,6 +102,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private ProductResponseDTO convertToDTO(Product product) {
+        ProductType type = null;
+        ProductUnit unit = null;
+        
+        if (product.getType() != null) {
+            try {
+                type = ProductType.valueOf(product.getType());
+            } catch (IllegalArgumentException e) {
+                // Log ou ignorer
+            }
+        }
+        
+        if (product.getUnit() != null) {
+            try {
+                unit = ProductUnit.valueOf(product.getUnit());
+            } catch (IllegalArgumentException e) {
+                // Log ou ignorer
+            }
+        }
+        
         return ProductResponseDTO.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -110,8 +130,8 @@ public class ProductServiceImpl implements ProductService {
                 .manufacturer(product.getManufacturer())
                 .barcode(product.getBarcode())
                 .imageUrl(product.getImageUrl())
-                .type(product.getType())
-                .unit(product.getUnit())
+                .type(type)
+                .unit(unit)
                 .build();
     }
 }

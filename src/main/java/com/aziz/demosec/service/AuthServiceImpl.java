@@ -30,7 +30,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService {
+public class AuthServiceImpl implements IAuthService {
 
     private final UserRepository userRepository;
     private final PatientRepository patientRepository;
@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
     private final JwtService jwtService;
-    private final NotificationService notificationService;
+    private final INotificationService notificationService;
     private final com.aziz.demosec.repository.ServiceProviderRepository serviceProviderRepository;
     private final com.aziz.demosec.repository.HomeCareServiceRepository homeCareServiceRepository;
     private final PasswordResetTokenRepository tokenRepository;

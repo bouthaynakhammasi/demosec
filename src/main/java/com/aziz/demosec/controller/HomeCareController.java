@@ -2,7 +2,7 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.Entities.*;
 import com.aziz.demosec.dto.homecare.*;
-import com.aziz.demosec.service.HomeCareManagementService;
+import com.aziz.demosec.service.IHomeCareManagementService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ public class HomeCareController {
 
     private static final Logger log = LoggerFactory.getLogger(HomeCareController.class);
 
-    private final HomeCareManagementService homeCareService;
+    private final IHomeCareManagementService homeCareService;
 
     // ── Catalogue (PUBLIC) ─────────────────────────────────────────────────
 

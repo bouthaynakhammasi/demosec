@@ -7,7 +7,7 @@ import com.aziz.demosec.dto.patient.PatientResponseDTO;
 
 import java.util.List;
 
-public interface PatientService {
+public interface IPatientService {
     PatientResponseDTO create(PatientRequestDTO dto);
     PatientResponseDTO getById(Long id);
     List<PatientResponseDTO> getAll();

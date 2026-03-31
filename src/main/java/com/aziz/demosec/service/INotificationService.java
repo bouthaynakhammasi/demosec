@@ -3,7 +3,7 @@ package com.aziz.demosec.service;
 import com.aziz.demosec.dto.pharmacy.NotificationResponseDTO;
 import java.util.List;
 
-public interface NotificationService {
+public interface INotificationService {
     List<NotificationResponseDTO> getForUser(Long userId);
     List<NotificationResponseDTO> getUnread(Long userId);
     long countUnread(Long userId);

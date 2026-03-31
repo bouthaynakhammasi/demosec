@@ -6,7 +6,7 @@ import com.aziz.demosec.dto.pharmacy.PaymentRequestDTO;
 import com.aziz.demosec.dto.pharmacy.PaymentResponseDTO;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
-import com.aziz.demosec.service.PaymentService;
+import com.aziz.demosec.service.IPaymentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ class PaymentControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private PaymentService paymentService;
+    private IPaymentService paymentService;
 
     @MockBean
     private JwtService jwtService;

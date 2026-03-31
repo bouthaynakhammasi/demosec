@@ -20,13 +20,13 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class DeliveryServiceImpl implements DeliveryService {
+public class DeliveryServiceImpl implements IDeliveryService {
 
     private final DeliveryRepository deliveryRepository;
     private final PharmacyOrderRepository orderRepository;
     private final DeliveryAgencyRepository agencyRepository;
     private final DeliveryAgentRepository agentRepository;
-    private final NotificationService notificationService;
+    private final INotificationService notificationService;
     private final SimpMessagingTemplate messagingTemplate;
 
     @Override

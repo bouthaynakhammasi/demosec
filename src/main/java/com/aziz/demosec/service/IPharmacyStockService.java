@@ -5,7 +5,7 @@ import com.aziz.demosec.dto.pharmacy.PharmacyStockResponseDTO;
 
 import java.util.List;
 
-public interface PharmacyStockService {
+public interface IPharmacyStockService {
     PharmacyStockResponseDTO create(PharmacyStockRequestDTO dto);
     PharmacyStockResponseDTO getById(Long id);
     List<PharmacyStockResponseDTO> getByPharmacy(Long pharmacyId);

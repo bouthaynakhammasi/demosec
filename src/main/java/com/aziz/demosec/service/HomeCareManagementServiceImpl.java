@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class HomeCareManagementServiceImpl implements HomeCareManagementService {
+public class HomeCareManagementServiceImpl implements IHomeCareManagementService {
 
     private final HomeCareServiceRepository homeCareServiceRepository;
     private final ServiceProviderRepository serviceProviderRepository;

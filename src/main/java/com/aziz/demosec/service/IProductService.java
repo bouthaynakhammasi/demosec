@@ -6,7 +6,7 @@ import com.aziz.demosec.Entities.ProductType;
 
 import java.util.List;
 
-public interface ProductService {
+public interface IProductService {
     ProductResponseDTO create(ProductRequestDTO dto);
     ProductResponseDTO getById(Long id);
     List<ProductResponseDTO> getAll();

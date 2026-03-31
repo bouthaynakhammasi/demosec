@@ -28,7 +28,7 @@ class PaymentServiceTest {
 
     @Mock private PaymentRepository paymentRepository;
     @Mock private PharmacyOrderRepository orderRepository;
-    @Mock private PharmacyOrderService orderService;
+    @Mock private IPharmacyOrderService orderService;
     @Mock private PaymentGatewayFactory gatewayFactory;
     @Mock private PaymentWebSocketService paymentWebSocketService;
 

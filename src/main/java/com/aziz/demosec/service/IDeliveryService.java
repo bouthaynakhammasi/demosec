@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import com.aziz.demosec.dto.pharmacy.DispatchOrderRequest;
 
-public interface DeliveryService {
+public interface IDeliveryService {
     Delivery createDelivery(Long orderId);
     Delivery createDelivery(DispatchOrderRequest request);
     Delivery updateDeliveryStatus(Long deliveryId, DeliveryStatus status);

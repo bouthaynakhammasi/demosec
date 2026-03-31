@@ -9,8 +9,10 @@ import java.util.Optional;
 public interface PharmacyStockRepository extends JpaRepository<PharmacyStock, Long> {
 
     List<PharmacyStock> findByPharmacy_Id(Long pharmacyId);
+    List<PharmacyStock> findByPharmacyId(Long pharmacyId);
 
     Optional<PharmacyStock> findByPharmacy_IdAndProduct_Id(Long pharmacyId, Long productId);
+    Optional<PharmacyStock> findByPharmacyIdAndProductId(Long pharmacyId, Long productId);
 
     List<PharmacyStock> findByProduct_IdAndTotalQuantityGreaterThan(Long productId, int minQty);
 

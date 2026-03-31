@@ -1,5 +1,7 @@
 package com.aziz.demosec.dto.pharmacy;
 
+import com.aziz.demosec.Entities.ProductType;
+import com.aziz.demosec.Entities.ProductUnit;
 import lombok.*;
 
 @Getter
@@ -16,7 +18,7 @@ public class ProductResponseDTO {
     private String manufacturer;
     private String brand;
     private String category;
-    private String type;
-    private String unit;
+    private ProductType type;
+    private ProductUnit unit;
     private String barcode;
 }

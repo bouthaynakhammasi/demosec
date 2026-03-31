@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class NotificationServiceImpl implements NotificationService {
+public class NotificationServiceImpl implements INotificationService {
 
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;

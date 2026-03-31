@@ -1,7 +1,7 @@
 package com.aziz.demosec.controller;
 
 import com.aziz.demosec.dto.pharmacy.NotificationResponseDTO;
-import com.aziz.demosec.service.NotificationService;
+import com.aziz.demosec.service.INotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class NotificationController {
 
-    private final NotificationService notificationService;
+    private final INotificationService notificationService;
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<NotificationResponseDTO>> getForUser(@PathVariable("userId") Long userId) {

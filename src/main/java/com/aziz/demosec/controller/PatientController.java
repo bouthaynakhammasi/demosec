@@ -4,7 +4,7 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.dto.patient.PatientRequestDTO;
 import com.aziz.demosec.dto.patient.PatientResponseDTO;
-import com.aziz.demosec.service.PatientService;
+import com.aziz.demosec.service.IPatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PatientController {
 
-    private final PatientService patientService;
+    private final IPatientService patientService;
 
     @PostMapping
     public ResponseEntity<PatientResponseDTO> create(@Valid @RequestBody PatientRequestDTO dto) {

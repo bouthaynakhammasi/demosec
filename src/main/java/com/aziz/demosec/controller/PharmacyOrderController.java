@@ -2,7 +2,7 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.dto.pharmacy.*;
 import com.aziz.demosec.service.InvoiceService;
-import com.aziz.demosec.service.PharmacyOrderService;
+import com.aziz.demosec.service.IPharmacyOrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PharmacyOrderController {
 
-    private final PharmacyOrderService orderService;
+    private final IPharmacyOrderService orderService;
     private final InvoiceService invoiceService;
 
     @PostMapping

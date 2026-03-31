@@ -30,11 +30,11 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PaymentServiceImpl implements PaymentService {
+public class PaymentServiceImpl implements IPaymentService {
 
     private final PaymentRepository paymentRepository;
     private final PharmacyOrderRepository orderRepository;
-    private final PharmacyOrderService orderService;
+    private final IPharmacyOrderService orderService;
     private final PaymentGatewayFactory gatewayFactory;
     private final PaymentWebSocketService paymentWebSocketService;
 

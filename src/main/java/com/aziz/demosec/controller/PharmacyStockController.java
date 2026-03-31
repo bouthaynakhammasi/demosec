@@ -2,7 +2,7 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.dto.pharmacy.PharmacyStockRequestDTO;
 import com.aziz.demosec.dto.pharmacy.PharmacyStockResponseDTO;
-import com.aziz.demosec.service.PharmacyStockService;
+import com.aziz.demosec.service.IPharmacyStockService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PharmacyStockController {
 
-    private final PharmacyStockService stockService;
+    private final IPharmacyStockService stockService;
 
     @PostMapping
     public ResponseEntity<PharmacyStockResponseDTO> create(@Valid @RequestBody PharmacyStockRequestDTO dto) {

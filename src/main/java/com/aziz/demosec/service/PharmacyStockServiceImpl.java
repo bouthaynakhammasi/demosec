@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PharmacyStockServiceImpl implements PharmacyStockService {
+public class PharmacyStockServiceImpl implements IPharmacyStockService {
 
     private final PharmacyStockRepository stockRepository;
     private final PharmacyRepository pharmacyRepository;

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class WebSocketNotificationService {
 
     private final SimpMessagingTemplate messagingTemplate;
-    private final NotificationService notificationService;
+    private final INotificationService notificationService;
 
     /**
      * Envoie une notification à un utilisateur spécifique via WebSocket.

@@ -5,7 +5,7 @@ import com.aziz.demosec.dto.AuthResponse;
 import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
 
-public interface AuthService {
+public interface IAuthService {
     User register(RegisterRequest req, String documentUrl);
 
     AuthResponse login(LoginRequest req);

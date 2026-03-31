@@ -6,7 +6,7 @@ import com.aziz.demosec.dto.homecare.*;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface HomeCareManagementService {
+public interface IHomeCareManagementService {
 
     // ── Catalogue ──────────────────────────────────────────────────────────
     List<HomeCareService> getAllActiveServices();

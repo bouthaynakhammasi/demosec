@@ -3,7 +3,7 @@ package com.aziz.demosec.controller;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.user.UserResponseDTO;
 import com.aziz.demosec.repository.UserRepository;
-import com.aziz.demosec.service.UserService;
+import com.aziz.demosec.service.IUserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LegacyUserController {
 
-    private final UserService userService;
+    private final IUserService userService;
     private final UserRepository userRepository;
 
     @GetMapping("/profile")

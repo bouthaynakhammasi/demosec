@@ -26,7 +26,7 @@ class DeliveryServiceTest {
     @Mock private PharmacyOrderRepository orderRepository;
     @Mock private DeliveryAgencyRepository agencyRepository;
     @Mock private DeliveryAgentRepository agentRepository;
-    @Mock private NotificationService notificationService;
+    @Mock private INotificationService notificationService;
     @Mock private SimpMessagingTemplate messagingTemplate;
 
     @InjectMocks

@@ -6,7 +6,7 @@ import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.dto.user.UserResponseDTO;
 import java.util.List;
 
-public interface UserService {
+public interface IUserService {
     UserResponseDTO create(UserRequestDTO dto);
 
     UserResponseDTO getById(Long id);

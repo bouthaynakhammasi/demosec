@@ -24,7 +24,7 @@ class WebSocketNotificationServiceTest {
     private SimpMessagingTemplate messagingTemplate;
 
     @Mock
-    private NotificationService notificationService;
+    private INotificationService notificationService;
 
     @InjectMocks
     private WebSocketNotificationService webSocketNotificationService;

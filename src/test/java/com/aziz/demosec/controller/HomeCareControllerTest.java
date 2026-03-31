@@ -4,7 +4,7 @@ import com.aziz.demosec.Entities.HomeCareService;
 import com.aziz.demosec.dto.homecare.*;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
-import com.aziz.demosec.service.HomeCareManagementService;
+import com.aziz.demosec.service.IHomeCareManagementService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ class HomeCareControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private HomeCareManagementService homeCareService;
+    private IHomeCareManagementService homeCareService;
 
     @MockBean
     private JwtService jwtService;

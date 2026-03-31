@@ -1,7 +1,6 @@
 package com.aziz.demosec.controller;
 
 import com.aziz.demosec.Entities.DeliveryType;
-import com.aziz.demosec.Entities.PharmacyOrder;
 import com.aziz.demosec.Entities.PharmacyOrderStatus;
 import com.aziz.demosec.dto.pharmacy.OrderItemRequestDTO;
 import com.aziz.demosec.dto.pharmacy.PharmacyOrderRequestDTO;
@@ -11,7 +10,7 @@ import com.aziz.demosec.dto.pharmacy.UpdateOrderStatusRequestDTO;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
 import com.aziz.demosec.service.InvoiceService;
-import com.aziz.demosec.service.PharmacyOrderService;
+import com.aziz.demosec.service.IPharmacyOrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ class PharmacyOrderControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private PharmacyOrderService orderService;
+    private IPharmacyOrderService orderService;
 
     @MockBean
     private InvoiceService invoiceService;

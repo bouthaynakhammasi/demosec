@@ -4,7 +4,7 @@ import com.aziz.demosec.dto.pharmacy.*;
 
 import java.util.List;
 
-public interface PharmacyOrderService {
+public interface IPharmacyOrderService {
     PharmacyOrderResponseDTO createOrder(PharmacyOrderRequestDTO dto);
     PharmacyOrderResponseDTO updateStatus(Long orderId, UpdateOrderStatusRequestDTO dto);
     PharmacyOrderResponseDTO cancelOrder(Long orderId, String reason);

@@ -4,14 +4,13 @@ import com.aziz.demosec.Entities.Delivery;
 import com.aziz.demosec.Entities.DeliveryStatus;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
-import com.aziz.demosec.service.DeliveryService;
+import com.aziz.demosec.service.IDeliveryService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -31,7 +30,7 @@ class DeliveryControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private DeliveryService deliveryService;
+    private IDeliveryService deliveryService;
 
     @MockBean
     private JwtService jwtService;
