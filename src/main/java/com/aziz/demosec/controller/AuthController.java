@@ -9,6 +9,7 @@ import com.aziz.demosec.repository.UserRepository;
 import com.aziz.demosec.service.IAuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class AuthController {
 
     // ✅ Register
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest req) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest req) {
         try {
             var saved = authService.register(req);
             return ResponseEntity.ok("User created: " + saved.getEmail());
@@ -52,9 +53,8 @@ public class AuthController {
     }
 
     // ✅ Login
-
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest req) {
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest req) {
         return ResponseEntity.ok(authService.login(req));
     }
 

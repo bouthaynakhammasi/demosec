@@ -1,0 +1,14 @@
+target/
+*.class
+.git/
+.idea/
+.mvn/
+mvnw
+mvnw.cmd
+Dockerfile
+.dockerignore
+.project
+.classpath
+.settings/
+.DS_Store
+*.log
