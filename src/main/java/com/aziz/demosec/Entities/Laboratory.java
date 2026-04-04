@@ -22,7 +22,7 @@ public class Laboratory {
 
     private String address;
     private String phone;
-    private boolean active;
+    private boolean active = true;
     private String email;
     private String openingHours;
     private String specializations; // ✅ String au lieu de List<String>
@@ -33,3 +33,4 @@ public class Laboratory {
     @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL)
     private List<LabTest> labTests;
 }
+//rbhtnyjkushdrnjt,y
