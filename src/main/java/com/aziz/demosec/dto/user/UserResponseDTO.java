@@ -1,6 +1,5 @@
 package com.aziz.demosec.dto.user;
 
-
 import com.aziz.demosec.domain.Role;
 import lombok.*;
 

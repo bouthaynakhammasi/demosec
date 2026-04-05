@@ -1,6 +1,5 @@
 package com.aziz.demosec.controller;
 
-
 import com.aziz.demosec.dto.CompleteProfileRequest;
 import com.aziz.demosec.dto.CompleteProfileResponse;
 import com.aziz.demosec.service.IProfileService;

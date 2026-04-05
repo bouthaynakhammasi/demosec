@@ -1,6 +1,5 @@
 package com.aziz.demosec.dto;
 
-
 import com.aziz.demosec.Entities.ConsultationMode;
 import java.math.BigDecimal;
 import java.util.List;

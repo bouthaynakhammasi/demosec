@@ -7,7 +7,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-
+@DiscriminatorValue("PATIENT")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -16,5 +16,3 @@ public interface IPatientService {
     void toggleEnabled(Long id);
 }
 
-
-

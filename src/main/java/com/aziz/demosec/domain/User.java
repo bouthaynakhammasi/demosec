@@ -4,9 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("USER")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,10 +38,11 @@ public class User {
 
     String phone;
 
-    String birthDate;
+    LocalDate birthDate;
 
     @Builder.Default
     boolean enabled = true;
+
 
     @Builder.Default
     boolean profileCompleted = false;
@@ -47,4 +52,5 @@ public class User {
 
     public String getProfileImage() { return this.profileImage; }
     public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
+
 }

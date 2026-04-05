@@ -153,7 +153,7 @@ public class IAuthServiceImp implements IAuthService {
 
         patient.setEmergencyContactName(req.getEmergencyContactName());
         patient.setEmergencyContactPhone(req.getEmergencyContactPhone());
-        // patient.setProfileCompleted(true);
+        patient.setProfileCompleted(true);
         patient = patientRepository.save(patient);
 
         // Medical Record and History
@@ -198,19 +198,19 @@ public class IAuthServiceImp implements IAuthService {
             doctor.setConsultationMode(ConsultationMode.BOTH);
         }
 
-        // doctor.setClinicAddress(req.getClinicAddress());
+        doctor.setClinicAddress(req.getClinicAddress());
 
-        // if (req.getClinicId() != null) {
-        //     clinicRepository.findById(req.getClinicId()).ifPresent(doctor::setClinic);
-        // }
+        if (req.getClinicId() != null) {
+            clinicRepository.findById(req.getClinicId()).ifPresent(doctor::setClinic);
+        }
 
-        // doctor.setProfileCompleted(true);
+        doctor.setProfileCompleted(true);
         return doctorRepository.save(doctor);
     }
 
     private User registerClinic(RegisterRequest req) {
         User user = registerGenericUser(req);
-        // user.setProfileCompleted(true);
+        user.setProfileCompleted(true);
         user = userRepository.save(user);
 
         Clinic clinic = new Clinic();
@@ -236,7 +236,7 @@ public class IAuthServiceImp implements IAuthService {
         Pharmacist pharmacist = new Pharmacist();
         mapCommonFields(pharmacist, req);
         pharmacist.setPharmacy(pharmacy);
-        // pharmacist.setProfileCompleted(true);
+        pharmacist.setProfileCompleted(true);
         return pharmacistRepository.save(pharmacist);
     }
 
@@ -250,7 +250,7 @@ public class IAuthServiceImp implements IAuthService {
         LaboratoryStaff staff = new LaboratoryStaff();
         mapCommonFields(staff, req);
         staff.setLaboratory(lab);
-        // staff.setProfileCompleted(true);
+        staff.setProfileCompleted(true);
         return laboratoryStaffRepository.save(staff);
     }
 
@@ -259,20 +259,20 @@ public class IAuthServiceImp implements IAuthService {
         mapCommonFields(nutr, req);
         nutr.setSpecialties(req.getSpecialty());
         nutr.setLicenseNumber(req.getLicenseNumber() == null ? "LIC-" + System.currentTimeMillis() : req.getLicenseNumber());
-        // nutr.setVerified(false);
-        // nutr.setProfileCompleted(true);
+        nutr.setVerified(false);
+        nutr.setProfileCompleted(true);
         return nutritionistRepository.save(nutr);
     }
 
     private User registerHomeCareProvider(RegisterRequest req) {
         User user = registerGenericUser(req);
-        // user.setProfileCompleted(true);
+        user.setProfileCompleted(true);
         user = userRepository.save(user);
 
         ServiceProvider provider = new ServiceProvider();
         provider.setUser(user);
         provider.setCertificationDocument(req.getCertificationDocument());
-        // provider.setVerified(false);
+        provider.setVerified(false);
 
         if (req.getHomeCareServices() != null) {
             Set<HomeCareService> services = new HashSet<>();
@@ -304,7 +304,7 @@ public class IAuthServiceImp implements IAuthService {
         }
 
         user.setPhone(req.getPhone());
-        user.setBirthDate(req.getBirthDate() != null ? req.getBirthDate().toString() : null);
+        user.setBirthDate(req.getBirthDate());
         user.setProfileImage(req.getProfileImage());
         user.setEnabled(true);
     }
@@ -315,7 +315,13 @@ public class IAuthServiceImp implements IAuthService {
         UserDetails userDetails = userDetailsService.loadUserByUsername(req.email());
         User user = userRepository.findByEmail(req.email()).orElseThrow(() -> new RuntimeException("User not found"));
         String role = userDetails.getAuthorities().stream().findFirst().map(GrantedAuthority::getAuthority).orElse("ROLE_VISITOR");
-        String token = jwtService.generateToken(userDetails, user.getFullName(), user.getId());
+
+        String gender = "UNKNOWN";
+        if (user instanceof Patient) {
+            gender = ((Patient) user).getGender() != null ? ((Patient) user).getGender().name() : "UNKNOWN";
+        }
+
+        String token = jwtService.generateToken(userDetails, user.getFullName(), user.getId(), gender);
         return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
     }
 }

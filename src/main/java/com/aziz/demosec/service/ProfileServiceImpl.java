@@ -85,7 +85,7 @@ public class ProfileServiceImpl implements IProfileService {
                 sp.setVerified(false);
                 serviceProviderRepository.save(sp);
             }
-            case PHARMACIST, LABORATORYSAFF-> {
+            case PHARMACIST, LABORATORYSAFF -> {
                 // No extra fields at this stage
             }
             default -> {

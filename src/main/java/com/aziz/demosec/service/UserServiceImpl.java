@@ -36,7 +36,7 @@ public class UserServiceImpl implements IUserService {
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .role(dto.getRole())
                 .phone(dto.getPhone())
-                .birthDate(dto.getBirthDate() != null ? dto.getBirthDate().toString() : null)
+                .birthDate(dto.getBirthDate())
                 .enabled(true)
                 .build();
 
@@ -74,7 +74,7 @@ public class UserServiceImpl implements IUserService {
         }
         if (dto.getRole() != null) user.setRole(dto.getRole());
         if (dto.getPhone() != null) user.setPhone(dto.getPhone());
-        if (dto.getBirthDate() != null) user.setBirthDate(dto.getBirthDate().toString());
+        if (dto.getBirthDate() != null) user.setBirthDate(dto.getBirthDate());
 
         return toDTO(userRepository.save(user));
     }
@@ -110,7 +110,7 @@ public class UserServiceImpl implements IUserService {
                 .email(user.getEmail())
                 .role(user.getRole())
                 .phone(user.getPhone())
-                .birthDate(user.getBirthDate() != null && !user.getBirthDate().isEmpty() ? java.time.LocalDate.parse(user.getBirthDate()) : null)
+                .birthDate(user.getBirthDate())
                 .enabled(user.isEnabled())
                 .specialty(specialty)
                 .build();

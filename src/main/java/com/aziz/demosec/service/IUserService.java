@@ -14,3 +14,4 @@ public interface IUserService {
     void toggleEnabled(Long id);
     List<UserResponseDTO> getByRole(Role role);
 }
+

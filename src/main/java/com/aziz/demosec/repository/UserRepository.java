@@ -2,6 +2,7 @@ package com.aziz.demosec.repository;
 
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
+import com.aziz.demosec.dto.user.UserResponseDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

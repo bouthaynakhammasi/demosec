@@ -7,12 +7,11 @@ import lombok.experimental.SuperBuilder;
 
 
 @Entity
-
+@DiscriminatorValue("NUTRITIONIST")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Nutritionist extends User {
 
     @Column(name = "license_number", unique = true)
