@@ -11,7 +11,7 @@ import java.security.Principal;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class UserController {
@@ -34,50 +34,9 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-<<<<<<< HEAD
-    @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> getById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(userService.getById(id));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> getAll() {
-        return ResponseEntity.ok(userService.getAll());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> update(@PathVariable("id") Long id,
-                                                  @Valid @RequestBody UserRequestDTO dto) {
-        return ResponseEntity.ok(userService.update(id, dto));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        userService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PatchMapping("/{id}/toggle")
-    public ResponseEntity<Void> toggleEnabled(@PathVariable("id") Long id) {
-        userService.toggleEnabled(id);
-        return ResponseEntity.noContent().build();
-    }
-    @GetMapping("/role/{role}")
-    public ResponseEntity<List<UserResponseDTO>> getByRole(@PathVariable("role") String role) {
-        try {
-            Role r = Role.valueOf(role.toUpperCase()); // Convertit la String en Enum
-            List<UserResponseDTO> users = userService.getByRole(r);
-            return ResponseEntity.ok(users);
-        } catch (IllegalArgumentException ex) {
-            // Si le rôle fourni n’existe pas dans l’Enum
-            return ResponseEntity.badRequest().build();
-=======
     @GetMapping("/profile")
     public ResponseEntity<UserResponseDTO> getProfile(Principal principal) {
-        if (principal == null) {
-            return ResponseEntity.status(401).build();
->>>>>>> origin/MedicalRecord
-        }
+        if (principal == null) return ResponseEntity.status(401).build();
         return userRepository.findByEmail(principal.getName())
                 .map(user -> UserResponseDTO.builder()
                         .id(user.getId())

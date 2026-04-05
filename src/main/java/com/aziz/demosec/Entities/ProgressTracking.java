@@ -35,9 +35,5 @@ public class ProgressTracking {
     @Column(name = "tracked_value")
     private BigDecimal value;
 
-<<<<<<< HEAD
-}
-=======
     private String notes;
 }
->>>>>>> origin/MedicalRecord

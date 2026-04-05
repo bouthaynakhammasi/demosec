@@ -28,15 +28,14 @@ public class ClinicServiceImplTest {
 
     @BeforeEach
     public void setup() {
-        sampleClinic = Clinic.builder()
-                .id(1L)
-                .name("MedCenter")
-                .address("123 Main St")
-                .latitude(36.8)
-                .longitude(10.1)
-                .hasEmergency(false) // Will be testing auto-toggle logic
-                .hasAmbulance(false)
-                .build();
+        sampleClinic = new Clinic();
+        sampleClinic.setId(1L);
+        sampleClinic.setName("MedCenter");
+        sampleClinic.setAddress("123 Main St");
+        sampleClinic.setLatitude(36.8);
+        sampleClinic.setLongitude(10.1);
+        sampleClinic.setHasEmergency(false); // Will be testing auto-toggle logic
+        sampleClinic.setHasAmbulance(false);
     }
 
     @Test
@@ -57,14 +56,13 @@ public class ClinicServiceImplTest {
 
     @Test
     public void testUpdateClinic_Success() {
-        Clinic clinicDetails = Clinic.builder()
-                .name("Updated Name")
-                .address("New Address")
-                .latitude(37.0)
-                .longitude(11.0)
-                .hasEmergency(true)
-                .hasAmbulance(true)
-                .build();
+        Clinic clinicDetails = new Clinic();
+        clinicDetails.setName("Updated Name");
+        clinicDetails.setAddress("New Address");
+        clinicDetails.setLatitude(37.0);
+        clinicDetails.setLongitude(11.0);
+        clinicDetails.setHasEmergency(true);
+        clinicDetails.setHasAmbulance(true);
 
         when(clinicRepository.findById(1L)).thenReturn(Optional.of(sampleClinic));
         when(clinicRepository.save(any(Clinic.class))).thenReturn(sampleClinic);

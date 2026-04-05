@@ -1,10 +1,7 @@
 package com.aziz.demosec.Entities;
 
 public enum GoalCategory {
-<<<<<<< HEAD
     WEIGHT,
-    NUTRITION
-=======
     WEIGHT_LOSS,
     WEIGHT_GAIN,
     MUSCLE_GAIN,
@@ -12,5 +9,4 @@ public enum GoalCategory {
     FITNESS,
     NUTRITION,
     GENERAL_HEALTH
->>>>>>> origin/MedicalRecord
 }

@@ -1,15 +1,8 @@
 package com.aziz.demosec.controller;
 
-<<<<<<< HEAD
-import com.aziz.demosec.dto.patient.PatientRequestDTO;
-import com.aziz.demosec.dto.patient.PatientResponseDTO;
-import com.aziz.demosec.service.IPatientService;
-import jakarta.validation.Valid;
-=======
 import com.aziz.demosec.Entities.*;
 import com.aziz.demosec.dto.*;
 import com.aziz.demosec.repository.*;
->>>>>>> origin/MedicalRecord
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -46,12 +46,4 @@ public class LifestylePlan {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
-<<<<<<< HEAD
-
-    @OneToMany(mappedBy = "lifestylePlan", cascade = CascadeType.ALL)
-    private List<LifestyleGoal> goals = new ArrayList<>();
-
 }
-=======
-}
->>>>>>> origin/MedicalRecord

@@ -32,7 +32,7 @@ public class Doctor extends User {
     private Integer slotDuration = 30;
 
     private Integer patientCount = 0;
-
+    private Integer yearsOfExperience;
     private Double rating = 0.0;
 
     @ManyToOne(fetch = FetchType.LAZY)

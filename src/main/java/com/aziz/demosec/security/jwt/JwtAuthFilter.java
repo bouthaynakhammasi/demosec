@@ -31,10 +31,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private static final List<String> PUBLIC_ENDPOINTS = List.of(
             "/auth",
             "/api/home-care-services",
-<<<<<<< HEAD
-            "/api/v1/doctors",
-=======
->>>>>>> origin/MedicalRecord
             "/error"
     );
 
@@ -45,10 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String path = request.getServletPath();
-<<<<<<< HEAD
 
-        // 1️⃣ Read Authorization header
-=======
         // 1️⃣ Skip public endpoints
         for (String endpoint : PUBLIC_ENDPOINTS) {
             if (path.startsWith(endpoint)) {
@@ -58,7 +51,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         // 2️⃣ Read Authorization header
->>>>>>> origin/MedicalRecord
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             log.debug("JWT filter skip: method={}, uri={}, hasAuthHeader={}", request.getMethod(), path, authHeader != null);
@@ -101,12 +93,5 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        // 5️⃣ Continue filter chain
-        filterChain.doFilter(request, response);
     }
-<<<<<<< HEAD
 }
-
-=======
-}
->>>>>>> origin/MedicalRecord

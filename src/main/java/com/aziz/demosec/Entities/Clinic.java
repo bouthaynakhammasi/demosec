@@ -32,7 +32,6 @@ public class Clinic extends User {
     private String emergencyPhone;
     private String ambulancePhone;
 
-    @Builder.Default
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean verified = false;
 

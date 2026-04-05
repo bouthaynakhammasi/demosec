@@ -65,10 +65,9 @@ public class EmergencyServiceImplTest {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        sampleClinic = Clinic.builder()
-                .id(20L)
-                .name("Central Clinic")
-                .build();
+        sampleClinic = new Clinic();
+        sampleClinic.setId(20L);
+        sampleClinic.setName("Central Clinic");
 
         sampleAmbulance = Ambulance.builder()
                 .id(30L)

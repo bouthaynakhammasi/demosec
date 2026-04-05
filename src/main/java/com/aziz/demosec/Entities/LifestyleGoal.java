@@ -40,10 +40,6 @@ public class LifestyleGoal {
     @Column(nullable = false)
     private GoalStatus status;
 
-<<<<<<< HEAD
-}
-=======
-   
     @Builder.Default
     @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LifestylePlan> plans = new ArrayList<>();
@@ -53,4 +49,3 @@ public class LifestyleGoal {
     @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProgressTracking> progressRecords = new ArrayList<>();
 }
->>>>>>> origin/MedicalRecord

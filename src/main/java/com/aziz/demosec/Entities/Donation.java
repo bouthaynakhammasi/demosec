@@ -2,20 +2,17 @@ package com.aziz.demosec.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-
 
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "donations")
-@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-
+@Builder
 public class Donation {
 
     @Id

@@ -47,29 +47,11 @@ public class GlobalExceptionHandler {
                 "details", details
         ));
     }
-<<<<<<< HEAD
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleValidationError(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(err ->
-                errors.put(err.getField(), err.getDefaultMessage())
-        );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleAll(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-                "error", "Internal Server Error",
-                "message", ex.getMessage() != null ? ex.getMessage() : "Unknown error",
-=======
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleAllExceptions(Exception ex) {
         return ResponseEntity.internalServerError().body(Map.of(
                 "error", "Internal Server Error",
                 "message", ex.getMessage() != null ? ex.getMessage() : "No message available",
->>>>>>> origin/MedicalRecord
                 "type", ex.getClass().getName()
         ));
     }

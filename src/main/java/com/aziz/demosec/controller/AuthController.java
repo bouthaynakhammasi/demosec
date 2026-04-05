@@ -25,7 +25,7 @@ public class AuthController {
             var saved = authService.register(req);
             return ResponseEntity.ok("User created: " + saved.getEmail());
         } catch (Exception e) {
-            log.error("Registration error for {}: {}", req.getEmail(), e.getMessage());
+            log.error("Registration error for {}: {}", req.email(), e.getMessage());
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }

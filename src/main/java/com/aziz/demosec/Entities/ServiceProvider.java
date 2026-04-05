@@ -9,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "service_providers")
+@DiscriminatorValue("HOME_CARE_PROVIDER")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,6 +18,11 @@ public class ServiceProvider extends User {
 
     private String certificationDocument;
 
+    @Column(columnDefinition = "TEXT")
+    private String bio;
+
+    private boolean verified;
+
     @ManyToMany
     @JoinTable(
             name = "service_provider_specialties",
@@ -24,5 +30,4 @@ public class ServiceProvider extends User {
             inverseJoinColumns = @JoinColumn(name = "home_care_service_id")
     )
     private Set<HomeCareService> specialties = new HashSet<>();
-
 }

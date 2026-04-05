@@ -18,14 +18,13 @@ public class Nutritionist extends User {
     @Column(name = "license_number", unique = true)
     private String licenseNumber;
     private String specialties;
+    @Column(columnDefinition = "TEXT")
+    private String bio;
+    private Integer yearsOfExperience;
     private BigDecimal consultationFee;
     @Enumerated(EnumType.STRING)
     private ConsultationMode consultationMode;
 
-<<<<<<< HEAD
     @Column(nullable = false)
     private boolean verified;
 }
-=======
-}
->>>>>>> origin/MedicalRecord

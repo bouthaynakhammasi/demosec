@@ -48,7 +48,7 @@ public class ProfileServiceImpl implements IProfileService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         switch (user.getRole()) {
-            case DOCTOR -> {
+            case DOCTOR: {
                 Doctor doctor = doctorRepository.findById(user.getId())
                         .orElseThrow(() -> new EntityNotFoundException("Doctor record not found"));
                 if (request.specialty() != null) doctor.setSpecialty(request.specialty());
@@ -61,9 +61,10 @@ public class ProfileServiceImpl implements IProfileService {
                     throw new IllegalArgumentException("Doctor license number is required to complete profile.");
                 }
 
-                doctorRepository.save(doctor); // ✅ save doctor, pas (Doctor) user
+                doctorRepository.save(doctor);
+                break;
             }
-            case NUTRITIONIST -> {
+            case NUTRITIONIST: {
                 Nutritionist n = nutritionistRepository.findById(user.getId())
                         .orElseThrow(() -> new EntityNotFoundException("Nutritionist record not found"));
                 if (request.licenseNumber() != null) n.setLicenseNumber(request.licenseNumber());
@@ -72,11 +73,11 @@ public class ProfileServiceImpl implements IProfileService {
                 if (request.bio() != null) n.setBio(request.bio());
                 n.setVerified(false);
                 nutritionistRepository.save(n);
+                break;
             }
-            case HOME_CARE_PROVIDER -> {
-                ServiceProvider sp = serviceProviderRepository.findByUser_Id(user.getId())
-                        .orElse(new ServiceProvider());
-                sp.setUser(user);
+            case HOME_CARE_PROVIDER: {
+                ServiceProvider sp = serviceProviderRepository.findById(user.getId())
+                        .orElseThrow(() -> new EntityNotFoundException("ServiceProvider record not found"));
                 if (request.certificationDocument() != null) sp.setCertificationDocument(request.certificationDocument());
                 if (request.serviceIds() != null && !request.serviceIds().isEmpty()) {
                     List<HomeCareService> serviceList = homeCareServiceRepository.findAllById(request.serviceIds());
@@ -84,13 +85,15 @@ public class ProfileServiceImpl implements IProfileService {
                 }
                 sp.setVerified(false);
                 serviceProviderRepository.save(sp);
+                break;
             }
-            case PHARMACIST, LABORATORYSAFF -> {
+            case PHARMACIST:
+            case LABORATORYSTAFF:
                 // No extra fields at this stage
-            }
-            default -> {
+                break;
+            default:
                 // For PATIENT, VISITOR, ADMIN no specific extra profile is required here
-            }
+                break;
         }
 
         user.setProfileCompleted(true);

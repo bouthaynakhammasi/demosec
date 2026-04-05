@@ -2,15 +2,11 @@ package com.aziz.demosec.repository;
 
 import com.aziz.demosec.Entities.MedicalRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
-<<<<<<< HEAD
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, Long> {
+    Optional<MedicalRecord> findByPatientId(Long patientId);
 }
-=======
-
-public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, Long> {
-    java.util.Optional<MedicalRecord> findByPatientId(Long patientId);
-}
->>>>>>> origin/MedicalRecord
