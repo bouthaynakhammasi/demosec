@@ -41,6 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String path = request.getServletPath();
+
         // 1️⃣ Skip public endpoints
         for (String endpoint : PUBLIC_ENDPOINTS) {
             if (path.startsWith(endpoint)) {
@@ -91,6 +92,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             response.getWriter().write("Invalid JWT");
             return;
         }
+
 
         // 5️⃣ Continue filter chain
         filterChain.doFilter(request, response);

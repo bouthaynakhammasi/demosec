@@ -45,10 +45,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
                 .authenticationProvider(authProvider())
 
                 .authorizeHttpRequests(auth -> auth
@@ -74,6 +76,34 @@ public class SecurityConfig {
                         .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")
+                        // Public
+                        .requestMatchers("/auth/**", "/api/auth/**", "/error").permitAll()
+                        .requestMatchers("/api/home-care-services/**", "/api/home-care-services").permitAll()
+                        .requestMatchers("/api/donations/**", "/api/aid-requests/**", "/api/emergency-alerts/**", "/api/interventions/**", "/api/ambulances/**", "/api/smart-devices/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/clinics/**", "/api/v1/doctors/**").permitAll()
+
+                        // Medical Access
+                        .requestMatchers("/treatment/**", "/diagnosis/**", "/consultation/**", "/prescription/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
+
+                        // Role Based
+                        .requestMatchers("/api/admin/**", "/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/doctor/**", "/doctor/**").hasRole("DOCTOR")
+                        .requestMatchers("/api/clinic/**", "/clinic/**").hasRole("CLINIC")
+                        .requestMatchers("/api/pharmacist/**", "/pharmacist/**").hasRole("PHARMACIST")
+                        .requestMatchers("/api/laboratory/**", "/laboratory/**").hasRole("LABORATORYSTAFF")
+                        .requestMatchers("/api/nutritionist/**", "/nutritionist/**").hasRole("NUTRITIONIST")
+                        .requestMatchers("/api/visitor/**", "/visitor/**").hasRole("VISITOR")
+                        .requestMatchers("/api/patient/**", "/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/baby-care/**").hasAnyRole("PATIENT", "ADMIN")
+                        .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
+
+                        // Others
+                        .requestMatchers("/api/users/role/DOCTOR").hasAnyRole("PATIENT", "ADMIN")
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/patients/*/appointments").hasRole("PATIENT")
+                        .requestMatchers("/api/v1/doctors/*/appointments").hasRole("DOCTOR")
+                        .requestMatchers("/api/v1/appointments/**", "/api/v1/**").authenticated()
+                        .requestMatchers("/availability/**", "/provider-calendar/**").hasAnyRole("DOCTOR", "NUTRITIONIST", "HOME_CARE_PROVIDER")
 
                         .anyRequest().authenticated()
                 )
@@ -87,7 +117,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 

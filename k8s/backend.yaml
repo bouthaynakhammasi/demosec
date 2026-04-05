@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: votre_nom_utilisateur/medicarepi-backend:latest
+        image: aziz123456789/medicarepi-backend:latest
         ports:
         - containerPort: 8081
         env:

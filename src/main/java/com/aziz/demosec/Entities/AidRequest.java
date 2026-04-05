@@ -25,13 +25,24 @@ public class AidRequest {
 
     @Column(nullable = false)
     private String description;
-    private String supportingDocument;
+    
+    @Lob
+    @Column(name="document_file", columnDefinition="LONGTEXT")
+    private String documentFile;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AidRequestStatus status;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+
 }
+

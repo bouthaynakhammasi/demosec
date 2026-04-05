@@ -31,4 +31,28 @@ public class BabyProfile {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Gender gender;
+
+    private Double birthWeight;
+    private Double birthHeight;
+
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String photoUrl;
+
+    private java.time.LocalDateTime createdAt;
+    private java.time.LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "babyProfile", cascade = CascadeType.ALL)
+    private java.util.List<ParentPreference> preferences;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = java.time.LocalDateTime.now();
+        updatedAt = createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = java.time.LocalDateTime.now();
+    }
 }

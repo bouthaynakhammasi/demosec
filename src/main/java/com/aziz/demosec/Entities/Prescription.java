@@ -27,7 +27,8 @@ public class Prescription {
     @Column(nullable = false)
     private LocalDate date;
 
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<PrescriptionItem> items = new ArrayList<>();
 
 }

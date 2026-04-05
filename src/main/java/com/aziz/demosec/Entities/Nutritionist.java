@@ -5,21 +5,25 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "nutritionists")
+@DiscriminatorValue("NUTRITIONIST")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Nutritionist extends User {
 
     @Column(name = "license_number", unique = true)
     private String licenseNumber;
     private String specialties;
-    private Integer yearsOfExperience;
+    @Column(columnDefinition = "TEXT")
     private String bio;
+    private Integer yearsOfExperience;
+    private BigDecimal consultationFee;
+    @Enumerated(EnumType.STRING)
+    private ConsultationMode consultationMode;
 
     @Column(nullable = false)
     private boolean verified;

@@ -15,3 +15,4 @@ public interface IPatientService {
     void delete(Long id);
     void toggleEnabled(Long id);
 }
+

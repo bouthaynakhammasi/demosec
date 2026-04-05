@@ -1,0 +1,147 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aziz:demosec >--------------------------
+[INFO] Building demosec 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ demosec ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ demosec ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ demosec ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ demosec ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.aziz.demosec.controller.ClinicControllerTest
+17:28:33.370 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.aziz.demosec.controller.ClinicControllerTest]: ClinicControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:28:33.603 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.aziz.demosec.DemosecApplication for test class com.aziz.demosec.controller.ClinicControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.11)
+
+2026-03-29T17:28:34.069+01:00  INFO 4812 --- [           main] c.a.d.controller.ClinicControllerTest    : Starting ClinicControllerTest using Java 17 with PID 4812 (started by Fathi in C:\Users\Fathi\demosec)
+2026-03-29T17:28:34.070+01:00  INFO 4812 --- [           main] c.a.d.controller.ClinicControllerTest    : No active profile set, falling back to 1 default profile: "default"
+.\mvnw.cmd : Java HotSpot(TM) 
+64-Bit Server VM warning: Sharing 
+is only supported for boot loader 
+classes because bootstrap 
+classpath has been appended
+Au caractère Ligne:1 : 1
++ .\mvnw.cmd test 
+-Dtest=ClinicControllerTest > 
+test_results_v2.log 2>& ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~
+    + CategoryInfo          : Not 
+   Specified: (Java HotSpot(TM..  
+  .s been appended:String) [],    
+ RemoteException
+    + FullyQualifiedErrorId : Nat 
+   iveCommandError
+ 
+2026-03-29T17:28:36.738+01:00  WARN 4812 --- [           main] r$InitializeUserDetailsManagerConfigurer : Found 2 UserDetailsService beans, with names [inMemoryUserDetailsManager, com.aziz.demosec.security.CustomUserDetailsService#0]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2026-03-29T17:28:36.905+01:00  WARN 4812 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 55e616a2-d688-439c-902b-e3d12656d883
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-29T17:28:36.952+01:00  INFO 4812 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-03-29T17:28:36.953+01:00  INFO 4812 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-03-29T17:28:36.954+01:00  INFO 4812 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-03-29T17:28:36.989+01:00  INFO 4812 --- [           main] c.a.d.controller.ClinicControllerTest    : Started ClinicControllerTest in 3.323 seconds (process running for 4.43)
+
+MockHttpServletRequest:
+      HTTP Method = PUT
+      Request URI = /api/clinics/profile
+       Parameters = {_csrf=[Ar_ka04kNvTB_j6WJ5fsH_tf3q_Q9ZaUqXfVtvILWGT9JgBgY4_QDyxHAJbsmwr0RbrYfcs68862xKS5mhTjh8I6OwecEWJQ]}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"264"]
+             Body = {"fullName":"Updated Name","phone":"87654321","birthDate":"1995-05-05","photo":"photo-url","clinicName":"New Clinic Name","address":"New Address","latitude":45.0,"longitude":5.0,"hasEmergency":true,"hasAmbulance":true,"emergencyPhone":"999","ambulancePhone":"888"}
+    Session Attrs = {SPRING_SECURITY_CONTEXT=SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=clinic@test.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]]}
+
+Handler:
+             Type = com.aziz.demosec.controller.ClinicController
+           Method = com.aziz.demosec.controller.ClinicController#updateProfile(Principal, ClinicProfileUpdateRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json", X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = application/json
+             Body = {"id":1,"fullName":"New Clinic Name","email":"clinic@test.com","phone":"87654321","birthDate":"1995-05-05","photo":"photo-url","clinicName":"New Clinic Name","address":"New Address","latitude":45.0,"longitude":5.0,"hasEmergency":true,"hasAmbulance":true,"emergencyPhone":"999","ambulancePhone":"888"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+[ERROR] Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4.153 s <<< FAILURE! -- in com.aziz.demosec.controller.ClinicControllerTest
+[ERROR] com.aziz.demosec.controller.ClinicControllerTest.updateProfile_ShouldUpdateAndReturnProfile -- Time elapsed: 0.113 s <<< FAILURE!
+java.lang.AssertionError: JSON path "$.fullName" expected:<Updated Name> but was:<New Clinic Name>
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
+	at org.springframework.test.util.JsonPathExpectationsHelper.assertValue(JsonPathExpectationsHelper.java:172)
+	at org.springframework.test.web.servlet.result.JsonPathResultMatchers.lambda$value$2(JsonPathResultMatchers.java:112)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at com.aziz.demosec.controller.ClinicControllerTest.updateProfile_ShouldUpdateAndReturnProfile(ClinicControllerTest.java:108)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   ClinicControllerTest.updateProfile_ShouldUpdateAndReturnProfile:108 JSON path "$.fullName" expected:<Updated Name> but was:<New Clinic Name>
+[INFO] 
+[ERROR] Tests run: 4, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.683 s
+[INFO] Finished at: 2026-03-29T17:28:37+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project demosec: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Fathi\demosec\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+

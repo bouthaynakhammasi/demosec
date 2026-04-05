@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "laboratory_staff")
+@DiscriminatorValue("LABORATORY")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -14,4 +14,6 @@ public class UserResponseDTO {
     String phone;
     LocalDate birthDate;
     boolean enabled;
+    String specialty;
+    String photo;
 }

@@ -1,37 +1,48 @@
 package com.aziz.demosec.Entities;
 
+import com.aziz.demosec.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-@Table(name = "clinics")
+@Table(name = "clinic")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Clinic {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Clinic extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    private String address;
 
+    private String address;
+    private String phone;
     private Double latitude;
     private Double longitude;
-    private String phone;
-
-    @Column(nullable = false)
-    private boolean verified;
 
     @Column(name = "has_emergency", nullable = false)
     private boolean hasEmergency;
 
-    @Column(name = "has_ambulance", nullable = false)
-    private boolean hasAmbulance;
+
+
     private String emergencyPhone;
+    private boolean hasAmbulance;
     private String ambulancePhone;
+
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean verified = false;
+
+    // Aliases to avoid breaking API references using getName or getPhone implicitly
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        setFullName(name);
+    }
 }

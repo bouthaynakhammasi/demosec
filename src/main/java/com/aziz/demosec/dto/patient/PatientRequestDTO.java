@@ -14,10 +14,12 @@ public class PatientRequestDTO {
     @NotBlank
     String fullName;
 
-    @Email @NotBlank
+    @Email
+    @NotBlank
     String email;
 
-    @NotBlank @Size(min = 6)
+    @NotBlank
+    @Size(min = 6)
     String password;
 
     String phone;
@@ -31,3 +33,4 @@ public class PatientRequestDTO {
     String drugAllergies;
     String hereditaryDiseases;
 }
+

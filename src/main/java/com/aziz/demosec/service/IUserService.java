@@ -3,6 +3,7 @@ package com.aziz.demosec.service;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.dto.user.UserResponseDTO;
+
 import java.util.List;
 
 public interface IUserService {
@@ -13,6 +14,6 @@ public interface IUserService {
     void delete(Long id);
     void toggleEnabled(Long id);
     List<UserResponseDTO> getByRole(Role role);
-    UserResponseDTO getByEmail(String email);              // ✅ nouveau
+    UserResponseDTO getByEmail(String email);              // ✅ fixe
     UserResponseDTO updateByEmail(String email, UserRequestDTO dto); // ✅ nouveau
 }

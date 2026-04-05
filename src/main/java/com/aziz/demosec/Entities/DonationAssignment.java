@@ -25,8 +25,15 @@ public class DonationAssignment {
     @ManyToOne
     @JoinColumn(name = "aid_request_id", nullable = false)
     private AidRequest aidRequest;
-
-    @Column(nullable = false)
+    ;
+    @Column(nullable = false, updatable = false)
     private LocalDateTime assignedAt;
 
+
+    @PrePersist
+    protected void onCreate() {
+        this.assignedAt = LocalDateTime.now();
+    }
+
 }
+

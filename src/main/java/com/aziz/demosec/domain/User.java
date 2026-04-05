@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("USER")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,7 +39,22 @@ public class User {
     String phone;
 
     LocalDate birthDate;
+    
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    String photo;
 
     @Builder.Default
     boolean enabled = true;
+
+
+    @Builder.Default
+    boolean profileCompleted = false;
+
+    @Column(columnDefinition = "LONGTEXT")
+    String profileImage;
+
+    public String getProfileImage() { return this.profileImage; }
+    public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
+
 }

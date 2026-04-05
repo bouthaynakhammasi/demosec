@@ -4,6 +4,5 @@ public enum TreatmentType {
     MEDICATION,
     THERAPY,
     SURGERY,
-    PROCEDURE,
-    REHABILITATION
+    PROCEDURE
 }

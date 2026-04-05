@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("")
+@RequestMapping("/api/demo")
 public class DemoController {
 
     // Accessible uniquement aux ADMIN
@@ -64,4 +64,3 @@ public class DemoController {
         return "Hello HOME_CARE_PROVIDER";
     }
 }
-
