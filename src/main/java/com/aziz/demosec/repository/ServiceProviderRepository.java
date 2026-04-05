@@ -8,5 +8,9 @@ import java.util.Optional;
 
 @Repository
 public interface ServiceProviderRepository extends JpaRepository<ServiceProvider, Long> {
+<<<<<<< HEAD
     Optional<ServiceProvider> findByUser_Id(Long userId);
+=======
+    Optional<ServiceProvider> findByEmail(String email);
+>>>>>>> origin/MedicalRecord
 }

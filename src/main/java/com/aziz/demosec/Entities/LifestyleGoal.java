@@ -1,13 +1,16 @@
 package com.aziz.demosec.Entities;
 
+import com.aziz.demosec.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "lifestyle_goals")
+@Table(name = "lifestyle_goal")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,18 +22,35 @@ public class LifestyleGoal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Patient owns the goal
     @ManyToOne
-    @JoinColumn(name = "lifestyle_plan_id", nullable = false)
-    private LifestylePlan lifestylePlan;
+    @JoinColumn(name = "patient_id", nullable = false)
+    private User patient;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private GoalCategory category;
+
     private BigDecimal targetValue;
     private BigDecimal baselineValue;
+
     private LocalDate targetDate;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private GoalStatus status;
 
+<<<<<<< HEAD
 }
+=======
+   
+    @Builder.Default
+    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LifestylePlan> plans = new ArrayList<>();
+
+
+    @Builder.Default
+    @OneToMany(mappedBy = "goal", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProgressTracking> progressRecords = new ArrayList<>();
+}
+>>>>>>> origin/MedicalRecord

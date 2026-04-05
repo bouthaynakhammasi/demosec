@@ -39,6 +39,10 @@ public class User {
     String phone;
 
     LocalDate birthDate;
+    
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    String photo;
 
     @Builder.Default
     boolean enabled = true;

@@ -20,7 +20,6 @@ public class Doctor extends User {
     private String specialty;
     @Column(name = "license_number", nullable = false)
     private String licenseNumber;
-    private Integer yearsOfExperience;
     private BigDecimal consultationFee;
     @Enumerated(EnumType.STRING)
     private ConsultationMode consultationMode;

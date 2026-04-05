@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum Gender {
     MALE,
+<<<<<<< HEAD
     FEMALE;
 
     @JsonCreator
@@ -19,3 +20,8 @@ public enum Gender {
         }
     }
 }
+=======
+    FEMALE,
+    OTHER
+}
+>>>>>>> origin/MedicalRecord

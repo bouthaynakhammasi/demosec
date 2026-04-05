@@ -42,17 +42,33 @@ public class SecurityConfig {
     }
 
     @Bean
+<<<<<<< HEAD
     public SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider authProvider) throws Exception {
+=======
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+>>>>>>> origin/MedicalRecord
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+<<<<<<< HEAD
                 .authenticationProvider(authProvider)
                 .authorizeHttpRequests(auth -> auth
 
                         // ─── PUBLIC ──────────────────────────────────────────
-                        .requestMatchers("/auth/**").permitAll()
+=======
+                .authenticationProvider(authProvider())
 
+                .authorizeHttpRequests(auth -> auth
+
+                        // Public endpoints
+>>>>>>> origin/MedicalRecord
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/home-care-services/**").permitAll()
+
+<<<<<<< HEAD
                         // ─── DONATION (temporairement public pour tester) ─────
                         .requestMatchers("/api/donations").permitAll()
                         .requestMatchers("/api/donations/**").permitAll()
@@ -93,6 +109,23 @@ public class SecurityConfig {
                         .requestMatchers("/api/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/baby-care/**").hasAnyRole("PATIENT", "ADMIN")
                         .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
+=======
+                        // Doctor & Nutritionist medical access
+                        .requestMatchers("/treatment/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
+                        .requestMatchers("/diagnosis/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
+                        .requestMatchers("/consultation/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
+                        .requestMatchers("/prescription/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
+
+                        // Other roles
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/doctor/**").hasRole("DOCTOR")
+                        .requestMatchers("/clinic/**").hasRole("CLINIC")
+                        .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
+                        .requestMatchers("/laboratory/**").hasRole("LABORATORYSTAFF")
+                        .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
+                        .requestMatchers("/visitor/**").hasRole("VISITOR")
+                        .requestMatchers("/patient/**").hasRole("PATIENT")
+>>>>>>> origin/MedicalRecord
 
                         // ✅ Accès patient aux docteurs
                         .requestMatchers("/api/users/role/DOCTOR").hasAnyRole("PATIENT", "ADMIN")
@@ -108,16 +141,21 @@ public class SecurityConfig {
 
                         .anyRequest().authenticated()
                 )
+
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
+<<<<<<< HEAD
         config.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:4200"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+=======
+        config.setAllowedOrigins(List.of("http://localhost:4200"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+>>>>>>> origin/MedicalRecord
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 

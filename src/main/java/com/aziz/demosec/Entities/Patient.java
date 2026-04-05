@@ -21,7 +21,10 @@ public class Patient extends User {
     private BloodType bloodType;
     private String emergencyContactName;
     private String emergencyContactPhone;
-    private String chronicDiseases;
-    private String hereditaryDiseases;
-    private String drugAllergies;
+    
+    private String glucoseRate;
+    private String allergies;
+    private String diseases;
+    private Double height;
+    private Double weight;
 }

@@ -4,10 +4,11 @@ import com.aziz.demosec.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "progress_trackings")
+@Table(name = "goal_progress")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,28 +20,24 @@ public class ProgressTracking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tracking_type", nullable = false)
-    private TrackingType trackingType;
-    @ManyToOne
-    @JoinColumn(name = "lifestyle_plan_id")
-    private LifestylePlan lifestylePlan;
 
     @ManyToOne
-    @JoinColumn(name = "rehabilitation_program_id")
-    private RehabilitationProgram rehabilitationProgram;
+    @JoinColumn(name = "patient_id", nullable = false)
+    private User patient;
 
-    @Column(name = "recorded_at", nullable = false)
-    private LocalDateTime recordedAt;
 
     @ManyToOne
-    @JoinColumn(name = "recorded_by_id")
-    private User recordedBy;
+    @JoinColumn(name = "goal_id", nullable = false)
+    private LifestyleGoal goal;
 
-    @Column(nullable = false)
-    private String metric;
+    private LocalDate date;
 
-    @Column(nullable = false)
-    private String value;
+    @Column(name = "tracked_value")
+    private BigDecimal value;
 
+<<<<<<< HEAD
 }
+=======
+    private String notes;
+}
+>>>>>>> origin/MedicalRecord

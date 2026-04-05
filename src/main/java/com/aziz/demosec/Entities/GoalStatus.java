@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.aziz.demosec.Entities;
 
 public enum GoalStatus {
@@ -6,3 +7,15 @@ public enum GoalStatus {
     ACHIEVED,
     CANCELLED
 }
+=======
+package com.aziz.demosec.Entities;
+
+public enum GoalStatus {
+    PENDING,
+    IN_PROGRESS,
+    ACHIEVED,
+    CANCELLED,
+    COMPLETED,
+    ABANDONED
+}
+>>>>>>> origin/MedicalRecord

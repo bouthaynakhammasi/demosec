@@ -13,21 +13,9 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ServiceProvider {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private User user;
+public class ServiceProvider extends User {
 
     private String certificationDocument;
-
-    @Column(nullable = false)
-    private boolean verified;
 
     @ManyToMany
     @JoinTable(
@@ -36,6 +24,5 @@ public class ServiceProvider {
             inverseJoinColumns = @JoinColumn(name = "home_care_service_id")
     )
     private Set<HomeCareService> specialties = new HashSet<>();
-
 
 }

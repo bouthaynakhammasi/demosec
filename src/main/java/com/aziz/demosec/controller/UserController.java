@@ -1,30 +1,40 @@
 package com.aziz.demosec.controller;
 
-
-import com.aziz.demosec.domain.Role;
-import com.aziz.demosec.dto.user.UserRequestDTO;
-import com.aziz.demosec.dto.user.UserResponseDTO;
-import com.aziz.demosec.service.IUserService;
-import jakarta.validation.Valid;
+import com.aziz.demosec.domain.User;
+import com.aziz.demosec.dto.UserResponseDTO;
+import com.aziz.demosec.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.security.Principal;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/user")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class UserController {
 
-    private final IUserService userService;
+    private final UserRepository userRepository;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
-    @PostMapping
-    public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody UserRequestDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(dto));
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(Principal principal, @RequestBody com.aziz.demosec.dto.PasswordChangeRequest request) {
+        if (principal == null) return ResponseEntity.status(401).build();
+        return userRepository.findByEmail(principal.getName())
+                .map(user -> {
+                    if (!passwordEncoder.matches(request.currentPassword(), user.getPassword())) {
+                        return ResponseEntity.badRequest().body(Map.of("message", "Incorrect current password"));
+                    }
+                    user.setPassword(passwordEncoder.encode(request.newPassword()));
+                    userRepository.save(user);
+                    return ResponseEntity.ok(Map.of("message", "Password updated successfully"));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
+<<<<<<< HEAD
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.getById(id));
@@ -61,6 +71,25 @@ public class UserController {
         } catch (IllegalArgumentException ex) {
             // Si le rôle fourni n’existe pas dans l’Enum
             return ResponseEntity.badRequest().build();
+=======
+    @GetMapping("/profile")
+    public ResponseEntity<UserResponseDTO> getProfile(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(401).build();
+>>>>>>> origin/MedicalRecord
         }
+        return userRepository.findByEmail(principal.getName())
+                .map(user -> UserResponseDTO.builder()
+                        .id(user.getId())
+                        .fullName(user.getFullName())
+                        .email(user.getEmail())
+                        .role(user.getRole().name())
+                        .phone(user.getPhone())
+                        .birthDate(user.getBirthDate())
+                        .photo(user.getPhoto())
+                        .enabled(user.isEnabled())
+                        .build())
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

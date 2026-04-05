@@ -1,0 +1,357 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.aziz:demosec >--------------------------
+[INFO] Building demosec 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ demosec ---
+[INFO] Deleting C:\Users\Fathi\demosec\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ demosec ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 170 source files with javac [debug parameters release 17] to target\classes
+[WARNING] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/Entities/PharmacyOrder.java:[53,29] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[WARNING] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/Entities/LifestyleGoal.java:[45,33] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[WARNING] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/Entities/LifestyleGoal.java:[49,36] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[INFO] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/security/SecurityConfig.java: C:\Users\Fathi\demosec\src\main\java\com\aziz\demosec\security\SecurityConfig.java uses or overrides a deprecated API.
+[INFO] /C:/Users/Fathi/demosec/src/main/java/com/aziz/demosec/security/SecurityConfig.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ demosec ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ demosec ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 19 source files with javac [debug parameters release 17] to target\test-classes
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[13,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[13,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[13,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[13,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[13,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[16,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[16,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[16,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[16,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[16,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[19,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[19,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[19,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[19,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/BaseControllerTest.java:[19,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ConsultationControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ConsultationControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ConsultationControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ConsultationControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ConsultationControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/DiagnosisControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/DiagnosisControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/DiagnosisControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/DiagnosisControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/DiagnosisControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestyleGoalControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestyleGoalControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestyleGoalControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestyleGoalControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestyleGoalControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestylePlanControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestylePlanControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestylePlanControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestylePlanControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/LifestylePlanControllerTest.java:[34,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/MedicalRecordControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/MedicalRecordControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/MedicalRecordControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/MedicalRecordControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/MedicalRecordControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/PrescriptionControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/PrescriptionControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/PrescriptionControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/PrescriptionControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/PrescriptionControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ProgressTrackingControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ProgressTrackingControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ProgressTrackingControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ProgressTrackingControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/ProgressTrackingControllerTest.java:[35,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/TreatmentControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/TreatmentControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/TreatmentControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/TreatmentControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[WARNING] /C:/Users/Fathi/demosec/src/test/java/com/aziz/demosec/controller/TreatmentControllerTest.java:[33,6] org.springframework.boot.test.mock.mockito.MockBean in org.springframework.boot.test.mock.mockito has been deprecated and marked for removal
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ demosec ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.aziz.demosec.DemosecApplicationTests
+13:57:36.114 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.aziz.demosec.DemosecApplicationTests]: DemosecApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:57:36.211 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.aziz.demosec.DemosecApplication for test class com.aziz.demosec.DemosecApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.11)
+
+2026-03-28T13:57:36.659+01:00  INFO 5724 --- [           main] c.aziz.demosec.DemosecApplicationTests   : Starting DemosecApplicationTests using Java 17 with PID 5724 (started by Fathi in C:\Users\Fathi\demosec)
+2026-03-28T13:57:36.660+01:00  INFO 5724 --- [           main] c.aziz.demosec.DemosecApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2026-03-28T13:57:37.484+01:00  INFO 5724 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-28T13:57:37.572+01:00  INFO 5724 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 80 ms. Found 14 JPA repository interfaces.
+2026-03-28T13:57:38.060+01:00  INFO 5724 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-28T13:57:38.098+01:00  INFO 5724 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.42.Final
+2026-03-28T13:57:38.128+01:00  INFO 5724 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-28T13:57:38.423+01:00  INFO 5724 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-28T13:57:38.455+01:00  INFO 5724 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-28T13:57:38.621+01:00  INFO 5724 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-03-28T13:57:38.623+01:00  INFO 5724 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-28T13:57:38.643+01:00  WARN 5724 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-28T13:57:38.664+01:00  INFO 5724 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+Hibernate: create global temporary table HTE_users(birth_date date, consultation_fee numeric(38,2), consultation_fee numeric(38,2), enabled boolean, HTE_IDENTITY bigint generated by default as identity, height float(53), id bigint, weight float(53), allergies varchar(255), certification_document varchar(255), diseases varchar(255), email varchar(255), emergency_contact_name varchar(255), emergency_contact_phone varchar(255), full_name varchar(255), glucose_rate varchar(255), license_number varchar(255), license_number varchar(255), password varchar(255), phone varchar(255), specialties varchar(255), specialty varchar(255), blood_type enum ('AB_NEG','AB_POS','A_NEG','A_POS','B_NEG','B_POS','O_NEG','O_POS'), consultation_mode enum ('BOTH','IN_PERSON','ONLINE'), consultation_mode enum ('BOTH','IN_PERSON','ONLINE'), gender enum ('FEMALE','MALE','OTHER'), photo LONGTEXT, role enum ('ADMIN','CLINIC','DOCTOR','HOME_CARE_PROVIDER','LABORATORYSTAFF','NUTRITIONIST','PATIENT','PHARMACIST','VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HT_service_providers(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_service_providers(birth_date date, enabled boolean, HTE_IDENTITY bigint generated by default as identity, id bigint, certification_document varchar(255), email varchar(255), full_name varchar(255), password varchar(255), phone varchar(255), photo LONGTEXT, role enum ('ADMIN','CLINIC','DOCTOR','HOME_CARE_PROVIDER','LABORATORYSTAFF','NUTRITIONIST','PATIENT','PHARMACIST','VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HT_medical_events(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_medical_events(capacity integer, HTE_IDENTITY bigint generated by default as identity, created_by_id bigint, date timestamp(6), id bigint, event_kind varchar(31) not null, address varchar(255), city varchar(255), country varchar(255), description varchar(255), meeting_link varchar(255), meeting_password varchar(255), platform_name varchar(255), postal_code varchar(255), title varchar(255), venue_name varchar(255), event_type enum ('ONLINE','PHYSICAL'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_online_events(HTE_IDENTITY bigint generated by default as identity, created_by_id bigint, date timestamp(6), id bigint, event_kind varchar(31) not null, description varchar(255), meeting_link varchar(255), meeting_password varchar(255), platform_name varchar(255), title varchar(255), event_type enum ('ONLINE','PHYSICAL'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HT_donations(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_donations(money numeric(12,2), quantite integer, HTE_IDENTITY bigint generated by default as identity, created_at timestamp(6), id bigint, description varchar(255), donor_name varchar(255), title varchar(255), status enum ('ASSIGNED','AVAILABLE'), type enum ('MATERIEL','MONEY'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_materiel_donations(quantite integer, HTE_IDENTITY bigint generated by default as identity, created_at timestamp(6), id bigint, description varchar(255), donor_name varchar(255), title varchar(255), status enum ('ASSIGNED','AVAILABLE'), type enum ('MATERIEL','MONEY'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HT_laboratory_staff(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_laboratory_staff(birth_date date, enabled boolean, HTE_IDENTITY bigint generated by default as identity, id bigint, laboratory_id bigint, email varchar(255), full_name varchar(255), password varchar(255), phone varchar(255), photo LONGTEXT, role enum ('ADMIN','CLINIC','DOCTOR','HOME_CARE_PROVIDER','LABORATORYSTAFF','NUTRITIONIST','PATIENT','PHARMACIST','VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HT_patients(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_patients(birth_date date, enabled boolean, HTE_IDENTITY bigint generated by default as identity, height float(53), id bigint, weight float(53), allergies varchar(255), diseases varchar(255), email varchar(255), emergency_contact_name varchar(255), emergency_contact_phone varchar(255), full_name varchar(255), glucose_rate varchar(255), password varchar(255), phone varchar(255), blood_type enum ('AB_NEG','AB_POS','A_NEG','A_POS','B_NEG','B_POS','O_NEG','O_POS'), gender enum ('FEMALE','MALE','OTHER'), photo LONGTEXT, role enum ('ADMIN','CLINIC','DOCTOR','HOME_CARE_PROVIDER','LABORATORYSTAFF','NUTRITIONIST','PATIENT','PHARMACIST','VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_physical_events(capacity integer, HTE_IDENTITY bigint generated by default as identity, created_by_id bigint, date timestamp(6), id bigint, event_kind varchar(31) not null, address varchar(255), city varchar(255), country varchar(255), description varchar(255), postal_code varchar(255), title varchar(255), venue_name varchar(255), event_type enum ('ONLINE','PHYSICAL'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HT_nutritionists(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_nutritionists(birth_date date, consultation_fee numeric(38,2), enabled boolean, HTE_IDENTITY bigint generated by default as identity, id bigint, email varchar(255), full_name varchar(255), license_number varchar(255), password varchar(255), phone varchar(255), specialties varchar(255), consultation_mode enum ('BOTH','IN_PERSON','ONLINE'), photo LONGTEXT, role enum ('ADMIN','CLINIC','DOCTOR','HOME_CARE_PROVIDER','LABORATORYSTAFF','NUTRITIONIST','PATIENT','PHARMACIST','VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HT_doctors(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_doctors(birth_date date, consultation_fee numeric(38,2), enabled boolean, HTE_IDENTITY bigint generated by default as identity, id bigint, email varchar(255), full_name varchar(255), license_number varchar(255), password varchar(255), phone varchar(255), specialty varchar(255), consultation_mode enum ('BOTH','IN_PERSON','ONLINE'), photo LONGTEXT, role enum ('ADMIN','CLINIC','DOCTOR','HOME_CARE_PROVIDER','LABORATORYSTAFF','NUTRITIONIST','PATIENT','PHARMACIST','VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HT_pharmacists(id bigint not null, primary key (id)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_pharmacists(birth_date date, enabled boolean, HTE_IDENTITY bigint generated by default as identity, id bigint, pharmacy_id bigint, email varchar(255), full_name varchar(255), password varchar(255), phone varchar(255), photo LONGTEXT, role enum ('ADMIN','CLINIC','DOCTOR','HOME_CARE_PROVIDER','LABORATORYSTAFF','NUTRITIONIST','PATIENT','PHARMACIST','VISITOR'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HTE_money_donations(money numeric(12,2), HTE_IDENTITY bigint generated by default as identity, created_at timestamp(6), id bigint, description varchar(255), donor_name varchar(255), title varchar(255), status enum ('ASSIGNED','AVAILABLE'), type enum ('MATERIEL','MONEY'), primary key (HTE_IDENTITY)) TRANSACTIONAL
+Hibernate: create global temporary table HT_users(id bigint not null, primary key (id)) TRANSACTIONAL
+2026-03-28T13:57:40.014+01:00  INFO 5724 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists aid_requests cascade 
+Hibernate: drop table if exists ambulances cascade 
+Hibernate: drop table if exists appointments cascade 
+Hibernate: drop table if exists baby_profiles cascade 
+Hibernate: drop table if exists calendar_availabilities cascade 
+Hibernate: drop table if exists clinics cascade 
+Hibernate: drop table if exists comments cascade 
+Hibernate: drop table if exists consultations cascade 
+Hibernate: drop table if exists diagnoses cascade 
+Hibernate: drop table if exists doctors cascade 
+Hibernate: drop table if exists donation_assignments cascade 
+Hibernate: drop table if exists donations cascade 
+Hibernate: drop table if exists emergency_alerts cascade 
+Hibernate: drop table if exists emergency_interventions cascade 
+Hibernate: drop table if exists event_registrations cascade 
+Hibernate: drop table if exists goal_progress cascade 
+Hibernate: drop table if exists growth_records cascade 
+Hibernate: drop table if exists home_care_services cascade 
+Hibernate: drop table if exists lab_requests cascade 
+Hibernate: drop table if exists lab_results cascade 
+Hibernate: drop table if exists lab_tests cascade 
+Hibernate: drop table if exists laboratories cascade 
+Hibernate: drop table if exists laboratory_staff cascade 
+Hibernate: drop table if exists lifestyle_goal cascade 
+Hibernate: drop table if exists lifestyle_plan cascade 
+Hibernate: drop table if exists likes cascade 
+Hibernate: drop table if exists materiel_donations cascade 
+Hibernate: drop table if exists medical_events cascade 
+Hibernate: drop table if exists medical_records cascade 
+Hibernate: drop table if exists money_donations cascade 
+Hibernate: drop table if exists nutritionists cascade 
+Hibernate: drop table if exists online_events cascade 
+Hibernate: drop table if exists order_items cascade 
+Hibernate: drop table if exists patients cascade 
+Hibernate: drop table if exists pharmacies cascade 
+Hibernate: drop table if exists pharmacists cascade 
+Hibernate: drop table if exists pharmacy_orders cascade 
+Hibernate: drop table if exists pharmacy_stocks cascade 
+Hibernate: drop table if exists physical_events cascade 
+Hibernate: drop table if exists posts cascade 
+Hibernate: drop table if exists prescription_items cascade 
+Hibernate: drop table if exists prescriptions cascade 
+Hibernate: drop table if exists products cascade 
+Hibernate: drop table if exists provider_calendars cascade 
+Hibernate: drop table if exists service_provider_specialties cascade 
+Hibernate: drop table if exists service_providers cascade 
+Hibernate: drop table if exists smart_devices cascade 
+Hibernate: drop table if exists stock_alerts cascade 
+Hibernate: drop table if exists stock_batches cascade 
+Hibernate: drop table if exists stock_movements cascade 
+Hibernate: drop table if exists treatments cascade 
+Hibernate: drop table if exists users cascade 
+Hibernate: drop table if exists vaccinations cascade 
+Hibernate: create table aid_requests (created_at timestamp(6) not null, id bigint generated by default as identity, patient_id bigint not null, description varchar(255) not null, supporting_document varchar(255), status enum ('APPROVED','PENDING','REJECTED') not null, primary key (id))
+Hibernate: create table ambulances (current_lat float(53), current_lng float(53), clinic_id bigint not null, id bigint generated by default as identity, primary key (id))
+Hibernate: create table appointments (availability_id bigint not null unique, id bigint generated by default as identity, patient_id bigint not null, provider_id bigint not null, meeting_link varchar(255), visit_address varchar(255), mode enum ('IN_PERSON','ONLINE'), status enum ('BOOKED','CANCELLED','COMPLETED','RESCHEDULED') not null, primary key (id))
+Hibernate: create table baby_profiles (birth_date date not null, id bigint generated by default as identity, parent_id bigint not null, name varchar(255) not null, gender enum ('FEMALE','MALE','OTHER') not null, primary key (id))
+Hibernate: create table calendar_availabilities (calendar_id bigint not null, end_time timestamp(6) not null, id bigint generated by default as identity, start_time timestamp(6) not null, address varchar(255), mode enum ('IN_PERSON','ONLINE') not null, status enum ('AVAILABLE','BLOCKED','BOOKED') not null, primary key (id))
+Hibernate: create table clinics (has_ambulance boolean not null, has_emergency boolean not null, latitude float(53), longitude float(53), id bigint generated by default as identity, address varchar(255), ambulance_phone varchar(255), emergency_phone varchar(255), name varchar(255) not null, phone varchar(255), primary key (id))
+Hibernate: create table comments (author_id bigint not null, created_at timestamp(6) not null, id bigint generated by default as identity, post_id bigint not null, content TEXT not null, primary key (id))
+Hibernate: create table consultations (date timestamp(6) not null, doctor_id bigint not null, id bigint generated by default as identity, medical_record_id bigint not null, notes varchar(255), observations varchar(255), primary key (id))
+Hibernate: create table diagnoses (consultation_id bigint not null, id bigint generated by default as identity, description varchar(255) not null, type enum ('PRIMARY','SECONDARY') not null, primary key (id))
+Hibernate: create table doctors (consultation_fee numeric(38,2), id bigint not null, license_number varchar(255) not null, specialty varchar(255), consultation_mode enum ('BOTH','IN_PERSON','ONLINE'), primary key (id))
+Hibernate: create table donation_assignments (aid_request_id bigint not null, assigned_at timestamp(6) not null, donation_id bigint not null, id bigint generated by default as identity, primary key (id))
+Hibernate: create table donations (created_at timestamp(6) not null, id bigint generated by default as identity, description varchar(255), donor_name varchar(255), title varchar(255) not null, status enum ('ASSIGNED','AVAILABLE') not null, type enum ('MATERIEL','MONEY') not null, primary key (id))
+Hibernate: create table emergency_alerts (latitude float(53) not null, longitude float(53) not null, created_at timestamp(6) not null, device_id bigint not null, id bigint generated by default as identity, severity enum ('CRITICAL','HIGH','LOW') not null, status enum ('CLINIC_NOTIFIED','CONTACT_NOTIFIED','PATIENT_NOTIFIED','PENDING','RESOLVED') not null, primary key (id))
+Hibernate: create table emergency_interventions (ambulance_id bigint, arrived_at timestamp(6), clinic_id bigint not null, completed_at timestamp(6), dispatched_at timestamp(6), emergency_alert_id bigint not null unique, id bigint generated by default as identity, status enum ('ARRIVED','CANCELLED','COMPLETED','DISPATCHED') not null, primary key (id))
+Hibernate: create table event_registrations (created_at timestamp(6) not null, event_id bigint not null, id bigint generated by default as identity, participant_id bigint not null, status enum ('REGISTERED','VALIDATED') not null, primary key (id))
+Hibernate: create table goal_progress (date date, tracked_value numeric(38,2), goal_id bigint not null, id bigint generated by default as identity, patient_id bigint not null, notes varchar(255), primary key (id))
+Hibernate: create table growth_records (height numeric(5,2) not null, weight numeric(5,2) not null, baby_id bigint not null, id bigint generated by default as identity, recorded_at timestamp(6) not null, primary key (id))
+Hibernate: create table home_care_services (price numeric(12,2) not null, id bigint generated by default as identity, description varchar(255), name varchar(255) not null, primary key (id))
+Hibernate: create table lab_requests (doctor_id bigint not null, id bigint generated by default as identity, laboratory_id bigint not null, patient_id bigint not null, requested_at timestamp(6) not null, status enum ('COMPLETED','IN_PROGRESS','PENDING') not null, primary key (id))
+Hibernate: create table lab_results (completed_at timestamp(6), id bigint generated by default as identity, lab_request_id bigint not null unique, result_file varchar(255), result_data clob, primary key (id))
+Hibernate: create table lab_tests (price numeric(38,2) not null, id bigint generated by default as identity, laboratory_id bigint not null, description varchar(255), name varchar(255) not null, primary key (id))
+Hibernate: create table laboratories (id bigint generated by default as identity, address varchar(255), name varchar(255) not null, phone varchar(255), primary key (id))
+Hibernate: create table laboratory_staff (id bigint not null, laboratory_id bigint, primary key (id))
+Hibernate: create table lifestyle_goal (baseline_value numeric(38,2), target_date date, target_value numeric(38,2), id bigint generated by default as identity, patient_id bigint not null, category enum ('FITNESS','GENERAL_HEALTH','MAINTENANCE','MUSCLE_GAIN','NUTRITION','WEIGHT_GAIN','WEIGHT_LOSS') not null, status enum ('ABANDONED','ACHIEVED','CANCELLED','COMPLETED','IN_PROGRESS','PENDING') not null, primary key (id))
+Hibernate: create table lifestyle_plan (end_date date, start_date date, created_at timestamp(6), goal_id bigint not null, id bigint generated by default as identity, nutritionist_id bigint not null, description varchar(255), title varchar(255) not null, status enum ('ACTIVE','CANCELLED','COMPLETED','DRAFT') not null, primary key (id))
+Hibernate: create table likes (id bigint generated by default as identity, post_id bigint not null, user_id bigint not null, primary key (id))
+Hibernate: create table materiel_donations (quantite integer not null, id bigint not null, primary key (id))
+Hibernate: create table medical_events (created_by_id bigint, date timestamp(6) not null, id bigint generated by default as identity, event_kind varchar(31) not null, description varchar(255), title varchar(255) not null, event_type enum ('ONLINE','PHYSICAL') not null, primary key (id))
+Hibernate: create table medical_records (id bigint generated by default as identity, patient_id bigint not null unique, primary key (id))
+Hibernate: create table money_donations (money numeric(12,2) not null, id bigint not null, primary key (id))
+Hibernate: create table nutritionists (consultation_fee numeric(38,2), id bigint not null, license_number varchar(255) unique, specialties varchar(255), consultation_mode enum ('BOTH','IN_PERSON','ONLINE'), primary key (id))
+Hibernate: create table online_events (id bigint not null, meeting_link varchar(255), meeting_password varchar(255), platform_name varchar(255), primary key (id))
+Hibernate: create table order_items (price numeric(38,2) not null, quantity integer not null, id bigint generated by default as identity, order_id bigint not null, product_id bigint not null, primary key (id))
+Hibernate: create table patients (height float(53), weight float(53), id bigint not null, allergies varchar(255), diseases varchar(255), emergency_contact_name varchar(255), emergency_contact_phone varchar(255), glucose_rate varchar(255), blood_type enum ('AB_NEG','AB_POS','A_NEG','A_POS','B_NEG','B_POS','O_NEG','O_POS'), gender enum ('FEMALE','MALE','OTHER'), primary key (id))
+Hibernate: create table pharmacies (location_lat float(53), location_lng float(53), id bigint generated by default as identity, address varchar(255), email varchar(255), name varchar(255) not null, phone_number varchar(255), primary key (id))
+Hibernate: create table pharmacists (id bigint not null, pharmacy_id bigint, primary key (id))
+Hibernate: create table pharmacy_orders (scheduled_delivery_date date, total_price numeric(12,2) not null, created_at timestamp(6) not null, id bigint generated by default as identity, patient_id bigint not null, pharmacy_id bigint not null, prescription_id bigint, delivery_address varchar(255) not null, status enum ('CANCELLED','DELIVERED','PENDING','SHIPPED','VALIDATED') not null, primary key (id))
+Hibernate: create table pharmacy_stocks (min_quantity_threshold integer not null, total_quantity integer not null, id bigint generated by default as identity, pharmacy_id bigint not null, product_id bigint not null, primary key (id))
+Hibernate: create table physical_events (capacity integer, id bigint not null, address varchar(255), city varchar(255), country varchar(255), postal_code varchar(255), venue_name varchar(255), primary key (id))
+Hibernate: create table posts (author_id bigint not null, created_at timestamp(6) not null, id bigint generated by default as identity, content TEXT not null, title varchar(255) not null, primary key (id))
+Hibernate: create table prescription_items (id bigint generated by default as identity, prescription_id bigint not null, dosage varchar(255), duration varchar(255), frequency varchar(255), medication_name varchar(255) not null, primary key (id))
+Hibernate: create table prescriptions (date date not null, consultation_id bigint not null, id bigint generated by default as identity, primary key (id))
+Hibernate: create table products (id bigint generated by default as identity, barcode varchar(255), brand varchar(255), category varchar(255), description varchar(255), image_url varchar(255), manufacturer varchar(255), name varchar(255) not null, type enum ('DEVICE','HYGIENE','MEDICATION','OTHER','PARAPHARMA','SUPPLEMENT') not null, unit enum ('BOTTLE','BOX','G','ML','PIECE','TUBE') not null, primary key (id))
+Hibernate: create table provider_calendars (id bigint generated by default as identity, provider_id bigint not null unique, primary key (id))
+Hibernate: create table service_provider_specialties (home_care_service_id bigint not null, service_provider_id bigint not null, primary key (home_care_service_id, service_provider_id))
+Hibernate: create table service_providers (id bigint not null, certification_document varchar(255), primary key (id))
+Hibernate: create table smart_devices (id bigint generated by default as identity, patient_id bigint not null unique, primary key (id))
+Hibernate: create table stock_alerts (resolved boolean not null, created_at timestamp(6) not null, id bigint generated by default as identity, pharmacy_stock_id bigint not null, resolved_at timestamp(6), message varchar(255) not null, alert_type enum ('EXPIRED','EXPIRING_SOON','LOW_STOCK','OUT_OF_STOCK') not null, primary key (id))
+Hibernate: create table stock_batches (expiration_date date, purchase_price numeric(38,2), quantity integer not null, selling_price numeric(38,2), id bigint generated by default as identity, pharmacy_stock_id bigint not null, received_at timestamp(6) not null, batch_number varchar(255), primary key (id))
+Hibernate: create table stock_movements (quantity integer not null, created_at timestamp(6) not null, id bigint generated by default as identity, performed_by_id bigint, pharmacy_stock_id bigint not null, reference varchar(255), movement_type enum ('ADJUSTMENT','IN','OUT','RETURN','TRANSFER') not null, primary key (id))
+Hibernate: create table treatments (end_date date, start_date date, consultation_id bigint not null, id bigint generated by default as identity, description varchar(255) not null, status enum ('CANCELLED','COMPLETED','ONGOING') not null, treatment_type enum ('MEDICATION','PROCEDURE','SURGERY','THERAPY') not null, primary key (id))
+Hibernate: create table users (birth_date date, enabled boolean not null, id bigint generated by default as identity, email varchar(255) not null unique, full_name varchar(255) not null, password varchar(255) not null, phone varchar(255), photo LONGTEXT, role enum ('ADMIN','CLINIC','DOCTOR','HOME_CARE_PROVIDER','LABORATORYSTAFF','NUTRITIONIST','PATIENT','PHARMACIST','VISITOR') not null, primary key (id))
+Hibernate: create table vaccinations (due_date date not null, baby_id bigint not null, id bigint generated by default as identity, vaccine_name varchar(255) not null, status enum ('DONE','MISSED','PENDING') not null, primary key (id))
+Hibernate: alter table if exists aid_requests add constraint FK8vk8jjm5ymfy0tbwy784l9n7u foreign key (patient_id) references users
+Hibernate: alter table if exists ambulances add constraint FKaspc7fl9ur8mir8gni8lmp0ha foreign key (clinic_id) references clinics
+Hibernate: alter table if exists appointments add constraint FK4rntms8li6gv1r4w168s5rnes foreign key (availability_id) references calendar_availabilities
+Hibernate: alter table if exists appointments add constraint FKopb2h9yhin1rb4dqote8bws6w foreign key (patient_id) references users
+Hibernate: alter table if exists appointments add constraint FK4fu75bopbpvwtgr881n5o84yr foreign key (provider_id) references users
+Hibernate: alter table if exists baby_profiles add constraint FK8r64qf1aah4pmwv6aa6gk89wi foreign key (parent_id) references patients
+Hibernate: alter table if exists calendar_availabilities add constraint FKldeyyibptwrks38s8s66u0thr foreign key (calendar_id) references provider_calendars
+Hibernate: alter table if exists comments add constraint FKn2na60ukhs76ibtpt9burkm27 foreign key (author_id) references users
+Hibernate: alter table if exists comments add constraint FKh4c7lvsc298whoyd4w9ta25cr foreign key (post_id) references posts
+Hibernate: alter table if exists consultations add constraint FKkog17uvjvkkg4bv6l5eu1ysqw foreign key (doctor_id) references users
+Hibernate: alter table if exists consultations add constraint FK4p8su3x8lamshi6ebh6vrt6a8 foreign key (medical_record_id) references medical_records
+Hibernate: alter table if exists diagnoses add constraint FKgfts0yrddn59v61ywhksr56a6 foreign key (consultation_id) references consultations
+Hibernate: alter table if exists doctors add constraint FKgisys6qm9qflq8w4npdhxafne foreign key (id) references users
+Hibernate: alter table if exists donation_assignments add constraint FKgdt8twkoey2asuc0nin24lt5p foreign key (aid_request_id) references aid_requests
+Hibernate: alter table if exists donation_assignments add constraint FKf4go7ivgn63p53uhhb22nvj1a foreign key (donation_id) references donations
+Hibernate: alter table if exists emergency_alerts add constraint FKf77rwu6n28qadgdarstogc8nr foreign key (device_id) references smart_devices
+Hibernate: alter table if exists emergency_interventions add constraint FKoemo2ei1bf0d18qvlx1k3i037 foreign key (ambulance_id) references ambulances
+Hibernate: alter table if exists emergency_interventions add constraint FK5aua68fpqqixoneptfx4iwd4s foreign key (clinic_id) references clinics
+Hibernate: alter table if exists emergency_interventions add constraint FKfx276poiw21k6mx23xanxtx6g foreign key (emergency_alert_id) references emergency_alerts
+Hibernate: alter table if exists event_registrations add constraint FKjqvemfb05leskcxkhv36r5ivj foreign key (event_id) references medical_events
+Hibernate: alter table if exists event_registrations add constraint FKp9y6buinf98h9nm47goe0prgc foreign key (participant_id) references users
+Hibernate: alter table if exists goal_progress add constraint FKa00t3mym2gomxjbgrsiqfhyh6 foreign key (goal_id) references lifestyle_goal
+Hibernate: alter table if exists goal_progress add constraint FKn70twxr80pwdpg5hksnte5k35 foreign key (patient_id) references users
+Hibernate: alter table if exists growth_records add constraint FK4uqfiaj57bm9dr1o8y8c8ynwp foreign key (baby_id) references baby_profiles
+Hibernate: alter table if exists lab_requests add constraint FKtjd143t1c550vtiy65m45u3kd foreign key (doctor_id) references doctors
+Hibernate: alter table if exists lab_requests add constraint FK423xwxn7hn70ufiw1vlhgi8b foreign key (laboratory_id) references laboratories
+Hibernate: alter table if exists lab_requests add constraint FK75p4ko3xn9k8k5xiypggyfk24 foreign key (patient_id) references patients
+Hibernate: alter table if exists lab_results add constraint FKndnvq4dpij5gb5eglqxoh6lov foreign key (lab_request_id) references lab_requests
+Hibernate: alter table if exists lab_tests add constraint FKpbj5y8bj1ac8u32rc3rkg9ipg foreign key (laboratory_id) references laboratories
+Hibernate: alter table if exists laboratory_staff add constraint FKdplyvl8bw5jkq0nqi193qgnj1 foreign key (laboratory_id) references laboratories
+Hibernate: alter table if exists laboratory_staff add constraint FKau9aaaygnuideb4avqsw1ampn foreign key (id) references users
+Hibernate: alter table if exists lifestyle_goal add constraint FKmew7n68uudyxc7r0glag1loli foreign key (patient_id) references users
+Hibernate: alter table if exists lifestyle_plan add constraint FK575e7chh0gn6r8jfpwmgmuetv foreign key (goal_id) references lifestyle_goal
+Hibernate: alter table if exists lifestyle_plan add constraint FKqrpkck6hcdo710rw67t6qnklv foreign key (nutritionist_id) references users
+Hibernate: alter table if exists likes add constraint FKry8tnr4x2vwemv2bb0h5hyl0x foreign key (post_id) references posts
+Hibernate: alter table if exists likes add constraint FKnvx9seeqqyy71bij291pwiwrg foreign key (user_id) references users
+Hibernate: alter table if exists materiel_donations add constraint FKoalu34qxxuy0u9c5eqbhrduwx foreign key (id) references donations
+Hibernate: alter table if exists medical_events add constraint FKbqy87cm9j71evnr9l8e4lthwu foreign key (created_by_id) references users
+Hibernate: alter table if exists medical_records add constraint FKe3g9v0pbec2843wd1rxeb0is3 foreign key (patient_id) references users
+Hibernate: alter table if exists money_donations add constraint FKb4f74ndnusgex3bcd14osdwud foreign key (id) references donations
+Hibernate: alter table if exists nutritionists add constraint FKed56h4g02cknt9tihg51u75qc foreign key (id) references users
+Hibernate: alter table if exists online_events add constraint FKg84e7xoy7r8bhv2nmre81y512 foreign key (id) references medical_events
+Hibernate: alter table if exists order_items add constraint FK4a3i2l6lb2yl0ratr0iulmttq foreign key (order_id) references pharmacy_orders
+Hibernate: alter table if exists order_items add constraint FKocimc7dtr037rh4ls4l95nlfi foreign key (product_id) references products
+Hibernate: alter table if exists patients add constraint FKn8xphvlp05nd3ydg0p1rbdaom foreign key (id) references users
+Hibernate: alter table if exists pharmacists add constraint FK274bkgrys2ol3eou3904fidrn foreign key (pharmacy_id) references pharmacies
+Hibernate: alter table if exists pharmacists add constraint FK18tc2lcdiutko6gm005qfyq8 foreign key (id) references users
+Hibernate: alter table if exists pharmacy_orders add constraint FK4n11hhmwv4y4mqy73hwbkjxpq foreign key (patient_id) references users
+Hibernate: alter table if exists pharmacy_orders add constraint FK6g7rd8jtl1j4i5pilc61poq9w foreign key (pharmacy_id) references pharmacies
+Hibernate: alter table if exists pharmacy_orders add constraint FKdw8oqqyfk6sbc7i8tw6w7d6yl foreign key (prescription_id) references prescriptions
+Hibernate: alter table if exists pharmacy_stocks add constraint FKqbaf4pj05yb6n18vs1d3l7osp foreign key (pharmacy_id) references pharmacies
+Hibernate: alter table if exists pharmacy_stocks add constraint FKl4l0mirtq4rbom2euurk6rfeo foreign key (product_id) references products
+Hibernate: alter table if exists physical_events add constraint FKj8a830sk8fedh8lbo6ujity8j foreign key (id) references medical_events
+Hibernate: alter table if exists posts add constraint FK6xvn0811tkyo3nfjk2xvqx6ns foreign key (author_id) references users
+Hibernate: alter table if exists prescription_items add constraint FK6uh7tdy2lv6sx34u1365acqsf foreign key (prescription_id) references prescriptions
+Hibernate: alter table if exists prescriptions add constraint FKj6varr98psv2onkoxks6jin14 foreign key (consultation_id) references consultations
+Hibernate: alter table if exists provider_calendars add constraint FKbu6ulwvctrobnnn2mwqu6asfe foreign key (provider_id) references users
+Hibernate: alter table if exists service_provider_specialties add constraint FKt6x15ej4y5yss9e1no3ye4070 foreign key (home_care_service_id) references home_care_services
+Hibernate: alter table if exists service_provider_specialties add constraint FK6wg08wmy31o8xd7qm9kuqvew7 foreign key (service_provider_id) references service_providers
+Hibernate: alter table if exists service_providers add constraint FK9e8cal1l60yfm8gdj5ieto722 foreign key (id) references users
+Hibernate: alter table if exists smart_devices add constraint FKpiogcpibuopg80ut7n0hpieih foreign key (patient_id) references users
+Hibernate: alter table if exists stock_alerts add constraint FKnb7jmpwyvdvb0t1qikq7sl2p5 foreign key (pharmacy_stock_id) references pharmacy_stocks
+Hibernate: alter table if exists stock_batches add constraint FKkra63gofx8kkfgbmimkjbk3v6 foreign key (pharmacy_stock_id) references pharmacy_stocks
+Hibernate: alter table if exists stock_movements add constraint FK45yhs5thi26xrhdd6vxu25erh foreign key (performed_by_id) references users
+Hibernate: alter table if exists stock_movements add constraint FKg082tearac4tc7c41xm5vw04i foreign key (pharmacy_stock_id) references pharmacy_stocks
+Hibernate: alter table if exists treatments add constraint FKrf6frtb6q7ta8vbqc24enwmo0 foreign key (consultation_id) references consultations
+Hibernate: alter table if exists vaccinations add constraint FK8bmy4ddmhwvgcvasor04t8ng8 foreign key (baby_id) references baby_profiles
+2026-03-28T13:57:40.137+01:00  INFO 5724 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-28T13:57:40.489+01:00  INFO 5724 --- [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-28T13:57:40.490+01:00  WARN 5724 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-28T13:57:40.683+01:00  INFO 5724 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-28T13:57:41.064+01:00  WARN 5724 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-28T13:57:41.672+01:00  INFO 5724 --- [           main] c.aziz.demosec.DemosecApplicationTests   : Started DemosecApplicationTests in 5.312 seconds (process running for 6.055)
+cmd : Java HotSpot(TM) 64-Bit 
+Server VM warning: Sharing is 
+only supported for boot loader 
+classes because bootstrap 
+classpath has been appended
+Au caractère Ligne:1 : 1
++ cmd /c .\mvnw.cmd clean test 
+-Dtest=DemosecApplicationTests 
+--batch-m ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~
+    + CategoryInfo          : Not 
+   Specified: (Java HotSpot(TM..  
+  .s been appended:String) [],    
+ RemoteException
+    + FullyQualifiedErrorId : Nat 
+   iveCommandError
+ 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.019 s -- in com.aziz.demosec.DemosecApplicationTests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  13.768 s
+[INFO] Finished at: 2026-03-28T13:57:42+01:00
+[INFO] ------------------------------------------------------------------------
