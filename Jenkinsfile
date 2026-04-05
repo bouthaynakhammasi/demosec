@@ -38,8 +38,8 @@ pipeline {
             steps {
                 script {
                     // Update image in K8s manifest or use kubectl set image
-                    sh "kubectl apply -f k8s/deployment.yaml"
-                    sh "kubectl rollout restart deployment/${IMAGE_NAME}"
+                    sh "kubectl apply -f k8s/backend.yaml"
+                    sh "kubectl rollout restart deployment/medicarepi-backend-deployment"
                 }
             }
         }
