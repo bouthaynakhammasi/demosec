@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-
+@DiscriminatorValue("LABORATORY_STAFF")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,5 +16,4 @@ public class LaboratoryStaff extends User {
     @ManyToOne
     @JoinColumn(name = "laboratory_id")
     private Laboratory laboratory;
-
 }
