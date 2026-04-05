@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;          // ← AJOUT
 import jakarta.validation.Valid;
 
 @RestController
@@ -18,6 +19,16 @@ import jakarta.validation.Valid;
 public class ClinicController {
 
     private final ClinicRepository clinicRepository;
+
+    // ✅ ENDPOINT MANQUANT — liste toutes les cliniques (public)
+    @GetMapping
+    public ResponseEntity<List<ClinicProfileResponse>> getAllClinics() {
+        List<ClinicProfileResponse> clinics = clinicRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+        return ResponseEntity.ok(clinics);
+    }
 
     @GetMapping("/me")
     public ResponseEntity<ClinicProfileResponse> getMe(Principal principal) {
@@ -37,7 +48,7 @@ public class ClinicController {
                     if (request.phone() != null) clinic.setPhone(request.phone());
                     if (request.birthDate() != null) clinic.setBirthDate(request.birthDate());
                     if (request.photo() != null) clinic.setPhoto(request.photo());
-                    
+
                     if (request.clinicName() != null) clinic.setName(request.clinicName());
                     if (request.address() != null) clinic.setAddress(request.address());
                     if (request.latitude() != null) clinic.setLatitude(request.latitude());
@@ -46,7 +57,7 @@ public class ClinicController {
                     if (request.hasAmbulance() != null) clinic.setHasAmbulance(request.hasAmbulance());
                     if (request.emergencyPhone() != null) clinic.setEmergencyPhone(request.emergencyPhone());
                     if (request.ambulancePhone() != null) clinic.setAmbulancePhone(request.ambulancePhone());
-                    
+
                     Clinic saved = clinicRepository.save(clinic);
                     return ResponseEntity.ok(mapToResponse(saved));
                 })
