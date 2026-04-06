@@ -20,7 +20,7 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 sh "docker build -t ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG} ."
-                sh 'echo "$DOCKER_HUB_CREDS_PSW" | docker login -u "$DOCKER_HUB_CREDS_USR" --password-stdin'
+                sh "docker login -u '${DOCKER_HUB_CREDS_USR}' -p '${DOCKER_HUB_CREDS_PSW}'"
                 sh "docker push ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
