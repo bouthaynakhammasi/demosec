@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -23,11 +24,13 @@ public class JwtService {
     public JwtService(
             @Value("${app.jwt.secret}") String secret,
             @Value("${app.jwt.expiration-ms}") long expirationMs) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+
+        this.key = Keys.hmacShaKeyFor(
+                secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMs = expirationMs;
     }
 
-    public String generateToken(UserDetails userDetails, String fullName, Long userId) {
+    public String generateToken(UserDetails userDetails, String fullName, Long userId, Long laboratoryId) {
         String role = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .findFirst()
@@ -36,21 +39,31 @@ public class JwtService {
         Date now = new Date();
         Date exp = new Date(now.getTime() + expirationMs);
 
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", role);
+        claims.put("fullName", fullName);
+        claims.put("id", userId);
+
+        if (userId != null) {
+            claims.put("userId", userId);
+        }
+        if (laboratoryId != null) {
+            claims.put("laboratoryId", laboratoryId);
+        }
+
         return Jwts.builder()
                 .subject(userDetails.getUsername())
-                .claims(Map.of("role", role, "fullName", fullName, "id", userId))
+                .claims(claims)
                 .issuedAt(now)
                 .expiration(exp)
                 .signWith(key, Jwts.SIG.HS256)
                 .compact();
     }
 
-    // 2. Extraire l'email
     public String extractEmail(String token) {
         return parseClaims(token).getSubject();
     }
 
-    // 3. Valider le token
     public boolean isTokenValid(String token, UserDetails userDetails) {
         try {
             String email = extractEmail(token);
@@ -61,13 +74,10 @@ public class JwtService {
         }
     }
 
-    // 4. Vérifier expiration
     private boolean isTokenExpired(String token) {
-        Date exp = parseClaims(token).getExpiration();
-        return exp.before(new Date());
+        return parseClaims(token).getExpiration().before(new Date());
     }
 
-    // 5. Parser les claims
     private Claims parseClaims(String token) {
         return Jwts.parser()
                 .verifyWith(key)
@@ -76,4 +86,3 @@ public class JwtService {
                 .getPayload();
     }
 }
-

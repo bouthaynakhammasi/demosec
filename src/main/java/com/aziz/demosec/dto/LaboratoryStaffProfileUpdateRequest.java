@@ -19,5 +19,9 @@ public record LaboratoryStaffProfileUpdateRequest(
     // Laboratory specific info
     String laboratoryName,
     String laboratoryAddress,
-    String laboratoryPhone
+    String laboratoryPhone,
+    String laboratoryEmail,
+    String openingHours,
+    String specializations,
+    Boolean active
 ) {}

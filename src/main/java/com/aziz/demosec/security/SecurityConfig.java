@@ -4,6 +4,7 @@ import com.aziz.demosec.security.jwt.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -49,34 +50,65 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
                 .authorizeHttpRequests(auth -> auth
-                        // Public
-                        .requestMatchers("/auth/**", "/api/auth/**", "/error").permitAll()
+
+                        // OPTIONS preflight
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Public auth endpoints
+                        .requestMatchers("/auth/**", "/api/auth/**", "/error/**").permitAll()
+
+                        // Public data
+                        .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/home-care-services/**", "/api/home-care-services").permitAll()
-                        .requestMatchers("/api/donations/**", "/api/aid-requests/**", "/api/emergency-alerts/**", "/api/interventions/**", "/api/ambulances/**", "/api/smart-devices/**").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/clinics/**", "/api/v1/doctors/**").permitAll()
-                        
-                        // Medical Access
-                        .requestMatchers("/treatment/**", "/diagnosis/**", "/consultation/**", "/prescription/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
-                        
-                        // Role Based
+                        .requestMatchers("/api/donations/**", "/api/aid-requests/**").permitAll()
+                        .requestMatchers("/api/emergency-alerts/**", "/api/interventions/**").permitAll()
+                        .requestMatchers("/api/ambulances/**", "/api/smart-devices/**").permitAll()
+                        .requestMatchers("/api/laboratories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/clinics/**", "/api/v1/doctors/**").permitAll()
+
+                        // Forum - read is authenticated, write is role-based
+                        .requestMatchers(HttpMethod.GET, "/api/forum/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST", "LABORATORY_STAFF",
+                                "NUTRITIONIST", "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST", "LABORATORY_STAFF",
+                                "NUTRITIONIST", "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST", "LABORATORY_STAFF",
+                                "NUTRITIONIST", "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/comments/**").authenticated()
+                        .requestMatchers("/api/forum/posts/*/like").authenticated()
+
+                        // Medical access
+                        .requestMatchers("/treatment/**", "/diagnosis/**", "/consultation/**", "/prescription/**")
+                            .hasAnyRole("DOCTOR", "NUTRITIONIST")
+
+                        // Role-based access
                         .requestMatchers("/api/admin/**", "/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/doctor/**", "/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/api/clinic/**", "/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/api/pharmacist/**", "/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/api/laboratory/**", "/laboratory/**").hasRole("LABORATORYSTAFF")
+                        .requestMatchers("/api/laboratory/**", "/laboratory/**").hasRole("LABORATORY_STAFF")
                         .requestMatchers("/api/nutritionist/**", "/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/api/visitor/**", "/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/api/patient/**", "/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/baby-care/**").hasAnyRole("PATIENT", "ADMIN")
                         .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
-                        
-                        // Others
+
+                        // User management
                         .requestMatchers("/api/users/role/DOCTOR").hasAnyRole("PATIENT", "ADMIN")
-                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        .requestMatchers("/api/users/**", "/user/**").authenticated()
+                        .requestMatchers("/api/notifications/**").authenticated()
+
+                        // Calendar & Appointments
                         .requestMatchers("/api/v1/patients/*/appointments").hasRole("PATIENT")
                         .requestMatchers("/api/v1/doctors/*/appointments").hasRole("DOCTOR")
                         .requestMatchers("/api/v1/appointments/**", "/api/v1/**").authenticated()
-                        .requestMatchers("/availability/**", "/provider-calendar/**").hasAnyRole("DOCTOR", "NUTRITIONIST", "HOME_CARE_PROVIDER")
+                        .requestMatchers("/availability/**", "/provider-calendar/**")
+                            .hasAnyRole("DOCTOR", "NUTRITIONIST", "HOME_CARE_PROVIDER")
 
                         .anyRequest().authenticated()
                 )

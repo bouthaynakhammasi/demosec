@@ -33,20 +33,19 @@ public class User {
     String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "VARCHAR(50)")
     Role role;
 
     String phone;
 
     LocalDate birthDate;
-    
+
     @Lob
     @Column(columnDefinition = "LONGTEXT")
     String photo;
 
     @Builder.Default
     boolean enabled = true;
-
 
     @Builder.Default
     boolean profileCompleted = false;
@@ -56,5 +55,4 @@ public class User {
 
     public String getProfileImage() { return this.profileImage; }
     public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
-
 }

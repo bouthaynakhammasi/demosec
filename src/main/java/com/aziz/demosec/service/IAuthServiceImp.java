@@ -1,6 +1,7 @@
 package com.aziz.demosec.service;
 
 import com.aziz.demosec.Entities.*;
+import com.aziz.demosec.domain.PasswordResetToken;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.AuthResponse;
@@ -9,7 +10,6 @@ import com.aziz.demosec.dto.RegisterRequest;
 import com.aziz.demosec.repository.*;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,11 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -42,11 +41,12 @@ public class IAuthServiceImp implements IAuthService {
     private final HomeCareServiceRepository homeCareServiceRepository;
     private final MedicalRecordRepository medicalRecordRepository;
     private final MedicalHistoryRepository medicalHistoryRepository;
-
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
     private final JwtService jwtService;
+    private final PasswordResetTokenRepository tokenRepository;
+    private final EmailService emailService;
 
     public IAuthServiceImp(
             UserRepository userRepository,
@@ -65,7 +65,9 @@ public class IAuthServiceImp implements IAuthService {
             @org.springframework.context.annotation.Lazy PasswordEncoder passwordEncoder,
             @org.springframework.context.annotation.Lazy AuthenticationManager authenticationManager,
             CustomUserDetailsService userDetailsService,
-            JwtService jwtService
+            JwtService jwtService,
+            PasswordResetTokenRepository tokenRepository,
+            EmailService emailService
     ) {
         this.userRepository = userRepository;
         this.patientRepository = patientRepository;
@@ -84,6 +86,8 @@ public class IAuthServiceImp implements IAuthService {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.jwtService = jwtService;
+        this.tokenRepository = tokenRepository;
+        this.emailService = emailService;
     }
 
     @Override
@@ -100,9 +104,6 @@ public class IAuthServiceImp implements IAuthService {
         if (userRepository.findByEmail(req.email()).isPresent())
             throw new IllegalArgumentException("Email already used");
 
-        // =========================
-        // CAS PATIENT
-        // =========================
         if (req.role() == Role.PATIENT) {
             Patient patient = new Patient();
             patient.setFullName(req.fullName() == null ? "Not Available" : req.fullName());
@@ -124,16 +125,13 @@ public class IAuthServiceImp implements IAuthService {
 
             patient = patientRepository.save(patient);
 
-            // Create Medical Record automatically for Patients
+            // Auto-create Medical Record for new patients
             MedicalRecord record = MedicalRecord.builder().patient(patient).build();
             medicalRecordRepository.save(record);
 
             return patient;
         }
 
-        // =========================
-        // OTHER ROLES
-        // =========================
         User u;
         switch (req.role()) {
             case DOCTOR:
@@ -164,7 +162,7 @@ public class IAuthServiceImp implements IAuthService {
                 pharm.setPharmacy(phEntity);
                 u = pharm;
                 break;
-            case LABORATORYSTAFF:
+            case LABORATORY_STAFF:
                 LaboratoryStaff labStaff = new LaboratoryStaff();
                 Laboratory labEntity = new Laboratory();
                 labEntity.setName(req.labName());
@@ -216,22 +214,77 @@ public class IAuthServiceImp implements IAuthService {
         if (u instanceof Pharmacist) return pharmacistRepository.save((Pharmacist) u);
         if (u instanceof LaboratoryStaff) return laboratoryStaffRepository.save((LaboratoryStaff) u);
         if (u instanceof Nutritionist) return nutritionistRepository.save((Nutritionist) u);
+        if (u instanceof ServiceProvider) return serviceProviderRepository.save((ServiceProvider) u);
 
         return userRepository.save(u);
     }
 
     @Override
     public AuthResponse login(LoginRequest req) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.email(), req.password()));
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(req.email(), req.password())
+        );
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(req.email());
-        User user = userRepository.findByEmail(req.email()).orElseThrow(() -> new RuntimeException("User not found after authentication"));
-        
+        User user = userRepository.findByEmail(req.email())
+                .orElseThrow(() -> new RuntimeException("User not found after authentication"));
+
         String role = userDetails.getAuthorities().stream()
                 .findFirst()
                 .map(GrantedAuthority::getAuthority)
                 .orElse("ROLE_VISITOR");
 
-        String token = jwtService.generateToken(userDetails, user.getFullName(), user.getId());
+        Long laboratoryId = null;
+        if (user instanceof LaboratoryStaff staff) {
+            laboratoryId = staff.getLaboratory() != null ? staff.getLaboratory().getId() : null;
+        }
+
+        String token = jwtService.generateToken(userDetails, user.getFullName(), user.getId(), laboratoryId);
+
         return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
+    }
+
+    @Override
+    @Transactional
+    public void forgotPassword(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Email not found"));
+
+        tokenRepository.deleteByUser_Id(user.getId());
+
+        String token = UUID.randomUUID().toString();
+
+        PasswordResetToken resetToken = PasswordResetToken.builder()
+                .token(token)
+                .user(user)
+                .expiryDate(LocalDateTime.now().plusHours(1))
+                .used(false)
+                .build();
+
+        tokenRepository.save(resetToken);
+
+        String resetLink = "http://localhost:4200/auth/reset-password?token=" + token;
+        emailService.sendPasswordResetEmail(email, resetLink);
+    }
+
+    @Override
+    @Transactional
+    public void resetPassword(String token, String newPassword) {
+        PasswordResetToken resetToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid token"));
+
+        if (resetToken.isExpired())
+            throw new IllegalArgumentException("Token expired");
+        if (resetToken.isUsed())
+            throw new IllegalArgumentException("Token already used");
+        if (newPassword == null || newPassword.length() < 8)
+            throw new IllegalArgumentException("Password must contain at least 8 characters");
+
+        User user = resetToken.getUser();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        resetToken.setUsed(true);
+        tokenRepository.save(resetToken);
     }
 }

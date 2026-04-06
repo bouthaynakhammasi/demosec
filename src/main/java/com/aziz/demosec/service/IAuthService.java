@@ -9,4 +9,12 @@ public interface IAuthService {
     User register(RegisterRequest req);
 
     AuthResponse login(LoginRequest req);
+
+
+    // ✅ Envoyer email de reset
+    void forgotPassword(String email);
+
+    // ✅ Changer le mot de passe avec le token
+    void resetPassword(String token, String newPassword);
+
 }

@@ -17,9 +17,9 @@ public class UserRequestDTO {
     @Size(min = 6)
     String password;
 
+    @NotNull
     Role role;
 
     String phone;
     LocalDate birthDate;
 }
-
