@@ -3,11 +3,10 @@ pipeline {
     
     environment {
         // Adapt to your Docker Hub username
-        DOCKER_HUB_USER = "azizmelki"
+        DOCKER_HUB_USER = "azizmelki1"
         IMAGE_NAME = "medicarepi-backend"
         IMAGE_TAG = "latest"
-        // L'ID doit être créé dans Jenkins !
-        DOCKER_HUB_CREDS = credentials('docker-hub-credentials')
+        REGISTRY_CREDENTIALS_ID = "docker-hub-credentials"
     }
 
     stages {
@@ -19,17 +18,23 @@ pipeline {
 
         stage('Docker Build & Push') {
             steps {
-                sh "docker build -t ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG} ."
-                sh "docker login -u '${DOCKER_HUB_CREDS_USR}' -p '${DOCKER_HUB_CREDS_PSW}'"
-                sh "docker push ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
+                withCredentials([usernamePassword(credentialsId: REGISTRY_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh "docker build -t ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG} ."
+                    sh "echo '${DOCKER_PASS}' | docker login -u ${DOCKER_USER} --password-stdin"
+                    sh "docker push ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
             }
         }
         
         stage('Kubernetes Deploy') {
             steps {
-                sh "kubectl apply -f k8s/backend.yaml"
-                sh "kubectl rollout restart deployment/medicarepi-backend-deployment"
+                script {
+                    // Update image in K8s (Needs kubeconfig configured in Jenkins)
+                    sh "KUBECONFIG=/var/lib/jenkins/.kube/config kubectl apply -f k8s/backend.yaml"
+                    sh "KUBECONFIG=/var/lib/jenkins/.kube/config kubectl rollout restart deployment/medicarepi-backend-deployment"
+                }
             }
         }
     }
 }
+
