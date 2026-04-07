@@ -22,7 +22,7 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: mysql:8.0
+      - image: mariadb:10.6
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
