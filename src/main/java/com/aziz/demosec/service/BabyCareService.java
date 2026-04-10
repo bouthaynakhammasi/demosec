@@ -58,6 +58,7 @@ public class BabyCareService {
         return mapper.toResponseDTO(saved);
     }
 
+    @Transactional
     public BabyProfileResponseDTO getProfileByPatientId(Long patientId) {
         List<BabyProfile> profiles = babyRepository.findByParentId(patientId);
         if (profiles.isEmpty()) return null;

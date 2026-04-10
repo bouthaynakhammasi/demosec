@@ -88,7 +88,7 @@ public class ProfileServiceImpl implements IProfileService {
                 break;
             }
             case PHARMACIST:
-            case LABORATORYSTAFF:
+            case LABORATORY_STAFF:
                 // No extra fields at this stage
                 break;
             default:
