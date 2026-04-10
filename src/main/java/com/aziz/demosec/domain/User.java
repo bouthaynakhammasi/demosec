@@ -46,4 +46,8 @@ public class User {
 
     @Builder.Default
     boolean enabled = true;
+
+    @Column(nullable = false)
+    @Builder.Default
+    boolean profileCompleted = false;
 }
