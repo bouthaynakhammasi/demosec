@@ -27,4 +27,15 @@ public interface IDonationService {
     // ─── ASSIGNMENT ───────────────────────────────────────────────
     DonationAssignmentResponseDTO assignDonation(DonationAssignmentDTO dto);
     List<DonationAssignmentResponseDTO> getAllAssignments();
+
+    // ─── ADVANCED QUERIES ─────────────────────────────────────────
+
+    /** JPQL join — AVAILABLE donations of a category with donor account validation. */
+    List<DonationResponseDTO> getAvailableDonationsByCategory(String category);
+
+    /** JPQL join — donors ranked by total assignment count, descending. */
+    List<TopDonorDTO> getTopDonors();
+
+    /** Multi-table keyword query — donations linked to a patient via their aid requests. */
+    List<DonationResponseDTO> getDonationsByPatientIdAndStatus(Long patientId, DonationStatus status);
 }

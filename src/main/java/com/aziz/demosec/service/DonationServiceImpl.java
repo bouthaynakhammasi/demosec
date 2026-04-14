@@ -157,6 +157,27 @@ public class DonationServiceImpl implements IDonationService {
                 .collect(Collectors.toList());
     }
 
+    // ─── ADVANCED QUERIES ─────────────────────────────────────────
+
+    @Override
+    public List<DonationResponseDTO> getAvailableDonationsByCategory(String category) {
+        return donationRepository.findAvailableDonationsByCategory(category)
+                .stream().map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TopDonorDTO> getTopDonors() {
+        return donationRepository.findTopDonorsByAssignmentCount();
+    }
+
+    @Override
+    public List<DonationResponseDTO> getDonationsByPatientIdAndStatus(Long patientId, DonationStatus status) {
+        return assignmentRepository.findDonationsByPatientIdAndStatus(patientId, status)
+                .stream().map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
     // ─── MAPPERS PRIVÉS ───────────────────────────────────────────
 
     private Donation findDonationById(Long id) {
