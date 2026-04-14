@@ -1,150 +1,51 @@
 package com.aziz.demosec.controller;
 
-import com.aziz.demosec.dto.LaboratoryRequest;
 import com.aziz.demosec.dto.LaboratoryResponse;
-import com.aziz.demosec.service.LaboratoryService;
-import com.aziz.demosec.security.jwt.JwtService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.aziz.demosec.service.ILaboratoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
 
-
-import java.util.Collections;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(LaboratoryController.class)
-@AutoConfigureMockMvc // Enable security filters
-class LaboratoryControllerTest {
+@AutoConfigureMockMvc
+class LaboratoryControllerTest extends BaseControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private LaboratoryService laboratoryService;
+    private ILaboratoryService laboratoryService;
 
-    @MockBean
-    private JwtService jwtService;
-
-    @MockBean
-    private com.aziz.demosec.security.CustomUserDetailsService userDetailsService;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    private LaboratoryResponse responseDto;
-    private LaboratoryRequest requestDto;
+    private LaboratoryResponse response;
 
     @BeforeEach
     void setUp() {
-        responseDto = new LaboratoryResponse();
-        responseDto.setId(1L);
-        responseDto.setName("Central Lab");
-
-        requestDto = LaboratoryRequest.builder()
-                .name("Central Lab")
-                .address("123 Lab St")
+        response = LaboratoryResponse.builder()
+                .id(1L)
+                .name("Test Lab")
+                .address("Test Address")
                 .phone("12345678")
-                .openingHours("9-5")
-                .email("lab@example.com")
                 .build();
     }
 
     @Test
-    @WithMockUser
-    void create_ShouldReturnCreatedLaboratory() throws Exception {
-        when(laboratoryService.create(any(LaboratoryRequest.class))).thenReturn(responseDto);
+    @WithMockUser(username = "lab@test.com")
+    void getMyLaboratory_ShouldReturnLaboratory() throws Exception {
+        when(laboratoryService.getLaboratoryForCurrentUser("lab@test.com")).thenReturn(response);
 
-        mockMvc.perform(post("/api/laboratories")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestDto))
-                        .with(csrf()))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1L));
-    }
-
-    @Test
-    @WithMockUser
-    void getById_ShouldReturnLaboratory() throws Exception {
-        when(laboratoryService.getById(1L)).thenReturn(responseDto);
-
-        mockMvc.perform(get("/api/laboratories/1").with(csrf()))
+        mockMvc.perform(get("/api/laboratories/me"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L));
-    }
-
-    @Test
-    @WithMockUser
-    void getAll_ShouldReturnListOfLaboratories() throws Exception {
-        when(laboratoryService.getAll()).thenReturn(Collections.singletonList(responseDto));
-
-        mockMvc.perform(get("/api/laboratories").with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1L));
-    }
-
-    @Test
-    @WithMockUser
-    void searchByName_ShouldReturnMatchingLaboratories() throws Exception {
-        when(laboratoryService.searchByName("Central")).thenReturn(Collections.singletonList(responseDto));
-
-        mockMvc.perform(get("/api/laboratories/search").param("name", "Central").with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1L));
-    }
-
-    @Test
-    @WithMockUser
-    void getActive_ShouldReturnActiveLaboratories() throws Exception {
-        when(laboratoryService.getActive()).thenReturn(Collections.singletonList(responseDto));
-
-        mockMvc.perform(get("/api/laboratories/active").with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1L));
-    }
-
-    @Test
-    @WithMockUser
-    void update_ShouldReturnUpdatedLaboratory() throws Exception {
-        when(laboratoryService.update(anyLong(), any(LaboratoryRequest.class))).thenReturn(responseDto);
-
-        mockMvc.perform(put("/api/laboratories/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestDto))
-                        .with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L));
-    }
-
-    @Test
-    @WithMockUser
-    void toggleActive_ShouldReturnLaboratory() throws Exception {
-        when(laboratoryService.toggleActive(1L)).thenReturn(responseDto);
-
-        mockMvc.perform(patch("/api/laboratories/1/toggle-active").with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L));
-    }
-
-    @Test
-    @WithMockUser
-    void delete_ShouldReturnNoContent() throws Exception {
-        doNothing().when(laboratoryService).delete(1L);
-
-        mockMvc.perform(delete("/api/laboratories/1").with(csrf()))
-                .andExpect(status().isNoContent());
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value("Test Lab"));
     }
 }

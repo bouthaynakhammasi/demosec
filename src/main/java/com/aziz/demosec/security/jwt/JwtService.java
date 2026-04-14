@@ -36,20 +36,21 @@ public class JwtService {
                 .findFirst()
                 .orElse("ROLE_VISITOR");
 
-        Date now = new Date();
-        Date exp = new Date(now.getTime() + expirationMs);
-
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
-        claims.put("fullName", fullName);
-        claims.put("id", userId);
-
+        if (fullName != null) {
+            claims.put("fullName", fullName);
+        }
         if (userId != null) {
             claims.put("userId", userId);
+            claims.put("id", userId);
         }
         if (laboratoryId != null) {
             claims.put("laboratoryId", laboratoryId);
         }
+
+        Date now = new Date();
+        Date exp = new Date(now.getTime() + expirationMs);
 
         return Jwts.builder()
                 .subject(userDetails.getUsername())
@@ -60,8 +61,26 @@ public class JwtService {
                 .compact();
     }
 
+    public String generateToken(UserDetails userDetails, Long userId, String fullName) {
+        return generateToken(userDetails, fullName, userId, null);
+    }
+
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(userDetails, null, null, null);
+    }
+
     public String extractEmail(String token) {
         return parseClaims(token).getSubject();
+    }
+
+    public Long extractUserId(String token) {
+        Object userIdObj = parseClaims(token).get("userId");
+        if (userIdObj instanceof Integer) {
+            return ((Integer) userIdObj).longValue();
+        } else if (userIdObj instanceof Long) {
+            return (Long) userIdObj;
+        }
+        return null;
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {

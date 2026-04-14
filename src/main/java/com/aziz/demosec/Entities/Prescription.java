@@ -24,11 +24,10 @@ public class Prescription {
     @JoinColumn(name = "consultation_id", nullable = false)
     private Consultation consultation;
 
-    @Column(nullable = false)
+    @Column(name = "date_created", nullable = false)
     private LocalDate date;
 
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
+    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PrescriptionItem> items = new ArrayList<>();
-
 }

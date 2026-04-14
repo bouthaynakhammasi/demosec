@@ -2,6 +2,7 @@ package com.aziz.demosec.service;
 
 import com.aziz.demosec.Entities.Like;
 import com.aziz.demosec.Entities.Notification;
+import com.aziz.demosec.Entities.NotificationType;
 import com.aziz.demosec.Entities.Post;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.CommentRequest;
@@ -109,7 +110,7 @@ public class ForumServiceImpl implements ForumService {
                 .recipient(post.getAuthor())
                 .title("New Like")
                 .message(currentUser.getFullName() + " liked your post: " + post.getTitle())
-                .type("LIKE")
+                .type(NotificationType.LIKE)
                 .isRead(false)
                 .createdAt(LocalDateTime.now())
                 .relatedId(post.getId())
@@ -155,7 +156,7 @@ public class ForumServiceImpl implements ForumService {
                 .recipient(post.getAuthor())
                 .title("New Comment")
                 .message(currentUser.getFullName() + " commented on your post: " + post.getTitle())
-                .type("COMMENT")
+                .type(NotificationType.COMMENT)
                 .isRead(false)
                 .createdAt(LocalDateTime.now())
                 .relatedId(post.getId())

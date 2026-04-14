@@ -17,17 +17,28 @@ public class PatientRequestDTO {
     @Email @NotBlank
     String email;
 
-    @NotBlank @Size(min = 6)
+    @NotBlank @Size(min = 8)
     String password;
 
+    @Size(min = 8)
     String phone;
+
+    @NotNull(message = "La date de naissance est obligatoire")
+    @Past(message = "La date de naissance doit être dans le passé")
     LocalDate birthDate;
 
+    @NotNull
     Gender gender;
+    @NotNull
     BloodType bloodType;
+    @NotNull
     String emergencyContactName;
+    @NotNull
     String emergencyContactPhone;
+
     String chronicDiseases;
+
     String drugAllergies;
+
     String hereditaryDiseases;
 }

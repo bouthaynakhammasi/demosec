@@ -6,6 +6,8 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id
@@ -30,6 +33,7 @@ public class User {
     String email;
 
     @Column(nullable = false)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     String password;
 
     @Enumerated(EnumType.STRING)
@@ -43,6 +47,8 @@ public class User {
     @Lob
     @Column(columnDefinition = "LONGTEXT")
     String photo;
+
+    String professionalDocument;
 
     @Builder.Default
     boolean enabled = true;

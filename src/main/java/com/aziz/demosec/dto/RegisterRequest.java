@@ -5,16 +5,26 @@ import com.aziz.demosec.Entities.Gender;
 import com.aziz.demosec.Entities.ConsultationMode;
 import com.aziz.demosec.domain.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 public record RegisterRequest(
+        @NotNull(message = "Full name is required")
         String fullName,
+        @Email(message = "Invalid email format")
+        @NotNull(message = "Email is required")
         String email,
+        @NotNull(message = "Password is required")
+        @Size(min = 8, message = "Password must be at least 8 characters ")
         String password,
+        @NotNull(message = "Role is required")
         Role role,
+        @Size(min = 8, message = "Phone number must be at least 8 characters ")
         String phone,
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate birthDate,
@@ -28,6 +38,9 @@ public record RegisterRequest(
         String glucoseRate,
         String allergies,
         String diseases,
+        String chronicDiseases,
+        String drugAllergies,
+        String hereditaryDiseases,
         Double height,
         Double weight,
 
@@ -58,5 +71,6 @@ public record RegisterRequest(
 
         // Home Care Fields
         String certificationDocument,
-        List<String> homeCareServices
+        List<String> homeCareServices,
+        List<Long> specialtyIds
 ) {}

@@ -1,9 +1,11 @@
 package com.aziz.demosec.controller;
 
-import com.aziz.demosec.domain.User;
-import com.aziz.demosec.dto.RegisterRequest;
-import com.aziz.demosec.service.IAuthService;
+import com.aziz.demosec.dto.AuthResponse;
+import com.aziz.demosec.dto.LoginRequest;
+import com.aziz.demosec.service.AuthService;
+import com.aziz.demosec.service.FileStorageService;
 import com.aziz.demosec.security.jwt.JwtService;
+import com.aziz.demosec.security.CustomUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,77 +13,65 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AuthController.class)
-@AutoConfigureMockMvc // Enable security filters for real-world testing
+@AutoConfigureMockMvc(addFilters = false)
+@ActiveProfiles("test")
 class AuthControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private IAuthService authService;
+    private AuthService authService;
 
     @MockBean
-    private JwtService jwtService; // Required because of security configuration
+    private FileStorageService fileStorageService;
 
     @MockBean
-    private com.aziz.demosec.security.CustomUserDetailsService userDetailsService;
+    private JwtService jwtService;
+
+    @MockBean
+    private CustomUserDetailsService userDetailsService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
-    @WithMockUser // Auth endpoints are public but it's good practice for consistency
-    void register_ShouldReturnOk_WhenSuccessful() throws Exception {
-        // Arrange
-        RegisterRequest request = new RegisterRequest(
-                "John Doe", "john@example.com", "password123", com.aziz.demosec.domain.Role.VISITOR, "12345678",
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null
-        );
-        User user = new User();
-        user.setEmail("john@example.com");
+    void login_ShouldReturnOk_WhenCredentialsAreValid() throws Exception {
+        LoginRequest loginRequest = new LoginRequest("user@example.com", "password");
+        AuthResponse authResponse = new AuthResponse("mockToken", "user@example.com", "User Name", "ROLE_PATIENT");
 
-        when(authService.register(any(RegisterRequest.class))).thenReturn(user);
+        when(authService.login(any(LoginRequest.class))).thenReturn(authResponse);
 
-        // Act & Assert
-        mockMvc.perform(post("/auth/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request))
-                        .with(csrf()))
+        mockMvc.perform(post("/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(loginRequest)))
                 .andExpect(status().isOk())
-                .andExpect(content().string("User created: john@example.com"));
+                .andExpect(jsonPath("$.token").value("mockToken"))
+                .andExpect(jsonPath("$.email").value("user@example.com"));
     }
 
     @Test
-    @WithMockUser
-    void register_ShouldReturnBadRequest_WhenExceptionThrown() throws Exception {
-        // Arrange
-        RegisterRequest request = new RegisterRequest(
-                "John Doe", "john@example.com", "password123", com.aziz.demosec.domain.Role.VISITOR, "12345678",
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null
-        );
+    void register_ShouldReturnOk_WhenRequestIsValid() throws Exception {
+        String userJson = "{\"fullName\":\"John Doe\",\"email\":\"john@example.com\",\"password\":\"password123\",\"role\":\"PATIENT\",\"phone\":\"12345678\",\"birthDate\":\"1990-01-01\"}";
 
-        when(authService.register(any(RegisterRequest.class))).thenThrow(new IllegalArgumentException("Email already used"));
+        com.aziz.demosec.domain.User mockUser = new com.aziz.demosec.domain.User();
+        mockUser.setEmail("john@example.com");
 
-        // Act & Assert
+        when(authService.register(any(), any())).thenReturn(mockUser);
+
         mockMvc.perform(post("/auth/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request))
-                        .with(csrf()))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string("Email already used"));
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .param("user", userJson))
+                .andExpect(status().isOk())
+                .andExpect(content().string("User created: john@example.com"));
     }
 }

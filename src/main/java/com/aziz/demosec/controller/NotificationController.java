@@ -1,63 +1,44 @@
 package com.aziz.demosec.controller;
 
-import com.aziz.demosec.Entities.Notification;
-import com.aziz.demosec.domain.User;
-import com.aziz.demosec.repository.NotificationRepository;
-import com.aziz.demosec.repository.UserRepository;
+import com.aziz.demosec.dto.pharmacy.NotificationResponseDTO;
+import com.aziz.demosec.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/notifications")
 @RequiredArgsConstructor
 public class NotificationController {
 
-    private final NotificationRepository notificationRepository;
-    private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
-    @GetMapping
-    public ResponseEntity<List<Notification>> getMyNotifications() {
-        User user = getCurrentUser();
-        if (user == null) return ResponseEntity.status(401).build();
-        return ResponseEntity.ok(notificationRepository.findByRecipientOrderByCreatedAtDesc(user));
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<NotificationResponseDTO>> getForUser(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(notificationService.getForUser(userId));
     }
 
-    @GetMapping("/unread-count")
-    public ResponseEntity<Long> getUnreadCount() {
-        User user = getCurrentUser();
-        if (user == null) return ResponseEntity.ok(0L);
-        return ResponseEntity.ok(notificationRepository.countByRecipientAndIsReadFalse(user));
+    @GetMapping("/user/{userId}/unread")
+    public ResponseEntity<List<NotificationResponseDTO>> getUnread(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(notificationService.getUnread(userId));
     }
 
-    @PutMapping("/{id}/read")
-    public ResponseEntity<Void> markAsRead(@PathVariable Long id) {
-        notificationRepository.findById(id).ifPresent(n -> {
-            n.setRead(true);
-            notificationRepository.save(n);
-        });
-        return ResponseEntity.ok().build();
+    @GetMapping("/user/{userId}/count")
+    public ResponseEntity<Map<String, Long>> countUnread(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(Map.of("unreadCount", notificationService.countUnread(userId)));
     }
 
-    @PutMapping("/mark-all-read")
-    public ResponseEntity<Void> markAllRead() {
-        User user = getCurrentUser();
-        if (user != null) {
-            List<Notification> unread = notificationRepository.findByRecipientOrderByCreatedAtDesc(user);
-            unread.forEach(n -> n.setRead(true));
-            notificationRepository.saveAll(unread);
-        }
-        return ResponseEntity.ok().build();
+    @PatchMapping("/{id}/read")
+    public ResponseEntity<NotificationResponseDTO> markAsRead(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(notificationService.markAsRead(id));
     }
 
-    private User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) return null;
-        String email = authentication.getName();
-        return userRepository.findByEmail(email).orElse(null);
+    @PatchMapping("/user/{userId}/read-all")
+    public ResponseEntity<Void> markAllAsRead(@PathVariable("userId") Long userId) {
+        notificationService.markAllAsRead(userId);
+        return ResponseEntity.noContent().build();
     }
 }

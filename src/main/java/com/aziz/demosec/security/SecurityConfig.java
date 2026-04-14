@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -66,6 +68,15 @@ public class SecurityConfig {
                         .requestMatchers("/api/laboratories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/clinics/**", "/api/v1/doctors/**").permitAll()
 
+                        // Websocket & uploads
+                        .requestMatchers("/ws/**", "/api/upload/**").permitAll()
+
+                        // Pharmacy public
+                        .requestMatchers("/api/pharmacy/orders/*/invoice").permitAll()
+                        .requestMatchers("/api/pharmacy/deliveries/**").permitAll()
+                        .requestMatchers("/api/homecare/services", "/api/homecare/services/**").permitAll()
+                        .requestMatchers("/api/homecare/providers/**").permitAll()
+
                         // Forum - read is authenticated, write is role-based
                         .requestMatchers(HttpMethod.GET, "/api/forum/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/forum/posts/**").hasAnyRole(
@@ -97,6 +108,12 @@ public class SecurityConfig {
                         .requestMatchers("/api/patient/**", "/patient/**").hasRole("PATIENT")
                         .requestMatchers("/api/baby-care/**").hasAnyRole("PATIENT", "ADMIN")
                         .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
+                        .requestMatchers("/api/homecare/provider/**").hasRole("HOME_CARE_PROVIDER")
+
+                        // Pharmacy orders
+                        .requestMatchers("/api/pharmacy/orders/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/pharmacy/orders/pharmacy/**").hasRole("PHARMACIST")
+                        .requestMatchers("/api/pharmacy/orders/**").authenticated()
 
                         // User management
                         .requestMatchers("/api/users/role/DOCTOR").hasAnyRole("PATIENT", "ADMIN")
@@ -120,7 +137,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:4200"));
+        config.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

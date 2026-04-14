@@ -3,10 +3,11 @@ package com.aziz.demosec.controller;
 import com.aziz.demosec.domain.User;
 import com.aziz.demosec.dto.user.UserResponseDTO;
 import com.aziz.demosec.repository.UserRepository;
+import com.aziz.demosec.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,37 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class LegacyUserController {
 
-    private final com.aziz.demosec.repository.UserRepository userRepository;
-    private final com.aziz.demosec.service.IUserService userService;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
     @GetMapping("/profile")
-    public ResponseEntity<UserResponseDTO> getLegacyProfile(Authentication authentication) {
-        String email = authentication.getName();
+    public ResponseEntity<UserResponseDTO> getProfile() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found: " + email));
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
 
-        UserResponseDTO response = UserResponseDTO.builder()
-                .id(user.getId())
-                .fullName(user.getFullName())
-                .email(user.getEmail())
-                .role(user.getRole())
-                .phone(user.getPhone())
-                .birthDate(user.getBirthDate())
-                .enabled(user.isEnabled())
-                .build();
-                
-        return ResponseEntity.ok(response);
-    }
-
-    @org.springframework.web.bind.annotation.PutMapping("/profile")
-    public ResponseEntity<UserResponseDTO> updateLegacyProfile(Authentication authentication, @org.springframework.web.bind.annotation.RequestBody com.aziz.demosec.dto.user.UserRequestDTO dto) {
-        String email = authentication.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found: " + email));
-        
-        return ResponseEntity.ok(userService.update(user.getId(), dto));
+        return ResponseEntity.ok(userService.getById(user.getId()));
     }
 }

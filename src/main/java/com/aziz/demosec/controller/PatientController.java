@@ -2,7 +2,11 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.Entities.*;
 import com.aziz.demosec.dto.*;
+import com.aziz.demosec.dto.patient.PatientRequestDTO;
+import com.aziz.demosec.dto.patient.PatientResponseDTO;
 import com.aziz.demosec.repository.*;
+import com.aziz.demosec.service.PatientService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +16,6 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Arrays;
 import com.aziz.demosec.domain.User;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/patients")
@@ -31,6 +34,7 @@ public class PatientController {
     private final DoctorRepository doctorRepository;
     private final LifestyleGoalRepository lifestyleGoalRepository;
     private final ProgressTrackingRepository progressTrackingRepository;
+    private final PatientService patientService;
 
     @GetMapping
     public ResponseEntity<List<PatientProfileResponse>> getAll() {
@@ -71,6 +75,48 @@ public class PatientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PatientResponseDTO> update(@PathVariable("id") Long id,
+                                                     @Valid @RequestBody PatientRequestDTO dto) {
+        return ResponseEntity.ok(patientService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        patientService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/toggle")
+    public ResponseEntity<Void> toggleEnabled(@PathVariable("id") Long id) {
+        patientService.toggleEnabled(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<PatientProfileResponse> updateProfile(java.security.Principal principal, @Valid @RequestBody PatientProfileUpdateRequest request) {
+        if (principal == null) return ResponseEntity.status(401).build();
+        return patientRepository.findByEmail(principal.getName())
+                .map(patient -> {
+                    if (request.fullName() != null) patient.setFullName(request.fullName());
+                    if (request.phone() != null) patient.setPhone(request.phone());
+                    if (request.birthDate() != null) patient.setBirthDate(request.birthDate());
+                    if (request.gender() != null) patient.setGender(Gender.valueOf(request.gender()));
+                    if (request.bloodType() != null) patient.setBloodType(BloodType.valueOf(request.bloodType()));
+                    if (request.emergencyContactName() != null) patient.setEmergencyContactName(request.emergencyContactName());
+                    if (request.emergencyContactPhone() != null) patient.setEmergencyContactPhone(request.emergencyContactPhone());
+                    if (request.height() != null) patient.setHeight(request.height());
+                    if (request.weight() != null) patient.setWeight(request.weight());
+                    if (request.allergies() != null) patient.setAllergies(request.allergies());
+                    if (request.diseases() != null) patient.setDiseases(request.diseases());
+                    if (request.photo() != null) patient.setPhoto(request.photo());
+
+                    Patient saved = patientRepository.save(patient);
+                    return ResponseEntity.ok(mapPatientToResponse(saved));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     private PatientProfileResponse mapPatientToResponse(Patient patient) {
         Long id = patient.getId();
         List<String> allergies = Collections.emptyList();
@@ -79,7 +125,7 @@ public class PatientController {
         List<TreatmentResponse> treatments = Collections.emptyList();
         List<PrescriptionResponse> prescriptions = Collections.emptyList();
         List<DiagnosisResponse> diagnoses = Collections.emptyList();
-        
+
         if (patient.getAllergies() != null && !patient.getAllergies().isEmpty()) {
             allergies = Arrays.asList(patient.getAllergies().split(",")).stream().map(String::trim).collect(Collectors.toList());
         }
@@ -91,7 +137,7 @@ public class PatientController {
         MedicalRecord record = medicalRecordRepository.findByPatientId(id).orElse(null);
         if (record != null) {
             Long recordId = record.getId();
-            
+
             consultations = consultationRepository.findByMedicalRecordId(recordId).stream()
                 .map(c -> {
                     ConsultationResponse resp = ConsultationResponse.builder()
@@ -134,26 +180,32 @@ public class PatientController {
 
             prescriptions = prescriptionRepository.findByConsultationMedicalRecordId(recordId).stream()
                 .map(p -> {
-                    PrescriptionResponse resp = PrescriptionResponse.builder()
-                        .id(p.getId())
-                        .consultationId(p.getConsultation().getId())
-                        .date(p.getDate())
-                        .items(p.getItems().stream()
+                    List<PrescriptionItemResponse> prescriptionItems = p.getItems().stream()
                             .map(i -> PrescriptionItemResponse.builder()
                                 .id(i.getId())
-                                .medicationName(i.getMedicationName())
+                                .medicationName(i.getMedicationName() != null ? i.getMedicationName()
+                                        : (i.getProduct() != null ? i.getProduct().getName() : null))
                                 .dosage(i.getDosage())
                                 .frequency(i.getFrequency())
                                 .duration(i.getDuration())
                                 .build())
-                            .collect(Collectors.toList()))
+                            .collect(Collectors.<PrescriptionItemResponse>toList());
+                    PrescriptionResponse resp = PrescriptionResponse.builder()
+                        .id(p.getId())
+                        .consultationId(p.getConsultation().getId())
+                        .date(p.getDate())
+                        .items(prescriptionItems)
                         .build();
 
                     if (p.getItems() != null && !p.getItems().isEmpty()) {
                         PrescriptionItem firstItem = p.getItems().get(0);
-                        resp.setMedication(firstItem.getMedicationName());
+                        String medName = firstItem.getMedicationName() != null ? firstItem.getMedicationName()
+                                : (firstItem.getProduct() != null ? firstItem.getProduct().getName() : null);
+                        resp.setMedication(medName);
                         resp.setDosage(firstItem.getDosage());
-                        resp.setInstructions(firstItem.getFrequency() + " for " + firstItem.getDuration());
+                        resp.setInstructions(firstItem.getFrequency() != null
+                                ? firstItem.getFrequency() + " for " + firstItem.getDuration()
+                                : firstItem.getDuration());
                     }
                     return resp;
                 })
@@ -181,7 +233,7 @@ public class PatientController {
                 .map(com.aziz.demosec.Mapper.ProgressTrackingMapper::toResponse)
                 .collect(Collectors.toList());
 
-        PatientProfileResponse response = new PatientProfileResponse(
+        return new PatientProfileResponse(
             patient.getId(),
             patient.getFullName(),
             patient.getEmail(),
@@ -206,31 +258,5 @@ public class PatientController {
             lifestylePlans,
             progressTrackings
         );
-
-        return response;
-    }
-
-    @PutMapping("/profile")
-    public ResponseEntity<PatientProfileResponse> updateProfile(java.security.Principal principal, @Valid @RequestBody PatientProfileUpdateRequest request) {
-        if (principal == null) return ResponseEntity.status(401).build();
-        return patientRepository.findByEmail(principal.getName())
-                .map(patient -> {
-                    if (request.fullName() != null) patient.setFullName(request.fullName());
-                    if (request.phone() != null) patient.setPhone(request.phone());
-                    if (request.birthDate() != null) patient.setBirthDate(request.birthDate());
-                    if (request.gender() != null) patient.setGender(Gender.valueOf(request.gender()));
-                    if (request.bloodType() != null) patient.setBloodType(BloodType.valueOf(request.bloodType()));
-                    if (request.emergencyContactName() != null) patient.setEmergencyContactName(request.emergencyContactName());
-                    if (request.emergencyContactPhone() != null) patient.setEmergencyContactPhone(request.emergencyContactPhone());
-                    if (request.height() != null) patient.setHeight(request.height());
-                    if (request.weight() != null) patient.setWeight(request.weight());
-                    if (request.allergies() != null) patient.setAllergies(request.allergies());
-                    if (request.diseases() != null) patient.setDiseases(request.diseases());
-                    if (request.photo() != null) patient.setPhoto(request.photo());
-                    
-                    Patient saved = patientRepository.save(patient);
-                    return ResponseEntity.ok(mapPatientToResponse(saved));
-                })
-                .orElse(ResponseEntity.notFound().build());
     }
 }

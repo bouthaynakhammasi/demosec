@@ -16,4 +16,7 @@ public class UserResponseDTO {
     String photo;
     boolean enabled;
     String specialty;
+    // For pharmacists - their associated pharmacy
+    Long pharmacyId;
+    String pharmacyName;
 }
