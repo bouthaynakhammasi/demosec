@@ -63,4 +63,23 @@ public class DonationController {
     public ResponseEntity<List<DonationAssignmentResponseDTO>> getAllAssignments() {
         return ResponseEntity.ok(donationService.getAllAssignments());
     }
+
+    @GetMapping("/{donationId}/assignments")
+    public ResponseEntity<List<DonationAssignmentResponseDTO>> getAssignmentsByDonation(
+            @PathVariable Long donationId) {
+        return ResponseEntity.ok(donationService.getAssignmentsByDonationId(donationId));
+    }
+
+    @GetMapping("/assignments/aid-request/{aidRequestId}")
+    public ResponseEntity<List<DonationAssignmentResponseDTO>> getAssignmentsByAidRequest(
+            @PathVariable Long aidRequestId) {
+        return ResponseEntity.ok(donationService.getAssignmentsByAidRequestId(aidRequestId));
+    }
+
+    @GetMapping("/patient/{patientId}/assigned")
+    public ResponseEntity<List<DonationResponseDTO>> getDonationsByPatientAndStatus(
+            @PathVariable Long patientId,
+            @RequestParam(defaultValue = "ASSIGNED") DonationStatus status) {
+        return ResponseEntity.ok(donationService.getDonationsByPatientIdAndStatus(patientId, status));
+    }
 }

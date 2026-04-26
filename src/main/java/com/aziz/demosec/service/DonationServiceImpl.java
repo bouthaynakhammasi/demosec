@@ -109,6 +109,13 @@ public class DonationServiceImpl implements IDonationService {
     }
 
     @Override
+    public List<AidRequestResponseDTO> getAidRequestsByStatus(AidRequestStatus status) {
+        return aidRequestRepository.findByStatus(status)
+                .stream().map(this::toAidResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public AidRequestResponseDTO updateAidRequestStatus(Long id, AidRequestStatus status) {
         AidRequest request = findAidRequestById(id);
         request.setStatus(status);
@@ -153,6 +160,20 @@ public class DonationServiceImpl implements IDonationService {
     @Override
     public List<DonationAssignmentResponseDTO> getAllAssignments() {
         return assignmentRepository.findAll()
+                .stream().map(this::toAssignmentResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DonationAssignmentResponseDTO> getAssignmentsByDonationId(Long donationId) {
+        return assignmentRepository.findByDonationId(donationId)
+                .stream().map(this::toAssignmentResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DonationAssignmentResponseDTO> getAssignmentsByAidRequestId(Long aidRequestId) {
+        return assignmentRepository.findByAidRequestId(aidRequestId)
                 .stream().map(this::toAssignmentResponseDTO)
                 .collect(Collectors.toList());
     }

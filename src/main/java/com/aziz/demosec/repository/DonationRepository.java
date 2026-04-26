@@ -40,13 +40,13 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
             SELECT new com.aziz.demosec.dto.donation.TopDonorDTO(
                 u.id,
                 u.fullName,
-                u.photo,
+                u.profileImage,
                 COUNT(da.id)
             )
             FROM DonationAssignment da, Donation d, User u
             WHERE da.donation.id = d.id
               AND d.creatorId = u.id
-            GROUP BY u.id, u.fullName, u.photo
+            GROUP BY u.id, u.fullName, u.profileImage
             ORDER BY COUNT(da.id) DESC
             """)
     List<TopDonorDTO> findTopDonorsByAssignmentCount();

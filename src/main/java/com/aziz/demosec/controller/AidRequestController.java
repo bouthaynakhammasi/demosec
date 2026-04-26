@@ -37,6 +37,11 @@ public class AidRequestController {
         return ResponseEntity.ok(donationService.getAidRequestsByPatient(patientId));
     }
 
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<AidRequestResponseDTO>> getByStatus(@PathVariable AidRequestStatus status) {
+        return ResponseEntity.ok(donationService.getAidRequestsByStatus(status));
+    }
+
     @PutMapping("/{id}/status")
     public ResponseEntity<AidRequestResponseDTO> updateStatus(
             @PathVariable Long id, @RequestParam AidRequestStatus status) {

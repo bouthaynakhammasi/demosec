@@ -20,6 +20,7 @@ public interface IDonationService {
     AidRequestResponseDTO getAidRequestById(Long id);
     List<AidRequestResponseDTO> getAllAidRequests();
     List<AidRequestResponseDTO> getAidRequestsByPatient(Long patientId);
+    List<AidRequestResponseDTO> getAidRequestsByStatus(AidRequestStatus status);
     AidRequestResponseDTO updateAidRequestStatus(Long id, AidRequestStatus status);
     AidRequestResponseDTO updateAidRequest(Long id, AidRequestDTO dto);
     void deleteAidRequest(Long id);
@@ -27,6 +28,8 @@ public interface IDonationService {
     // ─── ASSIGNMENT ───────────────────────────────────────────────
     DonationAssignmentResponseDTO assignDonation(DonationAssignmentDTO dto);
     List<DonationAssignmentResponseDTO> getAllAssignments();
+    List<DonationAssignmentResponseDTO> getAssignmentsByDonationId(Long donationId);
+    List<DonationAssignmentResponseDTO> getAssignmentsByAidRequestId(Long aidRequestId);
 
     // ─── ADVANCED QUERIES ─────────────────────────────────────────
 
