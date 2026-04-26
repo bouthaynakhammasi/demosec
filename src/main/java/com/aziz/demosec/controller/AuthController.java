@@ -9,7 +9,11 @@ import com.aziz.demosec.dto.ResetPasswordRequest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -55,8 +59,20 @@ public class AuthController {
 
     // POST /auth/login
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest req) {
-        return ResponseEntity.ok(authService.login(req));
+    public ResponseEntity<?> login(@RequestBody LoginRequest req) {
+        try {
+            return ResponseEntity.ok(authService.login(req));
+        } catch (DisabledException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Map.of("message", "Your account is pending admin approval. Please wait."));
+        } catch (BadCredentialsException | UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Invalid email or password."));
+        } catch (Exception e) {
+            log.error("Login error: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "An unexpected error occurred. Please try again."));
+        }
     }
 
     @PostMapping("/forgot-password")
