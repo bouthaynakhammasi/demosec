@@ -16,6 +16,17 @@ import java.util.List;
 public class ProductController {
 
     private final IProductService productService;
+    private final com.aziz.demosec.repository.PharmacistRepository pharmacistRepository;
+
+    private void checkPharmacistGuard(org.springframework.security.core.Authentication authentication) {
+        if (authentication != null && authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_PHARMACIST"))) {
+            com.aziz.demosec.entities.Pharmacist pharmacist = pharmacistRepository.findByEmail(authentication.getName())
+                    .orElse(null);
+            if (pharmacist != null && (!pharmacist.isPharmacySetupCompleted() || pharmacist.getStatus() != com.aziz.demosec.entities.PharmacistStatus.APPROVED)) {
+                throw new org.springframework.web.server.ResponseStatusException(HttpStatus.FORBIDDEN, "Your pharmacy is pending admin approval.");
+            }
+        }
+    }
 
     @GetMapping
     public List<ProductResponse> getAll() {
@@ -29,19 +40,22 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse create(@Valid @RequestBody ProductRequest request) {
+    public ProductResponse create(@Valid @RequestBody ProductRequest request, org.springframework.security.core.Authentication authentication) {
+        checkPharmacistGuard(authentication);
         return productService.create(request);
     }
 
     @PutMapping("/{id}")
     public ProductResponse update(@PathVariable Long id,
-                                  @Valid @RequestBody ProductRequest request) {
+                                  @Valid @RequestBody ProductRequest request, org.springframework.security.core.Authentication authentication) {
+        checkPharmacistGuard(authentication);
         return productService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id, org.springframework.security.core.Authentication authentication) {
+        checkPharmacistGuard(authentication);
         productService.delete(id);
     }
 }

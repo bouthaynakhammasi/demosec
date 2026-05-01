@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@lombok.extern.slf4j.Slf4j
 public class IAuthServiceImp implements IAuthService {
 
     private final UserRepository userRepository;
@@ -29,30 +30,64 @@ public class IAuthServiceImp implements IAuthService {
 
     @Override
     public User register(RegisterRequest req) {
-        if (req.email() == null || req.email().isBlank()) {
-            throw new IllegalArgumentException("Email required");
-        }
-        if (req.password() == null || req.password().length() < 6) {
-            throw new IllegalArgumentException("Password must contain at least 6 characters");
-        }
-        if (req.role() == null) {
-            throw new IllegalArgumentException("Role required");
-        }
-        if (userRepository.findByEmail(req.email()).isPresent()) {
-            throw new IllegalArgumentException("Email already used");
-        }
+        try {
+            if (req.getEmail() == null || req.getEmail().isBlank()) {
+                throw new IllegalArgumentException("Email required");
+            }
+            if (req.getPassword() == null || req.getPassword().length() < 6) {
+                throw new IllegalArgumentException("Password must contain at least 6 characters");
+            }
+            if (req.getRole() == null) {
+                throw new IllegalArgumentException("Role required");
+            }
+            if (userRepository.findByEmail(req.getEmail()).isPresent()) {
+                throw new IllegalArgumentException("Email already used");
+            }
 
-        User u = User.builder()
-                .fullName(req.fullName() == null ? "Not Available" : req.fullName())
-                .email(req.email())
-                .password(passwordEncoder.encode(req.password()))
-                .role(req.role())
-                .phone(req.phone())
-                .birthDate(req.birthDate())
-                .enabled(true)
-                .build();
+            String birthDateStr = req.getBirthDate() != null ? req.getBirthDate().toString() : null;
+            com.aziz.demosec.domain.Role userRole;
+            try {
+                userRole = com.aziz.demosec.domain.Role.valueOf(req.getRole());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Invalid role: " + req.getRole());
+            }
 
-        return userRepository.save(u);
+            User u;
+            if (userRole == com.aziz.demosec.domain.Role.PHARMACIST) {
+                com.aziz.demosec.entities.Pharmacist p = new com.aziz.demosec.entities.Pharmacist();
+                p.setFullName(req.getFullName() == null ? "Not Available" : req.getFullName());
+                p.setEmail(req.getEmail());
+                p.setPassword(passwordEncoder.encode(req.getPassword()));
+                p.setRole(userRole);
+                p.setPhone(req.getPhone());
+                p.setBirthDate(birthDateStr);
+                p.setEnabled(true);
+                
+                p.setPharmacyName(req.getPharmacyName());
+                p.setPharmacyAddress(req.getPharmacyAddress());
+                p.setPharmacyPhone(req.getPharmacyPhone());
+                p.setPharmacyEmail(req.getPharmacyEmail());
+                p.setDiplomaDocument(req.getDiplomaDocument());
+                p.setPharmacySetupCompleted(true);
+                p.setStatus(com.aziz.demosec.entities.PharmacistStatus.PENDING);
+                u = p;
+            } else {
+                u = User.builder()
+                        .fullName(req.getFullName() == null ? "Not Available" : req.getFullName())
+                        .email(req.getEmail())
+                        .password(passwordEncoder.encode(req.getPassword()))
+                        .role(userRole)
+                        .phone(req.getPhone())
+                        .birthDate(birthDateStr)
+                        .enabled(true)
+                        .build();
+            }
+
+            return userRepository.save(u);
+        } catch (Exception e) {
+            log.error("=== REGISTER ERROR ===", e);
+            throw e;
+        }
     }
 
     @Override

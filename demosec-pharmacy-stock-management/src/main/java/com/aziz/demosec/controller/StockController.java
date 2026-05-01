@@ -33,4 +33,52 @@ public class StockController {
     public void resolveAlert(@PathVariable Long id) {
         stockService.resolveAlert(id);
     }
+
+    @GetMapping("/pharmacy/{pharmacyId}")
+    public java.util.List<com.aziz.demosec.dto.PharmacyStockResponse> listStocksByPharmacy(@PathVariable Long pharmacyId) {
+        return stockService.listStocksByPharmacy(pharmacyId);
+    }
+
+    @GetMapping("/{stockId}/batches")
+    public java.util.List<com.aziz.demosec.dto.StockBatchResponse> listBatches(@PathVariable Long stockId) {
+        return stockService.listBatches(stockId);
+    }
+
+    @GetMapping("/{stockId}/movements")
+    public java.util.List<com.aziz.demosec.dto.StockMovementResponse> listMovements(@PathVariable Long stockId) {
+        return stockService.listMovements(stockId);
+    }
+
+    @GetMapping("/alerts/open")
+    public java.util.List<com.aziz.demosec.dto.StockAlertResponse> listOpenAlerts() {
+        return stockService.listOpenAlerts();
+    }
+
+    @GetMapping("/{stockId}/alerts/open")
+    public java.util.List<com.aziz.demosec.dto.StockAlertResponse> listOpenAlertsByStock(@PathVariable Long stockId) {
+        return stockService.listOpenAlertsByStock(stockId);
+    }
+
+    @GetMapping("/summary")
+    public java.util.List<com.aziz.demosec.dto.StockSummaryResponse> getStockSummary() {
+        return stockService.getStockSummary();
+    }
+
+    @GetMapping("/search")
+    public org.springframework.data.domain.Page<com.aziz.demosec.dto.PharmacyStockResponse> searchProducts(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return stockService.searchProducts(keyword, org.springframework.data.domain.PageRequest.of(page, size));
+    }
+
+    @GetMapping("/pharmacy/{pharmacyId}/replenishment-predictions")
+    public java.util.List<com.aziz.demosec.dto.ReplenishmentPredictionResponse> predictReplenishment(@PathVariable Long pharmacyId) {
+        return stockService.predictReplenishment(pharmacyId);
+    }
+
+    @GetMapping("/pharmacy/{pharmacyId}/expiration-risks")
+    public java.util.List<com.aziz.demosec.dto.ExpirationRiskResponse> getExpirationRiskDashboard(@PathVariable Long pharmacyId) {
+        return stockService.getExpirationRiskDashboard(pharmacyId);
+    }
 }

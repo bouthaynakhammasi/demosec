@@ -8,6 +8,7 @@ import com.aziz.demosec.repository.EventParticipationRepository;
 import com.aziz.demosec.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ public class NotificationServiceImpl implements INotificationService {
     private final MedicalEventRepository medicalEventRepository;
     private final EventParticipationRepository participationRepository;
     private final UserRepository userRepository;
+    private final SimpMessagingTemplate messagingTemplate;
 
     @Override
     @Transactional(readOnly = true)
@@ -59,6 +61,23 @@ public class NotificationServiceImpl implements INotificationService {
         });
     }
 
+    @Override
+    public void sendNotification(Notification notification) {
+        Notification saved = notificationRepository.save(notification);
+        NotificationDTO dto = toDTO(saved);
+        
+        // Send to specific user
+        if (saved.getRecipient() != null) {
+            String destination = "/queue/notifications";
+            System.out.println("DEBUG: Sending WebSocket notification to user: " + saved.getRecipient().getEmail() + " on " + destination);
+            messagingTemplate.convertAndSendToUser(
+                saved.getRecipient().getEmail(),
+                destination,
+                dto
+            );
+        }
+    }
+
     private NotificationDTO toDTO(Notification n) {
         NotificationDTO.NotificationDTOBuilder builder = NotificationDTO.builder()
                 .id(n.getId())
@@ -66,7 +85,7 @@ public class NotificationServiceImpl implements INotificationService {
                 .type(n.getType())
                 .targetId(n.getTargetId())
                 .participationId(n.getParticipationId())
-                .isRead(n.isRead()) // boolean read generates isRead getter
+                .isRead(n.isRead())
                 .createdAt(n.getCreatedAt())
                 .senderName(n.getSender() != null ? n.getSender().getFullName() : "System");
 

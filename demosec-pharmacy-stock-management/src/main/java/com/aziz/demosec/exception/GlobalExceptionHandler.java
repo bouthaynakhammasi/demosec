@@ -59,6 +59,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, Object> handleGeneric(Exception ex) {
+        System.err.println("=== GLOBAL EXCEPTION HANDLER ===");
+        ex.printStackTrace(System.err);
         return Map.of(
                 "error", "INTERNAL_SERVER_ERROR",
                 "message", ex.getMessage()

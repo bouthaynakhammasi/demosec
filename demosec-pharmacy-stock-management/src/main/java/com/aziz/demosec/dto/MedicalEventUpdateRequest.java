@@ -4,8 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import java.time.LocalDate;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class MedicalEventUpdateRequest {
@@ -16,9 +15,8 @@ public class MedicalEventUpdateRequest {
     @Size(max = 2000, message = "Description must not exceed 2000 characters")
     private String description;
 
-    @Future(message = "Event date must be in the future")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    @FutureOrPresent(message = "Event date must be today or in the future")
+    private LocalDateTime date;
     private String imageUrl;
 
     @Size(max = 150, message = "Venue name must not exceed 150 characters")
@@ -38,6 +36,8 @@ public class MedicalEventUpdateRequest {
 
     @Positive(message = "Capacity must be greater than 0")
     private Integer capacity;
+
+    private Double ticketPrice;
 
     @Size(max = 100, message = "Platform name must not exceed 100 characters")
     private String platformName;

@@ -19,6 +19,5 @@ public class PhysicalEvent extends MedicalEvent {
     private String city;
     private String postalCode;
     private String country;
-    private Integer capacity;
 
 }

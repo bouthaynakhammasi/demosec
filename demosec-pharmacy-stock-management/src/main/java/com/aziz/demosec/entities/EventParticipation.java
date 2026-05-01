@@ -29,7 +29,13 @@ public class EventParticipation {
     @JoinColumn(name = "patient_id")
     private User patient;
 
+    @Builder.Default
     private LocalDateTime registeredAt = LocalDateTime.now();
 
+    @Builder.Default
     private String status = "PENDING"; // PENDING, CONFIRMED, REJECTED
+
+    @Builder.Default
+    @Column(nullable = false)
+    private boolean attended = false;
 }

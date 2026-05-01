@@ -41,4 +41,11 @@ public abstract class MedicalEvent {
     @JoinColumn(name = "created_by_id")
     private User createdBy;
 
+    @Builder.Default
+    @Column(nullable = false)
+    private Integer capacity = 0;
+
+    @Builder.Default
+    @Column(name = "ticket_price")
+    private Double ticketPrice = 0.0;
 }

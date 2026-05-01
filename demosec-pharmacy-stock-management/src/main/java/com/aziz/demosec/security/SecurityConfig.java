@@ -65,6 +65,7 @@ public class SecurityConfig {
                         .requestMatchers("/login/**").permitAll() // 🔥 IMPORTANT
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/home-care-services/**").permitAll()
+                        .requestMatchers("/ws/**").permitAll()
 
                         // Doctor medical module
                         .requestMatchers("/treatment/**").hasRole("DOCTOR")
@@ -74,7 +75,7 @@ public class SecurityConfig {
 
                         // Other roles
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/notifications/**").hasAnyRole("ADMIN", "PATIENT")
+                        .requestMatchers("/api/notifications/**").hasAnyRole("ADMIN", "PATIENT", "PHARMACIST")
                         .requestMatchers("/doctor/**").hasRole("DOCTOR")
                         .requestMatchers("/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
@@ -98,7 +99,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 

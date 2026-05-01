@@ -22,4 +22,11 @@ public interface IStockService {
     List<StockAlertResponse> listOpenAlerts();
     List<StockAlertResponse> listOpenAlertsByStock(Long pharmacyStockId);
     StockAlertResponse resolveAlert(Long alertId);
+
+    List<com.aziz.demosec.dto.StockSummaryResponse> getStockSummary();
+    org.springframework.data.domain.Page<PharmacyStockResponse> searchProducts(String keyword, org.springframework.data.domain.Pageable pageable);
+    
+    List<com.aziz.demosec.dto.ReplenishmentPredictionResponse> predictReplenishment(Long pharmacyId);
+    
+    List<com.aziz.demosec.dto.ExpirationRiskResponse> getExpirationRiskDashboard(Long pharmacyId);
 }

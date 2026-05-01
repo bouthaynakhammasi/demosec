@@ -1,6 +1,7 @@
 package com.aziz.demosec.service;
 
 import com.aziz.demosec.dto.NotificationDTO;
+import com.aziz.demosec.entities.Notification;
 import java.util.List;
 
 public interface INotificationService {
@@ -9,4 +10,5 @@ public interface INotificationService {
     void markAllAsRead(String email);
     void deleteNotification(Long id);
     void clearAll(String email);
+    void sendNotification(Notification notification);
 }

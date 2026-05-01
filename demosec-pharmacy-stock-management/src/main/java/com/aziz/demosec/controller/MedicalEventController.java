@@ -3,8 +3,11 @@ package com.aziz.demosec.controller;
 import com.aziz.demosec.dto.MedicalEventCreateRequest;
 import com.aziz.demosec.dto.MedicalEventUpdateRequest;
 import com.aziz.demosec.dto.MedicalEventResponse;
+import com.aziz.demosec.dto.EventStatsResponse;
 import com.aziz.demosec.service.IMedicalEventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/events")
@@ -83,8 +87,15 @@ public class MedicalEventController {
     public ResponseEntity<?> isParticipating(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails) {
-        boolean result = medicalEventService.isParticipating(id, userDetails.getUsername());
-        return ResponseEntity.ok(Map.of("participating", result));
+        Optional<com.aziz.demosec.entities.EventParticipation> p = medicalEventService.getParticipation(id, userDetails.getUsername());
+        if (p.isPresent()) {
+            return ResponseEntity.ok(Map.of(
+                "participating", true,
+                "status", p.get().getStatus(),
+                "participationId", p.get().getId()
+            ));
+        }
+        return ResponseEntity.ok(Map.of("participating", false));
     }
 
     @PutMapping("/participation/{participationId}/accept")
@@ -101,5 +112,61 @@ public class MedicalEventController {
             @PathVariable Long participationId) {
         medicalEventService.rejectParticipation(participationId);
         return ResponseEntity.ok(Map.of("message", "Participation rejected"));
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<List<EventStatsResponse>> getEventStats() {
+        return ResponseEntity.ok(medicalEventService.getEventStats());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<MedicalEventResponse>> searchEvents(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(medicalEventService.searchEvents(keyword, PageRequest.of(page, size)));
+    }
+
+    @GetMapping("/{id}/analytics")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<com.aziz.demosec.dto.EventAnalyticsResponse> getEventAnalytics(@PathVariable Long id) {
+        return ResponseEntity.ok(medicalEventService.getEventAnalytics(id));
+    }
+
+    @PostMapping("/{id}/attendance/{userId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> markAttendance(
+            @PathVariable Long id,
+            @PathVariable Long userId,
+            @RequestParam boolean attended) {
+        medicalEventService.markAttendance(id, userId, attended);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/feedback")
+    @PreAuthorize("hasRole('PATIENT')")
+    public ResponseEntity<Void> submitFeedback(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody Map<String, Object> payload) {
+        Integer rating = (Integer) payload.get("rating");
+        String comment = (String) payload.get("comment");
+        medicalEventService.submitFeedback(id, userDetails.getUsername(), rating, comment);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/participation/{participationId}/ticket")
+    public ResponseEntity<byte[]> downloadTicket(@PathVariable Long participationId) throws IOException {
+        byte[] pdf = medicalEventService.generateTicket(participationId);
+        return ResponseEntity.ok()
+                .header("Content-Type", "application/pdf")
+                .header("Content-Disposition", "attachment; filename=ticket-" + participationId + ".pdf")
+                .body(pdf);
+    }
+
+    @GetMapping("/{id}/participants")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<com.aziz.demosec.dto.ParticipationResponse>> getParticipants(@PathVariable Long id) {
+        return ResponseEntity.ok(medicalEventService.getParticipantsByEvent(id));
     }
 }

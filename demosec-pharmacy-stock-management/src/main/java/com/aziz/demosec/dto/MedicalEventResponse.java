@@ -27,6 +27,7 @@ public class MedicalEventResponse {
     private String postalCode;
     private String country;
     private Integer capacity;
+    private Double ticketPrice;
 
     // ONLINE
     private String platformName;

@@ -18,9 +18,8 @@ public class MedicalEventCreateRequest {
     private String description;
 
     @NotNull(message = "Date is required")
-    @Future(message = "Event date must be in the future")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    @FutureOrPresent(message = "Event date must be today or in the future")
+    private java.time.LocalDateTime date;
 
     @NotNull(message = "Event type is required")
     private MedicalEventType eventType;
@@ -47,6 +46,8 @@ public class MedicalEventCreateRequest {
 
     @Positive(message = "Capacity must be greater than 0")
     private Integer capacity;
+
+    private Double ticketPrice;
 
     // ONLINE
     @Size(max = 100, message = "Platform name must not exceed 100 characters")

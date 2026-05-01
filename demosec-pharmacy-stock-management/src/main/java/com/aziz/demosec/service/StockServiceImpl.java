@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -275,5 +276,85 @@ public class StockServiceImpl implements IStockService {
                     a.setResolvedAt(LocalDateTime.now());
                     stockAlertRepository.save(a);
                 });
+    }
+
+    @Override
+    public List<com.aziz.demosec.dto.StockSummaryResponse> getStockSummary() {
+        return pharmacyStockRepository.getStockSummary();
+    }
+
+    @Override
+    public org.springframework.data.domain.Page<PharmacyStockResponse> searchProducts(String keyword, org.springframework.data.domain.Pageable pageable) {
+        return pharmacyStockRepository.searchProducts(keyword, pageable)
+                .map(this::toStockResponse);
+    }
+    
+    @Override
+    public List<com.aziz.demosec.dto.ReplenishmentPredictionResponse> predictReplenishment(Long pharmacyId) {
+        List<PharmacyStock> stocks = pharmacyStockRepository.findByPharmacyId(pharmacyId);
+        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
+
+        return stocks.stream().map(ps -> {
+            Long totalOut = stockMovementRepository.getTotalOutQuantitySince(ps.getId(), thirtyDaysAgo);
+            int consumption30d = totalOut != null ? totalOut.intValue() : 0;
+            
+            // Basic Daily Rate
+            double dailyRate = consumption30d / 30.0;
+            
+            // Seasonality Factor Logic (mocked logic based on category for demonstration)
+            String category = ps.getProduct().getCategory();
+            boolean isSeasonal = category != null && (category.toLowerCase().contains("flu") || category.toLowerCase().contains("cold") || category.toLowerCase().contains("allergy"));
+            double seasonalFactor = isSeasonal ? 1.3 : 1.0;
+            
+            double adjustedDailyRate = dailyRate * seasonalFactor;
+            
+            int currentStock = ps.getTotalQuantity() != null ? ps.getTotalQuantity() : 0;
+            int minThreshold = ps.getMinQuantityThreshold() != null ? ps.getMinQuantityThreshold() : 0;
+            
+            // Assume Average Supplier Lead Time is 7 days
+            int leadTimeDays = 7;
+            double safetyStock = adjustedDailyRate * 3; // 3 days safety buffer
+            double reorderPoint = (adjustedDailyRate * leadTimeDays) + safetyStock;
+            
+            Integer suggestedQuantity = 0;
+            java.time.LocalDate estimatedDepletion = null;
+            
+            if (adjustedDailyRate > 0) {
+                int daysUntilDepletion = (int) (currentStock / adjustedDailyRate);
+                estimatedDepletion = java.time.LocalDate.now().plusDays(daysUntilDepletion);
+            }
+            
+            // If current stock is below reorder point, suggest ordering
+            // Target stock level: 30 days of supply + safety stock
+            double targetLevel = (adjustedDailyRate * 30) + safetyStock;
+            if (currentStock <= Math.max(minThreshold, Math.ceil(reorderPoint))) {
+                suggestedQuantity = (int) Math.ceil(targetLevel - currentStock);
+            }
+            if (suggestedQuantity < 0) suggestedQuantity = 0;
+
+            long activeAlertsCount = stockAlertRepository.findByPharmacyStockIdAndResolvedFalse(ps.getId()).size();
+
+            return com.aziz.demosec.dto.ReplenishmentPredictionResponse.builder()
+                    .pharmacyStockId(ps.getId())
+                    .productId(ps.getProduct().getId())
+                    .productName(ps.getProduct().getName())
+                    .currentStock(currentStock)
+                    .consumptionLast30Days(consumption30d)
+                    .activeAlerts((int) activeAlertsCount)
+                    .isSeasonal(isSeasonal)
+                    .suggestedOrderQuantity(suggestedQuantity)
+                    .estimatedDepletionDate(estimatedDepletion)
+                    .build();
+        }).filter(r -> r.getSuggestedOrderQuantity() > 0 || r.getCurrentStock() <= r.getConsumptionLast30Days()) // show only actionable items
+        .toList();
+    }
+
+    @Override
+    public List<com.aziz.demosec.dto.ExpirationRiskResponse> getExpirationRiskDashboard(Long pharmacyId) {
+        LocalDate today = LocalDate.now();
+        LocalDate redZone = today.plusDays(30);
+        LocalDate orangeZone = today.plusDays(90);
+        
+        return stockBatchRepository.getExpirationRiskDashboard(pharmacyId, today, redZone, orangeZone);
     }
 }
