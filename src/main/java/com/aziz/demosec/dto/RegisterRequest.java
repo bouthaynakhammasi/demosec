@@ -44,6 +44,8 @@ public record RegisterRequest(
         String pharmacyName,
         String pharmacyAddress,
         String pharmacyPhone,
+        Double locationLat,
+        Double locationLng,
 
         // Champs Home Care Provider uniquement
         java.util.List<Long> specialtyIds

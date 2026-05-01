@@ -39,11 +39,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleValidationError(MethodArgumentNotValidException ex) {
         System.out.println("=== VALIDATION ERROR ===");
         ex.getBindingResult().getFieldErrors()
-                .forEach(err -> System.out.println("Field: " + err.getField() + " → " + err.getDefaultMessage()));
+                .forEach(e -> System.out.println("Field: " + e.getField() + " → " + e.getDefaultMessage()));
+        ex.getBindingResult().getGlobalErrors()
+                .forEach(e -> System.out.println("Global: " + e.getDefaultMessage()));
         System.out.println("========================");
 
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
+        // Field-level constraint violations
+        ex.getBindingResult().getFieldErrors()
+                .forEach(e -> errors.put(e.getField(), e.getDefaultMessage()));
+        // Class-level constraint violations (e.g. @ValidTunisianDeliveryAddress)
+        ex.getBindingResult().getGlobalErrors()
+                .forEach(e -> errors.put("deliveryAddress", e.getDefaultMessage()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 

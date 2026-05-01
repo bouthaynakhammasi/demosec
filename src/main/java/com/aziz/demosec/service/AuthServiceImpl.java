@@ -109,7 +109,9 @@ public class AuthServiceImpl implements AuthService {
                     .name(req.pharmacyName())
                     .address(req.pharmacyAddress() != null ? req.pharmacyAddress() : "")
                     .phoneNumber(req.pharmacyPhone() != null ? req.pharmacyPhone() : "")
-                    .email(req.email()) // Optionnel: utiliser l'email du pharmacien
+                    .email(req.email())
+                    .locationLat(req.locationLat())
+                    .locationLng(req.locationLng())
                     .build();
             newPharmacy = pharmacyRepository.save(newPharmacy);
 
