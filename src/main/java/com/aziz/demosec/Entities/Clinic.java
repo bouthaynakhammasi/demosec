@@ -26,11 +26,12 @@ public class Clinic extends User {
     @Column(name = "has_emergency", nullable = false)
     private boolean hasEmergency;
 
-    @Column(name = "has_ambulance", nullable = false)
-    private boolean hasAmbulance;
+
 
     private String emergencyPhone;
+    private boolean hasAmbulance;
     private String ambulancePhone;
+
 
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean verified = false;
