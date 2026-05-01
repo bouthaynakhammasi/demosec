@@ -75,15 +75,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
 
         } catch (ExpiredJwtException e) {
-            log.warn("JWT expired: {}", e.getMessage());
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("JWT expired");
-            return;
+            log.warn("JWT expired for {}: {}", path, e.getMessage());
+            // Don't abort — let Spring Security decide if the endpoint is public
         } catch (Exception e) {
-            log.error("JWT processing failed", e);
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Invalid JWT");
-            return;
+            log.error("JWT processing failed for {}: {}", path, e.getMessage());
+            // Don't abort — let Spring Security decide if the endpoint is public
         }
 
         // 5️⃣ Continue filter chain

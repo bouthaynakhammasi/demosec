@@ -30,6 +30,19 @@ public class AidRequest {
     @Column(name="document_file", columnDefinition="LONGTEXT")
     private String documentFile;
 
+    // ─── Données AI Éligibilité ───────────────────────────────────────────────
+    private String chronicDiseases;        // NONE | DIABETES | HYPERTENSION | ...
+    private Integer hereditaryDiseases;    // 0 ou 1
+    private Integer drugAllergies;         // 0 ou 1
+    private String diagnosisType;          // NONE | ACUTE | CHRONIC | TERMINAL
+    private Integer nbDiagnoses;
+    private Integer nbPrescriptions;
+    private Double revenusMenuelsTnd;
+    private Integer personnesACharge;
+    private String situationProfessionnelle; // EMPLOYED | UNEMPLOYED | ...
+    private Double scorePrecarite;
+    // ─────────────────────────────────────────────────────────────────────────
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AidRequestStatus status;

@@ -17,4 +17,17 @@ public class AidRequestResponseDTO {
     private String supportingDocument;
     private AidRequestStatus status;
     private LocalDateTime createdAt;
+
+    // ─── Données AI Éligibilité ───────────────────────────────────────────────
+    private String chronicDiseases;
+    private Integer hereditaryDiseases;
+    private Integer drugAllergies;
+    private String diagnosisType;
+    private Integer nbDiagnoses;
+    private Integer nbPrescriptions;
+    private Double revenusMenuelsTnd;
+    private Integer personnesACharge;
+    private String situationProfessionnelle;
+    private Double scorePrecarite;
+    // ─────────────────────────────────────────────────────────────────────────
 }

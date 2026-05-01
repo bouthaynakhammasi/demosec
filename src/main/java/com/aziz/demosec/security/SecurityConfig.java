@@ -53,6 +53,15 @@ public class SecurityConfig {
                         // ─── PUBLIC ──────────────────────────────────────────
                         .requestMatchers("/auth/**").permitAll()
 
+                        // ─── WEBSOCKET ───────────────────────────────────────
+                        .requestMatchers("/ws/**").permitAll()
+
+                        // ─── AI ELIGIBILITY ────────────────────────────────
+                        .requestMatchers("/api/ai/**").permitAll()
+
+                        // ─── WS TEST (temporaire — supprimer après validation) ─
+                        .requestMatchers("/api/ws-test/**").permitAll()
+
                         // ─── DONATION (temporairement public pour tester) ─────
                         .requestMatchers("/api/donations").permitAll()
                         .requestMatchers("/api/donations/**").permitAll()
@@ -105,8 +114,9 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:4200"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         config.setAllowedHeaders(List.of("*"));
+        config.setExposedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -17,6 +17,7 @@ public class DonationServiceImpl implements IDonationService {
     private final AidRequestRepository aidRequestRepository;
     private final DonationAssignmentRepository assignmentRepository;
     private final UserRepository userRepository;
+    private final WsNotificationService wsNotificationService;
 
     // ─── DONATION ─────────────────────────────────────────────────
 
@@ -84,9 +85,29 @@ public class DonationServiceImpl implements IDonationService {
                 .description(dto.getDescription())
                 .documentFile(dto.getSupportingDocument())
                 .status(AidRequestStatus.PENDING)
+                // Données AI
+                .chronicDiseases(dto.getChronicDiseases())
+                .hereditaryDiseases(dto.getHereditaryDiseases())
+                .drugAllergies(dto.getDrugAllergies())
+                .diagnosisType(dto.getDiagnosisType())
+                .nbDiagnoses(dto.getNbDiagnoses())
+                .nbPrescriptions(dto.getNbPrescriptions())
+                .revenusMenuelsTnd(dto.getRevenusMenuelsTnd())
+                .personnesACharge(dto.getPersonnesACharge())
+                .situationProfessionnelle(dto.getSituationProfessionnelle())
+                .scorePrecarite(dto.getScorePrecarite())
                 .build();
 
-        return toAidResponseDTO(aidRequestRepository.save(request));
+        AidRequestResponseDTO saved = toAidResponseDTO(aidRequestRepository.save(request));
+
+        // 🔔 Notifier l'admin en temps réel via WebSocket
+        wsNotificationService.notifyAdmin(
+            "Nouvelle demande d'aide 🤝",
+            patient.getFullName() + " a soumis une nouvelle demande d'aide.",
+            "aid_request"
+        );
+
+        return saved;
     }
 
     @Override
@@ -119,7 +140,23 @@ public class DonationServiceImpl implements IDonationService {
     public AidRequestResponseDTO updateAidRequestStatus(Long id, AidRequestStatus status) {
         AidRequest request = findAidRequestById(id);
         request.setStatus(status);
-        return toAidResponseDTO(aidRequestRepository.save(request));
+        AidRequestResponseDTO result = toAidResponseDTO(aidRequestRepository.save(request));
+
+        // 🔔 Notifier le patient selon le statut
+        Long patientId = request.getPatient().getId();
+        if (status == AidRequestStatus.APPROVED) {
+            wsNotificationService.notifyPatient(patientId,
+                "Demande approuvée ✅",
+                "Bonne nouvelle ! Votre demande d'aide a été approuvée.",
+                "info");
+        } else if (status == AidRequestStatus.REJECTED) {
+            wsNotificationService.notifyPatient(patientId,
+                "Demande refusée ❌",
+                "Votre demande d'aide n'a pas pu être approuvée cette fois.",
+                "warning");
+        }
+
+        return result;
     }
 
     @Override
@@ -154,7 +191,17 @@ public class DonationServiceImpl implements IDonationService {
                 .aidRequest(request)
                 .build();
 
-        return toAssignmentResponseDTO(assignmentRepository.save(assignment));
+        DonationAssignmentResponseDTO result = toAssignmentResponseDTO(assignmentRepository.save(assignment));
+
+        // 🔔 Notifier le patient en temps réel via WebSocket
+        wsNotificationService.notifyPatient(
+            request.getPatient().getId(),
+            "Don assigné 🎁",
+            "Un don a été assigné à votre demande d'aide #" + request.getId() + ".",
+            "info"
+        );
+
+        return result;
     }
 
     @Override
@@ -244,6 +291,17 @@ public class DonationServiceImpl implements IDonationService {
                 .supportingDocument(r.getDocumentFile())
                 .status(r.getStatus())
                 .createdAt(r.getCreatedAt())
+                // Données AI
+                .chronicDiseases(r.getChronicDiseases())
+                .hereditaryDiseases(r.getHereditaryDiseases())
+                .drugAllergies(r.getDrugAllergies())
+                .diagnosisType(r.getDiagnosisType())
+                .nbDiagnoses(r.getNbDiagnoses())
+                .nbPrescriptions(r.getNbPrescriptions())
+                .revenusMenuelsTnd(r.getRevenusMenuelsTnd())
+                .personnesACharge(r.getPersonnesACharge())
+                .situationProfessionnelle(r.getSituationProfessionnelle())
+                .scorePrecarite(r.getScorePrecarite())
                 .build();
     }
 
