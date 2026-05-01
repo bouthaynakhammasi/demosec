@@ -59,8 +59,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/ws/**").permitAll()
                         .requestMatchers("/error/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
+                        .requestMatchers("/uploads/comments/**").permitAll()
                         .requestMatchers("/api/home-care-services/**").permitAll()
                         .requestMatchers("/user/**").authenticated()
                         .requestMatchers("/api/notifications/**").authenticated()
@@ -85,6 +87,15 @@ public class SecurityConfig {
                         .requestMatchers("/api/forum/posts/*/like").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/forum/posts/*/like").authenticated()
 
+                        // CODE BLUE - Emergency live thread
+                        .requestMatchers("/api/code-blue/**").authenticated()
+
+                        // MESSAGING - Chat channels & messages
+                        .requestMatchers("/api/forum/messaging/**").authenticated()
+
+                        // WHATSAPP - Alerts
+                        .requestMatchers("/api/forum/whatsapp/**").authenticated()
+
                          // Doctor & Nutritionist medical access
                         .requestMatchers("/treatment/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
                         .requestMatchers("/diagnosis/**").hasAnyRole("DOCTOR", "NUTRITIONIST")
@@ -97,7 +108,9 @@ public class SecurityConfig {
                         .requestMatchers("/clinic/**").hasRole("CLINIC")
                         .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
 
-                        .requestMatchers("/laboratory/**").hasRole("LABORATORY_STAFF") 
+                        .requestMatchers("/laboratory/**").hasRole("LABORATORY_STAFF")
+                        .requestMatchers("/api/lab-staff/**").hasRole("LABORATORY_STAFF")
+                        .requestMatchers("/api/lab-narrator/**").hasRole("LABORATORY_STAFF")
 
                         .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/visitor/**").hasRole("VISITOR")

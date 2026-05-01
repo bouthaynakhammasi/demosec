@@ -45,6 +45,10 @@ public class LabRequest {
     @Column(columnDefinition = "TEXT")
     private String clinicalNotes;
 
+    // Email du médecin pour l'envoi du rapport IA
+    @Column(length = 255)
+    private String doctorEmail;
+
     // Date souhaitée pour le test
     private LocalDateTime scheduledAt;
 

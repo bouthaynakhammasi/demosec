@@ -1,6 +1,7 @@
 package com.aziz.demosec.Entities;
 
 import com.aziz.demosec.domain.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Notification {
     private String title;
     private String message;
     private String type; // "LIKE", "COMMENT"
+    @JsonProperty("isRead")
     private boolean isRead;
     private LocalDateTime createdAt;
     

@@ -2,6 +2,7 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.Entities.Notification;
 import com.aziz.demosec.domain.User;
+import com.aziz.demosec.dto.NotificationDto;
 import com.aziz.demosec.repository.NotificationRepository;
 import com.aziz.demosec.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/notifications")
@@ -20,11 +22,27 @@ public class NotificationController {
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
 
+    // ── REST ────────────────────────────────────────────────────────
     @GetMapping
-    public ResponseEntity<List<Notification>> getMyNotifications() {
+    public ResponseEntity<List<NotificationDto>> getMyNotifications() {
         User user = getCurrentUser();
         if (user == null) return ResponseEntity.status(401).build();
-        return ResponseEntity.ok(notificationRepository.findByRecipientOrderByCreatedAtDesc(user));
+
+        List<NotificationDto> dtos = notificationRepository
+            .findByRecipientOrderByCreatedAtDesc(user)
+            .stream()
+            .map(n -> NotificationDto.builder()
+                .id(n.getId())
+                .title(n.getTitle())
+                .message(n.getMessage())
+                .type(n.getType())
+                .isRead(n.isRead())
+                .createdAt(n.getCreatedAt())
+                .relatedId(n.getRelatedId())
+                .build())
+            .collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/unread-count")
@@ -55,9 +73,8 @@ public class NotificationController {
     }
 
     private User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) return null;
-        String email = authentication.getName();
-        return userRepository.findByEmail(email).orElse(null);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) return null;
+        return userRepository.findByEmail(auth.getName()).orElse(null);
     }
 }
