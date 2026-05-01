@@ -2,6 +2,7 @@ package com.aziz.demosec.entities;
 
 import com.aziz.demosec.domain.User;
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -48,4 +49,7 @@ public abstract class MedicalEvent {
     @Builder.Default
     @Column(name = "ticket_price")
     private Double ticketPrice = 0.0;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EventParticipation> participations;
 }

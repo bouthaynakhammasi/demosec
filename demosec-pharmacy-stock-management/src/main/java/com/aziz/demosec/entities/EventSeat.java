@@ -39,6 +39,18 @@ public class EventSeat {
     @Column(nullable = false)
     private SeatStatus status;
 
+    /** Row number within a section/zone (STADIUM, CONFERENCE). Null for HOTEL. */
+    @Column(name = "row_number")
+    private Integer rowNumber;
+
+    /** Seat number within a row or around a table. */
+    @Column(name = "seat_number")
+    private Integer seatNumber;
+
+    /** Table number (HOTEL only). Null for STADIUM / CONFERENCE. */
+    @Column(name = "table_number")
+    private Integer tableNumber;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserved_by_id")
     private User reservedBy;

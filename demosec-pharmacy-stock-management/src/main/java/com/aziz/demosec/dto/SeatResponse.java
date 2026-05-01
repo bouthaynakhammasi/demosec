@@ -19,4 +19,9 @@ public class SeatResponse {
     private Double posY;
     private SeatStatus status;
     private String reservedByFullName;
+
+    // Layout position fields (set by auto-generation)
+    private Integer rowNumber;    // STADIUM / CONFERENCE
+    private Integer seatNumber;   // all types
+    private Integer tableNumber;  // HOTEL only
 }

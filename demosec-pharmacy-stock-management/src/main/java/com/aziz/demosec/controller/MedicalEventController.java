@@ -66,7 +66,7 @@ public class MedicalEventController {
     }
 
     @PostMapping("/{id}/participate")
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("!hasRole('ADMIN')")
     public ResponseEntity<Void> participate(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails) {
@@ -75,7 +75,7 @@ public class MedicalEventController {
     }
 
     @DeleteMapping("/{id}/cancel-participation")
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("!hasRole('ADMIN')")
     public ResponseEntity<Void> cancelParticipation(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails) {
@@ -144,7 +144,7 @@ public class MedicalEventController {
     }
 
     @PostMapping("/{id}/feedback")
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("!hasRole('ADMIN')")
     public ResponseEntity<Void> submitFeedback(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails,

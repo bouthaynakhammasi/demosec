@@ -1,5 +1,6 @@
 package com.aziz.demosec.dto;
 
+import com.aziz.demosec.entities.VenueType;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -47,4 +48,6 @@ public class MedicalEventUpdateRequest {
 
     @Size(max = 100, message = "Meeting password must not exceed 100 characters")
     private String meetingPassword;
+
+    private VenueType venueType;
 }

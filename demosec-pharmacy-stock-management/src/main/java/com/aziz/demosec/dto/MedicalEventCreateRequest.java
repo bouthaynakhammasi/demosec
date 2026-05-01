@@ -1,6 +1,7 @@
 package com.aziz.demosec.dto;
 
 import com.aziz.demosec.entities.MedicalEventType;
+import com.aziz.demosec.entities.VenueType;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -58,4 +59,11 @@ public class MedicalEventCreateRequest {
 
     @Size(max = 100, message = "Meeting password must not exceed 100 characters")
     private String meetingPassword;
+
+    /**
+     * Venue type for auto seating layout generation.
+     * Only applicable when eventType = PHYSICAL.
+     * HOTEL → tables, STADIUM → sections/rows, CONFERENCE → rows of chairs.
+     */
+    private VenueType venueType;
 }

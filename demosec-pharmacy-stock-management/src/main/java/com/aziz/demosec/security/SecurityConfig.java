@@ -83,9 +83,9 @@ public class SecurityConfig {
                         .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
                         .requestMatchers("/visitor/**").hasRole("VISITOR")
                         .requestMatchers("/patient/**").hasRole("PATIENT")
-                        .requestMatchers("/api/events/*/participate").hasRole("PATIENT")
-                        .requestMatchers("/api/events/*/cancel-participation").hasRole("PATIENT")
-                        .requestMatchers("/api/events/*/is-participating").hasRole("PATIENT")
+                        .requestMatchers("/api/events/*/participate").authenticated()
+                        .requestMatchers("/api/events/*/cancel-participation").authenticated()
+                        .requestMatchers("/api/events/*/is-participating").authenticated()
                         .requestMatchers("/api/events/public/**").permitAll()
 
                         .anyRequest().authenticated())

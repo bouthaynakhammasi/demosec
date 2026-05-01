@@ -41,7 +41,10 @@ public class DatabaseFixer implements CommandLineRunner {
             "UPDATE users SET dtype = 'Doctor' WHERE role = 'DOCTOR' AND (dtype IS NULL OR dtype = '');",
             "UPDATE users SET dtype = 'LaboratoryStaff' WHERE role = 'LABORATORYSTAFF' AND (dtype IS NULL OR dtype = '');",
             "UPDATE users SET dtype = 'Nutritionist' WHERE role = 'NUTRITIONIST' AND (dtype IS NULL OR dtype = '');",
-            "UPDATE users SET dtype = 'User' WHERE dtype IS NULL OR dtype = '';"
+            "UPDATE users SET dtype = 'User' WHERE dtype IS NULL OR dtype = '';",
+            "INSERT INTO home_care_services (name, description, price) SELECT 'Nursing Care', 'Professional nursing services at home.', 50.00 FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM home_care_services LIMIT 1);",
+            "INSERT INTO home_care_services (name, description, price) SELECT 'Physical Therapy', 'Rehabilitative therapy in the comfort of your home.', 75.00 FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM home_care_services WHERE name = 'Physical Therapy');",
+            "INSERT INTO home_care_services (name, description, price) SELECT 'Elderly Support', 'Daily assistance for senior citizens.', 40.00 FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM home_care_services WHERE name = 'Elderly Support');"
         };
         for (String q : queries) {
             try {

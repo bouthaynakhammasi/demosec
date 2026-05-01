@@ -38,6 +38,9 @@ public class MedicalEventServiceImpl implements IMedicalEventService {
     private final NotificationRepository notificationRepository;
     private final INotificationService notificationService;
     private final com.aziz.demosec.repository.EventFeedbackRepository feedbackRepository;
+    /** Injected for smart seating auto-generation after event creation. */
+    private final IEventSeatService seatService;
+    private final com.aziz.demosec.repository.EventSeatRepository seatRepository;
 
     @Override
     public MedicalEventResponse create(MedicalEventCreateRequest request, MultipartFile image) throws IOException {
@@ -74,11 +77,20 @@ public class MedicalEventServiceImpl implements IMedicalEventService {
                     .venueName(request.getVenueName()).address(request.getAddress())
                     .city(request.getCity()).postalCode(request.getPostalCode())
                     .country(request.getCountry())
+                    .venueType(request.getVenueType())
                     .capacity(request.getCapacity() != null ? request.getCapacity() : 0)
                     .ticketPrice(request.getTicketPrice() != null ? request.getTicketPrice() : 0.0)
                     .build();
         }
-        return toResponse(medicalEventRepository.save(event));
+
+        MedicalEvent saved = medicalEventRepository.save(event);
+
+        // ── Auto-generate seating layout for physical events ──────────────────
+        if (saved instanceof PhysicalEvent && request.getVenueType() != null) {
+            seatService.generateLayout(saved.getId(), request.getVenueType());
+        }
+
+        return toResponse(saved);
     }
 
     @Override
@@ -109,6 +121,7 @@ public class MedicalEventServiceImpl implements IMedicalEventService {
             if (request.getCity() != null) pe.setCity(request.getCity());
             if (request.getPostalCode() != null) pe.setPostalCode(request.getPostalCode());
             if (request.getCountry() != null) pe.setCountry(request.getCountry());
+            if (request.getVenueType() != null) pe.setVenueType(request.getVenueType());
         }
         return toResponse(medicalEventRepository.save(e));
     }
@@ -124,7 +137,9 @@ public class MedicalEventServiceImpl implements IMedicalEventService {
             b.platformName(oe.getPlatformName()).meetingLink(oe.getMeetingLink()).meetingPassword(oe.getMeetingPassword());
         }
         if (e instanceof PhysicalEvent pe) {
-            b.venueName(pe.getVenueName()).address(pe.getAddress()).city(pe.getCity()).postalCode(pe.getPostalCode()).country(pe.getCountry());
+            b.venueName(pe.getVenueName()).address(pe.getAddress())
+             .city(pe.getCity()).postalCode(pe.getPostalCode()).country(pe.getCountry())
+             .venueType(pe.getVenueType() != null ? pe.getVenueType().name() : null);
         }
         return b.build();
     }
@@ -161,6 +176,7 @@ public class MedicalEventServiceImpl implements IMedicalEventService {
         if (!medicalEventRepository.existsById(id)) {
             throw new EntityNotFoundException("MedicalEvent not found: " + id);
         }
+        seatRepository.deleteAllByEventId(id);
         medicalEventRepository.deleteById(id);
     }
 

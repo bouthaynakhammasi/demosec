@@ -28,9 +28,11 @@ public class MedicalEventResponse {
     private String country;
     private Integer capacity;
     private Double ticketPrice;
+    /** Venue layout type for seating auto-generation (HOTEL/STADIUM/CONFERENCE). Null for ONLINE. */
+    private String venueType;
 
     // ONLINE
     private String platformName;
     private String meetingLink;
     private String meetingPassword;
-}
+}
