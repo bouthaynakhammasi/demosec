@@ -138,6 +138,9 @@ public class PatientController {
                         .id(p.getId())
                         .consultationId(p.getConsultation().getId())
                         .date(p.getDate())
+                        .expiryDate(p.getExpiryDate() != null ? p.getExpiryDate() : p.getDate().plusDays(7))
+                        .status(p.getStatus() != null ? p.getStatus().name() : "ACTIVE")
+                        .doctorName(p.getConsultation().getDoctor().getFullName())
                         .items(p.getItems().stream()
                             .map(i -> PrescriptionItemResponse.builder()
                                 .id(i.getId())
@@ -148,6 +151,18 @@ public class PatientController {
                                 .build())
                             .collect(Collectors.toList()))
                         .build();
+
+                    doctorRepository.findById(p.getConsultation().getDoctor().getId()).ifPresent(doctor -> {
+                        resp.setDoctorSpecialty(doctor.getSpecialty());
+                    });
+
+                    diagnosisRepository.findByConsultationId(p.getConsultation().getId()).stream().findFirst().ifPresent(d -> {
+                        resp.setDiagnosis(d.getDescription());
+                    });
+
+                    if (resp.getDiagnosis() == null) {
+                        resp.setDiagnosis(p.getConsultation().getObservations());
+                    }
 
                     if (p.getItems() != null && !p.getItems().isEmpty()) {
                         PrescriptionItem firstItem = p.getItems().get(0);

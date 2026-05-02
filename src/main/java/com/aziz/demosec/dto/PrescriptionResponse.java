@@ -19,5 +19,11 @@ public class PrescriptionResponse {
     private String dosage;
     private String instructions;
 
+    private LocalDate expiryDate;
+    private String status;
+    private String doctorName;
+    private String doctorSpecialty;
+    private String diagnosis;
+
     private List<PrescriptionItemResponse> items;
 }

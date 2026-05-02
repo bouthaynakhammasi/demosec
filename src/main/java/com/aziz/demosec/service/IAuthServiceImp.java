@@ -204,7 +204,9 @@ public class IAuthServiceImp implements IAuthService {
                 .map(GrantedAuthority::getAuthority)
                 .orElse("ROLE_VISITOR");
 
-        String token = jwtService.generateToken(userDetails, user.getFullName(), user.getId());
+        String fullName = user.getFullName() != null ? user.getFullName() : "Unknown";
+        Long userId = user.getId() != null ? user.getId() : 0L;
+        String token = jwtService.generateToken(userDetails, fullName, userId);
 
         return new AuthResponse(token, userDetails.getUsername(), user.getFullName(), role);
     }

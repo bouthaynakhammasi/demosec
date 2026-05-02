@@ -7,6 +7,8 @@ import com.aziz.demosec.service.IAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @CrossOrigin("*")
@@ -25,7 +27,13 @@ public class AuthController {
 
     // POST /auth/login
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest req) {
-        return ResponseEntity.ok(authService.login(req));
+    public ResponseEntity<?> login(@RequestBody LoginRequest req) {
+        try {
+            return ResponseEntity.ok(authService.login(req));
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
     }
 }

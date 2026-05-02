@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "consultations")
@@ -31,5 +32,8 @@ public class Consultation {
     private LocalDateTime date;
     private String observations;
     private String notes;
+
+    @OneToMany(mappedBy = "consultation", fetch = FetchType.LAZY)
+    private List<Treatment> treatments;
 
 }
