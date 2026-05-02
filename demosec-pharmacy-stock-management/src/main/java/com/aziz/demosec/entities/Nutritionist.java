@@ -4,7 +4,6 @@ import com.aziz.demosec.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @Entity
 @Getter
 @Setter
