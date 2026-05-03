@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DiagnosisRepository extends JpaRepository<Diagnosis, Long> {
     List<Diagnosis> findByConsultationMedicalRecordId(Long recordId);
+    List<Diagnosis> findByConsultationId(Long consultationId);
 }

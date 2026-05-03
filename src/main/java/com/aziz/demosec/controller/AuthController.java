@@ -15,6 +15,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.http.HttpStatus;
 
 import java.util.Map;
 
@@ -62,6 +64,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest req) {
         try {
             return ResponseEntity.ok(authService.login(req));
+
         } catch (DisabledException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(Map.of("message", "Your account is pending admin approval. Please wait."));
@@ -98,6 +101,7 @@ public class AuthController {
         } catch (Exception e) {
             log.error("Reset password error: {}", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
+
         }
     }
 }

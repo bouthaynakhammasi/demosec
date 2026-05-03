@@ -6,7 +6,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "physical_events")
-@DiscriminatorValue("PHYSICAL")
+
 @Getter
 @Setter
 @NoArgsConstructor

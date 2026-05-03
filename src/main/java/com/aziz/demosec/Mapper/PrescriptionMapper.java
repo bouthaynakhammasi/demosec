@@ -47,6 +47,9 @@ public class PrescriptionMapper {
                         prescription.getConsultation() != null ? prescription.getConsultation().getId() : null
                 )
                 .date(prescription.getDate())
+                .expiryDate(prescription.getExpiryDate())
+                .status(prescription.getStatus() != null ? prescription.getStatus().name() : "ACTIVE")
+                .doctorName(prescription.getConsultation() != null && prescription.getConsultation().getDoctor() != null ? prescription.getConsultation().getDoctor().getFullName() : "Unknown")
                 .medication(medication)
                 .dosage(dosage)
                 .instructions(instructions)

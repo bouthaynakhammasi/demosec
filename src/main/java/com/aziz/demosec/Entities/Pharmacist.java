@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@DiscriminatorValue("PHARMACIST")
+
 @Getter
 @Setter
 @NoArgsConstructor

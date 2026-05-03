@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "clinic")
+
 @Getter
 @Setter
 @NoArgsConstructor

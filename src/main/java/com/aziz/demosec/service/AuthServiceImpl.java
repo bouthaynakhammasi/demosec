@@ -3,6 +3,8 @@ package com.aziz.demosec.service;
 import com.aziz.demosec.Entities.Patient;
 import com.aziz.demosec.Entities.Pharmacist;
 import com.aziz.demosec.Entities.Pharmacy;
+import com.aziz.demosec.Entities.Doctor;
+import com.aziz.demosec.Entities.Nutritionist;
 import com.aziz.demosec.domain.PasswordResetToken;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
@@ -14,6 +16,8 @@ import com.aziz.demosec.repository.PatientRepository;
 import com.aziz.demosec.repository.PharmacistRepository;
 import com.aziz.demosec.repository.PharmacyRepository;
 import com.aziz.demosec.repository.UserRepository;
+import com.aziz.demosec.repository.DoctorRepository;
+import com.aziz.demosec.repository.NutritionistRepository;
 import com.aziz.demosec.security.CustomUserDetailsService;
 import com.aziz.demosec.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +40,8 @@ public class AuthServiceImpl implements AuthService {
     private final PatientRepository patientRepository;
     private final PharmacistRepository pharmacistRepository;
     private final PharmacyRepository pharmacyRepository;
+    private final DoctorRepository doctorRepository;
+    private final NutritionistRepository nutritionistRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
@@ -169,6 +175,56 @@ public class AuthServiceImpl implements AuthService {
 
             return savedProvider.getUser();
         }
+
+        // =========================
+        // CAS DOCTOR
+        // =========================
+        if (req.role() == Role.DOCTOR) {
+            Doctor doctor = new Doctor();
+            doctor.setFullName(req.fullName() == null ? "Not Available" : req.fullName());
+            doctor.setEmail(req.email());
+            doctor.setPassword(passwordEncoder.encode(req.password()));
+            doctor.setRole(Role.DOCTOR);
+            doctor.setPhone(req.phone());
+            doctor.setBirthDate(req.birthDate());
+            doctor.setProfessionalDocument(documentUrl);
+            doctor.setEnabled(true);
+
+            // Set required Doctor-specific fields
+            doctor.setLicenseNumber(req.licenseNumber() != null ? req.licenseNumber() : "PENDING_" + System.currentTimeMillis());
+            doctor.setSpecialty(req.specialty());
+            doctor.setConsultationFee(req.consultationFee());
+            doctor.setConsultationMode(req.consultationMode() != null ? req.consultationMode() : com.aziz.demosec.Entities.ConsultationMode.BOTH);
+
+            return doctorRepository.save(doctor);
+        }
+
+        // =========================
+        // CAS NUTRITIONIST
+        // =========================
+        if (req.role() == Role.NUTRITIONIST) {
+            Nutritionist nutritionist = new Nutritionist();
+            nutritionist.setFullName(req.fullName() == null ? "Not Available" : req.fullName());
+            nutritionist.setEmail(req.email());
+            nutritionist.setPassword(passwordEncoder.encode(req.password()));
+            nutritionist.setRole(Role.NUTRITIONIST);
+            nutritionist.setPhone(req.phone());
+            nutritionist.setBirthDate(req.birthDate());
+            nutritionist.setProfessionalDocument(documentUrl);
+            nutritionist.setEnabled(true);
+            nutritionist.setVerified(true);
+
+            // Set required Nutritionist-specific fields
+            nutritionist.setLicenseNumber(req.licenseNumber() != null ? req.licenseNumber() : "PENDING_" + System.currentTimeMillis());
+            nutritionist.setConsultationFee(req.consultationFee());
+            nutritionist.setConsultationMode(req.consultationMode() != null ? req.consultationMode() : com.aziz.demosec.Entities.ConsultationMode.BOTH);
+
+            return nutritionistRepository.save(nutritionist);
+        }
+
+        // =========================
+        // CAS USER / ADMIN
+        // =========================
         User u = User.builder()
                 .fullName(req.fullName() == null ? "Not Available" : req.fullName())
                 .email(req.email())
