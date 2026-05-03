@@ -1,4 +1,4 @@
-package com.aziz.demosec.Entities;
+package com.aziz.demosec.entities;
 
 import com.aziz.demosec.domain.User;
 import jakarta.persistence.*;

@@ -1,9 +1,7 @@
-package com.aziz.demosec.Entities;
+package com.aziz.demosec.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "pharmacies")
@@ -12,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Pharmacy {
 
     @Id
