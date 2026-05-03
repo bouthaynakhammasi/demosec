@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    
+    environment {
+        // Adapt to your Docker Hub username
+        DOCKER_HUB_USER = "azizmelki1"
+        IMAGE_NAME = "medicarepi-backend"
+        IMAGE_TAG = "latest"
+        REGISTRY_CREDENTIALS_ID = "docker-hub-credentials"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: REGISTRY_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh "docker build -t ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG} ."
+                    sh "echo '${DOCKER_PASS}' | docker login -u ${DOCKER_USER} --password-stdin"
+                    sh "docker push ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+        
+        stage('Kubernetes Deploy') {
+            steps {
+                script {
+                    // Update image in K8s (Needs kubeconfig configured in Jenkins)
+                    sh "KUBECONFIG=/var/lib/jenkins/.kube/config kubectl apply -f k8s/backend.yaml"
+                    sh "KUBECONFIG=/var/lib/jenkins/.kube/config kubectl rollout restart deployment/medicarepi-backend-deployment"
+                }
+            }
+        }
+    }
+}
+

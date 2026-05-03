@@ -1,6 +1,7 @@
 package com.aziz.demosec.domain;
 
 public enum Role {
+    PATIENT,
     ADMIN,
     DOCTOR,
     CLINIC,
@@ -8,6 +9,5 @@ public enum Role {
     LABORATORY_STAFF,
     NUTRITIONIST,
     VISITOR,
-    PATIENT,
     HOME_CARE_PROVIDER
 }

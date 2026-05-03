@@ -30,16 +30,16 @@ public class PharmacistController {
             if (pharmacistOpt.isEmpty()) {
                 return ResponseEntity.status(404).body(Map.of("error", "Pharmacist not found"));
             }
-            
+
             Pharmacist p = pharmacistOpt.get();
             return ResponseEntity.ok(Map.of(
-                "id", p.getId() != null ? p.getId() : "",
-                "fullName", p.getFullName() != null ? p.getFullName() : "",
-                "email", p.getEmail() != null ? p.getEmail() : "",
-                "pharmacyName", p.getPharmacyName() != null ? p.getPharmacyName() : "",
-                "pharmacyAddress", p.getPharmacyAddress() != null ? p.getPharmacyAddress() : "",
-                "pharmacySetupCompleted", p.isPharmacySetupCompleted(),
-                "status", p.getStatus() != null ? p.getStatus().name() : "PENDING"
+                    "id", p.getId() != null ? p.getId() : "",
+                    "fullName", p.getFullName() != null ? p.getFullName() : "",
+                    "email", p.getEmail() != null ? p.getEmail() : "",
+                    "pharmacyName", p.getPharmacyName() != null ? p.getPharmacyName() : "",
+                    "pharmacyAddress", p.getPharmacyAddress() != null ? p.getPharmacyAddress() : "",
+                    "pharmacySetupCompleted", p.isPharmacySetupCompleted(),
+                    "status", p.getStatus() != null ? p.getStatus().name() : "PENDING"
             ));
         } catch (Exception e) {
             String cause = e.getCause() != null ? e.getCause().getMessage() : "None";
@@ -58,7 +58,7 @@ public class PharmacistController {
             @RequestParam("pharmacy_longitude") Float pharmacyLongitude,
             @RequestParam(value = "diploma_document", required = false) MultipartFile diplomaDocument,
             Authentication authentication) {
-        
+
         String email = authentication.getName();
         Optional<Pharmacist> pharmacistOpt = pharmacistRepository.findByEmail(email);
         if (pharmacistOpt.isEmpty()) {

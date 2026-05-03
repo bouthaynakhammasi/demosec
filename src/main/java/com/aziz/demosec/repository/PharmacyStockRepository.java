@@ -16,19 +16,19 @@ public interface PharmacyStockRepository extends JpaRepository<PharmacyStock, Lo
     List<PharmacyStock> findByPharmacyId(Long pharmacyId);
 
     @Query("SELECT new com.aziz.demosec.dto.StockSummaryResponse(" +
-           "ph.name, p.name, ps.totalQuantity, COUNT(sb), MIN(sb.expirationDate)) " +
-           "FROM PharmacyStock ps " +
-           "JOIN ps.pharmacy ph " +
-           "JOIN ps.product p " +
-           "LEFT JOIN StockBatch sb ON sb.pharmacyStock = ps " +
-           "GROUP BY ph.name, p.name, ps.totalQuantity")
+            "ph.name, p.name, ps.totalQuantity, COUNT(sb), MIN(sb.expirationDate)) " +
+            "FROM PharmacyStock ps " +
+            "JOIN ps.pharmacy ph " +
+            "JOIN ps.product p " +
+            "LEFT JOIN StockBatch sb ON sb.pharmacyStock = ps " +
+            "GROUP BY ph.name, p.name, ps.totalQuantity")
     List<StockSummaryResponse> getStockSummary();
 
     @Query("SELECT ps FROM PharmacyStock ps " +
-           "JOIN ps.product p " +
-           "JOIN ps.pharmacy ph " +
-           "WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
-           "OR LOWER(p.category) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
-           "OR LOWER(ph.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+            "JOIN ps.product p " +
+            "JOIN ps.pharmacy ph " +
+            "WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "OR LOWER(p.category) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "OR LOWER(ph.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     Page<PharmacyStock> searchProducts(@Param("keyword") String keyword, Pageable pageable);
 }

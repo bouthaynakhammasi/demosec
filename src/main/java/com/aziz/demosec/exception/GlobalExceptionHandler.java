@@ -1,11 +1,15 @@
 package com.aziz.demosec.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import com.aziz.demosec.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -21,13 +25,19 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, Object> handleBadRequest(IllegalArgumentException ex) {
-        return Map.of(
-                "error", "BAD_REQUEST",
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> handleResourceNotFound(ResourceNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+                "error", "Not Found",
                 "message", ex.getMessage()
-        );
+        ));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleIllegalArgument(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().body(Map.of(
+                "error", ex.getMessage()
+        ));
     }
 
     @ExceptionHandler(IllegalStateException.class)
@@ -40,30 +50,34 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, Object> handleValidation(MethodArgumentNotValidException ex) {
-        Map<String, String> fieldErrors = new LinkedHashMap<>();
+    public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new LinkedHashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = (error instanceof FieldError) ? ((FieldError) error).getField() : error.getObjectName();
+            errors.put(fieldName, error.getDefaultMessage());
+        });
+        return ResponseEntity.badRequest().body(errors);
+    }
 
-        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            fieldErrors.put(error.getField(), error.getDefaultMessage());
-        }
-
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("error", "VALIDATION_ERROR");
-        response.put("message", "Validation failed");
-        response.put("fields", fieldErrors);
-
-        return response;
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> handleBadRequest(HttpMessageNotReadableException ex) {
+        String details = ex.getMostSpecificCause() != null
+                ? ex.getMostSpecificCause().getMessage()
+                : ex.getMessage();
+        return ResponseEntity.badRequest().body(Map.of(
+                "error", "Invalid request body",
+                "details", details
+        ));
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Map<String, Object> handleGeneric(Exception ex) {
+    public ResponseEntity<?> handleGeneric(Exception ex) {
         System.err.println("=== GLOBAL EXCEPTION HANDLER ===");
         ex.printStackTrace(System.err);
-        return Map.of(
-                "error", "INTERNAL_SERVER_ERROR",
-                "message", ex.getMessage()
-        );
+        return ResponseEntity.internalServerError().body(Map.of(
+                "error", "Internal Server Error",
+                "message", ex.getMessage() != null ? ex.getMessage() : "No message available",
+                "type", ex.getClass().getName()
+        ));
     }
 }

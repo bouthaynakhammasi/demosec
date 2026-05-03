@@ -4,9 +4,11 @@ import com.aziz.demosec.security.jwt.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,18 +24,16 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
-    private final PasswordEncoder passwordEncoder;
     private final JwtAuthFilter jwtAuthFilter;
-
-    // 🔥 AJOUT IMPORTANT
     private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     @Bean
-    public DaoAuthenticationProvider authProvider() {
+    public DaoAuthenticationProvider authProvider(PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider p = new DaoAuthenticationProvider();
         p.setUserDetailsService(userDetailsService);
         p.setPasswordEncoder(passwordEncoder);
@@ -46,50 +46,101 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, DaoAuthenticationProvider authProvider) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authProvider())
+                .authenticationProvider(authProvider)
 
-                // 🔥 CONFIG OAUTH2 GOOGLE
+                // OAuth2 Google
                 .oauth2Login(o -> o.successHandler(oAuth2LoginSuccessHandler))
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public endpoints
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/oauth2/**").permitAll() // 🔥 IMPORTANT
-                        .requestMatchers("/login/**").permitAll() // 🔥 IMPORTANT
-                        .requestMatchers("/error").permitAll()
-                        .requestMatchers("/api/home-care-services/**").permitAll()
-                        .requestMatchers("/ws/**").permitAll()
+                        // OPTIONS preflight
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Doctor medical module
-                        .requestMatchers("/treatment/**").hasRole("DOCTOR")
-                        .requestMatchers("/diagnosis/**").hasRole("DOCTOR")
-                        .requestMatchers("/consultation/**").hasRole("DOCTOR")
-                        .requestMatchers("/prescription/**").hasRole("DOCTOR")
+                        // Public auth endpoints
+                        .requestMatchers("/auth/**", "/api/auth/**", "/error/**").permitAll()
+                        .requestMatchers("/oauth2/**", "/login/**").permitAll()
 
-                        // Other roles
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/notifications/**").hasAnyRole("ADMIN", "PATIENT", "PHARMACIST")
-                        .requestMatchers("/doctor/**").hasRole("DOCTOR")
-                        .requestMatchers("/clinic/**").hasRole("CLINIC")
-                        .requestMatchers("/pharmacist/**").hasRole("PHARMACIST")
-                        .requestMatchers("/laboratory/**").hasRole("LABORATORYSTAFF")
-                        .requestMatchers("/nutritionist/**").hasRole("NUTRITIONIST")
-                        .requestMatchers("/visitor/**").hasRole("VISITOR")
-                        .requestMatchers("/patient/**").hasRole("PATIENT")
+                        // Public data
+                        .requestMatchers("/uploads/**").permitAll()
+                        .requestMatchers("/api/home-care-services/**", "/api/home-care-services").permitAll()
+                        .requestMatchers("/api/donations/**", "/api/aid-requests/**").permitAll()
+                        .requestMatchers("/api/emergency-alerts/**", "/api/interventions/**").permitAll()
+                        .requestMatchers("/api/ambulances/**", "/api/smart-devices/**").permitAll()
+                        .requestMatchers("/api/laboratories/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/clinics/**", "/api/v1/doctors/**").permitAll()
+
+                        // WebSocket & uploads
+                        .requestMatchers("/ws/**", "/api/upload/**").permitAll()
+
+                        // Pharmacy public
+                        .requestMatchers("/api/pharmacy/orders/*/invoice").permitAll()
+                        .requestMatchers("/api/pharmacy/deliveries/**").permitAll()
+                        .requestMatchers("/api/homecare/services", "/api/homecare/services/**").permitAll()
+                        .requestMatchers("/api/homecare/providers/**").permitAll()
+
+                        // Events
+                        .requestMatchers("/api/events/public/**").permitAll()
                         .requestMatchers("/api/events/*/participate").authenticated()
                         .requestMatchers("/api/events/*/cancel-participation").authenticated()
                         .requestMatchers("/api/events/*/is-participating").authenticated()
-                        .requestMatchers("/api/events/public/**").permitAll()
 
-                        .anyRequest().authenticated())
+                        // Forum
+                        .requestMatchers(HttpMethod.GET, "/api/forum/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST", "LABORATORY_STAFF",
+                                "NUTRITIONIST", "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST", "LABORATORY_STAFF",
+                                "NUTRITIONIST", "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/posts/**").hasAnyRole(
+                                "DOCTOR", "CLINIC", "PHARMACIST", "LABORATORY_STAFF",
+                                "NUTRITIONIST", "HOME_CARE_PROVIDER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/forum/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/forum/comments/**").authenticated()
+                        .requestMatchers("/api/forum/posts/*/like").authenticated()
 
+                        // Medical access
+                        .requestMatchers("/treatment/**", "/diagnosis/**", "/consultation/**", "/prescription/**")
+                        .hasAnyRole("DOCTOR", "NUTRITIONIST")
+
+                        // Role-based access
+                        .requestMatchers("/api/admin/**", "/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/doctor/**", "/doctor/**").hasRole("DOCTOR")
+                        .requestMatchers("/api/clinic/**", "/clinic/**").hasRole("CLINIC")
+                        .requestMatchers("/api/pharmacist/**", "/pharmacist/**").hasRole("PHARMACIST")
+                        .requestMatchers("/api/laboratory/**", "/laboratory/**").hasRole("LABORATORY_STAFF")
+                        .requestMatchers("/api/nutritionist/**", "/nutritionist/**").hasRole("NUTRITIONIST")
+                        .requestMatchers("/api/visitor/**", "/visitor/**").hasRole("VISITOR")
+                        .requestMatchers("/api/patient/**", "/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/baby-care/**").hasAnyRole("PATIENT", "ADMIN")
+                        .requestMatchers("/api/home-care/**").hasRole("HOME_CARE_PROVIDER")
+                        .requestMatchers("/api/homecare/provider/**").hasRole("HOME_CARE_PROVIDER")
+
+                        // Pharmacy orders
+                        .requestMatchers("/api/pharmacy/orders/patient/**").hasRole("PATIENT")
+                        .requestMatchers("/api/pharmacy/orders/pharmacy/**").hasRole("PHARMACIST")
+                        .requestMatchers("/api/pharmacy/orders/**").authenticated()
+
+                        // User management
+                        .requestMatchers("/api/users/role/DOCTOR").hasAnyRole("PATIENT", "ADMIN")
+                        .requestMatchers("/api/users/**", "/user/**").authenticated()
+                        .requestMatchers("/api/notifications/**").hasAnyRole("ADMIN", "PATIENT", "PHARMACIST")
+
+                        // Calendar & Appointments
+                        .requestMatchers("/api/v1/patients/*/appointments").hasRole("PATIENT")
+                        .requestMatchers("/api/v1/doctors/*/appointments").hasRole("DOCTOR")
+                        .requestMatchers("/api/v1/appointments/**", "/api/v1/**").authenticated()
+                        .requestMatchers("/availability/**", "/provider-calendar/**")
+                        .hasAnyRole("DOCTOR", "NUTRITIONIST", "HOME_CARE_PROVIDER")
+
+                        .anyRequest().authenticated()
+                )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -98,11 +149,14 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        config.setAllowedOriginPatterns(List.of(
+                "http://localhost:*",
+                "http://127.0.0.1:*",
+                "https://app-frontend-medicareai-2026-exhmfqgwewhzcjeu.swedencentral-01.azurewebsites.net"
+        ));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
