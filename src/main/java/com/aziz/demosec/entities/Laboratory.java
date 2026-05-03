@@ -1,0 +1,29 @@
+package com.aziz.demosec.entities;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "laboratories")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Laboratory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    private String address;
+    private String phone;
+
+    @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL)
+    private List<LaboratoryStaff> staffMembers;
+    @OneToMany(mappedBy = "laboratory", cascade = CascadeType.ALL)
+    private List<LabTest> labTests;
+}

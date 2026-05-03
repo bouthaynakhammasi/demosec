@@ -1,0 +1,55 @@
+package com.aziz.demosec.entities;
+
+import com.aziz.demosec.domain.User;
+import jakarta.persistence.*;
+import java.util.List;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "medical_events")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "event_kind")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+public abstract class MedicalEvent {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String title;
+    private String description;
+
+    @Column(nullable = false)
+    private LocalDateTime date;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MedicalEventType eventType;
+
+    @Lob
+    @Column(name = "image_url", columnDefinition = "LONGTEXT")
+    private String imageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by_id")
+    private User createdBy;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Integer capacity = 0;
+
+    @Builder.Default
+    @Column(name = "ticket_price")
+    private Double ticketPrice = 0.0;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EventParticipation> participations;
+}

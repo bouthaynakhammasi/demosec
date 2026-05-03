@@ -1,0 +1,20 @@
+package com.aziz.demosec.entities;
+
+import com.aziz.demosec.domain.User;
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@DiscriminatorValue("LaboratoryStaff")
+@EqualsAndHashCode(callSuper = true)
+public class LaboratoryStaff extends User {
+
+    @ManyToOne
+    @JoinColumn(name = "laboratory_id")
+    private Laboratory laboratory;
+
+}
