@@ -1,11 +1,7 @@
 package com.aziz.demosec.dto.patient;
 
-
-
-
 import com.aziz.demosec.Entities.BloodType;
 import com.aziz.demosec.Entities.Gender;
-import com.aziz.demosec.domain.Role;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -15,28 +11,38 @@ import java.time.LocalDate;
 public class PatientRequestDTO {
 
     @NotBlank
-    String fullName;
-
+    private String fullName;
 
     @Email
     @NotBlank
-    String email;
+    private String email;
 
+    @NotBlank 
+    @Size(min = 8)
+    private String password;
 
+    @Size(min = 8)
+    private String phone;
 
+    @NotNull(message = "La date de naissance est obligatoire")
+    @Past(message = "La date de naissance doit être dans le passé")
+    private LocalDate birthDate;
 
+    @NotNull
+    private Gender gender;
 
+    @NotNull
+    private BloodType bloodType;
 
-    String password;
+    @NotNull
+    private String emergencyContactName;
 
-    String phone;
-    LocalDate birthDate;
+    @NotNull
+    private String emergencyContactPhone;
 
-    Gender gender;
-    BloodType bloodType;
-    String emergencyContactName;
-    String emergencyContactPhone;
-    String chronicDiseases;
-    String drugAllergies;
-    String hereditaryDiseases;
+    private String chronicDiseases;
+
+    private String drugAllergies;
+
+    private String hereditaryDiseases;
 }

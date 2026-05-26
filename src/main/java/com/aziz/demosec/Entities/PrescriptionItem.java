@@ -20,8 +20,12 @@ public class PrescriptionItem {
     @JoinColumn(name = "prescription_id", nullable = false)
     private Prescription prescription;
 
-    @Column(nullable = false)
     private String medicationName;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Integer quantity = 1;
+
     private String dosage;
     private String frequency;
     private String duration;

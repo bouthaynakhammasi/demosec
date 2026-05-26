@@ -1,0 +1,63 @@
+-- Create all required tables in correct order
+
+-- 1. Base tables
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN','DOCTOR','CLINIC','PHARMACIST','LABORATORY_STAFF','NUTRITIONIST','VISITOR','PATIENT','HOME_CARE_PROVIDER') NOT NULL DEFAULT 'VISITOR',
+    phone VARCHAR(20),
+    birth_date DATE,
+    enabled BOOLEAN DEFAULT TRUE,
+    dtype VARCHAR(31),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS pharmacies (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255),
+    location_lat DOUBLE,
+    location_lng DOUBLE,
+    phone_number VARCHAR(20),
+    email VARCHAR(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS consultations (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    patient_id BIGINT NOT NULL,
+    doctor_id BIGINT NOT NULL,
+    consultation_date DATETIME NOT NULL,
+    diagnosis TEXT,
+    notes TEXT,
+    FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (doctor_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS prescriptions (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    consultation_id BIGINT NOT NULL,
+    date_created DATE NOT NULL,
+    FOREIGN KEY (consultation_id) REFERENCES consultations(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 2. Main table
+CREATE TABLE IF NOT EXISTS pharmacy_orders (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    patient_id BIGINT NOT NULL,
+    pharmacy_id BIGINT NOT NULL,
+    prescription_id BIGINT,
+    status ENUM('PENDING','REVIEWING','VALIDATED','PAYMENT_PENDING','PAID','AWAITING_CHOICE','ASSIGNING','ASSIGNED','RESERVED','READY_FOR_PICKUP','DELIVERY_REQUESTED','OUT_FOR_DELIVERY','PICKED_UP','DELIVERED','CANCELLED') NOT NULL DEFAULT 'PENDING',
+    total_price DECIMAL(12, 2) NOT NULL,
+    delivery_address VARCHAR(255) NOT NULL,
+    delivery_type ENUM('PICKUP','HOME_DELIVERY'),
+    scheduled_delivery_date DATE,
+    pharmacist_note VARCHAR(255),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (pharmacy_id) REFERENCES pharmacies(id) ON DELETE CASCADE,
+    FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

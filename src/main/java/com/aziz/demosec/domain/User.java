@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -12,8 +14,9 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @SuperBuilder
+@EqualsAndHashCode
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id
@@ -26,6 +29,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -41,9 +45,8 @@ public class User {
     @Column(columnDefinition = "LONGTEXT")
     private String photo;
 
-    // FIX: removed inline defaults, moved to columnDefinition + @PrePersist
     @Column(nullable = false, columnDefinition = "boolean default true")
-    private boolean enabled;
+    private boolean enabled = true;
 
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean profileCompleted;
@@ -51,11 +54,11 @@ public class User {
     @Column(columnDefinition = "LONGTEXT")
     private String profileImage;
 
-    // FIX: ensures Java-side defaults are set before first DB insert
+    private String professionalDocument;
+
     @PrePersist
     protected void prePersist() {
-        this.enabled = true;
-        // profileCompleted stays false by default
+        // Just in case
     }
 
     public String getProfilePicture() {

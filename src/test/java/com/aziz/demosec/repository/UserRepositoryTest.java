@@ -6,19 +6,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@ActiveProfiles("test")
 class UserRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private TestEntityManager entityManager;
 
     @Autowired
-    private TestEntityManager entityManager;
+    private UserRepository userRepository;
 
     @Test
     void findByEmail_ShouldReturnUser_WhenExists() {
@@ -27,7 +29,7 @@ class UserRepositoryTest {
                 .fullName("John Doe")
                 .email("test@example.com")
                 .password("password")
-                .role(Role.VISITOR)
+                .role(Role.PATIENT)
                 .enabled(true)
                 .build();
         entityManager.persist(user);
@@ -39,6 +41,16 @@ class UserRepositoryTest {
         // Assert
         assertTrue(found.isPresent());
         assertEquals("John Doe", found.get().getFullName());
+        assertEquals("test@example.com", found.get().getEmail());
+    }
+
+    @Test
+    void findByEmail_ShouldReturnEmpty_WhenNotExists() {
+        // Act
+        Optional<User> found = userRepository.findByEmail("non-existent@example.com");
+
+        // Assert
+        assertFalse(found.isPresent());
     }
 
     @Test
@@ -48,7 +60,7 @@ class UserRepositoryTest {
                 .fullName("John Doe")
                 .email("exists@example.com")
                 .password("password")
-                .role(Role.VISITOR)
+                .role(Role.PATIENT)
                 .enabled(true)
                 .build();
         entityManager.persist(user);

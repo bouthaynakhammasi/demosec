@@ -29,6 +29,8 @@ public abstract class MedicalEvent {
     @Column(nullable = false)
     private LocalDateTime date;
 
+    private String imageUrl;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MedicalEventType eventType;

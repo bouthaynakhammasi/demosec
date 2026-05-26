@@ -4,25 +4,25 @@ import com.aziz.demosec.Entities.BloodType;
 import com.aziz.demosec.Entities.Gender;
 import com.aziz.demosec.Entities.ConsultationMode;
 import com.aziz.demosec.domain.Role;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-
-import jakarta.validation.constraints.*;
+import java.util.Map;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RegisterRequest {
-    // --- Common Fields ---
     @NotBlank(message = "Full name is required")
     @Size(min = 3, max = 50, message = "Full name must be between 3 and 50 characters")
     private String fullName;
@@ -41,7 +41,9 @@ public class RegisterRequest {
     @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^\\d{8,15}$", message = "Phone number must be between 8 and 15 digits")
     private String phone;
-    private String birthDate; // Using String to match User entity birthDate (sometimes LocalDate, but user said String)
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
 
     // --- Patient fields ---
     private Gender gender;
@@ -56,6 +58,10 @@ public class RegisterRequest {
     private Double height;
     @PositiveOrZero(message = "Weight must be positive")
     private Double weight;
+    private String chronicDiseases;
+    private String drugAllergies;
+    private String hereditaryDiseases;
+    private List<Map<String, String>> medicalHistories;
 
     // --- Doctor fields ---
     private String specialty;
@@ -91,6 +97,7 @@ public class RegisterRequest {
     // --- Service Provider fields ---
     private String certificationDocument;
     private List<String> homeCareServices;
+    private List<Long> specialtyIds;
 
     // --- Other potential fields ---
     private String profileImage;

@@ -1,4 +1,5 @@
 [INFO] Scanning for projects...
+<<<<<<< HEAD
 [WARNING] 
 [WARNING] Some problems were encountered while building the effective model for com.aziz:demosec:jar:0.0.1-SNAPSHOT
 [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springframework.boot:spring-boot-starter-validation:jar -> duplicate declaration of version (?) @ line 92, column 21
@@ -7,12 +8,15 @@
 [WARNING] 
 [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
 [WARNING] 
+=======
+>>>>>>> 004e7f56761d2cb885075ea4c6eeaee571c85f36
 [INFO] 
 [INFO] --------------------------< com.aziz:demosec >--------------------------
 [INFO] Building demosec 0.0.1-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
+<<<<<<< HEAD
 [INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
 [INFO] Copying 2 resources from src\main\resources to target\classes
 [INFO] Copying 0 resource from src\main\resources to target\classes
@@ -73,10 +77,29 @@
   found:    java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object
   reason: actual and formal argument lists differ in length
 [INFO] 7 errors 
+=======
+[INFO] --- clean:3.4.1:clean (default-clean) @ demosec ---
+[INFO] Deleting C:\Users\LENOVO\IdeaProjects\demosecc\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demosec ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ demosec ---
+[WARNING]  Parameter 'forceJavacCompilerUse' (user property 'maven.compiler.forceJavacCompilerUse') is deprecated: Use forceLegacyJavacApi instead
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 239 source files with javac [debug parameters release 17] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] C:\Users\LENOVO\IdeaProjects\demosecc\src\main\java\com\aziz\demosec\controller\UserController.java:[110] error: class, interface, enum, or record expected
+[INFO] 1 error
+>>>>>>> 004e7f56761d2cb885075ea4c6eeaee571c85f36
 [INFO] -------------------------------------------------------------
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
+<<<<<<< HEAD
 [INFO] Total time:  4.809 s
 [INFO] Finished at: 2026-03-29T16:07:16+01:00
 [INFO] ------------------------------------------------------------------------
@@ -107,6 +130,14 @@
 [ERROR]   required: org.springframework.security.core.userdetails.UserDetails
 [ERROR]   found:    java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object
 [ERROR]   reason: actual and formal argument lists differ in length
+=======
+[INFO] Total time:  2.033 s
+[INFO] Finished at: 2026-03-30T02:02:44+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project demosec: Compilation failure
+[ERROR] C:\Users\LENOVO\IdeaProjects\demosecc\src\main\java\com\aziz\demosec\controller\UserController.java:[110] error: class, interface, enum, or record expected
+[ERROR] 
+>>>>>>> 004e7f56761d2cb885075ea4c6eeaee571c85f36
 [ERROR] -> [Help 1]
 [ERROR] 
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.

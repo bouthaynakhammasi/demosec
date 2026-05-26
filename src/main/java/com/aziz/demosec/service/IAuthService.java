@@ -6,15 +6,11 @@ import com.aziz.demosec.dto.LoginRequest;
 import com.aziz.demosec.dto.RegisterRequest;
 
 public interface IAuthService {
-    User register(RegisterRequest req);
+    User register(RegisterRequest req, String documentUrl);
 
     AuthResponse login(LoginRequest req);
 
-
-    // ✅ Envoyer email de reset
     void forgotPassword(String email);
 
-    // ✅ Changer le mot de passe avec le token
     void resetPassword(String token, String newPassword);
-
 }

@@ -26,7 +26,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 @Slf4j
 public class IAuthServiceImp implements IAuthService {
@@ -51,7 +51,7 @@ public class IAuthServiceImp implements IAuthService {
 
     @Override
     @Transactional
-    public User register(RegisterRequest req) {
+    public User register(RegisterRequest req, String documentUrl) {
         log.info("Registering user: {} with role: {}", req.getEmail(), req.getRole());
 
         if (userRepository.findByEmail(req.getEmail()).isPresent()) {
@@ -64,6 +64,7 @@ public class IAuthServiceImp implements IAuthService {
         User user;
         switch (role) {
             case PATIENT -> user = registerPatient(req);
+            case ADMIN -> user = registerGenericUser(req);
             case DOCTOR -> user = registerDoctor(req);
             case CLINIC -> user = registerClinic(req);
             case PHARMACIST -> user = registerPharmacist(req);
@@ -185,11 +186,7 @@ public class IAuthServiceImp implements IAuthService {
         user.setRole(req.getRole());
         user.setPhone(req.getPhone());
         if (req.getBirthDate() != null) {
-            try {
-                user.setBirthDate(java.time.LocalDate.parse(req.getBirthDate()));
-            } catch (Exception e) {
-                log.warn("Failed to parse birthDate: " + req.getBirthDate());
-            }
+            user.setBirthDate(req.getBirthDate());
         }
         user.setProfileImage(req.getProfileImage());
         user.setEnabled(true);

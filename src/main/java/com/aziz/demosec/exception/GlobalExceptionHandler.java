@@ -54,10 +54,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleAllExceptions(Exception ex) {
+        String type = ex.getClass().getName();
+        String message = (ex.getMessage() != null) ? ex.getMessage() : "No message available";
+        
+        // Log the error for debugging
+        ex.printStackTrace();
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
                 "error", "Internal Server Error",
-                "message", (ex.getMessage() != null) ? ex.getMessage() : "No message available",
-                "type", ex.getClass().getName()
+                "message", message,
+                "type", type
         ));
     }
 }

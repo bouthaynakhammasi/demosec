@@ -45,7 +45,7 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
         claims.put("fullName", fullName);
-        claims.put("id", id);
+        claims.put("userId", id);
         claims.put("gender", gender != null ? gender : "UNKNOWN");
         if (laboratoryId != null) {
             claims.put("laboratoryId", laboratoryId);
@@ -60,8 +60,28 @@ public class JwtService {
                 .compact();
     }
 
+    // Overload for compatibility
+    public String generateToken(UserDetails userDetails, Long userId, String fullName) {
+        return generateToken(userDetails, fullName, userId, null, null);
+    }
+
+    // Overload for simple usage
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(userDetails, null, null, null, null);
+    }
+
     public String extractEmail(String token) {
         return parseClaims(token).getSubject();
+    }
+
+    public Long extractUserId(String token) {
+        Object userIdObj = parseClaims(token).get("userId");
+        if (userIdObj instanceof Integer) {
+            return ((Integer) userIdObj).longValue();
+        } else if (userIdObj instanceof Long) {
+            return (Long) userIdObj;
+        }
+        return null;
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {

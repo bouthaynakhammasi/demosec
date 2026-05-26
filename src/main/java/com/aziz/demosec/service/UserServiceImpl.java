@@ -3,14 +3,17 @@ package com.aziz.demosec.service;
 import com.aziz.demosec.Entities.Doctor;
 import com.aziz.demosec.domain.Role;
 import com.aziz.demosec.domain.User;
+import com.aziz.demosec.dto.user.ChangePasswordDTO;
 import com.aziz.demosec.dto.user.UserRequestDTO;
 import com.aziz.demosec.dto.user.UserResponseDTO;
+import com.aziz.demosec.repository.PharmacistRepository;
 import com.aziz.demosec.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,12 +24,14 @@ public class UserServiceImpl implements IUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PharmacistRepository pharmacistRepository;
 
     @Override
     public UserResponseDTO create(UserRequestDTO dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new IllegalArgumentException("Email already in use: " + dto.getEmail());
         }
+
         User user = User.builder()
                 .fullName(dto.getFullName())
                 .email(dto.getEmail())
@@ -90,6 +95,16 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<UserResponseDTO> getByRole(Role role) {
+        return userRepository.findByRole(role)
+                .stream()
+                .filter(User::isEnabled) // Filter enabled if that was the intent in one version
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public UserResponseDTO getByEmail(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + email));
@@ -109,39 +124,56 @@ public class UserServiceImpl implements IUserService {
         return toDTO(userRepository.save(user));
     }
 
+    @Override
+    public void changePassword(Long id, ChangePasswordDTO dto) {
+        User user = findOrThrow(id);
+
+        // Verify the current password
+        if (!passwordEncoder.matches(dto.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Current password is incorrect");
+        }
+
+        // Update password
+        user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        userRepository.save(user);
+    }
+
     private User findOrThrow(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
     }
 
+    /**
+     * Converts User to UserResponseDTO.
+     */
     private UserResponseDTO toDTO(User user) {
         String specialty = null;
         if (user instanceof Doctor) {
             specialty = ((Doctor) user).getSpecialty();
         }
 
-        return UserResponseDTO.builder()
+        UserResponseDTO.UserResponseDTOBuilder builder = UserResponseDTO.builder()
                 .id(user.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
                 .role(user.getRole())
                 .phone(user.getPhone())
                 .birthDate(user.getBirthDate())
-                .photo(user.getPhoto())
                 .enabled(user.isEnabled())
-                .specialty(specialty)
                 .photo(user.getPhoto())
                 .profileImage(user.getProfilePicture())
-                .build();
-    }
+                .specialty(specialty);
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<UserResponseDTO> getByRole(Role role) {
-        List<User> users = userRepository.findByRole(role);
-        return users.stream()
-                .filter(User::isEnabled)
-                .map(this::toDTO)
-                .collect(Collectors.toList());
+        // If user is a Pharmacist, fetch and include pharmacyId
+        if (user.getRole() == Role.PHARMACIST) {
+            pharmacistRepository.findById(user.getId()).ifPresent(pharmacist -> {
+                if (pharmacist.getPharmacy() != null) {
+                    builder.pharmacyId(pharmacist.getPharmacy().getId());
+                    builder.pharmacyName(pharmacist.getPharmacy().getName());
+                }
+            });
+        }
+
+        return builder.build();
     }
 }

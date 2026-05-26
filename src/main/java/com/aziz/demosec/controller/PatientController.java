@@ -2,7 +2,10 @@ package com.aziz.demosec.controller;
 
 import com.aziz.demosec.Entities.*;
 import com.aziz.demosec.dto.*;
+import com.aziz.demosec.dto.patient.PatientRequestDTO;
+import com.aziz.demosec.dto.patient.PatientResponseDTO;
 import com.aziz.demosec.repository.*;
+import com.aziz.demosec.service.IPatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +37,7 @@ public class PatientController {
     private final DoctorRepository doctorRepository;
     private final LifestyleGoalRepository lifestyleGoalRepository;
     private final ProgressTrackingRepository progressTrackingRepository;
+    private final IPatientService patientService;
 
     @GetMapping
     public ResponseEntity<List<PatientProfileResponse>> getAll() {
@@ -72,6 +76,48 @@ public class PatientController {
                     return ResponseEntity.ok(patients);
                 })
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<PatientProfileResponse> updateProfile(java.security.Principal principal, @Valid @RequestBody PatientProfileUpdateRequest request) {
+        if (principal == null) return ResponseEntity.status(401).build();
+        return patientRepository.findByEmail(principal.getName())
+                .map(patient -> {
+                    if (request.fullName() != null) patient.setFullName(request.fullName());
+                    if (request.phone() != null) patient.setPhone(request.phone());
+                    if (request.birthDate() != null) patient.setBirthDate(request.birthDate());
+                    if (request.gender() != null) patient.setGender(Gender.valueOf(request.gender()));
+                    if (request.bloodType() != null) patient.setBloodType(BloodType.valueOf(request.bloodType()));
+                    if (request.emergencyContactName() != null) patient.setEmergencyContactName(request.emergencyContactName());
+                    if (request.emergencyContactPhone() != null) patient.setEmergencyContactPhone(request.emergencyContactPhone());
+                    if (request.height() != null) patient.setHeight(request.height());
+                    if (request.weight() != null) patient.setWeight(request.weight());
+                    if (request.allergies() != null) patient.setAllergies(request.allergies());
+                    if (request.diseases() != null) patient.setDiseases(request.diseases());
+                    if (request.photo() != null) patient.setPhoto(request.photo());
+                    
+                    Patient saved = patientRepository.save(patient);
+                    return ResponseEntity.ok(mapPatientToResponse(saved));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PatientResponseDTO> update(@PathVariable("id") Long id,
+                                                     @Valid @RequestBody PatientRequestDTO dto) {
+        return ResponseEntity.ok(patientService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        patientService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/toggle")
+    public ResponseEntity<Void> toggleEnabled(@PathVariable("id") Long id) {
+        patientService.toggleEnabled(id);
+        return ResponseEntity.noContent().build();
     }
 
     private PatientProfileResponse mapPatientToResponse(Patient patient) {
@@ -211,29 +257,5 @@ public class PatientController {
         );
 
         return response;
-    }
-
-    @PutMapping("/profile")
-    public ResponseEntity<PatientProfileResponse> updateProfile(java.security.Principal principal, @Valid @RequestBody PatientProfileUpdateRequest request) {
-        if (principal == null) return ResponseEntity.status(401).build();
-        return patientRepository.findByEmail(principal.getName())
-                .map(patient -> {
-                    if (request.fullName() != null) patient.setFullName(request.fullName());
-                    if (request.phone() != null) patient.setPhone(request.phone());
-                    if (request.birthDate() != null) patient.setBirthDate(request.birthDate());
-                    if (request.gender() != null) patient.setGender(Gender.valueOf(request.gender()));
-                    if (request.bloodType() != null) patient.setBloodType(BloodType.valueOf(request.bloodType()));
-                    if (request.emergencyContactName() != null) patient.setEmergencyContactName(request.emergencyContactName());
-                    if (request.emergencyContactPhone() != null) patient.setEmergencyContactPhone(request.emergencyContactPhone());
-                    if (request.height() != null) patient.setHeight(request.height());
-                    if (request.weight() != null) patient.setWeight(request.weight());
-                    if (request.allergies() != null) patient.setAllergies(request.allergies());
-                    if (request.diseases() != null) patient.setDiseases(request.diseases());
-                    if (request.photo() != null) patient.setPhoto(request.photo());
-                    
-                    Patient saved = patientRepository.save(patient);
-                    return ResponseEntity.ok(mapPatientToResponse(saved));
-                })
-                .orElse(ResponseEntity.notFound().build());
     }
 }

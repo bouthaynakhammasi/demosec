@@ -115,8 +115,7 @@ public class PatientServiceImpl implements IPatientService {
 
     private Patient findOrThrow(Long id) {
         return patientRepository.findById(id)
-                .orElseThrow(() ->
-                        new EntityNotFoundException("Patient not found with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + id));
     }
 
     private PatientResponseDTO toDTO(Patient patient) {
